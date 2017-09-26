@@ -93,9 +93,9 @@ struct Core::Query(ModelType)
           "INNER JOIN"
         {% for t in %i(left right full) %}
           when {{t}}
-            {{t.id.stringify.upcase}}
+            {{t.id.stringify.upcase + " JOIN"}}
           when {{t}}_outer
-            {{t.id.stringify.upcase + " OUTER"}}
+            {{t.id.stringify.upcase + " OUTER JOIN"}}
         {% end %}
         else
           "JOIN"
