@@ -135,7 +135,7 @@ struct Core::Query(ModelType)
     self.new.one
   end
 
-  # Query the last row by its `Model.primary_key`.
+  # Query the last row by `Model::Schema.primary_key`.
   #
   # ```
   # Query(User).new.last.to_s
@@ -150,7 +150,7 @@ struct Core::Query(ModelType)
     self.new.last
   end
 
-  # Query the first row by its `Model.primary_key`.
+  # Query the first row by `Model::Schema.primary_key`.
   #
   # ```
   # Query(User).new.first.to_s
