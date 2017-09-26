@@ -53,25 +53,25 @@ describe Query do
         end
       end
     end
+  end
 
-    describe "#inner_join" do
+  describe "#inner_join" do
+    it do
+      Query(User).inner_join(:posts).to_s.should contain("INNER JOIN")
+    end
+  end
+
+  {% for t in %i(left right full) %}
+    describe "#" + {{t.id.stringify}} + "_join" do
       it do
-        Query(User).inner_join(:posts).to_s.should contain("INNER JOIN")
+        Query(User).{{t.id}}_join(:posts).to_s.should contain("{{t.upcase.id}} JOIN")
       end
     end
 
-    {% for t in %i(left right full) %}
-      describe "\#{{t.id}}_join" do
-        it do
-          Query(User).{{t.id}}_join(:posts).to_s.should be_a(String)
-        end
+    describe "#" + {{t.id.stringify}} + "_outer_join" do
+      it do
+        Query(User).{{t.id}}_outer_join(:posts).to_s.should contain("{{t.upcase.id}} OUTER JOIN")
       end
-
-      describe "\#{{t.id}}_outer_join" do
-        it do
-          Query(User).{{t.id}}_outer_join(:posts).to_s.should be_a(String)
-        end
-      end
-    {% end %}
-  end
+    end
+  {% end %}
 end
