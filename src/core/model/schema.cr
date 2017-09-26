@@ -11,7 +11,7 @@ module Core
     #
     # It also allows `Repository` and `Query` to work with this `Model`.
     #
-    # NOTE: All class and instance methods will be defined on `Schema#schema` macro call if not mentioned another.
+    # NOTE: All class and instance methods will be defined on `#schema` macro call if not mentioned another.
     module Schema
       # :nodoc:
       CORE__PRIMARY_KEY_FIELD = uninitialized Symbol
@@ -114,7 +114,7 @@ module Core
 
       # A storage for model instance changes, empty on initialize.
       # Does neither track virtual fields nor stores intial values.
-      # To reset use `changes.clear`. *Why do you need separate method for this?*
+      # To reset use `#changes.clear`. *Why do you need a separate method for this?*
       #
       # ```
       # user = User.new(name: "Foo")
@@ -293,7 +293,7 @@ module Core
       end
 
       # Define a virtual field.
-      # It will be mappable from database, but will not be mentioned in `Model#db_fields`.
+      # It will be mappable from database, but will not be mentioned in `#db_fields`.
       # It will also be mappable to/from JSON.
       #
       # ```
@@ -313,9 +313,9 @@ module Core
       end
 
       # Define a reference to another `Model`.
-      # It will be used in `Query#where`, `Query#having`, `Query#join` and `Model#db_fields` methods.
+      # It will be used in `Query#where`, `Query#having`, `Query#join` and `#db_fields` methods.
       # If a *key* is specified, it means that the current schema has this *key* as database column.
-      # A *foreign_key* will be used to know which reference's key to refer to (default to reference's `Model.primary_key`).
+      # A *foreign_key* will be used to know which reference's key to refer to (default to reference's `.primary_key`).
       #
       # ```
       # class User

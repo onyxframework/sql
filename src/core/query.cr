@@ -2,14 +2,17 @@ require "./query/*"
 
 # `Query` allows to build database queries without a hassle.
 #
-# It heavily reliles on `Model::Schema#schema`, thus allowing to make queries like these:
+# It heavily reliles on `Model::Schema#schema`, thus allowing to make powerful queries like these:
 #
 # ```
 # user = User.new(id: 42)
+#
+# # Yay, references!
 # query = Query(Post).where(author: user)
 # query.to_s   # => SELECT * FROM posts WHERE author_id = ?
 # query.params # => [42]
 #
+# # Yay, plain enums!
 # query = Query(User).where(role: User::Role::Admin)
 # query.to_s   # => SELECT * FROM users WHERE role = ?
 # query.params # => [1]
@@ -21,7 +24,7 @@ require "./query/*"
 # Query(User).where(id: 42).limit(1).to_s # => SELECT * FROM users WHERE id = ? LIMIT 1
 # ```
 #
-# Queries can be built either after initialization or via class methods:
+# Queries can be created either after initialization or via class methods:
 #
 # ```
 # # All equal
@@ -29,6 +32,21 @@ require "./query/*"
 # Query(User).where(id: 42)
 # Query.new(User).where(id: 42)
 # Query.new(user).where(id: 42)
+# ```
+#
+# You can pass Query as argument to `Repository#query`. It will automatically build the query (`#to_s`) and extract its `#params`:
+#
+# ```
+# users = repo.query(Query(User).all.limit(3))
+# ```
+#
+# And of course, you can use Query in plain Database methods:
+#
+# ```
+# query = Query(User).select(:"COUNT(id)").where("char_length(name) > ?", [3])
+# count = db.scalar(query.to_s, query.params).as(Int64)
+# # SELECT COUNT(id) FROM users WHERE char_length(name) > ?
+# count # => 2
 # ```
 #
 # For all examples below assume following mapping:

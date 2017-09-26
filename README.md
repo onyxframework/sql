@@ -10,6 +10,19 @@ Tired of [ActiveRecord](https://wikipedia.org/wiki/Active_record_pattern)'s magi
 
 **Core** is inspired by [Crecto](https://github.com/Crecto/crecto) but more transparent and Crystal-ish.
 
+### Features:
+
+  - Use plain Crystal `Core::Model`s without ActiveRecord's magic methods;
+  - Interact with Database via `Core::Repository`;
+  - Build powerful queries with `Core::Query`;
+  - Enjoy comprehensive [documenation](https://vladfaust.com/core.cr)!
+
+### What Core does not:
+
+  - It doesn't do database migrations. Use [micrate](https://github.com/juanedi/micrate), for example;
+  - It doesn't have _"handy"_ methods you probably got used to.
+  Need to count something? Use plain [db#scalar](http://crystal-lang.github.io/crystal-db/api/latest/DB/QueryMethods.html#scalar). `Core::Repository` is for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), not for endless utils.
+
 ## Installation
 
 Add this to your application's `shard.yml`:
