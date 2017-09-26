@@ -134,6 +134,11 @@ post_repo.delete(posts.first)
 
 **^1:** Returning IDs is not working for PostgreSQL yet. See https://github.com/will/crystal-pg/issues/112.
 
+## Testing
+
+1. Apply migration from `./spec/migration.sql`
+2. Run `env DATABASE_URL=your_database_url crystal spec`
+
 ## Contributing
 
 1. Fork it ( https://github.com/vladfaust/core.cr/fork )
