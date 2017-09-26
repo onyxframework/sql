@@ -54,6 +54,12 @@ describe Query do
       end
     end
 
+    describe "#inner_join" do
+      it do
+        Query(User).inner_join(:posts).to_s.should contain("INNER JOIN")
+      end
+    end
+
     {% for t in %i(left right full) %}
       describe "\#{{t.id}}_join" do
         it do

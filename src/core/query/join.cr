@@ -48,6 +48,16 @@ struct Core::Query(ModelType)
     new.join(reference, on, _as, _type)
   end
 
+  # `INNER JOIN` *reference*. See `#join`.
+  def inner_join(reference, on = nil, as _as = nil)
+    join(reference, on, _as, :inner)
+  end
+
+  # :nodoc:
+  def self.inner_join(reference, on = nil, as _as = nil)
+    new.join(reference, on, _as, :inner)
+  end
+
   {% for t in %i(left right full) %}
     # `{{t.id.stringify.upcase.id}} JOIN` *reference*. See `#join`.
     def {{t.id}}_join(reference, on = nil, as _as = nil)
