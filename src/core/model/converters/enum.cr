@@ -29,6 +29,14 @@ module Core
         def self.from_rs(rs)
           EnumClass.new(rs.read(Int32))
         end
+
+        def self.to_json(e : EnumClass, json)
+          e.to_json(json)
+        end
+
+        def self.from_json(pull_parser)
+          EnumClass.new(pull_parser.read_int.to_i32)
+        end
       end
     end
   end
