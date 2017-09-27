@@ -124,6 +124,29 @@ module Core
       # ```
       abstract def changes
 
+      # Map the model to JSON. Ignores references.
+      #
+      # ```
+      # user = User.new(id: 42, name: "foo", posts: [Post.new])
+      # user.to_json # => {"id": 42, "name": "foo"}
+      # ```
+      abstract def to_json
+
+      # Build a model from JSON. Ignores references.
+      #
+      # ```
+      # json = "{\"id\":42,\"name\":\"foo\",\"posts\":[{\"content\":\"foobar\"}]}"
+      # user = User.from_json(json)
+      # user.id    # => 42
+      # user.posts # => nil
+      # ```
+      def Schema.from_json(json)
+      end
+
+      # Build a model from `DB::ResultSet`.
+      def Schema.from_rs(rs)
+      end
+
       # A basic macro for schema definition.
       # All other macros have to be called **within** the *block*.
       # It can only be called once per model.
