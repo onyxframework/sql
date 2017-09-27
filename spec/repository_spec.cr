@@ -98,7 +98,7 @@ describe Repo do
 
     it do
       delete.should be_truthy
-      post_repo.query(Query(Post).where(id: post_id)).empty?.should eq true
+      post_repo.query(Query(Post)[post_id]).empty?.should eq true
     end
 
     pending "returns an amount of affected rows" do
