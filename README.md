@@ -31,7 +31,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   core:
     github: vladfaust/core.cr
-    version: ~> 0.1.1
+    version: ~> 0.1.2
 ```
 
 ## Usage
