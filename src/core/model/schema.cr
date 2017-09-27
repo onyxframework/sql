@@ -417,7 +417,7 @@ module Core
 
       private macro define_json_mapping
         {% mapping = CORE__FIELDS.map do |field|
-             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, emit_null: #{field[:emit_null].id}, converter: #{field[:converter].id}, root: #{field[:root].id}}"
+             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, emit_null: #{field[:emit_null].id}, converter: #{field[:converter].id}, root: #{field[:root].id}, default: #{field[:default].id}}"
            end %}
         {% if mapping.size > 0 %}
           JSON.mapping({ {{mapping.join(", ").id}} })
