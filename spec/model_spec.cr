@@ -13,6 +13,21 @@ describe Core::Model do
     end
   end
 
+  describe "#to_json & #from_json" do
+    another_user = User.new(id: 43, name: "Foo")
+    reborn = User.from_json(another_user.to_json)
+
+    it "has fields" do
+      reborn.id.should eq 43
+      reborn.name.should eq "Foo"
+      reborn.posts_count.should eq nil
+    end
+
+    it "has default fields" do
+      reborn.role.should eq User::Role::User
+    end
+  end
+
   post = uninitialized Post
 
   context "with references" do
