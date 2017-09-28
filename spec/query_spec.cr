@@ -57,4 +57,34 @@ describe Query do
       SQL
     end
   end
+
+  describe "#[]" do
+    context "with one argument" do
+      query = Query(User)[42]
+
+      it "generates valid query" do
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (id = ?)
+        SQL
+      end
+
+      it "generates valid params" do
+        query.params.should eq [42]
+      end
+    end
+
+    context "with multiple arguments" do
+      query = Query(User)[42, 43]
+
+      it "generates valid query" do
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (id IN (?, ?))
+        SQL
+      end
+
+      it "generates valid params" do
+        query.params.should eq [42, 43]
+      end
+    end
+  end
 end

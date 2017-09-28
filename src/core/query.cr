@@ -165,6 +165,28 @@ struct Core::Query(ModelType)
     self.new.first
   end
 
+  # Query by `Model::Schema.primary_key`. Multiple values allowed.
+  #
+  # ```
+  # Query(User).new[42].to_s     # => SELECT * FROM users WHERE id = ?
+  # Query(User).new[42, 43].to_s # => SELECT * FROM users WHERE id IN (?, ?)
+  # ```
+  #
+  # OPTIMIZE: Dry code when `#where(hash : Hash)` is available.
+  def [](*values)
+    values = values.to_a
+    if values.size == 1
+      where(ModelType.primary_key.to_s + " = ?", values)
+    else
+      where(ModelType.primary_key.to_s + " IN (" + values.size.times.map { "?" }.join(", ") + ")", values)
+    end
+  end
+
+  # :nodoc:
+  def self.[](*values)
+    self.new.[*values]
+  end
+
   # Build the query. Updates `#params`. Does not call `#reset`.
   def to_s
     params.clear
