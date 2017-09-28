@@ -1,4 +1,5 @@
 require "time_format"
+require "colorize"
 
 # Logs queries.
 class Core::QueryLogger
