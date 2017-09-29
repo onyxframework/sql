@@ -9,7 +9,7 @@ require "./query_logger"
 #
 # ```
 # logger = Core::QueryLogger.new(STDOUT)
-# repo = Core::Repository(User).new(db, logger)
+# repo = Core::Repository.new(db, logger)
 #
 # user = User.new(name: "Foo")
 # repo.insert(user) # TODO: [RFC] Return last inserted ID
@@ -30,7 +30,7 @@ require "./query_logger"
 # # DELETE FROM users WHERE id = $1
 # # 1.628ms
 # ```
-class Core::Repository(ModelType)
+class Core::Repository
   # :nodoc:
   property db
   # :nodoc:
@@ -44,23 +44,33 @@ class Core::Repository(ModelType)
   def initialize(@db : DB::Database, @query_logger : QueryLogger)
   end
 
-  # Issue a query to the `#db`. Returns an array of `Model` instances.
+  # Query `#db` returning an array of *model* instances.
+  #
+  # ```
+  # repo.query(User, "SELECT * FROM users") # => Array(User)
+  # ```
   #
   # TODO: Handle errors (PQ::PQError)
-  def query(query : String, *params) : Array(ModelType)
+  def query(model : Model.class, query : String, *params) : Array
     query = prepare_query(query)
     params = prepare_params(*params) if params.any?
 
     query_logger.wrap(query) do
       db.query_all(query, *params) do |rs|
-        rs.read(ModelType)
+        rs.read(model)
       end
     end
   end
 
-  # ditto
-  def query(query : Query)
-    query(query.to_s, query.params)
+  # Query `#db` returning an array of model instances inherited from *query*.
+  #
+  # ```
+  # repo.query(Query(User).all) # => Array(User)
+  # ```
+  #
+  # TODO: Handle errors (PQ::PQError)
+  def query(query : Query(T)) forall T
+    query(T, query.to_s, query.params)
   end
 
   private SQL_INSERT = <<-SQL
@@ -75,19 +85,19 @@ class Core::Repository(ModelType)
   # TODO: Handle errors.
   # TODO: Multiple inserts.
   # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-  def insert(instance : ModelType) : Int64
+  def insert(instance : Model) : Int64
     fields = instance.db_fields.dup.tap do |f|
       f.each do |k, _|
-        f[k] = now if ModelType.created_at_fields.includes?(k) && f[k].nil?
-        f.delete(k) if k == ModelType.primary_key
+        f[k] = now if instance.class.created_at_fields.includes?(k) && f[k].nil?
+        f.delete(k) if k == instance.class.primary_key
       end
     end
 
     query = SQL_INSERT % {
-      table_name: ModelType.table_name,
+      table_name: instance.class.table_name,
       keys:       fields.keys.join(", "),
       values:     (1..fields.size).map { "?" }.join(", "),
-      returning:  ModelType.primary_key,
+      returning:  instance.class.primary_key,
     }
 
     query = prepare_query(query)
@@ -111,22 +121,22 @@ class Core::Repository(ModelType)
   # TODO: Handle errors.
   # TODO: Multiple updates.
   # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-  def update(instance : ModelType)
+  def update(instance : Model)
     fields = instance.db_fields.select do |k, _|
       instance.changes.keys.includes?(k)
     end.tap do |f|
       f.each do |k, _|
-        f[k] = now if ModelType.updated_at_fields.includes?(k)
+        f[k] = now if instance.class.updated_at_fields.includes?(k)
       end
     end
 
     return unless fields.any?
 
     query = SQL_UPDATE % {
-      table_name:  ModelType.table_name,
+      table_name:  instance.class.table_name,
       set_fields:  fields.keys.map { |k| k.to_s + " = ?" }.join(", "),
-      primary_key: ModelType.primary_key, # TODO: Handle empty primary key
-      returning:   ModelType.primary_key,
+      primary_key: instance.class.primary_key, # TODO: Handle empty primary key
+      returning:   instance.class.primary_key,
     }
 
     query = prepare_query(query)
@@ -146,10 +156,10 @@ class Core::Repository(ModelType)
   #
   # TODO: Handle errors.
   # TODO: Multiple deletes.
-  def delete(instance : ModelType)
+  def delete(instance : Model)
     query = SQL_DELETE % {
-      table_name:  ModelType.table_name,
-      primary_key: ModelType.primary_key,
+      table_name:  instance.class.table_name,
+      primary_key: instance.class.primary_key,
     }
 
     query = prepare_query(query)

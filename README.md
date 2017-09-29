@@ -87,9 +87,7 @@ end
 
 db = DB.open(ENV["DATABASE_URL"])
 query_logger = Core::QueryLogger.new(STDOUT)
-
-user_repo = Core::Repository(User).new(db, query_logger)
-post_repo = Core::Repository(Post).new(db, query_logger)
+repo = Core::Repository.new(db, query_logger)
 
 user = User.new(name: "Fo")
 user.valid? # => false
@@ -97,16 +95,16 @@ user.errors # => [{:name => "length must be >= 3"}]
 user.name = "Foo"
 user.valid? # => true
 
-user.id = user_repo.insert(user) # See ^1
+user.id = repo.insert(user) # See ^1
 # INSERT INTO users (name, created_at) VALUES ($1, $2) RETURNING id
 
 post = Post.new(author: user, content: "Foo Bar")
-post.id = post_repo.insert(post) # See ^1
+post.id = repo.insert(post) # See ^1
 # INSERT INTO posts (author_id, content, created_at) VALUES ($1, $2, $3) RETURNING id
 
 alias Query = Core::Query
 
-posts = post_repo.query(Query(Post).where(author: user))
+posts = repo.query(Query(Post).where(author: user))
 # SELECT * FROM posts WHERE author_id = $1
 
 posts.first.content # => "Foo Bar"
@@ -116,7 +114,7 @@ query = Query(User)
   .select(:*, :"COUNT(posts.id) AS posts_count")
   .group_by(%i(users.id posts.id))
   .one
-user = user_repo.query(query).first
+user = repo.query(query).first
 # SELECT *, COUNT (posts.id) AS posts_count
 # FROM users JOIN posts AS posts ON posts.author_id = users.id
 # GROUP BY users.id, posts.id LIMIT 1
@@ -125,10 +123,10 @@ user.posts_count # => 1
 
 user.name = "Bar"
 user.changes # => {:name => "Bar"}
-user_repo.update(user)
+repo.update(user)
 # UPDATE users SET name = $1 WHERE id = $2 RETURNING id
 
-post_repo.delete(posts.first)
+repo.delete(posts.first)
 # DELETE FROM posts WHERE id = $1
 ```
 

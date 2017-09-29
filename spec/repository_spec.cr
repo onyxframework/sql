@@ -5,14 +5,13 @@ db = DB.open(ENV["DATABASE_URL"] || raise "No DATABASE_URL is set!")
 query_logger = Core::QueryLogger.new(nil)
 
 describe Repo do
-  user_repo = Repo(User).new(db, query_logger)
-  post_repo = Repo(Post).new(db, query_logger)
+  repo = Repo.new(db, query_logger)
 
   user_created_at = uninitialized Time
 
   describe "#insert" do
     user = User.new(name: "Test User")
-    result = user_repo.insert(user)
+    result = repo.insert(user)
     query = Query(User).last
 
     it "sets created_at field" do
@@ -29,12 +28,12 @@ describe Repo do
       user.id = db.scalar(query.select(:id).to_s).as(Int32)
 
       post = Post.new(author: user, content: "Some content")
-      post_repo.insert(post).should be_truthy
+      repo.insert(post).should be_truthy
     end
 
     pending "returns fresh id" do
       previous_id = db.scalar(query.select(:id).to_s).as(Int32)
-      user_repo.insert(user).should eq(previous_id + 1)
+      repo.insert(user).should eq(previous_id + 1)
     end
   end
 
@@ -46,7 +45,7 @@ describe Repo do
       .order_by(:"users.id DESC")
       .limit(1)
 
-    user = user_repo.query(complex_query).first
+    user = repo.query(complex_query).first
 
     it "returns a valid instance" do
       user.id.should be_a(Int32)
@@ -59,28 +58,28 @@ describe Repo do
 
     pending "handles DB errors" do
       expect_raises do
-        user_repo.query("INVALID QUERY")
+        repo.query("INVALID QUERY")
       end
     end
   end
 
   describe "#update" do
-    user = user_repo.query(Query(User).last).first
+    user = repo.query(Query(User).last).first
 
     it "ignores empty changes" do
-      user_repo.update(user).should eq nil
+      repo.update(user).should eq nil
     end
 
     pending "handles DB errors" do
       user.id = nil
       expect_raises do
-        user_repo.update(user)
+        repo.update(user)
       end
     end
 
     user.name = "Updated User"
-    update = user_repo.update(user)
-    updated_user = user_repo.query(Query(User).last).first
+    update = repo.update(user)
+    updated_user = repo.query(Query(User).last).first
 
     it "actually updates" do
       updated_user.name.should eq "Updated User"
@@ -92,13 +91,13 @@ describe Repo do
   end
 
   describe "#delete" do
-    post = post_repo.query(Query(Post).last).first
+    post = repo.query(Query(Post).last).first
     post_id = post.id
-    delete = post_repo.delete(post)
+    delete = repo.delete(post)
 
     it do
       delete.should be_truthy
-      post_repo.query(Query(Post).where(id: post_id)).empty?.should eq true
+      repo.query(Query(Post).where(id: post_id)).empty?.should eq true
     end
 
     pending "returns an amount of affected rows" do
@@ -108,7 +107,7 @@ describe Repo do
     pending "handles DB errors" do
       # It's already deleted, so
       expect_raises do
-        post_repo.delete(post)
+        repo.delete(post)
       end
     end
   end
