@@ -160,8 +160,8 @@ class Core::Repository(ModelType)
     end
   end
 
-  # Prepare *query* for execution.
-  private def prepare_query(query : String) : String
+  # Prepare *query* for execution. Replaces "?" with "$i" for PostgreSQL.
+  def prepare_query(query : String) : String
     if db.driver.is_a?(PG::Driver)
       counter = 0
       query = query.as(String).gsub("?") { "$" + (counter += 1).to_s }
@@ -170,7 +170,8 @@ class Core::Repository(ModelType)
     query
   end
 
-  private def prepare_params(*params)
+  # Prepare query params. Replaces `::Enum`'s with their values.
+  def prepare_params(*params)
     params.map do |a|
       a.map do |p|
         if p.is_a?(Enum)
