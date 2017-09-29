@@ -384,7 +384,7 @@ module Core
                 {{reference[:key]}} => @{{"#{reference[:name].id}".id}}.try &.{{(reference[:foreign_key] || "primary_key_value").id}},
               {% end %}
             {% end %}
-          }
+          } of Symbol => {{CORE__FIELDS.reject { |f| f[:virtual] == true }.map(&.[:type]).push(String).push(Nil).join(" | ").id}}
         end
 
         # Return an array of database field names.
