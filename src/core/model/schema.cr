@@ -401,6 +401,7 @@ module Core
 
       # Define `self.reference_class`, `self.reference_key` and `self.reference_foreign_key`.
       private macro define_references_helpers
+        {% if CORE__REFERENCES.size > 0 %}
         {% for prop in %i(class key foreign_key) %}
           def self.reference_{{prop.id}}(reference)
             case reference
@@ -416,6 +417,7 @@ module Core
               raise ArgumentError.new("Unkown reference #{reference}!")
             end
           end
+        {% end %}
         {% end %}
       end
 
