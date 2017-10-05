@@ -15,8 +15,8 @@ class User < Core::Model
     primary_key :id
     field :role, Role, default: Role::User
     field :name, String
-    created_at_field :created_at
-    updated_at_field :updated_at
+    created_at_field :created_at, json_converter: Converters::JSON::TimeEpoch
+    updated_at_field :updated_at, json_converter: Converters::JSON::TimeEpoch
     reference :referrer, User, key: :referrer_id, foreign_key: :id
     reference :referrals, Array(User), foreign_key: :referrer_id
     reference :posts, Array(Post), foreign_key: :author_id

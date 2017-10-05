@@ -14,13 +14,15 @@ describe Core::Model do
   end
 
   describe "#to_json & #from_json" do
-    another_user = User.new(id: 43, name: "Foo")
+    time = Time.now
+    another_user = User.new(id: 43, name: "Foo", created_at: time)
     reborn = User.from_json(another_user.to_json)
 
     it "has fields" do
       reborn.id.should eq 43
       reborn.name.should eq "Foo"
       reborn.posts_count.should eq nil
+      reborn.created_at.not_nil!.epoch.should eq time.epoch
     end
 
     it "has default fields" do
