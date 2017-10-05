@@ -14,9 +14,9 @@ module Core
     # NOTE: All class and instance methods will be defined on `#schema` macro call if not mentioned another.
     module Schema
       # :nodoc:
-      CORE__PRIMARY_KEY_FIELD = uninitialized Symbol
+      CORE__PRIMARY_KEY_FIELD = nil
       # :nodoc:
-      CORE__PRIMARY_KEY_FIELD_TYPE = uninitialized Object
+      CORE__PRIMARY_KEY_FIELD_TYPE = nil
       # :nodoc:
       CORE__TABLE_NAME = uninitialized String
 
@@ -422,6 +422,7 @@ module Core
       end
 
       private macro define_primary_key_helpers
+        {% unless CORE__PRIMARY_KEY_FIELD.nil? %}
         def primary_key_value
           @{{CORE__PRIMARY_KEY_FIELD.id}}
         end
@@ -429,6 +430,7 @@ module Core
         def self.primary_key
           {{CORE__PRIMARY_KEY_FIELD}}
         end
+        {% end %}
       end
 
       private macro define_db_mapping
