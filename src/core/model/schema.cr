@@ -278,8 +278,8 @@ module Core
       #   primary_key :uuid, String
       # end
       # ```
-      macro primary_key(name, type _type = Int32, converter = nil)
-        field({{name}}, {{_type}}, primary_key: true, converter: {{converter}})
+      macro primary_key(name, type _type = Int32, **options)
+        field({{name}}, {{_type}}, primary_key: true, {{**options}})
       end
 
       # Define a field which will be set to `NOW()` on `Repository#insert` only **once**.
@@ -294,8 +294,8 @@ module Core
       # ```
       #
       # NOTE: created_at field **is not set by default**. You have to define it yourself.
-      macro created_at_field(name)
-        field({{name}}, Time, created_at_field: true)
+      macro created_at_field(name, **options)
+        field({{name}}, Time, created_at_field: true, {{**options}})
       end
 
       # Define a field which will be updated with `NOW()` each time a `Repository#update` is called.
@@ -311,8 +311,8 @@ module Core
       #
       # NOTE: updated_at field **is not set by default**. You have to define it yourself.
       # NOTE: This field will not be implicitly set on `Repository#insert`.
-      macro updated_at_field(name)
-        field({{name}}, Time, updated_at_field: true)
+      macro updated_at_field(name, **options)
+        field({{name}}, Time, updated_at_field: true, {{**options}})
       end
 
       # Define a virtual field.
