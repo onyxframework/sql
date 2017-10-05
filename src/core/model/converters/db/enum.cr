@@ -1,7 +1,8 @@
+require "./converter"
+
 module Core
   abstract class Model
-    # A module containing objects able to map to/from Database or JSON.
-    module Converters
+    module Converters::DB
       # Allows to represent `INT` values as `::Enum`s in `Model`s.
       #
       # ```
@@ -16,7 +17,7 @@ module Core
       #   end
       #
       #   schema do
-      #     field :role, Role, converter: Converters::Enum
+      #     field :role, Role, db_converter: Converters::DB::Enum
       #   end
       # end
       #
@@ -24,18 +25,10 @@ module Core
       # user.insert # => INSERT INTO users (role) VALUES(1)
       # ```
       #
-      # NOTE: This converter is **automatically** applied for all `::Enum` fields.
-      class Enum(EnumClass)
+      # NOTE: This converter is **automatically** applied for to `::Enum` fields.
+      class Enum(EnumClass) < Converter(Enum)
         def self.from_rs(rs)
           EnumClass.new(rs.read(Int32))
-        end
-
-        def self.to_json(e : EnumClass, json)
-          e.to_json(json)
-        end
-
-        def self.from_json(pull_parser)
-          EnumClass.new(pull_parser.read_int.to_i32)
         end
       end
     end

@@ -1,4 +1,5 @@
-require "./model/converters/*"
+require "./model/converters/db/*"
+require "./model/converters/json/*"
 require "./model/schema"
 require "./model/validation"
 

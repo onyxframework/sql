@@ -167,7 +167,8 @@ module Core
           nilable: Bool?,
           key: Symbol?,
           default: Object?,
-          converter: Object?,
+          db_converter: Object?,
+          json_converter: Object?,
           emit_null: Bool?,
           created_at_field: Bool?,
           updated_at_field: Bool?,
@@ -216,11 +217,12 @@ module Core
       # - *primary_key* (`Bool?`) - Is this field primary key? See `#primary_key`;
       # - *virtual* (`Bool?`) - Is this field virtual? See `#virtual_field`;
       # - *key* (`Symbol?`) - Column name for this field. Defaults to *name*;
-      # - *converter* (`Object?`) - An object with `#from_rs`, `#from_json` and `#to_json` methods;
+      # - *json_converter* (`Object?`) - An object extending `Converters::JSON::Converter`;
+      # - *db_converter* (`Object?`) - An object extending `Converters::DB::Converter`;
       # - *created_at_field* (`Bool?`) - Whether to update this field on the first `Repository#insert`. See `#created_at_field`;
       # - *updated_at_field* (`Bool?`) - Whether to update this field on each `Repository#update`. See `#updated_at_field`.
       #
-      # NOTE: `Converters::Enum` is automatically applied to all `::Enum` fields.
+      # NOTE: `Converters::DB::Enum` is automatically applied to all `::Enum` fields.
       # NOTE: A field is always nilable.
       #
       # ```
@@ -239,7 +241,7 @@ module Core
           CORE__PRIMARY_KEY_FIELD_TYPE = {{_type.id}}
         {% end %}
 
-        {% converter = options[:converter] || ("Converters::Enum(#{_type.id})" if _type.is_a?(Path) && _type.resolve < ::Enum) || nil %}
+        {% db_converter = options[:db_converter] || ("Converters::DB::Enum(#{_type.id})" if _type.is_a?(Path) && _type.resolve < ::Enum) || nil %}
 
         {% CORE__FIELDS.push({
              name:             name,
@@ -248,7 +250,8 @@ module Core
              primary_key:      options[:primary_key],
              nilable:          true,
              default:          options[:default],
-             converter:        converter,
+             db_converter:     db_converter,
+             json_converter:   options[:json_converter],
              created_at_field: options[:created_at_field],
              updated_at_field: options[:updated_at_field],
              key:              options[:key] || name,
@@ -435,19 +438,19 @@ module Core
 
       private macro define_db_mapping
         {% mapping = CORE__FIELDS.map do |field|
-             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, key: #{field[:key].id.stringify}, converter: #{field[:converter].id}}"
+             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, key: #{field[:key].id.stringify}, converter: #{field[:db_converter].id}}"
            end %}
         {% if mapping.size > 0 %}
-          DB.mapping({ {{mapping.join(", ").id}} }, false)
+          ::DB.mapping({ {{mapping.join(", ").id}} }, false)
         {% end %}
       end
 
       private macro define_json_mapping
         {% mapping = CORE__FIELDS.map do |field|
-             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, emit_null: #{field[:emit_null].id}, converter: #{field[:converter].id}, root: #{field[:root].id}, default: #{field[:default].id}}"
+             "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, emit_null: #{field[:emit_null].id}, converter: #{field[:json_converter].id}, root: #{field[:root].id}, default: #{field[:default].id}}"
            end %}
         {% if mapping.size > 0 %}
-          JSON.mapping({ {{mapping.join(", ").id}} })
+          ::JSON.mapping({ {{mapping.join(", ").id}} })
         {% end %}
       end
 
