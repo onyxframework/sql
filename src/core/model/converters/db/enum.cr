@@ -28,7 +28,8 @@ module Core
       # NOTE: This converter is **automatically** applied to all `::Enum` fields.
       class Enum(EnumClass) < Converter(Enum)
         def self.from_rs(rs)
-          EnumClass.new(rs.read(Int32))
+          value = rs.read(Int32 | Nil)
+          EnumClass.new(value) if value
         end
       end
     end
