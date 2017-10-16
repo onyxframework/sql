@@ -25,7 +25,7 @@ module Core
       # user.insert # => INSERT INTO users (role) VALUES(1)
       # ```
       #
-      # NOTE: This converter is **automatically** applied for to `::Enum` fields.
+      # NOTE: This converter is **automatically** applied to all `::Enum` fields.
       class Enum(EnumClass) < Converter(Enum)
         def self.from_rs(rs)
           EnumClass.new(rs.read(Int32))

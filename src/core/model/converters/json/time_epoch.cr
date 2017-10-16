@@ -8,7 +8,7 @@ module Core
       # ```
       # class User < Core::Model
       #   schema do
-      #     created_at_field :created_at, json_converter: Converters::TimeEpoch
+      #     created_at_field :created_at, json_converter: Converters::JSON::TimeEpoch
       #   end
       # end
       #
