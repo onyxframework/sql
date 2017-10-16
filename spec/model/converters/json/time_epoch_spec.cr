@@ -2,6 +2,7 @@ require "../../../spec_helper"
 
 class TimeEpochModel < Core::Model
   schema do
+    table_name "time_epoch_model" # However, it's not included in the migration
     field :some_time_field, Time, json_converter: Converters::JSON::TimeEpoch
   end
 end

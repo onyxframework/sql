@@ -20,12 +20,77 @@ module Core
       # :nodoc:
       CORE__TABLE_NAME = uninitialized String
 
-      # Return table name for this `Model`.
-      #
-      # ```
-      # User.table_name # => "users"
-      # ```
-      def self.table_name
+      module ClassMethods
+        # Return table name for this `Model`.
+        #
+        # ```
+        # User.table_name # => "users"
+        # ```
+        abstract def table_name
+
+        # Return an array of database field names.
+        # Does not include virtual fields.
+        #
+        # ```
+        # User.db_fields # => [:id, :name]
+        # ```
+        abstract def db_fields
+
+        # Return an array of created_at fields names.
+        abstract def created_at_fields
+
+        # Return an array of updated_at fields names.
+        abstract def updated_at_fields
+
+        # Return *reference*'s class.
+        #
+        # ```
+        # class User < Core::Model
+        #   schema do
+        #     reference :posts, Array(Post)
+        #   end
+        # end
+        #
+        # User.reference_class(:posts) # => Array(Post)
+        # ```
+        def reference_class(reference)
+        end
+
+        # Return *reference*'s key.
+        #
+        # ```
+        # class Post < Core::Model
+        #   schema do
+        #     reference :author, User, key: :author_id
+        #   end
+        # end
+        #
+        # Post.reference_key(:author) # => :author_id
+        # ```
+        def reference_key(reference)
+        end
+
+        # Return *reference*'s foreign_key.
+        #
+        # ```
+        # class User < Core::Model
+        #   schema do
+        #     reference :authored_posts, Array(Post), foreign_key: :author_id
+        #   end
+        # end
+        #
+        # User.reference_foreign_key(:authored_posts) # => :author_id
+        # ```
+        def reference_foreign_key(reference)
+        end
+
+        # Return a primary key field name.
+        #
+        # ```
+        # User.primary_key # => :id
+        # ```
+        def primary_key
+        end
       end
 
       # Return a `Hash` of database field keys with their actual values.
@@ -37,65 +102,6 @@ module Core
       # ```
       abstract def db_fields
 
-      # Return an array of database field names.
-      # Does not include virtual fields.
-      #
-      # ```
-      # User.db_fields # => [:id, :name]
-      # ```
-      def self.db_fields
-      end
-
-      # Return an array of created_at fields names.
-      def self.created_at_fields
-      end
-
-      # Return an array of updated_at fields names.
-      def self.updated_at_fields
-      end
-
-      # Return *reference*'s class.
-      #
-      # ```
-      # class User < Core::Model
-      #   schema do
-      #     reference :posts, Array(Post)
-      #   end
-      # end
-      #
-      # User.reference_class(:posts) # => Array(Post)
-      # ```
-      def self.reference_class(reference)
-      end
-
-      # Return *reference*'s key.
-      #
-      # ```
-      # class Post < Core::Model
-      #   schema do
-      #     reference :author, User, key: :author_id
-      #   end
-      # end
-      #
-      # Post.reference_key(:author) # => :author_id
-      # ```
-      def self.reference_key(reference)
-      end
-
-      # Return *reference*'s foreign_key.
-      #
-      # ```
-      # class User < Core::Model
-      #   schema do
-      #     reference :authored_posts, Array(Post), foreign_key: :author_id
-      #   end
-      # end
-      #
-      # User.reference_foreign_key(:authored_posts) # => :author_id
-      # ```
-      def self.reference_foreign_key(reference)
-      end
-
       # Return an actual primary key value.
       #
       # ```
@@ -103,14 +109,6 @@ module Core
       # user.primary_key_value # => 42
       # ```
       abstract def primary_key_value
-
-      # Return a primary key field name.
-      #
-      # ```
-      # User.primary_key # => :id
-      # ```
-      def self.primary_key
-      end
 
       # A storage for model instance changes, empty on initialize.
       # Does neither track virtual fields nor stores intial values.

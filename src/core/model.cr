@@ -12,6 +12,7 @@ module Core
   abstract class Model
     include Converters
     include Schema
+    extend Schema::ClassMethods
     include Validation
   end
 end
