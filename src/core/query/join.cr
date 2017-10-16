@@ -83,7 +83,7 @@ struct Core::Query(ModelType)
   # :nodoc:
   macro join_clause
     join_clauses = join_values.map do |join|
-      reference_class = ModelType.reference_class(join[:reference])
+      reference_class = ModelType.reference_class(join[:reference]).not_nil!
 
       reference_alias = join[:as] || join[:reference]
 
@@ -118,7 +118,7 @@ struct Core::Query(ModelType)
           table_name:            ModelType.table_name,
           reference_key:         ModelType.reference_key(join[:reference]) || reference_class.primary_key,
         }
-      end
+      end.as(String)
     end
 
     query += " " + join_clauses.join(" ") if join_clauses.any?
