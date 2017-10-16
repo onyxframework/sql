@@ -2,6 +2,7 @@
 
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS pg_numeric_model;
 
 CREATE TABLE users(
   id          SERIAL PRIMARY KEY,
@@ -20,3 +21,8 @@ CREATE TABLE posts(
   created_at  TIMESTAMPTZ NOT NULL,
   updated_at  TIMESTAMPTZ
 );
+
+CREATE TABLE pg_numeric_model(
+  id        SERIAL PRIMARY KEY,
+  a_number  NUMERIC(16, 8)
+)
