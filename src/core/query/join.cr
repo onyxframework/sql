@@ -126,6 +126,6 @@ struct Core::Query(ModelType)
 
   # :nodoc:
   SQL_JOIN_AS_CLAUSE = <<-SQL
-  %{reference_table_name} AS %{alias} ON %{alias}.%{reference_foreign_key} = %{table_name}.%{reference_key}
+  %{reference_table_name} AS "%{alias}" ON "%{alias}".%{reference_foreign_key} = %{table_name}.%{reference_key}
   SQL
 end

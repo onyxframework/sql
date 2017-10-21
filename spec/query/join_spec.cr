@@ -5,7 +5,7 @@ describe Query do
     context "with \"has_many\" reference" do
       it do
         sql = <<-SQL
-          SELECT * FROM users JOIN posts AS authored_posts ON authored_posts.author_id = users.id
+          SELECT * FROM users JOIN posts AS "authored_posts" ON "authored_posts".author_id = users.id
         SQL
 
         Query(User).join(:posts, on: :author, as: :authored_posts).to_s.should eq(sql.strip)
@@ -15,7 +15,7 @@ describe Query do
     context "with \"belongs_to\" reference" do
       it do
         sql = <<-SQL
-          SELECT * FROM posts JOIN users AS author ON author.id = posts.author_id
+          SELECT * FROM posts JOIN users AS "author" ON "author".id = posts.author_id
         SQL
 
         Query(Post).join(:author).to_s.should eq(sql.strip)
@@ -25,7 +25,7 @@ describe Query do
     context "with multiple calls" do
       it do
         sql = <<-SQL
-          SELECT * FROM posts JOIN users AS authors ON authors.id = posts.author_id JOIN users AS editor ON editor.id = posts.editor_id
+          SELECT * FROM posts JOIN users AS "authors" ON "authors".id = posts.author_id JOIN users AS "editor" ON "editor".id = posts.editor_id
         SQL
 
         Query(Post).join(:author, as: :authors).join(:editor).to_s.should eq(sql.strip)
@@ -36,7 +36,7 @@ describe Query do
       context "\"has_many\"" do
         it do
           sql = <<-SQL
-            SELECT * FROM users JOIN users AS referrals ON referrals.referrer_id = users.id
+            SELECT * FROM users JOIN users AS "referrals" ON "referrals".referrer_id = users.id
           SQL
 
           Query(User).join(:referrals).to_s.should eq(sql.strip)
@@ -46,7 +46,7 @@ describe Query do
       context "\"belongs_to\"" do
         it do
           sql = <<-SQL
-            SELECT * FROM users JOIN users AS referrer ON referrer.id = users.referrer_id
+            SELECT * FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
           SQL
 
           Query(User).join(:referrer).to_s.should eq(sql.strip)
