@@ -63,6 +63,25 @@ describe Query do
             query.params.should eq([42, 1])
           end
         end
+
+        context "with reference" do
+          user = User.new(id: 42)
+
+          it do
+            query = Query(Post).{{wherish.id}}(author: user)
+
+            query.to_s.should eq <<-SQL
+            SELECT * FROM posts {{wherish.upcase.id}} (posts.author_id = ?)
+            SQL
+
+            query.params.should eq([42])
+          end
+
+          expect_raises ArgumentError do
+            query = Query(Post).{{wherish.id}}(writer: user)
+            query.to_s
+          end
+        end
       end
 
       context "with string argument" do
@@ -127,6 +146,25 @@ describe Query do
             SQL
 
             query.params.should eq([42, 1])
+          end
+        end
+
+        context "with reference" do
+          user = User.new(id: 42)
+
+          it do
+            query = Query(Post).or_{{wherish.id}}(author: user)
+
+            query.to_s.should eq <<-SQL
+            SELECT * FROM posts {{wherish.upcase.id}} (posts.author_id = ?)
+            SQL
+
+            query.params.should eq([42])
+          end
+
+          expect_raises ArgumentError do
+            query = Query(Post).or_{{wherish.id}}(writer: user)
+            query.to_s
           end
         end
       end

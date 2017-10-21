@@ -100,9 +100,9 @@ struct Core::Query(ModelType)
     def {{wherish.id}}(**{{wherish.id}}, or = false)
       group = [] of {{wherish.capitalize.id}}Tuple
       {{wherish.id}}.to_h.tap &.each do |key, value|
-        reference_key = ModelType.reference_key(key) rescue nil
-        if reference_key
-          if value.is_a?(Core::Model | Nil)
+        if value.is_a?(Core::Model)
+          reference_key = ModelType.reference_key(key) rescue nil
+          if reference_key
             column_name = ModelType.table_name + "." + reference_key.to_s
             if value.nil?
               group << {{wherish.capitalize.id}}Tuple.new(
@@ -112,11 +112,11 @@ struct Core::Query(ModelType)
             else
               group << {{wherish.capitalize.id}}Tuple.new(
                 clause: column_name + " = ?",
-                params: [value.primary_key_value],
+                params: prepare_params([value.primary_key_value]),
               )
             end
           else
-            raise ArgumentError.new("Value in reference {{wherish.id}} clause must be a Core::Model or Nil! Given: #{value.class}")
+            raise ArgumentError.new("Invalid reference key \"#{key}\" in {{wherish.id}} clause")
           end
         elsif ModelType.db_fields.keys.includes?(key)
           if value.nil?
