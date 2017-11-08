@@ -53,6 +53,27 @@ describe Core::Model do
       end
     end
 
+    context "as bare fields" do
+      post = Post.new(author_id: user.id, content: "Foobar")
+
+      it "has these fields" do
+        post.author_id.should eq 42
+      end
+
+      describe "#db_fields" do
+        it do
+          post.db_fields.should eq({
+            :id         => nil,
+            :author_id  => 42,
+            :editor_id  => nil,
+            :content    => "Foobar",
+            :created_at => nil,
+            :updated_at => nil,
+          })
+        end
+      end
+    end
+
     context "referencing self" do
       referrer = uninitialized User
       referral = uninitialized User

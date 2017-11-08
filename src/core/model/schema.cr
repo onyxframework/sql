@@ -176,7 +176,9 @@ module Core
           name: Symbol,
           "class": Model,
           key: Symbol?,
+          key_type: String?,
           foreign_key: Symbol?,
+          foreign_key_type: String?,
         )
 
         CORE__CREATED_AT_FIELDS = [] of Symbol
@@ -342,34 +344,47 @@ module Core
       # A *foreign_key* will be used to know which reference's key to refer to (default to reference's `.primary_key`).
       #
       # ```
-      # class User
+      # class Post
       #   primary_key :id
+      #
+      #   # We have to define key_type explicitly,
+      #   # because Post doesn't know about User attributes during compile time
+      #   reference :author, User, key: :author_id, key_type: String
+      #   reference :editor, User, key: :editor_id, key_type: String
+      # end
+      #
+      # class User
+      #   primary_key :uuid, String
       #   reference :referrer, self, key: :referrer_id, foreign_key: :id
       #   reference :referrals, Array(self)
       #   reference :authored_posts, Array(Post), foreign_key: :author_id
       #   reference :edited_posts, Array(Post), foreign_key: :editor_id
       # end
-      #
-      # class Post
-      #   reference :author, User, key: :author_id
-      #   reference :editor, User, key: :editor_id
-      # end
       # ```
       #
       # NOTE: A reference is always nilable.
-      macro reference(name, class klass, key = nil, foreign_key = nil)
+      macro reference(name, class klass, key = nil, key_type = Int32, foreign_key = nil, foreign_key_type = Int32)
         property {{name.id}} : {{klass.id}} | Nil
+
+        {% if key %}
+          property {{key.id}} : {{key_type.id}} | Nil
+        {% end %}
+
         {% CORE__REFERENCES.push({
-             name:        name,
-             class:       klass,
-             key:         key,
-             foreign_key: foreign_key,
+             name:             name,
+             class:            klass,
+             key:              key,
+             key_type:         key_type,
+             foreign_key:      foreign_key,
+             foreign_key_type: foreign_key_type,
            }) %}
       end
 
       private macro define_db_fields_getters
         # Return a `Hash` of database field keys with their actual values.
         # Does not include virtual fields.
+        #
+        # A reference key property overwrites the reference's actual key (e.g. `author_id` will take precedence over `author.id`).
         #
         # ```
         # post = Post.new(author: User.new(id: 42), content: "foo")
@@ -382,7 +397,7 @@ module Core
             {% end %}
             {% for reference in CORE__REFERENCES %}
               {% if reference[:key] %}
-                {{reference[:key]}} => @{{"#{reference[:name].id}".id}}.try &.{{(reference[:foreign_key] || "primary_key_value").id}},
+                {{reference[:key]}} => @{{reference[:key].id}} || @{{"#{reference[:name].id}".id}}.try(&.{{(reference[:foreign_key] || "primary_key_value").id}}),
               {% end %}
             {% end %}
           } of Symbol => {{CORE__FIELDS.reject { |f| f[:virtual] == true }.map(&.[:type]).push(String).push(Nil).join(" | ").id}}
@@ -437,6 +452,8 @@ module Core
       private macro define_db_mapping
         {% mapping = CORE__FIELDS.map do |field|
              "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, key: #{field[:key].id.stringify}, converter: #{field[:db_converter].id}}"
+           end + CORE__REFERENCES.select(&.[:key]).map do |reference|
+             "#{reference[:key].id.stringify}: {type: #{reference[:key_type].id}, nilable: true}"
            end %}
         {% if mapping.size > 0 %}
           ::DB.mapping({ {{mapping.join(", ").id}} }, false)
@@ -446,6 +463,8 @@ module Core
       private macro define_json_mapping
         {% mapping = CORE__FIELDS.map do |field|
              "#{field[:name].id.stringify}: {type: #{field[:type].id}, nilable: #{field[:nilable].id}, emit_null: #{field[:emit_null].id}, converter: #{field[:json_converter].id}, root: #{field[:root].id}, default: #{field[:default].id}}"
+           end + CORE__REFERENCES.select(&.[:key]).map do |reference|
+             "#{reference[:key].id.stringify}: {type: #{reference[:key_type].id}, nilable: true, emit_null: false}"
            end %}
         {% if mapping.size > 0 %}
           ::JSON.mapping({ {{mapping.join(", ").id}} })
@@ -459,6 +478,9 @@ module Core
           {% end %}
           {% for reference in CORE__REFERENCES %}
             @{{reference[:name].id}} : {{reference[:class].id}}? = nil,
+            {% if reference[:key] %}
+              @{{reference[:key].id}} : {{reference[:key_type].id}} | Nil = nil,
+            {% end %}
           {% end %}
         )
         end
