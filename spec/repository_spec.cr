@@ -31,7 +31,7 @@ describe Repo do
       repo.insert(post).should be_truthy
     end
 
-    pending "returns fresh id" do
+    it "returns fresh id" do
       previous_id = db.scalar(query.select(:id).to_s).as(Int32)
       repo.insert(user).should eq(previous_id + 1)
     end

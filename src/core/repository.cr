@@ -74,18 +74,21 @@ class Core::Repository
   end
 
   private SQL_INSERT = <<-SQL
-  INSERT INTO %{table_name} (%{keys}) VALUES (%{values}) RETURNING %{returning}
+  INSERT INTO %{table_name} (%{keys}) VALUES (%{values})
   SQL
 
-  # Insert *instance* into Database.
-  # Returns last inserted ID (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
+  private SQL_LAST_INSERTED_PK = <<-SQL
+  SELECT currval(pg_get_serial_sequence('%{table_name}', '%{primary_key}'))
+  SQL
+
+  # Insert *instance* into Database. Returns last inserted ID or nil if not inserted.
   #
   # NOTE: Does not check if `Model::Validation#valid?`.
   #
   # TODO: Handle errors.
   # TODO: Multiple inserts.
   # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-  def insert(instance : Model) : Int64
+  def insert(instance : Model)
     fields = instance.db_fields.dup.tap do |f|
       f.each do |k, _|
         f[k] = now if instance.class.created_at_fields.includes?(k) && f[k].nil?
@@ -97,14 +100,22 @@ class Core::Repository
       table_name: instance.class.table_name,
       keys:       fields.keys.join(", "),
       values:     (1..fields.size).map { "?" }.join(", "),
-      returning:  instance.class.primary_key,
     }
 
     query = prepare_query(query)
     params = prepare_params(fields.values)
 
     query_logger.wrap(query) do
-      db.exec(query, *params).last_insert_id
+      rows_affected = db.exec(query, *params).rows_affected
+
+      if rows_affected > 0
+        last_pk_query = SQL_LAST_INSERTED_PK % {
+          table_name:  instance.class.table_name,
+          primary_key: instance.class.primary_key,
+        }
+
+        db.scalar(last_pk_query)
+      end
     end
   end
 
