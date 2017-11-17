@@ -409,6 +409,9 @@ module Core
           {% for field in CORE__FIELDS.reject { |f| f[:virtual] == true } %}
             {{field[:name]}} => {{field[:type].id}},
           {% end %}
+          {% for reference in CORE__REFERENCES.select { |r| r[:key] } %}
+            {{reference[:key]}} => {{reference[:key_type].id}},
+          {% end %}
         }
 
         class_getter created_at_fields = {{CORE__CREATED_AT_FIELDS}}
