@@ -187,4 +187,51 @@ struct Core::Query(ModelType)
   macro from_clause
     query += " FROM " + ModelType.table_name
   end
+
+  {% for x in %w(and or) %}
+    # A shorthand for calling `{{x.id}}_where` or `{{x.id}}_having` depending on the last clause call.
+    #
+    # ```
+    # query.where(foo: "bar").{{x.id}}(baz: "qux")
+    # # => WHERE (foo = 'bar') {{x.upcase.id}} (baz = 'qux')
+    # query.having(foo: "bar").{{x.id}}(baz: "qux")
+    # # => HAVING (foo = 'bar') {{x.upcase.id}} (baz = 'qux')
+    # ```
+    def {{x.id}}(**args)
+      case @last_wherish_clause
+      when :having
+        {{x.id}}_having(**args)
+      else
+        {{x.id}}_where(**args)
+      end
+    end
+
+    # A shorthand for calling `{{x.id}}_where` or `{{x.id}}_having` depending on the last clause call.
+    #
+    # ```
+    # query.where(foo: "bar").{{x.id}}("created_at > NOW()")
+    # # => WHERE (foo = 'bar') {{x.upcase.id}} (created_at > NOW())
+    # query.having(foo: "bar").{{x.id}}("created_at > NOW()")
+    # # => HAVING (foo = 'bar') {{x.upcase.id}} (created_at > NOW())
+    # ```
+    def {{x.id}}(clause, params = nil)
+      case @last_wherish_clause
+      when :having
+        {{x.id}}_having(clause, params)
+      else
+        {{x.id}}_where(clause, params)
+      end
+    end
+  {% end %}
+
+  # TODO: Remove when `DBValue` includes `Enum`.
+  protected def prepare_params(params)
+    params.try &.map do |p|
+      if p.is_a?(Enum)
+        p.value.as(DBValue)
+      else
+        p.as(DBValue)
+      end
+    end
+  end
 end

@@ -57,4 +57,68 @@ describe Query do
       SQL
     end
   end
+
+  describe "#and" do
+    context "after \#where" do
+      it do
+        query = Query(User).where(id: 42, name: !nil).and(role: User::Role::Admin)
+
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (users.id = ? AND users.name IS NOT NULL) AND (users.role = ?)
+        SQL
+
+        query.params.should eq([42, 1])
+      end
+    end
+
+    context "after #or_where" do
+      it do
+        query = Query(User).where(id: 43).or_where(id: 42, name: nil).and(role: User::Role::Admin)
+
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (users.id = ?) AND (users.role = ?) OR (users.id = ? AND users.name IS NULL)
+        SQL
+
+        query.params.should eq([43, 1, 42])
+      end
+    end
+  end
+
+  describe "#or" do
+    context "after \#where" do
+      it do
+        query = Query(User).where(id: 42).or(role: User::Role::Admin, name: nil)
+
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (users.id = ?) OR (users.role = ? AND users.name IS NULL)
+        SQL
+
+        query.params.should eq([42, 1])
+      end
+    end
+
+    context "after #or_where" do
+      it do
+        query = Query(User).or_where(id: 42, name: !nil).or(role: User::Role::Admin)
+
+        query.to_s.should eq <<-SQL
+        SELECT * FROM users WHERE (users.id = ? AND users.name IS NOT NULL) OR (users.role = ?)
+        SQL
+
+        query.params.should eq([42, 1])
+      end
+    end
+  end
+
+  describe "complex #and & #or" do
+    it do
+      query = Query(User).where(id: [42, 43, 44]).having("char_length(name) > ?", [3]).and(role: User::Role::Admin).and_where(name: nil).or("id > ?", [24])
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users WHERE (users.id IN (?, ?, ?)) AND (users.name IS NULL) OR (id > ?) HAVING (char_length(name) > ?) AND (users.role = ?)
+      SQL
+
+      query.params.should eq([42, 43, 44, 24, 3, 1])
+    end
+  end
 end
