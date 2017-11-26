@@ -491,13 +491,27 @@ module Core
 
       private macro define_changes
         # A storage for a `Model`'s changes, empty on initialize. Doesn't track virtual fields. To reset use `changes.clear`.
-        getter changes : Hash(Symbol, {{CORE__FIELDS.map(&.[:type]).join(" | ").id}}) = Hash(Symbol, {{CORE__FIELDS.map(&.[:type]).join(" | ").id}}).new
+        getter changes : Hash(Symbol, {{CORE__FIELDS.map(&.[:type]).push("Nil").join(" | ").id}}) = Hash(Symbol, {{CORE__FIELDS.map(&.[:type]).push("Nil").join(" | ").id}}).new
 
         {% for field in CORE__FIELDS %}
           # Track changes made to `{{field[:name].id}}`.
           def {{field[:name].id}}=(value : {{field[:type].id}})
             changes[{{field[:name]}}] = value
             @{{field[:name].id}} = value
+          end
+        {% end %}
+
+        {% for field in CORE__REFERENCES.select(&.[:key]) %}
+          # Track changes made to `{{field[:name].id}}`.
+          def {{field[:name].id}}=(value : {{field[:class].id}})
+            changes[{{field[:key]}}] = value.primary_key_value
+            @{{field[:name].id}} = value
+          end
+
+          # Track changes made directly to `{{field[:key].id}}`.
+          def {{field[:key].id}}=(value : {{field[:key_type].id}})
+            changes[{{field[:key]}}] = value
+            @{{field[:key].id}} = value
           end
         {% end %}
       end

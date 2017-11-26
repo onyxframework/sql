@@ -106,6 +106,24 @@ describe Core::Model do
       user.name = "Twice Updated User"
       user.changes.should eq({:name => "Twice Updated User"})
     end
+
+    context "to references" do
+      user.changes.clear
+
+      describe "by key" do
+        it do
+          user.referrer_id = 18
+          user.changes.should eq({:referrer_id => 18})
+        end
+      end
+
+      describe "by name" do
+        it do
+          user.referrer = User.new(id: 17)
+          user.changes.should eq({:referrer_id => 17})
+        end
+      end
+    end
   end
 
   describe "validation" do
