@@ -1,6 +1,11 @@
 require "../query_spec"
 
-describe Query do
+module Query::GroupBySpec
+  class User < Core::Model
+    schema :users do
+    end
+  end
+
   describe "#group_by" do
     it do
       Query(User).group_by(:"foo.id", :"bar.id").to_s.should eq <<-SQL

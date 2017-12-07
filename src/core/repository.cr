@@ -1,4 +1,5 @@
 require "db"
+require "./params"
 require "./query_logger"
 
 # `Repository` is a gateway between `Model`s and Database.
@@ -41,7 +42,7 @@ class Core::Repository
   # which logs Database queries.
   #
   # NOTE: *db* and *query_logger* can be changed in the runtime with according `#db=` and `#query_logger=` methods.
-  def initialize(@db : DB::Database, @query_logger : QueryLogger)
+  def initialize(@db : ::DB::Database, @query_logger : QueryLogger)
   end
 
   # Query `#db` returning an array of *model* instances.
@@ -53,7 +54,7 @@ class Core::Repository
   # TODO: Handle errors (PQ::PQError)
   def query(model : Model.class, query : String, *params) : Array
     query = prepare_query(query)
-    params = prepare_params(*params) if params.any?
+    params = Core.prepare_params(*params) if params.any?
 
     query_logger.wrap(query) do
       db.query_all(query, *params) do |rs|
@@ -89,29 +90,29 @@ class Core::Repository
   # TODO: Multiple inserts.
   # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
   def insert(instance : Model)
-    fields = instance.db_fields.dup.tap do |f|
+    fields = instance.fields.dup.tap do |f|
       f.each do |k, _|
         f[k] = now if instance.class.created_at_fields.includes?(k) && f[k].nil?
-        f.delete(k) if k == instance.class.primary_key
+        f.delete(k) if k == instance.class.primary_key[:name]
       end
     end
 
     query = SQL_INSERT % {
-      table_name: instance.class.table_name,
+      table_name: instance.class.table,
       keys:       fields.keys.join(", "),
       values:     (1..fields.size).map { "?" }.join(", "),
     }
 
     query = prepare_query(query)
-    params = prepare_params(fields.values)
+    params = Core.prepare_params(fields.values)
 
     query_logger.wrap(query) do
       rows_affected = db.exec(query, *params).rows_affected
 
       if rows_affected > 0
         last_pk_query = SQL_LAST_INSERTED_PK % {
-          table_name:  instance.class.table_name,
-          primary_key: instance.class.primary_key,
+          table_name:  instance.class.table,
+          primary_key: instance.class.primary_key[:name],
         }
 
         db.scalar(last_pk_query)
@@ -133,7 +134,7 @@ class Core::Repository
   # TODO: Multiple updates.
   # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
   def update(instance : Model)
-    fields = instance.db_fields.select do |k, _|
+    fields = instance.fields.select do |k, _|
       instance.changes.keys.includes?(k)
     end.tap do |f|
       f.each do |k, _|
@@ -144,14 +145,14 @@ class Core::Repository
     return unless fields.any?
 
     query = SQL_UPDATE % {
-      table_name:  instance.class.table_name,
+      table_name:  instance.class.table,
       set_fields:  fields.keys.map { |k| k.to_s + " = ?" }.join(", "),
-      primary_key: instance.class.primary_key, # TODO: Handle empty primary key
-      returning:   instance.class.primary_key,
+      primary_key: instance.class.primary_key[:name], # TODO: Handle empty primary key
+      returning:   instance.class.primary_key[:name],
     }
 
     query = prepare_query(query)
-    params = prepare_params(fields.values.push(instance.primary_key_value))
+    params = Core.prepare_params(fields.values.push(instance.primary_key))
 
     query_logger.wrap(query) do
       db.exec(query, *params).rows_affected
@@ -169,12 +170,12 @@ class Core::Repository
   # TODO: Multiple deletes.
   def delete(instance : Model)
     query = SQL_DELETE % {
-      table_name:  instance.class.table_name,
-      primary_key: instance.class.primary_key,
+      table_name:  instance.class.table,
+      primary_key: instance.class.primary_key[:name],
     }
 
     query = prepare_query(query)
-    params = prepare_params([instance.primary_key_value])
+    params = Core.prepare_params(instance.primary_key)
 
     query_logger.wrap(query) do
       db.exec(query, *params).rows_affected
@@ -189,19 +190,6 @@ class Core::Repository
     end
 
     query
-  end
-
-  # Prepare query params. Replaces `::Enum`'s with their values.
-  def prepare_params(*params)
-    params.map do |a|
-      a.map do |p|
-        if p.is_a?(Enum)
-          p.value
-        else
-          p
-        end
-      end
-    end
   end
 
   private def now

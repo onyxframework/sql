@@ -1,3 +1,4 @@
+require "./converter"
 require "./query/*"
 
 # `Query` allows to build database queries without a hassle.
@@ -77,13 +78,10 @@ require "./query/*"
 # end
 # ```
 struct Core::Query(ModelType)
-  # TODO: Add `Enum`. See https://github.com/crystal-lang/crystal/issues/2733.
-  alias DBValue = Bool | Float32 | Float64 | Int64 | Int32 | Int16 | String | Time | JSON::Any | Hash(String, String) | Nil
-
   # A list of params for this query.
   #
   # NOTE: `params` set for the first time only **after** `#to_s` call.
-  getter params = [] of DBValue
+  getter params = [] of ::DB::Any
   protected setter params
 
   def initialize(model_instance : ModelType? = nil)
@@ -135,14 +133,14 @@ struct Core::Query(ModelType)
     self.new.one
   end
 
-  # Query the last row by `Model::Schema.primary_key`.
+  # Query the last row by `Model::Schema.primary_key[:name]`.
   #
   # ```
   # Query(User).new.last.to_s
   # # => SELECT * FROM users ORDER BY id DESC LIMIT 1
   # ```
   def last
-    order_by(ModelType.primary_key, :DESC).one
+    order_by(ModelType.primary_key[:name], :DESC).one
   end
 
   # :nodoc:
@@ -150,14 +148,14 @@ struct Core::Query(ModelType)
     self.new.last
   end
 
-  # Query the first row by `Model::Schema.primary_key`.
+  # Query the first row by `Model::Schema.primary_key[:name]`.
   #
   # ```
   # Query(User).new.first.to_s
   # # => SELECT * FROM users ORDER BY id ASC LIMIT 1
   # ```
   def first
-    order_by(ModelType.primary_key, :ASC).one
+    order_by(ModelType.primary_key[:name], :ASC).one
   end
 
   # :nodoc:
@@ -185,8 +183,10 @@ struct Core::Query(ModelType)
 
   # :nodoc:
   macro from_clause
-    query += " FROM " + ModelType.table_name
+    query += " FROM " + {{ModelType::TABLE.id.stringify}}
   end
+
+  @last_wherish_clause = :where
 
   {% for x in %w(and or) %}
     # A shorthand for calling `{{x.id}}_where` or `{{x.id}}_having` depending on the last clause call.
@@ -223,15 +223,4 @@ struct Core::Query(ModelType)
       end
     end
   {% end %}
-
-  # TODO: Remove when `DBValue` includes `Enum`.
-  protected def prepare_params(params)
-    params.try &.map do |p|
-      if p.is_a?(Enum)
-        p.value.as(DBValue)
-      else
-        p.as(DBValue)
-      end
-    end
-  end
 end

@@ -1,6 +1,26 @@
 require "../query_spec"
+require "../../src/core/converters/enum"
 
-describe Query do
+module Query::WhereSpec
+  class User < Core::Model
+    enum Role
+      User
+      Admin
+    end
+
+    schema :users do
+      primary_key :id
+      field :role, Role, converter: Converters::Enum(Role)
+      field :name, String
+    end
+  end
+
+  class Post < Core::Model
+    schema :posts do
+      reference :author, User, key: :author_id
+    end
+  end
+
   describe "complex where" do
     it do
       query = Query(User).where(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)

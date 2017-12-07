@@ -1,6 +1,26 @@
 require "../query_spec"
 
-describe Query do
+module Query::JoinSpec
+  class Post < Core::Model
+  end
+
+  class User < Core::Model
+    schema :users do
+      primary_key :id
+      reference :referrer, User, key: :referrer_id
+      reference :referrals, Array(User), foreign_key: :referrer_id
+      reference :posts, Array(Post), foreign_key: :author_id
+    end
+  end
+
+  class Post < Core::Model
+    schema :posts do
+      primary_key :id
+      reference :author, User, key: :author_id
+      reference :editor, User, key: :editor_id
+    end
+  end
+
   describe "#join" do
     context "with \"has_many\" reference" do
       it do
@@ -8,7 +28,7 @@ describe Query do
           SELECT * FROM users JOIN posts AS "authored_posts" ON "authored_posts".author_id = users.id
         SQL
 
-        Query(User).join(:posts, on: :author, as: :authored_posts).to_s.should eq(sql.strip)
+        Query(User).join(:posts, as: :authored_posts).to_s.should eq(sql.strip)
       end
     end
 

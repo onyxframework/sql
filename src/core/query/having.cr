@@ -1,6 +1,8 @@
+require "./wherish"
+
 struct Core::Query(ModelType)
   # :nodoc:
-  alias HavingTuple = NamedTuple(clause: String, params: Array(DBValue)?)
+  alias HavingTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
 
   # :nodoc:
   property having_values = [] of HavingTuple
@@ -23,7 +25,7 @@ struct Core::Query(ModelType)
   def having(clause : String, params : Array? = nil, or = false)
     tuple = HavingTuple.new(
       clause: clause,
-      params: prepare_params(params),
+      params: params.try &.map &.as(::DB::Any),
     )
 
     if or
@@ -37,29 +39,54 @@ struct Core::Query(ModelType)
     self
   end
 
-  # Add `HAVING` clauses just like `#having`.
-  def and_having(clause : String, params : Array? = nil)
-    having(clause, params)
-  end
-
-  # Add `HAVING` clauses just like `#or_having`.
-  def or_having(clause : String, params : Array? = nil)
-    having(clause, params, or: true)
-  end
-
-  # :nodoc:
-  def self.having(clause : String, params : Array? = nil)
+  # ditto
+  def self.having(clause, params = nil)
     new.having(clause, params)
   end
 
-  # :nodoc:
-  def self.and_having(clause : String, params : Array? = nil)
+  # ditto
+  def self.having(clause, *params)
+    new.having(clause, params.to_a)
+  end
+
+  # Add `HAVING` clauses just like `#having`.
+  def and_having(clause, params = nil)
+    having(clause, params)
+  end
+
+  # Add `HAVING` clauses just like `#having`.
+  def and_having(clause, *params)
+    having(clause, params.to_a)
+  end
+
+  # ditto
+  def self.and_having(clause, params = nil)
     new.and_having(clause, params)
   end
 
-  # :nodoc:
-  def self.or_having(clause : String, params : Array? = nil)
+  # ditto
+  def self.and_having(clause, *params)
+    new.and_having(clause, params.to_a)
+  end
+
+  # Add `HAVING` clauses just like `#or_having`.
+  def or_having(clause, params = nil)
+    having(clause, params, or: true)
+  end
+
+  # Add `HAVING` clauses just like `#or_having`.
+  def or_having(clause, *params)
+    having(clause, params.to_a, or: true)
+  end
+
+  # ditto
+  def self.or_having(clause, params = nil)
     new.and_having(clause, params, or: true)
+  end
+
+  # ditto
+  def self.or_having(clause, *params)
+    new.and_having(clause, params.to_a, or: true)
   end
 
   # A convenient way to add `HAVING` clauses. Multiple clauses in a single call are joined with `AND`. Examples:
@@ -97,61 +124,79 @@ struct Core::Query(ModelType)
   # ```
   def having(**having, or = false)
     group = [] of HavingTuple
-    having.to_h.tap &.each do |key, value|
-      reference_key = ModelType.reference_key(key) rescue nil
-      column = ModelType.table_name + "." + (reference_key || key).to_s
 
-      if value.nil?
-        group << HavingTuple.new(
-          clause: column + " IS NULL",
-          params: nil,
-        )
-      elsif reference_key
-        if value == true
-          group << HavingTuple.new(
-            clause: column + " IS NOT NULL",
-            params: nil,
-          )
-        elsif value.is_a?(Core::Model)
-          group << HavingTuple.new(
-            clause: column + " = ?",
-            params: prepare_params([value.primary_key_value]),
-          )
-        elsif value.is_a?(Array(Core::Model))
-          group << HavingTuple.new(
-            clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-            params: prepare_params(value.map &.primary_key_value),
-          )
+    having.to_h.tap &.each do |key, value|
+      {% begin %}
+        case key
+        {% for field in ModelType::INTERNAL__CORE_FIELDS %}
+          when {{field[:key]}}
+            column = {{ModelType::TABLE.id.stringify + "." + field[:key].id.stringify}}
+
+            if value.nil?
+              next group << HavingTuple.new(
+                clause: column + " IS NULL",
+                params: nil,
+              )
+            elsif value.is_a?(Enumerable)
+              next group << HavingTuple.new(
+                clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
+                params: value.map{ |v| field_to_db({{field}}, v) },
+              )
+            {% unless field[:type] == "Bool" %}
+              elsif value == true
+                next group << HavingTuple.new(
+                  clause: column + " IS NOT NULL",
+                  params: nil,
+                )
+            {% end %}
+            else
+              next group << HavingTuple.new(
+                clause: column + " = ?",
+                params: Array(::DB::Any){field_to_db({{field}}, value)},
+              )
+            end
+        {% end %}
+
+        {% for reference in ModelType::INTERNAL__CORE_REFERENCES %}
+          when {{reference[:name]}}
+            column = {{ModelType::TABLE.id.stringify + "." + reference[:key].id.stringify}}
+
+            if value.nil?
+              next group << HavingTuple.new(
+                clause: column + " IS NULL",
+                params: nil,
+              )
+            elsif value == true
+              next group << HavingTuple.new(
+                clause: column + " IS NOT NULL",
+                params: nil,
+              )
+            elsif value.is_a?({{reference[:type]}})
+              next group << HavingTuple.new(
+                clause: column + " = ?",
+                params: [value.primary_key.as(::DB::Any)],
+              )
+            elsif value.is_a?(Enumerable({{reference[:type]}}))
+              next group << HavingTuple.new(
+                clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
+                params: value.map &.primary_key.as(::DB::Any),
+              )
+            else
+              raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class]}} or Enumerable({{reference[:class]}})! Given: #{value.class}")
+            end
+        {% end %}
         else
-          raise ArgumentError.new("#{key} value must be either nil, true or Core::Model! Given: #{value.class}")
+          raise ArgumentError.new("The key must be either reference or a field! Given: #{key}")
         end
-      elsif ModelType.db_fields.keys.includes?(key)
-        if value.is_a?(Array) && !value.is_a?(Array(Core::Model))
-          group << HavingTuple.new(
-            clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-            params: prepare_params(value),
-          )
-        elsif value == true && ModelType.db_fields[key] != Bool
-          group << HavingTuple.new(
-            clause: column + " IS NOT NULL",
-            params: nil,
-          )
-        elsif !value.is_a?(Core::Model)
-          group << HavingTuple.new(
-            clause: column + " = ?",
-            params: prepare_params([value]),
-          )
-        else
-          raise ArgumentError.new("Invalid value type used for #{key}! Given: #{value.class}")
-        end
-      else
-        raise ArgumentError.new("A key must be either reference or a field! Given: #{key}")
-      end
+      {% end %}
     end
 
     having(group.map(&.[:clause]).join(" AND "), group.map(&.[:params]).flatten, or: or)
+  end
 
-    self
+  # ditto
+  def self.having(**having)
+    new.having(**having)
   end
 
   # Equals to `#having`.
@@ -159,12 +204,7 @@ struct Core::Query(ModelType)
     having(**having, or: false)
   end
 
-  # :nodoc:
-  def self.having(**having)
-    new.having(**having)
-  end
-
-  # :nodoc:
+  # ditto
   def self.and_having(**having)
     new.and_having(**having)
   end
@@ -174,7 +214,7 @@ struct Core::Query(ModelType)
     having(**having, or: true)
   end
 
-  # :nodoc:
+  # ditto
   def self.or_having(**having)
     new.having(**having, or: true)
   end

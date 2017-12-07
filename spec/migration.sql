@@ -1,8 +1,12 @@
 -- Run this before tests:
 
+-- Run this before tests:
+
+-- Run this before tests:
+
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS pg_numeric_model;
+DROP TABLE IF EXISTS pg_numeric;
 
 CREATE TABLE users(
   id          SERIAL PRIMARY KEY,
@@ -22,7 +26,9 @@ CREATE TABLE posts(
   updated_at  TIMESTAMPTZ
 );
 
-CREATE TABLE pg_numeric_model(
-  id        SERIAL PRIMARY KEY,
-  a_number  NUMERIC(16, 8)
-)
+CREATE TABLE pg_numeric(
+  foo  NUMERIC(16, 8) NOT NULL,
+  bar  NUMERIC(16, 8)
+);
+
+INSERT INTO pg_numeric (foo, bar) VALUES (12345678.00000001, NULL);

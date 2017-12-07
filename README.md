@@ -19,7 +19,7 @@ Tired of [ActiveRecord](https://wikipedia.org/wiki/Active_record_pattern)'s magi
 
 ### What Core does not:
 
-  - It doesn't do database migrations. Use [micrate](https://github.com/juanedi/micrate), for example;
+  - It doesn't do database migrations. Use [micrate](https://github.com/vladfaust/migrate.cr), for example;
   - It doesn't have _"handy"_ methods you probably got used to.
   Need to count something? Use plain [db#scalar](http://crystal-lang.github.io/crystal-db/api/latest/DB/QueryMethods.html#scalar). `Core::Repository` is for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), not for endless utils.
 
@@ -48,7 +48,7 @@ CREATE TABLE users(
 CREATE TABLE posts(
   id          SERIAL PRIMARY KEY,
   author_id   INT         NOT NULL  REFERENCES users (id),
-  content     TEXT        NOT NULL,
+  content     TEXT,
   created_at  TIMESTAMPTZ NOT NULL,
   updated_at  TIMESTAMPTZ
 );
@@ -62,22 +62,17 @@ require "pg" # Or another driver
 class User < Core::Model
   schema do
     primary_key :id
-    field :name, String
-    virtual_field :posts_count, Int64
+    field :name, String, validate: {size: (3..32)}
     reference :posts, Array(Post), foreign_key: :author_id
     created_at_field :created_at
     updated_at_field :updated_at
-  end
-
-  validation do
-    errors.push({:name => "length must be >= 3"}) unless name.try &.size.>= 3
   end
 end
 
 class Post < Core::Model
   schema do
     primary_key :id
-    field :content, String
+    field :content, String?
     reference :author, User, key: :author_id
     created_at_field :created_at
     updated_at_field :updated_at
@@ -90,16 +85,15 @@ repo = Core::Repository.new(db, query_logger)
 
 user = User.new(name: "Fo")
 user.valid? # => false
-user.errors # => [{:name => "length must be >= 3"}]
+user.errors # => [{:name => "must have size in range of 3..32"}]
 user.name = "Foo"
-user.valid? # => true
 
-user.id = repo.insert(user) # See ^1
-# INSERT INTO users (name, created_at) VALUES ($1, $2) RETURNING id
+user.id = repo.insert(user.valid!).as(Int64)
+# INSERT INTO users (name, created_at) VALUES ($1, $2)
 
 post = Post.new(author: user, content: "Foo Bar")
-post.id = repo.insert(post) # See ^1
-# INSERT INTO posts (author_id, content, created_at) VALUES ($1, $2, $3) RETURNING id
+post.id = repo.insert(post).as(Int64)
+# INSERT INTO posts (author_id, content, created_at) VALUES ($1, $2, $3)
 
 alias Query = Core::Query
 
@@ -110,15 +104,12 @@ posts.first.content # => "Foo Bar"
 
 query = Query(User)
   .join(:posts)
-  .select(:*, :"COUNT(posts.id) AS posts_count")
   .group_by(%i(users.id posts.id))
   .one
 user = repo.query(query).first
-# SELECT *, COUNT (posts.id) AS posts_count
+# SELECT *
 # FROM users JOIN posts AS posts ON posts.author_id = users.id
 # GROUP BY users.id, posts.id LIMIT 1
-
-user.posts_count # => 1
 
 user.name = "Bar"
 user.changes # => {:name => "Bar"}
@@ -128,8 +119,6 @@ repo.update(user)
 repo.delete(posts.first)
 # DELETE FROM posts WHERE id = $1
 ```
-
-**^1:** Returning IDs is not working for PostgreSQL yet. See https://github.com/will/crystal-pg/issues/112.
 
 ## Testing
 

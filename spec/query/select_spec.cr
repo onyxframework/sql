@@ -1,6 +1,11 @@
 require "../query_spec"
 
-describe Query do
+module Query::SelectSpec
+  class User < Core::Model
+    schema :users do
+    end
+  end
+
   describe "#select" do
     context "with single argument" do
       it do

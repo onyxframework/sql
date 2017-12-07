@@ -1,6 +1,8 @@
+require "./wherish"
+
 struct Core::Query(ModelType)
   # :nodoc:
-  alias WhereTuple = NamedTuple(clause: String, params: Array(DBValue)?)
+  alias WhereTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
 
   # :nodoc:
   property where_values = [] of WhereTuple
@@ -23,7 +25,7 @@ struct Core::Query(ModelType)
   def where(clause : String, params : Array? = nil, or = false)
     tuple = WhereTuple.new(
       clause: clause,
-      params: prepare_params(params),
+      params: params.try &.map &.as(::DB::Any),
     )
 
     if or
@@ -38,28 +40,53 @@ struct Core::Query(ModelType)
   end
 
   # ditto
-  def self.where(clause : String, params : Array? = nil)
+  def self.where(clause, params = nil)
     new.where(clause, params)
   end
 
+  # ditto
+  def self.where(clause, *params)
+    new.where(clause, params.to_a)
+  end
+
   # Add `WHERE` clauses just like `#where`.
-  def and_where(clause : String, params : Array? = nil)
+  def and_where(clause, params = nil)
     where(clause, params)
   end
 
+  # Add `WHERE` clauses just like `#where`.
+  def and_where(clause, *params)
+    where(clause, params.to_a)
+  end
+
   # ditto
-  def self.and_where(clause : String, params : Array? = nil)
+  def self.and_where(clause, params = nil)
     new.and_where(clause, params)
   end
 
+  # ditto
+  def self.and_where(clause, *params)
+    new.and_where(clause, params.to_a)
+  end
+
   # Add `WHERE` clauses just like `#or_where`.
-  def or_where(clause : String, params : Array? = nil)
+  def or_where(clause, params = nil)
     where(clause, params, or: true)
   end
 
+  # Add `WHERE` clauses just like `#or_where`.
+  def or_where(clause, *params)
+    where(clause, params.to_a, or: true)
+  end
+
   # ditto
-  def self.or_where(clause : String, params : Array? = nil)
+  def self.or_where(clause, params = nil)
     new.and_where(clause, params, or: true)
+  end
+
+  # ditto
+  def self.or_where(clause, *params)
+    new.and_where(clause, params.to_a, or: true)
   end
 
   # A convenient way to add `WHERE` clauses. Multiple clauses in a single call are joined with `AND`. Examples:
@@ -97,65 +124,74 @@ struct Core::Query(ModelType)
   # ```
   def where(**where, or = false)
     group = [] of WhereTuple
+
     where.to_h.tap &.each do |key, value|
-      reference_key = ModelType.reference_key(key) rescue nil
-      column = ModelType.table_name + "." + (reference_key || key).to_s
+      {% begin %}
+        case key
+        {% for field in ModelType::INTERNAL__CORE_FIELDS %}
+          when {{field[:key]}}
+            column = {{ModelType::TABLE.id.stringify + "." + field[:key].id.stringify}}
 
-      if value.nil?
-        group << WhereTuple.new(
-          clause: column + " IS NULL",
-          params: nil,
-        )
-      elsif reference_key
-        if value == true
-          group << WhereTuple.new(
-            clause: column + " IS NOT NULL",
-            params: nil,
-          )
-        elsif value.is_a?(Core::Model)
-          group << WhereTuple.new(
-            clause: column + " = ?",
-            params: prepare_params([value.primary_key_value]),
-          )
-        elsif value.is_a?(Array(Core::Model))
-          group << WhereTuple.new(
-            clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-            params: prepare_params(value.map &.primary_key_value),
-          )
-        else
-          raise ArgumentError.new("#{key} value must be either nil, true or Core::Model! Given: #{value.class}")
-        end
-      elsif ModelType.db_fields.keys.includes?(key)
-        if value.is_a?(Array)
-          if value.any?(&.is_a?(Core::Model))
-            raise ArgumentError.new("Cannot use Core::Model as a value for #{key}!")
-          end
+            if value.nil?
+              next group << WhereTuple.new(
+                clause: column + " IS NULL",
+                params: nil,
+              )
+            elsif value.is_a?(Enumerable)
+              next group << WhereTuple.new(
+                clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
+                params: (puts "MAPPING #{value}"; value.map{ |v| puts "FIELD TO DB: #{v}"; field_to_db({{field}}, v) }),
+              )
+            {% unless field[:type] == "Bool" %}
+              elsif value == true
+                next group << WhereTuple.new(
+                  clause: column + " IS NOT NULL",
+                  params: nil,
+                )
+            {% end %}
+            else
+              next group << WhereTuple.new(
+                clause: column + " = ?",
+                params: Array(::DB::Any){field_to_db({{field}}, value)},
+              )
+            end
+        {% end %}
 
-          group << WhereTuple.new(
-            clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-            params: prepare_params(value),
-          )
-        elsif value == true && ModelType.db_fields[key] != Bool
-          group << WhereTuple.new(
-            clause: column + " IS NOT NULL",
-            params: nil,
-          )
-        elsif !value.is_a?(Core::Model)
-          group << WhereTuple.new(
-            clause: column + " = ?",
-            params: prepare_params([value]),
-          )
+        {% for reference in ModelType::INTERNAL__CORE_REFERENCES %}
+          when {{reference[:name]}}
+            column = {{ModelType::TABLE.id.stringify + "." + reference[:key].id.stringify}}
+
+            if value.nil?
+              next group << WhereTuple.new(
+                clause: column + " IS NULL",
+                params: nil,
+              )
+            elsif value == true
+              next group << WhereTuple.new(
+                clause: column + " IS NOT NULL",
+                params: nil,
+              )
+            elsif value.is_a?({{reference[:type]}})
+              next group << WhereTuple.new(
+                clause: column + " = ?",
+                params: [value.primary_key.as(::DB::Any)],
+              )
+            elsif value.is_a?(Enumerable({{reference[:type]}}))
+              next group << WhereTuple.new(
+                clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
+                params: value.map &.primary_key.as(::DB::Any),
+              )
+            else
+              raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class]}} or Enumerable({{reference[:class]}})! Given: #{value.class}")
+            end
+        {% end %}
         else
-          raise ArgumentError.new("Cannot use Core::Model as a value for #{key}!")
+          raise ArgumentError.new("The key must be either reference or a field! Given: #{key}")
         end
-      else
-        raise ArgumentError.new("The key must be either reference or a field! Given: #{key}")
-      end
+      {% end %}
     end
 
     where(group.map(&.[:clause]).join(" AND "), group.map(&.[:params]).flatten, or: or)
-
-    self
   end
 
   # ditto

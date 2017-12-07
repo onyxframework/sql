@@ -1,6 +1,11 @@
 require "../query_spec"
 
-describe Query do
+module Query::OffsetSpec
+  class User < Core::Model
+    schema :users do
+    end
+  end
+
   describe "#offset" do
     it do
       Query(User).offset(0).to_s.should eq <<-SQL

@@ -1,6 +1,11 @@
 require "../query_spec"
 
-describe Query do
+module Query::OrderBySpec
+  class User < Core::Model
+    schema :users do
+    end
+  end
+
   describe "#order_by" do
     context "with column only" do
       it do
