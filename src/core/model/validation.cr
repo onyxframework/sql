@@ -27,9 +27,9 @@ module Core
     #     error!(:custom_field, "some error occured") unless some_condition
     #   end
     # end
+    # ```
     #
     # NOTE: A `#nil?` validation will be run at first if the field is defined as non-nilable.
-    #
     module Validation
       macro define_validation
         getter errors = Array(Hash(Symbol, String)).new
