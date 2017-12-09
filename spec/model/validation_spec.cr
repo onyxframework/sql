@@ -11,8 +11,9 @@ module Model::ValidationSpec
           error!(:name, "has reserved value") if %w(foo bar baz).includes?(name)
         },
       }
-      field :age, Int32, nilable: true, validate: {min: 18}
+      field :age, Int32, nilable: true, validate: {min!: 17}
       field :height, Float64?, validate: {in: (0.5..2.5)}
+      field :iq, Int32?, validate: {min: 100, max!: 200}
     end
 
     validate do
@@ -60,10 +61,10 @@ module Model::ValidationSpec
         user.valid?.should be_true
       end
 
-      it "validates min" do
-        user.age = 5
+      it "validates min!" do
+        user.age = 17
         user.validate
-        user.errors.should eq ([{:age => "must be greater or equal to 18"}])
+        user.errors.should eq ([{:age => "must be greater than 17"}])
       end
     end
 
@@ -78,6 +79,26 @@ module Model::ValidationSpec
         user.height = 0.1
         user.validate
         user.errors.should eq ([{:height => "must be included in 0.5..2.5"}])
+      end
+    end
+
+    describe "#iq" do
+      user = User.new(name: "Vlad", iq: 135)
+
+      it "passes validation" do
+        user.valid?.should be_true
+      end
+
+      it "validates min" do
+        user.iq = 10
+        user.validate
+        user.errors.should eq ([{:iq => "must be greater or equal to 100"}])
+      end
+
+      it "validates max!" do
+        user.iq = 200
+        user.validate
+        user.errors.should eq ([{:iq => "must be less than 200"}])
       end
     end
   end

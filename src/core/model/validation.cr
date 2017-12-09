@@ -6,6 +6,8 @@ module Core
     # - *size* (`Range | Int32`) - Validate size;
     # - *min* (`Comparable`) - Check if field value `>=` than min;
     # - *max* (`Comparable`) - Check if field value `<=` than max;
+    # - *min!* (`Comparable`) - Check if field value `>` than min;
+    # - *max!* (`Comparable`) - Check if field value `<` than max;
     # - *in* (`Enumerable`) - Validate if field value is included in range or array etc.;
     # - *regex* (`Regex`) - Validate if field value matches regex;
     # - *custom* (`Proc`) - Custom validation, see example below;
@@ -105,6 +107,18 @@ module Core
                   {% if validations[:max] %}
                     unless value <= {{validations[:max]}}
                       error!({{field}}, "must be less or equal to {{validations[:max].id}}")
+                    end
+                  {% end %}
+
+                  {% if validations[:min!] %}
+                    unless value > {{validations[:min!]}}
+                      error!({{field}}, "must be greater than {{validations[:min!].id}}")
+                    end
+                  {% end %}
+
+                  {% if validations[:max!] %}
+                    unless value < {{validations[:max!]}}
+                      error!({{field}}, "must be less than {{validations[:max!].id}}")
                     end
                   {% end %}
 
