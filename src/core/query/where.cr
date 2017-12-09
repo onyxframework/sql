@@ -140,7 +140,7 @@ struct Core::Query(ModelType)
             elsif value.is_a?(Enumerable)
               next group << WhereTuple.new(
                 clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-                params: (puts "MAPPING #{value}"; value.map{ |v| puts "FIELD TO DB: #{v}"; field_to_db({{field}}, v) }),
+                params: value.map{ |v| field_to_db({{field}}, v) },
               )
             {% unless field[:type] == "Bool" %}
               elsif value == true
