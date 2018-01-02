@@ -122,7 +122,7 @@ struct Core::Query(ModelType)
   # # with params [1]
   # Query(User).new.where(role: User::Role::Admin)
   # ```
-  def where(**where, or = false)
+  def where(or = false, **where)
     group = [] of WhereTuple
 
     where.to_h.tap &.each do |key, value|

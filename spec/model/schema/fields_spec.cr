@@ -48,7 +48,7 @@ module Model::Schema::FieldsSpec
     it "gen properties" do
       user.id.should eq 42
 
-      expect_raises do
+      expect_raises Exception do
         user.role
       end
       user.role?.should be_nil
@@ -56,7 +56,7 @@ module Model::Schema::FieldsSpec
       user.foo.should eq "Foo"
       user.bar.class.should eq Float64
 
-      expect_raises do
+      expect_raises Exception do
         user.created_at
       end
       user.created_at?.should be_nil

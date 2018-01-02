@@ -116,7 +116,7 @@ module Model::Schema::ReferencesSpec
       like.post_id.should eq 17
 
       like.user_id = nil
-      expect_raises do
+      expect_raises Exception do
         like.user_id
       end
       like.user_id?.should be_nil

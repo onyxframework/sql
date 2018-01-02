@@ -10,7 +10,7 @@ deploy:
   github_token: $GITHUB_TOKEN
   on:
     branch: master
-  local_dir: doc
+  local_dir: docs
 before_script:
   - psql -c 'create database core_test;' -U postgres
   - psql $DATABASE_URL < spec/migration.sql

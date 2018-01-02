@@ -2,7 +2,7 @@ module Core
   abstract class Model
     module Schema
       private macro define_changes
-        {% skip() unless INTERNAL__CORE_FIELDS.size > 0 %}
+        {% skip_file unless INTERNAL__CORE_FIELDS.size > 0 %}
 
         # A storage for a `Model`'s changes, empty on initialize. Doesn't track virtual fields. To reset use `changes.clear`.
         @changes = Hash(Symbol, {{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new

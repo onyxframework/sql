@@ -2,11 +2,12 @@ module Core
   abstract class Model
     module Schema
       # Define a field for **Database mapping** (see [DB::Mappable](https://github.com/crystal-lang/crystal-db/blob/master/src/db/mapping.cr)).
-      # A property is generated for each field.
+      #
+      # A getter and setter are generated for each field.
       #
       # Possible *options*:
       # - *default* (`Proc?`) - Proc called for the field on `Model` instance initialization if it's `nil`;
-      # - *nilable* (`Bool?`) - Is this field nilable? Has the same effect as providing a nilable *type*. If nilable, will generate `property!`, otherwise `property?`;
+      # - *nilable* (`Bool?`) - Is this field nilable? Has the same effect as providing a nilable *type*. If nilable, will generate `getter!`, otherwise `getter`;
       # - *validate* (`NamedTuple`) - Which inline validations to run on this field (see `Validation`).
       # - *primary_key* (`Bool?`) - Is this field primary key? See `#primary_key`;
       # - *key* (`Symbol?`) - Column name for this field. Defaults to *name*;
@@ -25,9 +26,9 @@ module Core
           nilable = options[:nilable].id == "nil".id ? "#{_type}".includes?("::Nil") || "#{_type}".ends_with?("?") : options[:nilable]
         %}
 
-        # Generate `property!` or `property?` depending on if it's nilable
-        # The property itself is always nilable under the hood
-        property{{"!".id unless nilable}} {{name.id}} : {{_type.id}} | Nil
+        @{{name.id}} : {{_type.id}} | Nil
+        setter {{name.id}}
+        getter{{"!".id unless nilable}} {{name.id}}
 
         {% INTERNAL__CORE_CREATED_AT_FIELDS.push(name) if options[:created_at_field] %}
         {% INTERNAL__CORE_UPDATED_AT_FIELDS.push(name) if options[:updated_at_field] %}

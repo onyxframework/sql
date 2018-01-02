@@ -122,7 +122,7 @@ struct Core::Query(ModelType)
   # # with params [1]
   # Query(User).new.having(role: User::Role::Admin)
   # ```
-  def having(**having, or = false)
+  def having(or = false, **having)
     group = [] of HavingTuple
 
     having.to_h.tap &.each do |key, value|
