@@ -16,9 +16,9 @@ module Core
           end
         {% end %}
 
-        {% for reference in INTERNAL__CORE_REFERENCES.select(&.[:key]) %}
+        {% for reference in INTERNAL__CORE_REFERENCES.select { |r| r[:key] } %}
           # If `{{reference[:name].id}}` is changed, `{{reference[:key].id}}` is changed too.
-          def {{reference[:name].id}}=(value : {{reference[:class].id}} | Nil)
+          def {{reference[:name].id}}=(value : {{reference[:class]}} | Nil)
             self.{{reference[:key].id}} = value.try &.{{reference[:foreign_key].id}}
             @{{reference[:name].id}} = value
           end

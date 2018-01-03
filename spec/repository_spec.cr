@@ -88,6 +88,8 @@ module RepoSpec
       end
     end
 
+    that_user_id = uninitialized Int64 | Int32
+
     context "with Query" do
       complex_query = Query(User)
         .select(:*, :"COUNT (posts.id) AS posts_count")
@@ -97,6 +99,7 @@ module RepoSpec
         .limit(1)
 
       user = repo.query(complex_query).first
+      that_user_id = user.id
 
       it "returns a valid instance" do
         user.id.should be_a(Int32)
@@ -104,6 +107,20 @@ module RepoSpec
         user.name.should eq("Test User")
         user.created_at.should be_a(Time)
         user.updated_at.should eq(nil)
+      end
+    end
+
+    context "with references" do
+      user = repo.query(Query(User).where(id: that_user_id)).first
+
+      it "returns models with references" do
+        post = repo.query(Query(Post).where(author: user).join(:author)).first
+        post.author.should eq user
+        post.author.id.should eq that_user_id
+        post.author.role.should eq(User::Role::User)
+        post.author.name.should eq("Test User")
+        post.author.created_at.should be_a(Time)
+        post.author.updated_at.should eq(nil)
       end
     end
 

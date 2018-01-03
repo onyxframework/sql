@@ -20,7 +20,7 @@ module Core
       # end
       # ```
       #
-      # If *key* is given, also generates a field property, nilability of which depends on *class* and *nilable* option; and initializer. Basically, this key should copy one from SQL schema. For example:
+      # If *key* is given, also generates a field property. Nilability of both reference and field now depends on *class* and *nilable* option; and initializer. Basically, the key should copy one from SQL schema. For example:
       #
       # ```
       # schema do
@@ -31,7 +31,9 @@ module Core
       #
       # # Will expand in:
       #
+      # property referrer : User?
       # property referrer_id : PrimaryKey?
+      # property! creator : User?
       # property! creator_id : PrimaryKey?
       #
       # def initialize(
@@ -68,16 +70,19 @@ module Core
           _type = klass.is_a?(Generic) ? klass.type_vars.first.resolve : klass.resolve
           foreign_key = _type.constant("PRIMARY_KEY")[:name] unless foreign_key
 
+          is_array = klass.is_a?(Generic) ? klass.name.resolve.name == "Array(T)" : false
+
           INTERNAL__CORE_REFERENCES.push({
             name:        name,
             "class":     klass,
             type:        _type,
+            array:       is_array,
             key:         key,
             foreign_key: foreign_key,
           })
         %}
 
-        property {{name.id}} : {{klass.id}} | Nil
+        property{{"!".id if key && !key_nilable}} {{name.id}} : {{klass.id}} | Nil
 
         {% if key %}
           {% key_type = _type.constant("PRIMARY_KEY")[:type] unless key_type %}

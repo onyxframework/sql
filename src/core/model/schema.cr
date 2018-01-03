@@ -1,6 +1,5 @@
 require "db"
 require "../primary_key"
-require "../db/mapping"
 require "./schema/*"
 
 module Core
@@ -52,7 +51,7 @@ module Core
 
         define_getters({{table}})
         define_initializer
-        define_mapping
+        define_db_mapping
         define_changes
         define_validation
       end
