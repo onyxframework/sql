@@ -49,26 +49,30 @@ module Core
       #
       # A reference's primary key is obtained from the *class* itself, or, if given, from *foreign_key*. But remember that *foreign_key* is needed for `Query#join` and other methods!
       #
+      # NOTE: For now you have to specify full path to the reference class (with modules)
+      #
       # Another example:
       #
       # ```
-      # class User
-      #   primary_key :id
-      #   reference :referrer, User, key: :referrer_id
-      #   reference :referrals, Array(User), foreign_key: :referrer_id
-      #   reference :posts, Array(Post), foreign_key: :author_id
-      # end
+      # module Models
+      #   class User
+      #     primary_key :id
+      #     reference :referrer, Models::User, key: :referrer_id
+      #     reference :referrals, Array(Models::User), foreign_key: :referrer_id
+      #     reference :posts, Array(Models::Post), foreign_key: :author_id
+      #   end
       #
-      # class Post
-      #   reference :author, User, key: :author_id
+      #   class Post
+      #     reference :author, Models::User, key: :author_id
+      #   end
       # end
       # ```
       macro reference(name, class klass, key = nil, key_type = nil, foreign_key = nil, nilable = nil)
         {%
           key_nilable = nilable == nil ? "#{klass}".includes?("::Nil") || "#{klass}".ends_with?("?") : nilable
 
-          _type = klass.is_a?(Generic) ? klass.type_vars.first.resolve : klass.resolve
-          foreign_key = _type.constant("PRIMARY_KEY")[:name] unless foreign_key
+          _type = klass.is_a?(Generic) ? klass.type_vars.first : klass
+          foreign_key = _type.resolve.constant("PRIMARY_KEY")[:name] unless foreign_key
 
           is_array = klass.is_a?(Generic) ? klass.name.resolve.name == "Array(T)" : false
 
@@ -85,7 +89,7 @@ module Core
         property{{"!".id if key && !key_nilable}} {{name.id}} : {{klass.id}} | Nil
 
         {% if key %}
-          {% key_type = _type.constant("PRIMARY_KEY")[:type] unless key_type %}
+          {% key_type = _type.resolve.constant("PRIMARY_KEY")[:type] unless key_type %}
           field({{key}}, {{key_type}}, nilable: {{key_nilable}})
         {% end %}
       end

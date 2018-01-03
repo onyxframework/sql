@@ -17,7 +17,7 @@ module Query::WhereSpec
 
   class Post < Core::Model
     schema :posts do
-      reference :author, User, key: :author_id
+      reference :author, Query::WhereSpec::User, key: :author_id
     end
   end
 

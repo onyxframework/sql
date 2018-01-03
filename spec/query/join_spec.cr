@@ -1,23 +1,20 @@
 require "../query_spec"
 
 module Query::JoinSpec
-  class Post < Core::Model
-  end
-
   class User < Core::Model
     schema :users do
       primary_key :id
-      reference :referrer, User, key: :referrer_id
-      reference :referrals, Array(User), foreign_key: :referrer_id
-      reference :posts, Array(Post), foreign_key: :author_id
+      reference :referrer, Query::JoinSpec::User, key: :referrer_id
+      reference :referrals, Array(Query::JoinSpec::User), foreign_key: :referrer_id
+      reference :posts, Array(Query::JoinSpec::Post), foreign_key: :author_id
     end
   end
 
   class Post < Core::Model
     schema :posts do
       primary_key :id
-      reference :author, User, key: :author_id
-      reference :editor, User, key: :editor_id
+      reference :author, Query::JoinSpec::User, key: :author_id
+      reference :editor, Query::JoinSpec::User, key: :editor_id
     end
   end
 

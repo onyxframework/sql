@@ -1,12 +1,6 @@
 require "../../model_spec"
 
 module Model::Schema::ReferencesSpec
-  class Post < Core::Model
-  end
-
-  class Like < Core::Model
-  end
-
   class User < Core::Model
     schema :users do
       primary_key :id

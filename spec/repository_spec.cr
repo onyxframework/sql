@@ -11,9 +11,6 @@ db = ::DB.open(ENV["DATABASE_URL"] || raise "No DATABASE_URL is set!")
 query_logger = Core::QueryLogger.new(nil)
 
 module RepoSpec
-  class Post < Core::Model
-  end
-
   class User < Core::Model
     enum Role
       User
@@ -23,11 +20,11 @@ module RepoSpec
     schema :users do
       primary_key :id
 
-      reference :referrer, User, key: :referrer_id
-      reference :referrals, Array(User), foreign_key: :referrer_id
+      reference :referrer, RepoSpec::User, key: :referrer_id
+      reference :referrals, Array(RepoSpec::User), foreign_key: :referrer_id
 
-      reference :posts, Array(Post), foreign_key: :author_id
-      reference :edited_posts, Array(Post), foreign_key: :editor_id
+      reference :posts, Array(RepoSpec::Post), foreign_key: :author_id
+      reference :edited_posts, Array(RepoSpec::Post), foreign_key: :editor_id
 
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
@@ -41,8 +38,8 @@ module RepoSpec
     schema :posts do
       primary_key :id
 
-      reference :author, User, key: :author_id
-      reference :editor, User?, key: :editor_id
+      reference :author, RepoSpec::User, key: :author_id
+      reference :editor, RepoSpec::User?, key: :editor_id
 
       field :content, String
 
