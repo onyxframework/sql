@@ -4,7 +4,7 @@ module Model::Schema::ChangesSpec
   class User < Core::Model
     schema :users do
       primary_key :id
-      reference :referrer, User?, key: :referrer_id
+      reference :referrer, User, key: :referrer_id
       field :foo, String
     end
   end

@@ -182,7 +182,7 @@ struct Core::Query(ModelType)
                 params: value.map &.primary_key.as(::DB::Any),
               )
             else
-              raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class]}} or Enumerable({{reference[:class]}})! Given: #{value.class}")
+              raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class].id}} or Enumerable({{reference[:class].id}})! Given: #{value.class}")
             end
         {% end %}
         else

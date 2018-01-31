@@ -20,11 +20,11 @@ module RepoSpec
     schema :users do
       primary_key :id
 
-      reference :referrer, RepoSpec::User, key: :referrer_id
-      reference :referrals, Array(RepoSpec::User), foreign_key: :referrer_id
+      reference :referrer, User, key: :referrer_id
+      reference :referrals, Array(User), foreign_key: :referrer_id
 
-      reference :posts, Array(RepoSpec::Post), foreign_key: :author_id
-      reference :edited_posts, Array(RepoSpec::Post), foreign_key: :editor_id
+      reference :posts, Array(Post), foreign_key: :author_id
+      reference :edited_posts, Array(Post), foreign_key: :editor_id
 
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
@@ -38,8 +38,8 @@ module RepoSpec
     schema :posts do
       primary_key :id
 
-      reference :author, RepoSpec::User, key: :author_id
-      reference :editor, RepoSpec::User?, key: :editor_id
+      reference :author, User, key: :author_id
+      reference :editor, User?, key: :editor_id
 
       field :content, String
 
@@ -112,12 +112,13 @@ module RepoSpec
 
       it "returns models with references" do
         post = repo.query(Query(Post).where(author: user).join(:author)).first
-        post.author.should eq user
-        post.author.id.should eq that_user_id
-        post.author.role.should eq(User::Role::User)
-        post.author.name.should eq("Test User")
-        post.author.created_at.should be_a(Time)
-        post.author.updated_at.should eq(nil)
+        author = post.author.not_nil!
+        author.should eq user
+        author.id.should eq that_user_id
+        author.role.should eq(User::Role::User)
+        author.name.should eq("Test User")
+        author.created_at.should be_a(Time)
+        author.updated_at.should eq(nil)
       end
     end
 

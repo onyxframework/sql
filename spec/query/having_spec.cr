@@ -17,7 +17,7 @@ module Query::HavingSpec
 
   class Post < Core::Model
     schema :posts do
-      reference :author, Query::HavingSpec::User, key: :author_id
+      reference :author, User, key: :author_id
     end
   end
 

@@ -4,7 +4,7 @@ module Model::Schema::ReferencesSpec
   class User < Core::Model
     schema :users do
       primary_key :id
-      reference :referrer, User?, key: :referrer_id
+      reference :referrer, User, key: :referrer_id
       reference :referrals, Array(User), foreign_key: :referrer_id
       reference :posts, Array(Post), foreign_key: :author_id
       reference :likes, Array(Like), foreign_key: :user_id
@@ -110,10 +110,7 @@ module Model::Schema::ReferencesSpec
       like.post_id.should eq 17
 
       like.user_id = nil
-      expect_raises Exception do
-        like.user_id
-      end
-      like.user_id?.should be_nil
+      like.user_id.should be_nil
     end
   end
 end
