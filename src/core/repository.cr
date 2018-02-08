@@ -14,6 +14,7 @@ require "./repository/*"
 # - `#update`
 # - `#delete`
 # - `#exec`
+# - `#scalar`
 #
 # See `Query` for a handy queries builder.
 #
@@ -51,6 +52,7 @@ class Core::Repository
   include Update
   include Delete
   include Exec
+  include Scalar
 
   # Initialize a new `Repository` istance linked to *db*,
   # which is data storage, and *query_logger*,

@@ -257,4 +257,22 @@ module RepoSpec
       end
     end
   end
+
+  describe "#scalar" do
+    context "with SQL" do
+      result = repo.scalar("SELECT 1").as(Int32)
+
+      it do
+        result.should eq(1)
+      end
+    end
+
+    context "with Query" do
+      result = repo.scalar(Query(User).last.select(:id)).as(Int32)
+
+      it do
+        result.should be_a(Int32)
+      end
+    end
+  end
 end
