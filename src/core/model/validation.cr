@@ -2,6 +2,8 @@ module Core
   abstract class Model
     # A module which helps to validate models in a convenient way.
     #
+    # It has to be included into a model **explicitly**.
+    #
     # Implemented inline validations (defined as `:validate` option on field):
     # - *size* (`Range | Int32`) - Validate size;
     # - *min* (`Comparable`) - Check if field value `>=` than min;
@@ -14,6 +16,8 @@ module Core
     #
     # ```
     # class User < Core::Model
+    #   include Validation
+    #
     #   schema do
     #     field :name, String, validate: {
     #       size:   (3..32),

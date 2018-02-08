@@ -7,6 +7,5 @@ module Core
   # For database communication, please see `Repository`.
   abstract class Model
     include Schema
-    include Validation
   end
 end

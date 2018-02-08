@@ -53,7 +53,10 @@ module Core
         define_initializer
         define_db_mapping
         define_changes
-        define_validation
+
+        {% if @type < Validation %}
+          define_validation
+        {% end %}
       end
     end
   end

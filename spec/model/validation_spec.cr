@@ -2,6 +2,8 @@ require "../model_spec"
 
 module Model::ValidationSpec
   class User < Core::Model
+    include Validation
+
     schema :users do
       primary_key :id
       field :name, String, validate: {
