@@ -1,6 +1,7 @@
 require "db"
 require "./params"
 require "./query_logger"
+require "./repository/*"
 
 # `Repository` is a gateway between `Model`s and Database.
 #
@@ -37,149 +38,17 @@ class Core::Repository
   # :nodoc:
   property query_logger
 
+  include Query
+  include Insert
+  include Update
+  include Delete
+
   # Initialize a new `Repository` istance linked to *db*,
   # which is data storage, and *query_logger*,
   # which logs Database queries.
   #
   # NOTE: *db* and *query_logger* can be changed in the runtime with according `#db=` and `#query_logger=` methods.
   def initialize(@db : ::DB::Database, @query_logger : QueryLogger)
-  end
-
-  # Query `#db` returning an array of *model* instances.
-  #
-  # ```
-  # repo.query(User, "SELECT * FROM users") # => Array(User)
-  # ```
-  #
-  # TODO: Handle errors (PQ::PQError)
-  def query(model : Model.class, query : String, *params) : Array
-    query = prepare_query(query)
-    params = Core.prepare_params(*params) if params.any?
-
-    query_logger.wrap(query) do
-      db.query_all(query, *params) do |rs|
-        rs.read(model)
-      end
-    end
-  end
-
-  # Query `#db` returning an array of model instances inherited from *query*.
-  #
-  # ```
-  # repo.query(Query(User).all) # => Array(User)
-  # ```
-  #
-  # TODO: Handle errors (PQ::PQError)
-  def query(query : Query(T)) forall T
-    query(T, query.to_s, query.params)
-  end
-
-  private SQL_INSERT = <<-SQL
-  INSERT INTO %{table_name} (%{keys}) VALUES (%{values})
-  SQL
-
-  private SQL_LAST_INSERTED_PK = <<-SQL
-  SELECT currval(pg_get_serial_sequence('%{table_name}', '%{primary_key}'))
-  SQL
-
-  # Insert *instance* into Database. Returns last inserted ID or nil if not inserted.
-  #
-  # NOTE: Does not check if `Model::Validation#valid?`.
-  #
-  # TODO: Handle errors.
-  # TODO: Multiple inserts.
-  # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-  def insert(instance : Model)
-    fields = instance.fields.dup.tap do |f|
-      f.each do |k, _|
-        f[k] = now if instance.class.created_at_fields.includes?(k) && f[k].nil?
-        f.delete(k) if k == instance.class.primary_key[:name]
-      end
-    end
-
-    query = SQL_INSERT % {
-      table_name: instance.class.table,
-      keys:       fields.keys.join(", "),
-      values:     (1..fields.size).map { "?" }.join(", "),
-    }
-
-    query = prepare_query(query)
-    params = Core.prepare_params(fields.values)
-
-    query_logger.wrap(query) do
-      rows_affected = db.exec(query, *params).rows_affected
-
-      if rows_affected > 0
-        last_pk_query = SQL_LAST_INSERTED_PK % {
-          table_name:  instance.class.table,
-          primary_key: instance.class.primary_key[:name],
-        }
-
-        db.scalar(last_pk_query)
-      end
-    end
-  end
-
-  private SQL_UPDATE = <<-SQL
-  UPDATE %{table_name} SET %{set_fields} WHERE %{primary_key} = ? RETURNING %{returning}
-  SQL
-
-  # Update *instance*.
-  # Only fields appearing in `Model#changes` are affected.
-  # Returns affected rows count (doesn't work for PostgreSQL driver yet: [https://github.comwill/crystal-pg/issues/112](https://github.com/will/crystal-pg/issues/112)).
-  #
-  # NOTE: Does not check if `Model::Validation#valid?`.
-  #
-  # TODO: Handle errors.
-  # TODO: Multiple updates.
-  # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-  def update(instance : Model)
-    fields = instance.fields.select do |k, _|
-      instance.changes.keys.includes?(k)
-    end.tap do |f|
-      f.each do |k, _|
-        f[k] = now if instance.class.updated_at_fields.includes?(k)
-      end
-    end
-
-    return unless fields.any?
-
-    query = SQL_UPDATE % {
-      table_name:  instance.class.table,
-      set_fields:  fields.keys.map { |k| k.to_s + " = ?" }.join(", "),
-      primary_key: instance.class.primary_key[:name], # TODO: Handle empty primary key
-      returning:   instance.class.primary_key[:name],
-    }
-
-    query = prepare_query(query)
-    params = Core.prepare_params(fields.values.push(instance.primary_key))
-
-    query_logger.wrap(query) do
-      db.exec(query, *params).rows_affected
-    end
-  end
-
-  private SQL_DELETE = <<-SQL
-  DELETE FROM %{table_name} WHERE %{primary_key} = ?
-  SQL
-
-  # Delete *instance* from Database.
-  # Returns affected rows count (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
-  #
-  # TODO: Handle errors.
-  # TODO: Multiple deletes.
-  def delete(instance : Model)
-    query = SQL_DELETE % {
-      table_name:  instance.class.table,
-      primary_key: instance.class.primary_key[:name],
-    }
-
-    query = prepare_query(query)
-    params = Core.prepare_params(instance.primary_key)
-
-    query_logger.wrap(query) do
-      db.exec(query, *params).rows_affected
-    end
   end
 
   # Prepare *query* for execution. Replaces "?" with "$i" for PostgreSQL.
