@@ -13,6 +13,7 @@ require "./repository/*"
 # - `#insert`
 # - `#update`
 # - `#delete`
+# - `#exec`
 #
 # See `Query` for a handy queries builder.
 #
@@ -49,6 +50,7 @@ class Core::Repository
   include Insert
   include Update
   include Delete
+  include Exec
 
   # Initialize a new `Repository` istance linked to *db*,
   # which is data storage, and *query_logger*,

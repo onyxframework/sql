@@ -239,4 +239,22 @@ module RepoSpec
       end
     end
   end
+
+  describe "#exec" do
+    context "with SQL" do
+      result = repo.exec("SELECT 'Hello world'")
+
+      it do
+        result.should be_a(DB::ExecResult)
+      end
+    end
+
+    context "with Query" do
+      result = repo.exec(Query(User).all)
+
+      it do
+        result.should be_a(DB::ExecResult)
+      end
+    end
+  end
 end
