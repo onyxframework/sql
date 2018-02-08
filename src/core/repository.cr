@@ -5,7 +5,14 @@ require "./repository/*"
 
 # `Repository` is a gateway between `Model`s and Database.
 #
-# It allows to `#query`, `#insert`, `#update` and `#delete` models.
+# Supported methods:
+#
+# - `#query` (alias of `#query_all`)
+# - `#query_one`
+# - `#query_one?`
+# - `#insert`
+# - `#update`
+# - `#delete`
 #
 # See `Query` for a handy queries builder.
 #
@@ -19,7 +26,7 @@ require "./repository/*"
 # # 1.773ms
 #
 # query = Query(User).last
-# user = repo.query(query).first
+# user = repo.query_one(query)
 # # SELECT * FROM users ORDER BY id DESC LIMIT 1
 # # 275μs
 #

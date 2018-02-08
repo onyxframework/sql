@@ -129,6 +129,68 @@ module RepoSpec
     end
   end
 
+  describe "#query_all" do
+    context "with SQL" do
+      users = repo.query_all(User, "SELECT * FROM users WHERE id = ?", 1)
+
+      it "returns valid instances" do
+        users.should be_a(Array(User))
+        users.first.id.should eq(1)
+      end
+    end
+
+    context "with Query" do
+      users = repo.query_all(Query(User).all)
+
+      it "returns valid instances" do
+        users.should be_a(Array(User))
+      end
+    end
+  end
+
+  describe "#query_one?" do
+    context "with SQL" do
+      user = repo.query_one?(User, "SELECT * FROM users WHERE id = ?", -1)
+
+      it "returns a valid instance" do
+        user.should be_a(User?)
+      end
+    end
+
+    context "with Query" do
+      user = repo.query_one?(Query(User).last)
+
+      it "returns a valid instance" do
+        user.should be_a(User?)
+      end
+    end
+  end
+
+  describe "#query_one" do
+    context "with SQL" do
+      user = repo.query_one(User, "SELECT * FROM users WHERE id = ?", 1)
+
+      it "returns a valid instance" do
+        user.should be_a(User)
+        user.id.should eq(1)
+      end
+
+      it "raises on zero results" do
+        expect_raises Core::Repository::NoResultsError do
+          user = repo.query_one(User, "SELECT * FROM users WHERE id = ?", -1)
+        end
+      end
+    end
+
+    context "with Query" do
+      user = repo.query_one(Query(User).last)
+
+      it "returns a valid instance" do
+        user.should be_a(User)
+      end
+    end
+  end
+
   describe "#update" do
     user = repo.query(Query(User).last).first
 
