@@ -84,7 +84,7 @@ module RepoSpec
       end
     end
 
-    that_user_id = uninitialized Int64 | Int32
+    that_user_id = uninitialized Int64 | Int32 | Nil
 
     context "with Query" do
       complex_query = Query(User)

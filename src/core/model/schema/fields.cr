@@ -86,7 +86,7 @@ module Core
       #   schema do
       #     primary_key :id
       #     # Is an alias of
-      #     field :id, Core::PrimaryKey, primary_key: true
+      #     field :id, Core::PrimaryKey?, primary_key: true
       #   end
       # end
       #
@@ -95,14 +95,14 @@ module Core
       # user.primary_key_value # => 42
       # ```
       #
-      # The *type* is `Core::PrimaryKey` by default, but you pass whatever you want:
+      # The *type* is `Core::PrimaryKey?` by default, but you pass whatever you want:
       #
       # ```
       # schema do
       #   primary_key :uuid, String, default: SecureRandom.uuid
       # end
       # ```
-      macro primary_key(name, type _type = Core::PrimaryKey, **options)
+      macro primary_key(name, type _type = Core::PrimaryKey?, **options)
         field({{name}}, {{_type}}, primary_key: true, {{**options}})
       end
 

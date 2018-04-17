@@ -73,14 +73,14 @@ module Core
 
           {% for _field in INTERNAL__CORE_FIELDS %}
             begin
-              {% if validations = _field[:validations] %}
-                {{field = _field[:name]}}
+              {{field = _field[:name]}}
 
-                if @{{field.id}}.nil?
-                  unless {{_field[:nilable]}}
-                    error!({{field}}, "must not be nil")
-                  end
-                else
+              if @{{field.id}}.nil?
+                unless {{_field[:nilable]}}
+                  error!({{field}}, "must not be nil")
+                end
+              else
+                {% if validations = _field[:validations] %}
                   value = @{{field.id}}.not_nil!
 
                   {% if validations[:size] %}
@@ -135,8 +135,8 @@ module Core
                   {% if validations[:custom] %}
                     {{validations[:custom].id}}.call(value)
                   {% end %}
-                end
-              {% end %}
+                {% end %}
+              end
             rescue ex : Throw
             end
           {% end %}
