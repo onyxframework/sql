@@ -12,6 +12,7 @@ module Model::Schema::FieldsSpec
     schema :users do
       primary_key :id
       field :role, Role, converter: Core::Converters::Enum(Role)
+      field :active, Bool, default: true
       field :foo, String, key: :foo_column, default: "Foo"
       field :bar, Float64?, converter: Core::Converters::PG::Numeric
       field :created_at, Time, created_at_field: true
@@ -34,6 +35,7 @@ module Model::Schema::FieldsSpec
       user.fields.should eq ({
         :id         => 42,
         :role       => nil,
+        :active     => true,
         :foo        => "Foo",
         :bar        => 0.to_f64,
         :created_at => nil,
@@ -47,6 +49,9 @@ module Model::Schema::FieldsSpec
 
     it "gen properties" do
       user.id.should eq 42
+
+      user.active.should be_true # Somehow it is possible - Crystal bug?
+      user.active?.should be_true
 
       expect_raises Exception do
         user.role

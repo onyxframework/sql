@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS pg_numeric;
 CREATE TABLE users(
   id          SERIAL PRIMARY KEY,
   referrer_id INT                     REFERENCES users (id),
+  active      BOOL          NOT NULL  DEFAULT true,
   role        INT           NOT NULL  DEFAULT 0,
   name        VARCHAR(100)  NOT NULL,
   created_at  TIMESTAMPTZ   NOT NULL,

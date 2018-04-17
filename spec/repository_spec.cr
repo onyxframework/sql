@@ -26,6 +26,7 @@ module RepoSpec
       reference :posts, Array(Post), foreign_key: :author_id
       reference :edited_posts, Array(Post), foreign_key: :editor_id
 
+      field :active, Bool, default: true
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
 
@@ -99,6 +100,7 @@ module RepoSpec
 
       it "returns a valid instance" do
         user.id.should be_a(Int32)
+        user.active.should be_true
         user.role.should eq(User::Role::User)
         user.name.should eq("Test User")
         user.created_at.should be_a(Time)
@@ -114,6 +116,7 @@ module RepoSpec
         author = post.author.not_nil!
         author.should eq user
         author.id.should eq that_user_id
+        author.active.should be_true
         author.role.should eq(User::Role::User)
         author.name.should eq("Test User")
         author.created_at.should be_a(Time)

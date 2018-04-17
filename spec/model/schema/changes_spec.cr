@@ -6,11 +6,12 @@ module Model::Schema::ChangesSpec
       primary_key :id
       reference :referrer, User, key: :referrer_id
       field :foo, String
+      field :bar, Bool
     end
   end
 
   describe "#changes" do
-    user = User.new(id: 42, foo: "Foo")
+    user = User.new(id: 42, foo: "Foo", bar: false)
 
     it "has initially empty changes" do
       user.changes.empty?.should be_true
@@ -23,6 +24,9 @@ module Model::Schema::ChangesSpec
 
         user.foo = "Bar"
         user.changes.should eq ({:id => 43, :foo => "Bar"})
+
+        user.bar = true
+        user.changes.should eq ({:id => 43, :foo => "Bar", :bar => true})
 
         user.changes.clear
         user.changes.empty?.should be_true

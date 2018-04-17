@@ -13,6 +13,7 @@ module Model::ValidationSpec
           error!(:name, "has reserved value") if %w(foo bar baz).includes?(name)
         },
       }
+      field :active, Bool, nilable: false, default: true
       field :age, Int32, nilable: true, validate: {min!: 17}
       field :height, Float64?, validate: {in: (0.5..2.5)}
       field :iq, Int32?, validate: {min: 100, max!: 200}
@@ -25,13 +26,21 @@ module Model::ValidationSpec
 
   describe "inline validation" do
     describe "#name" do
-      user = User.new(name: "Alex")
+      user = User.new(name: "Alex", active: true)
 
       it "passes validation" do
         user.valid?.should be_true
       end
 
-      it "validates presence" do
+      it "validates active presence" do
+        user.active = nil
+        user.validate
+        user.errors.should eq ([{:active => "must not be nil"}])
+      end
+
+      user.active = true
+
+      it "validates name presence" do
         user.name = nil
         user.validate
         user.errors.should eq ([{:name => "must not be nil"}])
