@@ -1,9 +1,5 @@
 -- Run this before tests:
 
--- Run this before tests:
-
--- Run this before tests:
-
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pg_numeric;
