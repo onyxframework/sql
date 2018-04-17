@@ -59,7 +59,7 @@ class Core::Repository
   # which logs Database queries.
   #
   # NOTE: *db* and *query_logger* can be changed in the runtime with according `#db=` and `#query_logger=` methods.
-  def initialize(@db : ::DB::Database, @query_logger : QueryLogger)
+  def initialize(@db : ::DB::Database, @query_logger : QueryLogger = QueryLogger.new(nil))
   end
 
   # Prepare *query* for execution. Replaces "?" with "$i" for PostgreSQL.
