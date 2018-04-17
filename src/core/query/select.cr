@@ -1,31 +1,33 @@
 struct Core::Query(ModelType)
   # :nodoc:
-  property select_values : Array(Symbol) = [:*]
+  property select_values : Array(Symbol | String) = [] of Symbol | String
 
   def reset
-    select_values = [:*]
+    select_values = [] of Symbol | String
     super
   end
 
-  # Set values for `SELECT` clause, default to [:*].
-  #
-  # NOTE: Only `Symbol`s are accepted.
+  # Append values to `SELECT` clause, default to "*".
   #
   # ```
   # Query(User).new.select(:"DISTINCT name").to_s
   # # => SELECT DISTINCT name FROM users
-  def select(*selects)
-    @select_values.replace(selects.to_a.flatten)
+  #
+  # Query(User).new.select("DISTINCT name").select(:id, :role).to_s
+  # # => SELECT DISTINCT name, id, role FROM users
+  # ```
+  def select(*values)
+    @select_values.concat(values)
     self
   end
 
   # :nodoc:
-  def self.select(*selects)
-    new.select(*selects)
+  def self.select(*values)
+    new.select(*values)
   end
 
   # :nodoc:
   macro select_clause
-    query += "SELECT " + select_values.join(", ")
+    query += "SELECT " + (select_values.any? ? select_values.join(", ") : "*")
   end
 end

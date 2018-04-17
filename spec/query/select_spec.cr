@@ -13,7 +13,7 @@ module Query::SelectSpec
           SELECT DISTINCT id FROM users
         SQL
 
-        Query(User).select(:"DISTINCT id").to_s.should eq(sql.strip)
+        Query(User).select("DISTINCT id").to_s.should eq(sql.strip)
       end
     end
 
@@ -22,15 +22,9 @@ module Query::SelectSpec
         SELECT name, role FROM users
       SQL
 
-      context "passed as separate symbols" do
+      context "passed as separate values" do
         it do
-          Query(User).select(:name, :role).to_s.should eq(sql.strip)
-        end
-      end
-
-      context "passed as array of symbols" do
-        it do
-          Query(User).select([:name, :role]).to_s.should eq(sql.strip)
+          Query(User).select(:name, "role").to_s.should eq(sql.strip)
         end
       end
     end
@@ -38,10 +32,10 @@ module Query::SelectSpec
     context "when called multiple times" do
       it "rewrites to the last value" do
         sql = <<-SQL
-          SELECT name FROM users
+          SELECT id, name, role FROM users
         SQL
 
-        Query(User).select(:id).select(:name).to_s.should eq(sql.strip)
+        Query(User).select(:id).select("name, role").to_s.should eq(sql.strip)
       end
     end
   end
