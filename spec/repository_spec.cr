@@ -54,15 +54,14 @@ module RepoSpec
   describe "#insert" do
     user = User.new(name: "Test User")
     user.id = repo.insert(user).as(Int64)
-    query = Query(User).last
 
     it "sets created_at field" do
-      user_created_at = db.scalar(query.select(:created_at).to_s).as(Time)
+      user_created_at = repo.scalar(Query(User).last.select(:created_at)).as(Time)
       user_created_at.should be_truthy
     end
 
     it "doesn't set updated_at field" do
-      db.scalar(query.select(:updated_at).to_s).as(Time?).should be_nil
+      repo.scalar(Query(User).last.select(:updated_at)).as(Time?).should be_nil
     end
 
     it "works with references" do
@@ -71,7 +70,7 @@ module RepoSpec
     end
 
     it "returns fresh id" do
-      previous_id = db.scalar(query.select(:id).to_s).as(Int32)
+      previous_id = repo.scalar(Query(User).last.select(:id)).as(Int32)
       repo.insert(user).should eq(previous_id + 1)
     end
   end
