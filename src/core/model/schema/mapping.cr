@@ -7,9 +7,6 @@ module Core
         property value = 0
       end
 
-      class FieldNotFoundError < Exception
-      end
-
       private macro define_db_mapping
         macro finished
           include ::DB::Mappable
@@ -26,7 +23,7 @@ module Core
             rs.close
           end
 
-          def initialize(rs : ::DB::ResultSet, subset = false, column_indexer : ColumnIndexer = ColumnIndexer.new)
+          def initialize(rs : ::DB::ResultSet, reference = false, column_indexer : ColumnIndexer = ColumnIndexer.new)
             {% skip_file() if INTERNAL__CORE_FIELDS.empty? %}
 
             %temp_fields = Hash(Symbol, {{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new
@@ -53,23 +50,23 @@ module Core
                     column_indexer.value += 1
                 \{% end %}
               else
-                # Do not allow deep subsets yet
-                raise FieldNotFoundError.new nil if subset
+                # Do not allow deep references
+                if reference
+                  %temp_fields.size > 0 ? break : return nil
+                end
 
-                \{% for reference in INTERNAL__CORE_REFERENCES %}
-                  unless %temp_references.has_key?(\{{reference[:name]}})
-                    begin
-                      %temp = \{{reference[:type].id}}.new(rs, true, column_indexer)
-                      %temp_references[\{{reference[:name]}}] = %temp
-                      next
-                    rescue ex : FieldNotFoundError
-                    end
+                \{% for reference in INTERNAL__CORE_REFERENCES.select{ |r| !r[:array] } %}
+                  if !%temp_references.has_key?(\{{reference[:name]}}) && column_name == "_" + \{{reference[:name].id.stringify}}
+                    rs.read
+                    column_indexer.value += 1
+
+                    %temp = \{{reference[:type].id}}.new(rs, \{{reference[:name]}}, column_indexer)
+                    %temp_references[\{{reference[:name]}}] = %temp
                   end
                 \{% end %}
 
-                # Skip this column
-                rs.read
-                column_indexer.value += 1
+                # Column is not mappable neither for self nor for any reference, skip further columns then
+                break
               end
             end
 

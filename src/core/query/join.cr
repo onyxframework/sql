@@ -92,6 +92,7 @@ struct Core::Query(ModelType)
         {% for reference in ModelType::INTERNAL__CORE_REFERENCES %}
           when {{reference[:name]}}
             {% if reference[:key] %}
+              append_mapping_marker({{reference[:name]}}, _as || {{reference[:name]}})
               join(
                 table: {{reference[:type]}}.table,
                 on: {
@@ -100,9 +101,10 @@ struct Core::Query(ModelType)
                 },
                 as: _as || {{reference[:name]}},
                 type: _type,
-              )
-            {% elsif reference[:foreign_key] %}
-              join(
+                )
+              {% elsif reference[:foreign_key] %}
+                append_mapping_marker({{reference[:name]}}, _as || {{reference[:name]}})
+                join(
                 table: {{reference[:type]}}.table,
                 on: {
                   {{reference[:foreign_key]}},
@@ -124,6 +126,18 @@ struct Core::Query(ModelType)
   # :nodoc:
   def self.join(reference, as _as = nil, type _type = nil)
     new.join(reference, _as, _type)
+  end
+
+  @initial_select_wildcard_prefix : Bool = false
+
+  # Append SELECT marker used for mapping. E.g. `append_mapping_marker("post")` would append "SELECT '' AS _post, posts.*"
+  def append_mapping_marker(mappable_type_name, as _as)
+    if !@initial_select_wildcard_prefix
+      self.select({{ModelType::TABLE.id.stringify}} + ".*")
+      @initial_select_wildcard_prefix = true
+    end
+
+    self.select("'' AS _#{mappable_type_name}, #{_as}.*")
   end
 
   # `INNER JOIN` *reference*. See `#join`.
