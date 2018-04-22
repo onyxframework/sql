@@ -97,6 +97,22 @@ struct Core::Query(ModelType)
     self
   end
 
+  # TODO: Split to modules. Currently impossible due to https://github.com/crystal-lang/crystal/issues/5023
+  def clone
+    clone = self.class.new
+    clone.group_by_values = self.group_by_values.dup
+    clone.having_values = self.having_values.clone
+    clone.or_having_values = self.or_having_values.clone
+    clone.join_values = self.join_values.dup
+    clone.limit_value = self.limit_value
+    clone.offset_value = self.offset_value
+    clone.order_by_values = self.order_by_values.dup
+    clone.select_values = self.select_values.dup
+    clone.where_values = self.where_values.clone
+    clone.or_where_values = self.or_where_values.clone
+    return clone
+  end
+
   # Remove this query's `#limit` and return itself.
   #
   # ```

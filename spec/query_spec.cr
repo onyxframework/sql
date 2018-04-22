@@ -36,6 +36,31 @@ module QuerySpec
       end
     end
 
+    describe "#clone" do
+      query = Query(User).select(:id).order_by(:id).where("char_length(name) > ?", [1]).limit(3).offset(5)
+      cloned_query = query.clone
+
+      it "creates identical object" do
+        query.should eq cloned_query
+      end
+
+      # It's a Struct, so #object_id is unnaceptable here (see https://crystal-lang.org/api/master/Reference.html#object_id%3AUInt64-instance-method, it says "The returned value is the memory address of this object.")
+      # #hash doesn't work too.
+      pending "has object with different identificator" do
+      end
+
+      it "preserves clauses" do
+        cloned_query.to_s.should eq query.to_s
+      end
+
+      it "creates object which references another inner objects" do
+        query.select(:name)
+        cloned_query.select_values.should eq [:id]
+        query.limit(10)
+        cloned_query.limit_value.should eq 3
+      end
+    end
+
     describe "#all" do
       describe "on instance" do
         it do
