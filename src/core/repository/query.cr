@@ -7,7 +7,7 @@ class Core::Repository
     # ```
     #
     # TODO: Handle errors (PQ::PQError)
-    def query(model : Model.class, query : String, *params) : Array
+    def query(model : Schema.class, query : String, *params) : Array
       query = prepare_query(query)
       params = Core.prepare_params(*params) if params.any?
 
@@ -44,7 +44,7 @@ class Core::Repository
     # ```
     # repo.query_one?(User, "SELECT * FROM users WHERE id = 1") # => User?
     # ```
-    def query_one?(model : Model.class, query : String, *params) : Object
+    def query_one?(model : Schema.class, query : String, *params) : Object
       query(model, query, *params).first?
     end
 
@@ -62,8 +62,8 @@ class Core::Repository
     # ```
     # repo.query_one(User, "SELECT * FROM users WHERE id = 1") # => User
     # ```
-    def query_one(model : Model.class, query : String, *params) : Object
-      query_one?(model, query, *params) || raise NoResultsError.new(model, query)
+    def query_one(model : Schema.class, query : String, *params) : Object
+      query_one?(model, query, *params) || raise NoResultsError.new(model.to_s, query)
     end
 
     # Query `#db` returning a model instance inherited from *query*. Will raise `NoResultsError` if query returns no instances.
@@ -78,12 +78,13 @@ class Core::Repository
     # Raised if query returns zero model instances.
     class NoResultsError < Exception
       # TODO: Wait for https://github.com/crystal-lang/crystal/issues/5692 to be fixed
-      # getter model
+      # getter model : Schema.class
 
+      getter model_name
       getter query
 
-      def initialize(@model : Model.class, @query : String)
-        super("Zero #{@model} instances returned after query \"#{@query}\"")
+      def initialize(@model_name : String, @query : String)
+        super("Zero #{@model_name} instances returned after query \"#{@query}\"")
       end
     end
   end

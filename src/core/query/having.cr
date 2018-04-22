@@ -1,6 +1,6 @@
 require "./wherish"
 
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   alias HavingTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
 
@@ -128,9 +128,9 @@ struct Core::Query(ModelType)
     having.to_h.tap &.each do |key, value|
       {% begin %}
         case key
-        {% for field in ModelType::INTERNAL__CORE_FIELDS %}
+        {% for field in Schema::INTERNAL__CORE_FIELDS %}
           when {{field[:key]}}
-            column = {{ModelType::TABLE.id.stringify + "." + field[:key].id.stringify}}
+            column = {{Schema::TABLE.id.stringify + "." + field[:key].id.stringify}}
 
             if value.nil?
               next group << HavingTuple.new(
@@ -157,9 +157,9 @@ struct Core::Query(ModelType)
             end
         {% end %}
 
-        {% for reference in ModelType::INTERNAL__CORE_REFERENCES %}
+        {% for reference in Schema::INTERNAL__CORE_REFERENCES %}
           when {{reference[:name]}}
-            column = {{ModelType::TABLE.id.stringify + "." + reference[:key].id.stringify}}
+            column = {{Schema::TABLE.id.stringify + "." + reference[:key].id.stringify}}
 
             if value.nil?
               next group << HavingTuple.new(

@@ -9,7 +9,7 @@ class Core::Repository
     #
     # TODO: Handle errors.
     # TODO: Multiple deletes.
-    def delete(instance : Model)
+    def delete(instance : Schema)
       query = SQL_DELETE % {
         table_name:  instance.class.table,
         primary_key: instance.class.primary_key[:name],

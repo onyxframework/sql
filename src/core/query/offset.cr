@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   property offset_value : Int32? = nil
 

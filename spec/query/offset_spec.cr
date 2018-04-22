@@ -1,7 +1,9 @@
 require "../query_spec"
 
 module Query::OffsetSpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     schema :users do
     end
   end

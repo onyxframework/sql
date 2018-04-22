@@ -1,12 +1,14 @@
 require "./spec_helper"
 
-require "../src/core/model"
+require "../src/core/schema"
 require "../src/core/query"
 
 alias Query = Core::Query
 
 module QuerySpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     enum Role
       User
       Admin

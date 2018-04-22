@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   alias OrderByTuple = NamedTuple(column: Symbol, order: Symbol?)
 

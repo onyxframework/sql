@@ -1,7 +1,9 @@
 require "../query_spec"
 
 module Query::JoinSpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     schema :users do
       primary_key :id
       reference :referrer, User, key: :referrer_id
@@ -10,7 +12,9 @@ module Query::JoinSpec
     end
   end
 
-  class Post < Core::Model
+  class Post
+    include Core::Schema
+
     schema :posts do
       primary_key :id
       reference :author, User, key: :author_id

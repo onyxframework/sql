@@ -1,9 +1,11 @@
-require "../../model_spec"
+require "../../schema_spec"
 require "../../../src/core/converters/enum"
 require "../../../src/core/converters/pg/numeric"
 
-module Model::Schema::FieldsSpec
-  class User < Core::Model
+module Schema::FieldsSpec
+  class User
+    include Core::Schema
+
     enum Role
       User
       Admin

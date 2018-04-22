@@ -5,15 +5,15 @@ class Core::Repository
     SQL
 
     # Update *instance*.
-    # Only fields appearing in `Model#changes` are affected.
+    # Only fields appearing in `Schema#changes` are affected.
     # Returns affected rows count (doesn't work for PostgreSQL driver yet: [https://github.comwill/crystal-pg/issues/112](https://github.com/will/crystal-pg/issues/112)).
     #
-    # NOTE: Does not check if `Model::Validation#valid?`.
+    # NOTE: Does not check if `Schema::Validation#valid?`.
     #
     # TODO: Handle errors.
     # TODO: Multiple updates.
-    # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-    def update(instance : Model)
+    # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
+    def update(instance : Schema)
       fields = instance.fields.select do |k, _|
         instance.changes.keys.includes?(k)
       end.tap do |f|

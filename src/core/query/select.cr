@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   property select_values : Array(Symbol | String) = [] of Symbol | String
 

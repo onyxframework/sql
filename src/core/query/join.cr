@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   alias JoinTuple = NamedTuple(table: Symbol | String, on: Tuple(Symbol | String, Symbol | String), "as": Symbol | String, "type": Symbol | String?)
 
@@ -89,7 +89,7 @@ struct Core::Query(ModelType)
   def join(reference : Symbol, as _as : Symbol? = nil, type _type : Symbol? = nil)
     {% begin %}
       case reference
-        {% for reference in ModelType::INTERNAL__CORE_REFERENCES %}
+        {% for reference in Schema::INTERNAL__CORE_REFERENCES %}
           when {{reference[:name]}}
             {% if reference[:key] %}
               append_mapping_marker({{reference[:name]}}, _as || {{reference[:name]}})
@@ -108,7 +108,7 @@ struct Core::Query(ModelType)
                 table: {{reference[:type]}}.table,
                 on: {
                   {{reference[:foreign_key]}},
-                  {{ModelType::PRIMARY_KEY[:name]}},
+                  {{Schema::PRIMARY_KEY[:name]}},
                 },
                 as: _as || {{reference[:name]}},
                 type: _type,
@@ -118,7 +118,7 @@ struct Core::Query(ModelType)
             {% end %}
         {% end %}
         else
-          raise "Unknown reference #{reference} for #{ModelType}"
+          raise "Unknown reference #{reference} for #{Schema}"
         end
     {% end %}
   end
@@ -133,7 +133,7 @@ struct Core::Query(ModelType)
   # Append SELECT marker used for mapping. E.g. `append_mapping_marker("post")` would append "SELECT '' AS _post, posts.*"
   def append_mapping_marker(mappable_type_name, as _as)
     if !@initial_select_wildcard_prefix
-      self.select({{ModelType::TABLE.id.stringify}} + ".*")
+      self.select({{Schema::TABLE.id.stringify}} + ".*")
       @initial_select_wildcard_prefix = true
     end
 
@@ -194,7 +194,7 @@ struct Core::Query(ModelType)
         join_table: join[:table],
         alias:      join[:as],
         join_key:   join[:on][0],
-        table:      ModelType::TABLE,
+        table:      Schema::TABLE,
         key:        join[:on][1],
       }).as(String)
     end

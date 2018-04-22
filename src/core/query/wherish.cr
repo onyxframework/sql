@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   macro field_to_db(field, value)
     {% if field[:converter] %}
       if {{value}}.is_a?({{field[:type]}})

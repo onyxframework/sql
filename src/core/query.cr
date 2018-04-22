@@ -53,13 +53,15 @@ require "./query/*"
 # For all examples below assume following mapping:
 #
 # ```
-# class User < Core::Model
+# class User
+#   include Core::Schema
+#
 #   enum Role
 #     User
 #     Admin
 #   end
 #
-#   schema do
+#   schema :users do
 #     primary_key :id
 #     field :name, String
 #     field :role, Role # INT in Database
@@ -68,8 +70,10 @@ require "./query/*"
 #   end
 # end
 #
-# class Post < Core::Model
-#   schema do
+# class Post
+#   include Core::Schema
+#
+#   schema :posts do
 #     primary_key :id
 #     field :content, String
 #     reference :author, User, key: :author_id, foreign_key: :id
@@ -77,17 +81,17 @@ require "./query/*"
 #   end
 # end
 # ```
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # A list of params for this query.
   #
   # NOTE: `params` set for the first time only **after** `#to_s` call.
   getter params = [] of ::DB::Any
   protected setter params
 
-  def initialize(model_instance : ModelType? = nil)
+  def initialize(model_instance : Schema? = nil)
   end
 
-  def initialize(model_class : ModelType.class | Nil = nil)
+  def initialize(model_class : Schema.class | Nil = nil)
   end
 
   # Reset all the values to defaults.
@@ -156,7 +160,7 @@ struct Core::Query(ModelType)
   # # => SELECT * FROM users ORDER BY id DESC LIMIT 1
   # ```
   def last
-    order_by(ModelType.primary_key[:name], :DESC).one
+    order_by(Schema.primary_key[:name], :DESC).one
   end
 
   # :nodoc:
@@ -171,7 +175,7 @@ struct Core::Query(ModelType)
   # # => SELECT * FROM users ORDER BY id ASC LIMIT 1
   # ```
   def first
-    order_by(ModelType.primary_key[:name], :ASC).one
+    order_by(Schema.primary_key[:name], :ASC).one
   end
 
   # :nodoc:
@@ -199,7 +203,7 @@ struct Core::Query(ModelType)
 
   # :nodoc:
   macro from_clause
-    query += " FROM " + {{ModelType::TABLE.id.stringify}}
+    query += " FROM " + {{Schema::TABLE.id.stringify}}
   end
 
   @last_wherish_clause = :where

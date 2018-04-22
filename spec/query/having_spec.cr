@@ -2,7 +2,9 @@ require "../query_spec"
 require "../../src/core/converters/enum"
 
 module Query::HavingSpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     enum Role
       User
       Admin
@@ -15,7 +17,9 @@ module Query::HavingSpec
     end
   end
 
-  class Post < Core::Model
+  class Post
+    include Core::Schema
+
     schema :posts do
       reference :author, User, key: :author_id
     end

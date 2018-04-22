@@ -1,7 +1,9 @@
-require "../../model_spec"
+require "../../schema_spec"
 
-module Model::Schema::ChangesSpec
-  class User < Core::Model
+module Schema::ChangesSpec
+  class User
+    include Core::Schema
+
     schema :users do
       primary_key :id
       reference :referrer, User, key: :referrer_id

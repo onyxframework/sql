@@ -1,7 +1,9 @@
-require "../../model_spec"
+require "../../schema_spec"
 
-module Model::Schema::ReferencesSpec
-  class User < Core::Model
+module Schema::ReferencesSpec
+  class User
+    include Core::Schema
+
     schema :users do
       primary_key :id
       reference :referrer, User, key: :referrer_id
@@ -11,7 +13,9 @@ module Model::Schema::ReferencesSpec
     end
   end
 
-  class Post < Core::Model
+  class Post
+    include Core::Schema
+
     schema :posts do
       primary_key :id
       reference :author, User, key: :author_id
@@ -19,7 +23,9 @@ module Model::Schema::ReferencesSpec
     end
   end
 
-  class Like < Core::Model
+  class Like
+    include Core::Schema
+
     schema :likes do
       reference :post, Post, key: :post_id
       reference :user, User, key: :user_id

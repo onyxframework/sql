@@ -1,4 +1,4 @@
-struct Core::Query(ModelType)
+struct Core::Query(Schema)
   # :nodoc:
   property group_by_values = Array(Symbol).new
 

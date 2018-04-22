@@ -3,7 +3,7 @@ require "pg"
 
 require "./spec_helper"
 require "../src/core/repository"
-require "../src/core/model"
+require "../src/core/schema"
 
 alias Repo = Core::Repository
 
@@ -11,7 +11,9 @@ db = ::DB.open(ENV["DATABASE_URL"] || raise "No DATABASE_URL is set!")
 query_logger = Core::QueryLogger.new(nil)
 
 module RepoSpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     enum Role
       User
       Admin
@@ -35,7 +37,9 @@ module RepoSpec
     end
   end
 
-  class Post < Core::Model
+  class Post
+    include Core::Schema
+
     schema :posts do
       primary_key :id
 

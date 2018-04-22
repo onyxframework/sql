@@ -1,8 +1,10 @@
-require "../model_spec"
+require "./schema_spec"
+require "../src/core/validation"
 
-module Model::ValidationSpec
-  class User < Core::Model
-    include Validation
+module ValidationSpec
+  class User
+    include Core::Schema
+    include Core::Validation
 
     schema :users do
       primary_key :id

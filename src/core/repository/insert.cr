@@ -10,12 +10,12 @@ class Core::Repository
 
     # Insert *instance* into Database. Returns last inserted ID or nil if not inserted.
     #
-    # NOTE: Does not check if `Model::Validation#valid?`.
+    # NOTE: Does not check if `Schema::Validation#valid?`.
     #
     # TODO: Handle errors.
     # TODO: Multiple inserts.
-    # TODO: [RFC] Call `#query` and return `Model` instance instead (see https://github.com/will/crystal-pg/issues/101).
-    def insert(instance : Model)
+    # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
+    def insert(instance : Schema)
       fields = instance.fields.dup.tap do |f|
         f.each do |k, _|
           f[k] = now if instance.class.created_at_fields.includes?(k) && f[k].nil?

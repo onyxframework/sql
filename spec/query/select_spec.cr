@@ -1,7 +1,9 @@
 require "../query_spec"
 
 module Query::SelectSpec
-  class User < Core::Model
+  class User
+    include Core::Schema
+
     schema :users do
     end
   end
