@@ -78,6 +78,11 @@ module RepoSpec
       previous_id = repo.scalar(Query(User).last.select(:id)).as(Int32)
       repo.insert(user).should eq(previous_id + 1)
     end
+
+    it "works with multiple instances" do
+      users = [User.new(name: "Foo"), User.new(name: "Bar")]
+      repo.insert(users).should be_truthy
+    end
   end
 
   describe "#query" do
