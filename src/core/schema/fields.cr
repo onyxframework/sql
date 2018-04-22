@@ -70,11 +70,11 @@ module Core
            else
              _type.resolve
            end),
-           nilable:     nilable,
-           default:     options[:default],
-           converter:   converter,
-           key:         options[:key] || name,
-           validations: options[:validate],
+           nilable:   nilable,
+           default:   options[:default],
+           converter: converter,
+           key:       options[:key] || name,
+           options:   options.empty? ? nil : options,
          }) %}
       end
 

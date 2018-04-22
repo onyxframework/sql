@@ -80,7 +80,7 @@ module Core
                 error!({{field}}, "must not be nil")
               end
             else
-              {% if validations = _field[:validations] %}
+              {% if validations = _field[:options][:validate] %}
                 value = @{{field.id}}.not_nil!
 
                 {% if validations[:size] %}
