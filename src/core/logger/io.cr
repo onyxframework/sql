@@ -1,9 +1,11 @@
 require "time_format"
 require "colorize"
 
-# Logs queries.
-class Core::QueryLogger
-  def initialize(@io : IO?)
+require "../logger"
+
+# Logs queries into IO.
+class Core::Logger::IO < Core::Logger
+  def initialize(@io : IO)
   end
 
   # Wrap a query, logging elaped time.
@@ -15,7 +17,7 @@ class Core::QueryLogger
   # # => SELECT * FROM users
   # # => 501μs
   # ```
-  def wrap(query, &block)
+  def wrap(query : String, &block : String -> _)
     log_query(query)
     started_at = Time.now
     r = yield(query)
@@ -24,12 +26,10 @@ class Core::QueryLogger
   end
 
   protected def log_query(query)
-    return unless @io
-    @io.not_nil! << "\n" + query.colorize(:blue).to_s + "\n"
+    @io << "\n" + query.colorize(:blue).to_s + "\n"
   end
 
   protected def log_time(elapsed : Time::Span)
-    return unless @io
-    @io.not_nil! << TimeFormat.auto(elapsed).colorize(:magenta).to_s + "\n"
+    @io << TimeFormat.auto(elapsed).colorize(:magenta).to_s + "\n"
   end
 end

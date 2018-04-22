@@ -8,7 +8,7 @@ require "../src/core/schema"
 alias Repo = Core::Repository
 
 db = ::DB.open(ENV["DATABASE_URL"] || raise "No DATABASE_URL is set!")
-query_logger = Core::QueryLogger.new(nil)
+logger = Core::Logger::Dummy.new # Core::Logger::IO.new(STDOUT)
 
 module RepoSpec
   class User
@@ -53,7 +53,7 @@ module RepoSpec
     end
   end
 
-  repo = Repo.new(db, query_logger)
+  repo = Repo.new(db, logger)
   user_created_at = uninitialized Time
 
   describe "#insert" do

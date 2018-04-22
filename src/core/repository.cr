@@ -1,6 +1,6 @@
 require "db"
 require "./params"
-require "./query_logger"
+require "./logger/dummy"
 require "./repository/*"
 
 # `Repository` is a gateway between `Model`s and Database.
@@ -19,7 +19,7 @@ require "./repository/*"
 # See `Query` for a handy queries builder.
 #
 # ```
-# logger = Core::QueryLogger.new(STDOUT)
+# logger = Core::Logger::IO.new(STDOUT)
 # repo = Core::Repository.new(db, logger)
 #
 # user = User.new(name: "Foo")
@@ -59,7 +59,7 @@ class Core::Repository
   # which logs Database queries.
   #
   # NOTE: *db* and *query_logger* can be changed in the runtime with according `#db=` and `#query_logger=` methods.
-  def initialize(@db : ::DB::Database, @query_logger : QueryLogger = QueryLogger.new(nil))
+  def initialize(@db : ::DB::Database, @query_logger : Core::Logger = Core::Logger::Dummy.new)
   end
 
   # Prepare *query* for execution. Replaces "?" with "$i" for PostgreSQL.
