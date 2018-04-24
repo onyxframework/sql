@@ -4,14 +4,14 @@ class Core::Repository
     UPDATE %{table_name} SET %{set_fields} WHERE %{primary_key} = ? RETURNING %{returning}
     SQL
 
-    # Update *instance*.
+    # Update single *instance*.
     # Only fields appearing in `Schema#changes` are affected.
     # Returns affected rows count (doesn't work for PostgreSQL driver yet: [https://github.comwill/crystal-pg/issues/112](https://github.com/will/crystal-pg/issues/112)).
     #
     # NOTE: Does not check if `Schema::Validation#valid?`.
+    # NOTE: To update multiple instances, exec custom query (this is because instances may have different changes).
     #
     # TODO: Handle errors.
-    # TODO: Multiple updates.
     # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
     def update(instance : Schema)
       fields = instance.fields.select do |k, _|
