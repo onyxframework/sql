@@ -4,6 +4,8 @@ require "pg"
 require "./spec_helper"
 require "../src/core/repository"
 require "../src/core/schema"
+require "../src/core/query"
+require "../src/core/converters/enum"
 
 alias Repo = Core::Repository
 
@@ -13,6 +15,7 @@ logger = Core::Logger::Dummy.new # Core::Logger::IO.new(STDOUT)
 module RepoSpec
   class User
     include Core::Schema
+    include Core::Query
 
     enum Role
       User
@@ -39,6 +42,7 @@ module RepoSpec
 
   class Post
     include Core::Schema
+    include Core::Query
 
     schema :posts do
       primary_key :id
@@ -61,12 +65,12 @@ module RepoSpec
     user.id = repo.insert(user).as(Int64)
 
     it "sets created_at field" do
-      user_created_at = repo.scalar(Query(User).last.select(:created_at)).as(Time)
+      user_created_at = repo.scalar(User.last.select(:created_at)).as(Time)
       user_created_at.should be_truthy
     end
 
     it "doesn't set updated_at field" do
-      repo.scalar(Query(User).last.select(:updated_at)).as(Time?).should be_nil
+      repo.scalar(User.last.select(:updated_at)).as(Time?).should be_nil
     end
 
     it "works with references" do
@@ -75,7 +79,7 @@ module RepoSpec
     end
 
     it "returns fresh id" do
-      previous_id = repo.scalar(Query(User).last.select(:id)).as(Int32)
+      previous_id = repo.scalar(User.last.select(:id)).as(Int32)
       repo.insert(user).should eq(previous_id + 1)
     end
 
@@ -97,7 +101,7 @@ module RepoSpec
     that_user_id = uninitialized Int64 | Int32 | Nil
 
     context "with Query" do
-      complex_query = Query(User)
+      complex_query = User
         .select(:*, :"COUNT (posts.id) AS posts_count")
         .join(:posts)
         .group_by(:"users.id", :"posts.id")
@@ -118,10 +122,10 @@ module RepoSpec
     end
 
     context "with references" do
-      user = repo.query(Query(User).where(id: that_user_id)).first
+      user = repo.query(User.where(id: that_user_id)).first
 
       it "returns models with references" do
-        post = repo.query(Query(Post).where(author: user).join(:author, select: [:id, :name, :active, :role])).first
+        post = repo.query(Post.where(author: user).join(:author, select: [:id, :name, :active, :role])).first
         author = post.author.not_nil!
         author.should eq user
         author.id.should eq that_user_id
@@ -151,7 +155,7 @@ module RepoSpec
     end
 
     context "with Query" do
-      users = repo.query_all(Query(User).all)
+      users = repo.query_all(User.all)
 
       it "returns valid instances" do
         users.should be_a(Array(User))
@@ -169,7 +173,7 @@ module RepoSpec
     end
 
     context "with Query" do
-      user = repo.query_one?(Query(User).last)
+      user = repo.query_one?(User.last)
 
       it "returns a valid instance" do
         user.should be_a(User?)
@@ -194,7 +198,7 @@ module RepoSpec
     end
 
     context "with Query" do
-      user = repo.query_one(Query(User).last)
+      user = repo.query_one(User.last)
 
       it "returns a valid instance" do
         user.should be_a(User)
@@ -203,7 +207,7 @@ module RepoSpec
   end
 
   describe "#update" do
-    user = repo.query(Query(User).last).first
+    user = repo.query(User.last).first
 
     it "ignores empty changes" do
       repo.update(user).should eq nil
@@ -218,7 +222,7 @@ module RepoSpec
 
     user.name = "Updated User"
     update = repo.update(user)
-    updated_user = repo.query(Query(User).last).first
+    updated_user = repo.query(User.last).first
 
     it "actually updates" do
       updated_user.name.should eq "Updated User"
@@ -230,21 +234,21 @@ module RepoSpec
   end
 
   describe "#delete" do
-    post = repo.query_one(Query(Post).last)
+    post = repo.query_one(Post.last)
     post_id = post.id
     delete = repo.delete(post)
 
     it "works with single instance" do
       delete.should be_truthy
-      repo.query(Query(Post).where(id: post_id)).empty?.should eq true
+      repo.query(Post.where(id: post_id)).empty?.should eq true
     end
 
-    users = repo.query(Query(User).order_by(:created_at, :desc).limit(2))
+    users = repo.query(User.order_by(:created_at, :desc).limit(2))
     delete = repo.delete(users)
 
     it "works with multiple instances" do
       delete.should be_truthy
-      repo.query(Query(Post).where(id: users.map(&.id))).empty?.should be_true
+      repo.query(Post.where(id: users.map(&.id))).empty?.should be_true
     end
 
     pending "returns an amount of affected rows" do
@@ -269,7 +273,7 @@ module RepoSpec
     end
 
     context "with Query" do
-      result = repo.exec(Query(User).all)
+      result = repo.exec(User.all)
 
       it do
         result.should be_a(DB::ExecResult)
@@ -287,7 +291,7 @@ module RepoSpec
     end
 
     context "with Query" do
-      result = repo.scalar(Query(User).last.select(:id)).as(Int32)
+      result = repo.scalar(User.last.select(:id)).as(Int32)
 
       it do
         result.should be_a(Int32)

@@ -30,7 +30,7 @@ class Core::Repository
     # ```
     #
     # TODO: Handle errors (PQ::PQError)
-    def query(query : Core::Query(T)) forall T
+    def query(query : Core::Query::Instance(T)) forall T
       query(T, query.to_s, query.params)
     end
 
@@ -53,7 +53,7 @@ class Core::Repository
     # ```
     # repo.query_one?(Query(User).first) # => User?
     # ```
-    def query_one?(query : Core::Query(T)) forall T
+    def query_one?(query : Core::Query::Instance(T)) forall T
       query_one?(T, query.to_s, query.params)
     end
 
@@ -71,7 +71,7 @@ class Core::Repository
     # ```
     # repo.query_one(Query(User).first) # => User
     # ```
-    def query_one(query : Core::Query(T)) forall T
+    def query_one(query : Core::Query::Instance(T)) forall T
       query_one(T, query.to_s, query.params)
     end
 

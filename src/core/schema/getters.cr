@@ -4,7 +4,7 @@ module Core
       TABLE = {{table}}
 
       def self.table
-        TABLE
+        TABLE.to_s
       end
 
       def self.created_at_fields

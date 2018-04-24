@@ -17,7 +17,7 @@ class Core::Repository
     end
 
     # Execute *query* (after stringifying and extracting params) and return a `DB::ExecResult`.
-    def exec(query : Core::Query(T)) forall T
+    def exec(query : Core::Query::Instance(T)) forall T
       exec(query.to_s, query.params)
     end
   end

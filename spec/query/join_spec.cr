@@ -1,8 +1,12 @@
-require "../query_spec"
+require "../spec_helper"
 
-module Query::JoinSpec
+require "../../src/core/schema"
+require "../../src/core/query"
+
+module QueryJoinSpec
   class User
     include Core::Schema
+    include Core::Query
 
     schema :users do
       primary_key :id
@@ -16,6 +20,7 @@ module Query::JoinSpec
 
   class Post
     include Core::Schema
+    include Core::Query
 
     schema :posts do
       primary_key :id
@@ -31,7 +36,7 @@ module Query::JoinSpec
           SELECT users.*, '' AS _posts, authored_posts.* FROM users JOIN posts AS "authored_posts" ON "authored_posts".author_id = users.id
         SQL
 
-        Query(User).join(:posts, as: :authored_posts).to_s.should eq(sql.strip)
+        User.join(:posts, as: :authored_posts).to_s.should eq(sql.strip)
       end
     end
 
@@ -41,7 +46,7 @@ module Query::JoinSpec
           SELECT posts.*, '' AS _author, author.* FROM posts JOIN users AS "author" ON "author".id = posts.author_id
         SQL
 
-        Query(Post).join(:author).to_s.should eq(sql.strip)
+        Post.join(:author).to_s.should eq(sql.strip)
       end
     end
 
@@ -51,7 +56,7 @@ module Query::JoinSpec
           SELECT posts.*, '' AS _author, authors.*, '' AS _editor, editor.* FROM posts JOIN users AS "authors" ON "authors".id = posts.author_id JOIN users AS "editor" ON "editor".id = posts.editor_id
         SQL
 
-        Query(Post).join(:author, as: :authors).join(:editor).to_s.should eq(sql.strip)
+        Post.join(:author, as: :authors).join(:editor).to_s.should eq(sql.strip)
       end
     end
 
@@ -62,7 +67,7 @@ module Query::JoinSpec
             SELECT users.*, '' AS _referrals, referrals.* FROM users JOIN users AS "referrals" ON "referrals".referrer_id = users.id
           SQL
 
-          Query(User).join(:referrals).to_s.should eq(sql.strip)
+          User.join(:referrals).to_s.should eq(sql.strip)
         end
       end
 
@@ -72,7 +77,7 @@ module Query::JoinSpec
             SELECT users.*, '' AS _referrer, referrer.* FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
           SQL
 
-          Query(User).join(:referrer).to_s.should eq(sql.strip)
+          User.join(:referrer).to_s.should eq(sql.strip)
         end
       end
     end
@@ -80,7 +85,7 @@ module Query::JoinSpec
 
   describe "#inner_join" do
     it do
-      Query(User).inner_join(:posts).to_s.should contain("INNER JOIN")
+      User.inner_join(:posts).to_s.should contain("INNER JOIN")
     end
   end
 
@@ -90,7 +95,7 @@ module Query::JoinSpec
         SELECT users.*, '' AS _referrer, referrer.id FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
       SQL
 
-      Query(User).join(:referrer, select: :id).to_s.should eq(sql.strip)
+      User.join(:referrer, select: :id).to_s.should eq(sql.strip)
     end
 
     it "works with multiple select" do
@@ -98,20 +103,20 @@ module Query::JoinSpec
         SELECT users.*, '' AS _referrer, ref.id, ref.custom_key FROM users JOIN users AS "ref" ON "ref".id = users.referrer_id
       SQL
 
-      Query(User).join(:referrer, as: :ref, select: [:id, :custom_field]).to_s.should eq(sql.strip)
+      User.join(:referrer, as: :ref, select: [:id, :custom_field]).to_s.should eq(sql.strip)
     end
   end
 
   {% for t in %i(left right full) %}
     describe "#" + {{t.id.stringify}} + "_join" do
       it do
-        Query(User).{{t.id}}_join(:posts).to_s.should contain("{{t.upcase.id}} JOIN")
+        User.{{t.id}}_join(:posts).to_s.should contain("{{t.upcase.id}} JOIN")
       end
     end
 
     describe "#" + {{t.id.stringify}} + "_outer_join" do
       it do
-        Query(User).{{t.id}}_outer_join(:posts).to_s.should contain("{{t.upcase.id}} OUTER JOIN")
+        User.{{t.id}}_outer_join(:posts).to_s.should contain("{{t.upcase.id}} OUTER JOIN")
       end
     end
   {% end %}

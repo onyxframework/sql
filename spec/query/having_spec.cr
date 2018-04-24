@@ -1,9 +1,13 @@
-require "../query_spec"
+require "../spec_helper"
+
+require "../../src/core/schema"
+require "../../src/core/query"
 require "../../src/core/converters/enum"
 
-module Query::HavingSpec
+module QueryHavingSpec
   class User
     include Core::Schema
+    include Core::Query
 
     enum Role
       User
@@ -12,13 +16,14 @@ module Query::HavingSpec
 
     schema :users do
       primary_key :id
-      field :role, Role, converter: Converters::Enum(Role)
+      field :role, Role, converter: Core::Converters::Enum(Role)
       field :name, String
     end
   end
 
   class Post
     include Core::Schema
+    include Core::Query
 
     schema :posts do
       reference :author, User, key: :author_id
@@ -27,7 +32,7 @@ module Query::HavingSpec
 
   describe "complex having" do
     it do
-      query = Query(User).having(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)
+      query = User.having(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users HAVING (users.id = ?) AND (char_length(name) > ?) OR (users.role = ? AND users.name IS NOT NULL)
@@ -41,7 +46,7 @@ module Query::HavingSpec
     context "with named arguments" do
       context "with one clause" do
         it do
-          query = Query(User).having(id: 42)
+          query = User.having(id: 42)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users HAVING (users.id = ?)
@@ -53,7 +58,7 @@ module Query::HavingSpec
 
       context "with multiple clauses" do
         it do
-          query = Query(User).having(id: 42, name: nil)
+          query = User.having(id: 42, name: nil)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL)
@@ -65,7 +70,7 @@ module Query::HavingSpec
 
       context "with multiple calls" do
         it do
-          query = Query(User).having(id: 42, name: nil).having(role: User::Role::Admin)
+          query = User.having(id: 42, name: nil).having(role: User::Role::Admin)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL) AND (users.role = ?)
@@ -79,7 +84,7 @@ module Query::HavingSpec
         user = User.new(id: 42)
 
         it do
-          query = Query(Post).having(author: user)
+          query = Post.having(author: user)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts HAVING (posts.author_id = ?)
@@ -89,14 +94,14 @@ module Query::HavingSpec
         end
 
         expect_raises ArgumentError do
-          query = Query(Post).having(writer: user)
+          query = Post.having(writer: user)
           query.to_s
         end
       end
 
       context "with nil reference" do
         it do
-          query = Query(Post).having(author: nil)
+          query = Post.having(author: nil)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts HAVING (posts.author_id IS NULL)
@@ -108,7 +113,7 @@ module Query::HavingSpec
         user = User.new(id: 42)
 
         it do
-          query = Query(Post).having(author_id: user.id)
+          query = Post.having(author_id: user.id)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts HAVING (posts.author_id = ?)
@@ -118,7 +123,7 @@ module Query::HavingSpec
         end
 
         expect_raises ArgumentError do
-          query = Query(Post).having(writer_id: user.id)
+          query = Post.having(writer_id: user.id)
           query.to_s
         end
       end
@@ -127,7 +132,7 @@ module Query::HavingSpec
     context "with string argument" do
       context "with params" do
         it do
-          query = Query(User).having("char_length(name) > ?", [3])
+          query = User.having("char_length(name) > ?", [3])
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users HAVING (char_length(name) > ?)
@@ -139,7 +144,7 @@ module Query::HavingSpec
 
       context "without params" do
         it do
-          query = Query(User).having("name IS NOT NULL")
+          query = User.having("name IS NOT NULL")
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users HAVING (name IS NOT NULL)
@@ -151,9 +156,21 @@ module Query::HavingSpec
     end
   end
 
+  describe "#not_having" do
+    it do
+      query = User.not_having(id: 42, name: nil)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users HAVING NOT (users.id = ? AND users.name IS NULL)
+      SQL
+
+      query.params.should eq([42])
+    end
+  end
+
   describe "#or_having" do
     it do
-      query = Query(User).having(id: 42, name: nil).or_having(role: User::Role::Admin)
+      query = User.having(id: 42, name: nil).or_having(role: User::Role::Admin)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL) OR (users.role = ?)
@@ -163,12 +180,36 @@ module Query::HavingSpec
     end
   end
 
+  describe "#or_not_having" do
+    it do
+      query = User.having(id: 42, name: nil).or_not_having(role: User::Role::Admin)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL) OR NOT (users.role = ?)
+      SQL
+
+      query.params.should eq([42, 1])
+    end
+  end
+
   describe "#and_having" do
     it do
-      query = Query(User).having(id: 42, name: nil).and_having(role: User::Role::Admin)
+      query = User.having(id: 42, name: nil).and_having(role: User::Role::Admin)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL) AND (users.role = ?)
+      SQL
+
+      query.params.should eq([42, 1])
+    end
+  end
+
+  describe "#and_not_having" do
+    it do
+      query = User.having(id: 42, name: nil).and_not_having(role: User::Role::Admin)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users HAVING (users.id = ? AND users.name IS NULL) AND NOT (users.role = ?)
       SQL
 
       query.params.should eq([42, 1])

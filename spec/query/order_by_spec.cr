@@ -1,17 +1,18 @@
-require "../query_spec"
+require "../spec_helper"
 
-module Query::OrderBySpec
+require "../../src/core/schema"
+require "../../src/core/query"
+
+module QueryOrderBySpec
   class User
     include Core::Schema
-
-    schema :users do
-    end
+    schema :users { }
   end
 
   describe "#order_by" do
     context "with column only" do
       it do
-        Query(User).order_by(:id).to_s.should eq <<-SQL
+        Core::Query.new(User).order_by(:id).to_s.should eq <<-SQL
         SELECT * FROM users ORDER BY id
         SQL
       end
@@ -19,7 +20,7 @@ module Query::OrderBySpec
 
     context "with column and order" do
       it do
-        Query(User).order_by(:name, :DESC).to_s.should eq <<-SQL
+        Core::Query.new(User).order_by(:name, :DESC).to_s.should eq <<-SQL
         SELECT * FROM users ORDER BY name DESC
         SQL
       end
@@ -27,7 +28,7 @@ module Query::OrderBySpec
 
     context "when called multiple times" do
       it "appends" do
-        Query(User).order_by(:id, :DESC).order_by(:name).to_s.should eq <<-SQL
+        Core::Query.new(User).order_by(:id, :desc).order_by(:name).to_s.should eq <<-SQL
         SELECT * FROM users ORDER BY id DESC, name
         SQL
       end

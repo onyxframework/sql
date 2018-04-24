@@ -17,7 +17,7 @@ class Core::Repository
     end
 
     # Execute *query* (after stringifying and extracting params) and return a single scalar value.
-    def scalar(query : Core::Query(T)) forall T
+    def scalar(query : Core::Query::Instance(T)) forall T
       scalar(query.to_s, query.params)
     end
   end

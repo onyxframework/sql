@@ -1,16 +1,17 @@
-require "../query_spec"
+require "../spec_helper"
 
-module Query::GroupBySpec
+require "../../src/core/schema"
+require "../../src/core/query"
+
+module QueryGroupBySpec
   class User
     include Core::Schema
-
-    schema :users do
-    end
+    schema :users { }
   end
 
   describe "#group_by" do
     it do
-      Query(User).group_by(:"foo.id", :"bar.id").to_s.should eq <<-SQL
+      Core::Query.new(User).group_by("foo.id", "bar.id").to_s.should eq <<-SQL
       SELECT * FROM users GROUP BY foo.id, bar.id
       SQL
     end

@@ -1,16 +1,17 @@
-require "../query_spec"
+require "../spec_helper"
 
-module Query::OffsetSpec
+require "../../src/core/schema"
+require "../../src/core/query"
+
+module QueryOffsetSpec
   class User
     include Core::Schema
-
-    schema :users do
-    end
+    schema :users { }
   end
 
   describe "#offset" do
     it do
-      Query(User).offset(0).to_s.should eq <<-SQL
+      Core::Query.new(User).offset(0).to_s.should eq <<-SQL
       SELECT * FROM users OFFSET 0
       SQL
     end

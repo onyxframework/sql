@@ -1,9 +1,13 @@
-require "../query_spec"
+require "../spec_helper"
+
+require "../../src/core/schema"
+require "../../src/core/query"
 require "../../src/core/converters/enum"
 
-module Query::WhereSpec
+module QueryWhereSpec
   class User
     include Core::Schema
+    include Core::Query
 
     enum Role
       User
@@ -12,13 +16,14 @@ module Query::WhereSpec
 
     schema :users do
       primary_key :id
-      field :role, Role, converter: Converters::Enum(Role)
+      field :role, Role, converter: Core::Converters::Enum(Role)
       field :name, String
     end
   end
 
   class Post
     include Core::Schema
+    include Core::Query
 
     schema :posts do
       reference :author, User, key: :author_id
@@ -27,7 +32,7 @@ module Query::WhereSpec
 
   describe "complex where" do
     it do
-      query = Query(User).where(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)
+      query = User.where(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users WHERE (users.id = ?) AND (char_length(name) > ?) OR (users.role = ? AND users.name IS NOT NULL)
@@ -41,7 +46,7 @@ module Query::WhereSpec
     context "with named arguments" do
       context "with one clause" do
         it do
-          query = Query(User).where(id: 42)
+          query = User.where(id: 42)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users WHERE (users.id = ?)
@@ -53,7 +58,7 @@ module Query::WhereSpec
 
       context "with multiple clauses" do
         it do
-          query = Query(User).where(id: 42, name: nil)
+          query = User.where(id: 42, name: nil)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL)
@@ -65,7 +70,7 @@ module Query::WhereSpec
 
       context "with multiple calls" do
         it do
-          query = Query(User).where(id: 42, name: nil).where(role: User::Role::Admin)
+          query = User.where(id: 42, name: nil).where(role: User::Role::Admin)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL) AND (users.role = ?)
@@ -79,7 +84,7 @@ module Query::WhereSpec
         user = User.new(id: 42)
 
         it do
-          query = Query(Post).where(author: user)
+          query = Post.where(author: user)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts WHERE (posts.author_id = ?)
@@ -89,14 +94,14 @@ module Query::WhereSpec
         end
 
         expect_raises ArgumentError do
-          query = Query(Post).where(writer: user)
+          query = Post.where(writer: user)
           query.to_s
         end
       end
 
       context "with nil reference" do
         it do
-          query = Query(Post).where(author: nil)
+          query = Post.where(author: nil)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts WHERE (posts.author_id IS NULL)
@@ -108,7 +113,7 @@ module Query::WhereSpec
         user = User.new(id: 42)
 
         it do
-          query = Query(Post).where(author_id: user.id)
+          query = Post.where(author_id: user.id)
 
           query.to_s.should eq <<-SQL
           SELECT * FROM posts WHERE (posts.author_id = ?)
@@ -118,7 +123,7 @@ module Query::WhereSpec
         end
 
         expect_raises ArgumentError do
-          query = Query(Post).where(writer_id: user.id)
+          query = Post.where(writer_id: user.id)
           query.to_s
         end
       end
@@ -127,7 +132,7 @@ module Query::WhereSpec
     context "with string argument" do
       context "with params" do
         it do
-          query = Query(User).where("char_length(name) > ?", [3])
+          query = User.where("char_length(name) > ?", [3])
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users WHERE (char_length(name) > ?)
@@ -139,7 +144,7 @@ module Query::WhereSpec
 
       context "without params" do
         it do
-          query = Query(User).where("name IS NOT NULL")
+          query = User.where("name IS NOT NULL")
 
           query.to_s.should eq <<-SQL
           SELECT * FROM users WHERE (name IS NOT NULL)
@@ -151,9 +156,21 @@ module Query::WhereSpec
     end
   end
 
+  describe "#where_not" do
+    it do
+      query = User.where_not(id: 42, name: nil)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users WHERE NOT (users.id = ? AND users.name IS NULL)
+      SQL
+
+      query.params.should eq([42])
+    end
+  end
+
   describe "#or_where" do
     it do
-      query = Query(User).where(id: 42, name: nil).or_where(role: User::Role::Admin)
+      query = User.where(id: 42, name: nil).or_where(role: User::Role::Admin)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL) OR (users.role = ?)
@@ -163,12 +180,36 @@ module Query::WhereSpec
     end
   end
 
+  describe "#or_where_not" do
+    it do
+      query = User.where(id: 42, name: nil).or_where_not(role: User::Role::Admin)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL) OR NOT (users.role = ?)
+      SQL
+
+      query.params.should eq([42, 1])
+    end
+  end
+
   describe "#and_where" do
     it do
-      query = Query(User).where(id: 42, name: nil).and_where(role: User::Role::Admin)
+      query = User.where(id: 42, name: nil).and_where(role: User::Role::Admin)
 
       query.to_s.should eq <<-SQL
       SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL) AND (users.role = ?)
+      SQL
+
+      query.params.should eq([42, 1])
+    end
+  end
+
+  describe "#and_where_not" do
+    it do
+      query = User.where(id: 42, name: nil).and_where_not(role: User::Role::Admin)
+
+      query.to_s.should eq <<-SQL
+      SELECT * FROM users WHERE (users.id = ? AND users.name IS NULL) AND NOT (users.role = ?)
       SQL
 
       query.params.should eq([42, 1])

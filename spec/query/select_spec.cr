@@ -1,11 +1,12 @@
-require "../query_spec"
+require "../spec_helper"
 
-module Query::SelectSpec
+require "../../src/core/schema"
+require "../../src/core/query"
+
+module QuerySelectSpec
   class User
     include Core::Schema
-
-    schema :users do
-    end
+    schema :users { }
   end
 
   describe "#select" do
@@ -15,7 +16,7 @@ module Query::SelectSpec
           SELECT DISTINCT id FROM users
         SQL
 
-        Query(User).select("DISTINCT id").to_s.should eq(sql.strip)
+        Core::Query.new(User).select("DISTINCT id").to_s.should eq(sql.strip)
       end
     end
 
@@ -26,7 +27,7 @@ module Query::SelectSpec
 
       context "passed as separate values" do
         it do
-          Query(User).select(:name, "role").to_s.should eq(sql.strip)
+          Core::Query.new(User).select(:name, "role").to_s.should eq(sql.strip)
         end
       end
     end
@@ -37,7 +38,7 @@ module Query::SelectSpec
           SELECT id, name, role FROM users
         SQL
 
-        Query(User).select(:id).select("name, role").to_s.should eq(sql.strip)
+        Core::Query.new(User).select(:id).select("name, role").to_s.should eq(sql.strip)
       end
     end
   end
