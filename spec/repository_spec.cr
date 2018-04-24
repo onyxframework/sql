@@ -121,15 +121,15 @@ module RepoSpec
       user = repo.query(Query(User).where(id: that_user_id)).first
 
       it "returns models with references" do
-        post = repo.query(Query(Post).where(author: user).join(:author)).first
+        post = repo.query(Query(Post).where(author: user).join(:author, select: [:id, :name, :active, :role])).first
         author = post.author.not_nil!
         author.should eq user
         author.id.should eq that_user_id
         author.active.should be_true
         author.role.should eq(User::Role::User)
         author.name.should eq("Test User")
-        author.created_at.should be_a(Time)
-        author.updated_at.should eq(nil)
+        author.created_at?.should be_nil
+        author.updated_at.should be_nil
       end
     end
 

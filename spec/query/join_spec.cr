@@ -9,6 +9,8 @@ module Query::JoinSpec
       reference :referrer, User, key: :referrer_id
       reference :referrals, Array(User), foreign_key: :referrer_id
       reference :posts, Array(Post), foreign_key: :author_id
+      field :name, String
+      field :custom_field, String, key: :custom_key
     end
   end
 
@@ -79,6 +81,24 @@ module Query::JoinSpec
   describe "#inner_join" do
     it do
       Query(User).inner_join(:posts).to_s.should contain("INNER JOIN")
+    end
+  end
+
+  describe "select" do
+    it "works with single select" do
+      sql = <<-SQL
+        SELECT users.*, '' AS _referrer, referrer.id FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
+      SQL
+
+      Query(User).join(:referrer, select: :id).to_s.should eq(sql.strip)
+    end
+
+    it "works with multiple select" do
+      sql = <<-SQL
+        SELECT users.*, '' AS _referrer, ref.id, ref.custom_key FROM users JOIN users AS "ref" ON "ref".id = users.referrer_id
+      SQL
+
+      Query(User).join(:referrer, as: :ref, select: [:id, :custom_field]).to_s.should eq(sql.strip)
     end
   end
 
