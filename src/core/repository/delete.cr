@@ -1,22 +1,37 @@
 class Core::Repository
   module Delete
     private SQL_DELETE = <<-SQL
-    DELETE FROM %{table_name} WHERE %{primary_key} = ?
+    DELETE FROM %{table_name} WHERE %{primary_key} IN (%{primary_key_values})
     SQL
 
-    # Delete *instance* from Database.
+    # Delete a single *instance* from Database.
     # Returns affected rows count (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
     #
     # TODO: Handle errors.
-    # TODO: Multiple deletes.
     def delete(instance : Schema)
+      delete([instance])
+    end
+
+    # Delete multiple *instances* from Database.
+    # Returns affected rows count (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
+    #
+    # TODO: Handle errors.
+    def delete(instances : Array(Schema))
+      raise ArgumentError.new("Empty array given") if instances.empty?
+
+      classes = instances.map(&.class).to_set
+      raise ArgumentError.new("Instances must be of single type, given: #{classes.join(", ")}") if classes.size > 1
+
+      klass = instances[0].class
+
       query = SQL_DELETE % {
-        table_name:  instance.class.table,
-        primary_key: instance.class.primary_key[:name],
+        table_name:         klass.table,
+        primary_key:        klass.primary_key[:name],
+        primary_key_values: instances.map { '?' }.join(", "),
       }
 
       query = prepare_query(query)
-      params = Core.prepare_params(instance.primary_key)
+      params = Core.prepare_params(instances.map(&.primary_key))
 
       query_logger.wrap(query) do
         db.exec(query, *params).rows_affected

@@ -230,17 +230,25 @@ module RepoSpec
   end
 
   describe "#delete" do
-    post = repo.query(Query(Post).last).first
+    post = repo.query_one(Query(Post).last)
     post_id = post.id
     delete = repo.delete(post)
 
-    it do
+    it "works with single instance" do
       delete.should be_truthy
       repo.query(Query(Post).where(id: post_id)).empty?.should eq true
     end
 
+    users = repo.query(Query(User).order_by(:created_at, :desc).limit(2))
+    delete = repo.delete(users)
+
+    it "works with multiple instances" do
+      delete.should be_truthy
+      repo.query(Query(Post).where(id: users.map(&.id))).empty?.should be_true
+    end
+
     pending "returns an amount of affected rows" do
-      delete.should eq(1)
+      delete.should eq(2)
     end
 
     pending "handles DB errors" do
