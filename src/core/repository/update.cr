@@ -1,5 +1,17 @@
 class Core::Repository
   module Update
+    # Issue an update query. Basically the same as `#exec` just calling `query.update` before.
+    #
+    # ```
+    # repo.update(User.set(active: true).where(id: 1))
+    # # Equals to
+    # repo.exec(User.update.set(active: true).where(id: 1))
+    # ```
+    def update(query : Core::Query::Instance) forall T
+      query.update
+      exec(query.to_s, query.params)
+    end
+
     private SQL_UPDATE = <<-SQL
     UPDATE %{table_name} SET %{set_fields} WHERE %{primary_key} = ? RETURNING %{returning}
     SQL

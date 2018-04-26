@@ -60,6 +60,24 @@ module QuerySpec
       end
     end
 
+    describe "#update" do
+      it do
+        query = User.update.where(id: 3)
+        query.to_s.should eq <<-SQL
+        UPDATE users WHERE (users.id = ?)
+        SQL
+      end
+    end
+
+    describe "#delete" do
+      it do
+        query = User.delete.where(id: 3)
+        query.to_s.should eq <<-SQL
+        DELETE FROM users WHERE (users.id = ?)
+        SQL
+      end
+    end
+
     describe "#all" do
       it do
         query = User.limit(3).offset(5)

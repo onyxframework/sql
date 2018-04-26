@@ -6,6 +6,15 @@ module Core::Query
     getter params = [] of ::DB::Any
     protected setter params
 
+    enum QueryType
+      Select
+      Update
+      Delete
+    end
+
+    getter query_type = QueryType::Select
+    protected setter query_type
+
     # Reset all the values to defaults.
     #
     # TODO: Split to modules. Currently impossible due to https://github.com/crystal-lang/crystal/issues/5023
@@ -25,6 +34,7 @@ module Core::Query
     # TODO: Split to modules. Currently impossible due to https://github.com/crystal-lang/crystal/issues/5023
     def clone
       clone = self.class.new
+      clone.query_type = self.query_type
       clone.group_by_clauses = self.group_by_clauses.dup
       clone.having_clauses = self.having_clauses.clone
       clone.join_clauses = self.join_clauses.clone
@@ -34,6 +44,24 @@ module Core::Query
       clone.select_clauses = self.select_clauses.dup
       clone.where_clauses = self.where_clauses.clone
       return clone
+    end
+
+    # Mark this query as a SELECT one (default)
+    def select
+      @query_type = QueryType::Select
+      self
+    end
+
+    # Mark this query as an UPDATE one
+    def update
+      @query_type = QueryType::Update
+      self
+    end
+
+    # Mark this query as a DELETE one
+    def delete
+      @query_type = QueryType::Delete
+      self
     end
 
     # Remove this query's `#limit` and return itself.
@@ -89,8 +117,17 @@ module Core::Query
       params.clear
       query = ""
 
-      append_select_clauses
-      append_from_clause
+      case query_type
+      when QueryType::Select
+        append_select_clauses
+        query += " FROM " + Schema.table
+      when QueryType::Update
+        query += "UPDATE " + Schema.table
+        append_set_clauses
+      when QueryType::Delete
+        query += "DELETE FROM " + Schema.table
+      end
+
       append_join_clauses
       append_where_clauses
       append_group_by_clauses
@@ -104,7 +141,17 @@ module Core::Query
 
     # :nodoc:
     macro append_from_clause
-      query += " FROM " + Schema.table
+
+    end
+
+    # :nodoc:
+    macro append_update_clause
+      query += "UPDATE "
+    end
+
+    # :nodoc:
+    macro append_delete_clause
+      query += "DELETE "
     end
   end
 end

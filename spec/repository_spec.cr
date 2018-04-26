@@ -207,58 +207,62 @@ module RepoSpec
   end
 
   describe "#update" do
-    user = repo.query(User.last).first
+    user = repo.query_one(User.last)
 
-    it "ignores empty changes" do
-      repo.update(user).should eq nil
-    end
+    context "with Schema instance" do
+      it "ignores empty changes" do
+        repo.update(user).should eq nil
+      end
 
-    pending "handles DB errors" do
-      user.id = nil
-      expect_raises do
-        repo.update(user)
+      user.name = "Updated User"
+      update = repo.update(user)
+      updated_user = repo.query(User.last).first
+
+      it "updates" do
+        updated_user.name.should eq "Updated User"
       end
     end
 
-    user.name = "Updated User"
-    update = repo.update(user)
-    updated_user = repo.query(User.last).first
+    context "with Query instance" do
+      update = repo.update(User.where(id: user.id).set(name: "Updated Again User"))
+      updated_user = repo.query_one(User.last)
 
-    it "actually updates" do
-      updated_user.name.should eq "Updated User"
-    end
-
-    pending "returns an amount of affected rows" do
-      update.should eq(1)
+      it do
+        updated_user.name.should eq "Updated Again User"
+      end
     end
   end
 
   describe "#delete" do
     post = repo.query_one(Post.last)
     post_id = post.id
-    delete = repo.delete(post)
 
-    it "works with single instance" do
-      delete.should be_truthy
-      repo.query(Post.where(id: post_id)).empty?.should eq true
+    context "with single Schema instance" do
+      delete = repo.delete(post)
+
+      it do
+        delete.should be_truthy
+        repo.query(Post.where(id: post_id)).empty?.should eq true
+      end
     end
 
-    users = repo.query(User.order_by(:created_at, :desc).limit(2))
-    delete = repo.delete(users)
+    context "with multiple Schema instances" do
+      users = repo.query(User.order_by(:created_at, :desc).limit(2))
+      delete = repo.delete(users)
 
-    it "works with multiple instances" do
-      delete.should be_truthy
-      repo.query(Post.where(id: users.map(&.id))).empty?.should be_true
+      it do
+        delete.should be_truthy
+        repo.query(User.where(id: users.map(&.id))).empty?.should be_true
+      end
     end
 
-    pending "returns an amount of affected rows" do
-      delete.should eq(2)
-    end
+    context "with Query instance" do
+      users = repo.query(User.order_by(:created_at, :desc).limit(2))
+      delete = repo.delete(User.where(id: users.map(&.id)))
 
-    pending "handles DB errors" do
-      # It's already deleted, so
-      expect_raises do
-        repo.delete(post)
+      it do
+        delete.should be_truthy
+        repo.query(User.where(id: users.map(&.id))).empty?.should be_true
       end
     end
   end

@@ -55,6 +55,7 @@ module Core
                          offset
                          order_by
                          select
+                         set
                          where
                          where_not
                          and_where
@@ -83,6 +84,9 @@ module Core
       {% end %}
 
       {% for method in %w(
+                         select
+                         update
+                         delete
                          all
                          one
                          last
