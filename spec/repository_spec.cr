@@ -6,11 +6,12 @@ require "../src/core/repository"
 require "../src/core/schema"
 require "../src/core/query"
 require "../src/core/converters/enum"
+require "../src/core/logger/io"
 
 alias Repo = Core::Repository
 
 db = ::DB.open(ENV["DATABASE_URL"] || raise "No DATABASE_URL is set!")
-logger = Core::Logger::Dummy.new # Core::Logger::IO.new(STDOUT)
+logger = Core::Logger::IO.new(STDOUT)
 
 module RepoSpec
   class User
