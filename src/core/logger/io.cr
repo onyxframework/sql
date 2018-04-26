@@ -5,7 +5,7 @@ require "../logger"
 
 # Logs queries into IO.
 class Core::Logger::IO < Core::Logger
-  def initialize(@io : IO)
+  def initialize(@io : ::IO)
   end
 
   # Wrap a query, logging elaped time.
