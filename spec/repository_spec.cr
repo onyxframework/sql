@@ -65,7 +65,7 @@ module RepoSpec
 
   describe "#insert" do
     user = User.new(name: "Test User")
-    user.id = repo.insert(user).as(Int64)
+    user.id = repo.insert(user.valid!).as(Int64)
 
     it "sets created_at field" do
       user_created_at = repo.scalar(User.last.select(:created_at)).as(Time)
@@ -78,7 +78,7 @@ module RepoSpec
 
     it "works with references" do
       post = Post.new(author: user, the_content: "Some content")
-      repo.insert(post).should be_truthy
+      repo.insert(post.valid!).should be_truthy
     end
 
     it "returns fresh id" do
@@ -88,7 +88,7 @@ module RepoSpec
 
     it "works with multiple instances" do
       users = [User.new(name: "Foo"), User.new(name: "Bar")]
-      repo.insert(users).should be_truthy
+      repo.insert(users.map(&.valid!)).should be_truthy
     end
   end
 
