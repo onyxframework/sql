@@ -8,7 +8,6 @@ module Core
     # - *default* (`Proc?`) - Proc called for the field on `Model` instance initialization if it's `nil`;
     # - *nilable* (`Bool?`) - Is this field nilable? Has the same effect as providing a nilable *type*. If nilable, will generate `getter!`, otherwise `getter`;
     # - *insert_nil* (`Bool?`) - Whether to mark this field as nil on insert. As a result, when an instance is initialized explicitly (e.g. `User.new`), this field **will not** be checked against `nil`. However, if an instance is initialized implicitly (e.g. `from_rs` or `User.new(explicitly_initialized: false)`), then this field **will** be checked against `nil`. This is useful for fields which have `DEFAULT` values in database schema.
-    # - *validate* (`NamedTuple`) - Which inline validations to run on this field (see `Validation`).
     # - *primary_key* (`Bool?`) - Is this field primary key? See `#primary_key`;
     # - *key* (`Symbol?`) - Column name for this field. Defaults to *name*;
     # - *converter* (`Object?`) - An object extending `Converter`;
@@ -19,7 +18,7 @@ module Core
     # schema do
     #   field :active, Bool, insert_nil: true
     #   field :name, String, default: "A User", key: :name_column
-    #   field :age, Int32?, validate: {min: 18}
+    #   field :age, Int32?
     # end
     # ```
     macro field(name, type _type, **options)
