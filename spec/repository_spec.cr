@@ -16,6 +16,7 @@ logger = Core::Logger::IO.new(STDOUT)
 module RepoSpec
   class User
     include Core::Schema
+    include Core::Validation
     include Core::Query
 
     enum Role
@@ -43,6 +44,7 @@ module RepoSpec
 
   class Post
     include Core::Schema
+    include Core::Validation
     include Core::Query
 
     schema :posts do

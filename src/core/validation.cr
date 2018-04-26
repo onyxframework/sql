@@ -63,7 +63,7 @@ module Core
 
       # Ensure that the model is valid, otherwise raise `ValidationError`.
       def valid!
-        raise ValidationError.new(self, @errors) unless valid?
+        raise ValidationError.new(self.class, @errors) unless valid?
         return self
       end
 
@@ -80,7 +80,7 @@ module Core
                 error!({{field}}, "must not be nil")
               end
             else
-              {% if validations = _field[:options][:validate] %}
+              {% if validations = _field[:options] && _field[:options][:validate] %}
                 value = @{{field.id}}.not_nil!
 
                 {% if validations[:size] %}
@@ -168,8 +168,8 @@ module Core
     class ValidationError < Exception
       getter errors
 
-      def initialize(@model, @errors : Hash(Symbol, String))
-        super("#{@model} validation failed: #{@errors}")
+      def initialize(model, @errors : Array(Hash(Symbol, String)))
+        super("#{model} validation failed: #{@errors}")
       end
     end
   end
