@@ -75,4 +75,8 @@ class Core::Repository
   private def now
     "NOW()"
   end
+
+  private def default
+    "DEFAULT"
+  end
 end

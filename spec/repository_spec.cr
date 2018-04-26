@@ -32,7 +32,7 @@ module RepoSpec
       reference :posts, Array(Post), foreign_key: :author_id
       reference :edited_posts, Array(Post), foreign_key: :editor_id
 
-      field :active, Bool, default: true
+      field :active, Bool, insert_nil: true
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
 

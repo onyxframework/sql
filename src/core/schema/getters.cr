@@ -22,6 +22,7 @@ module Core
               type: {{field[:type].id}},
               converter: {{field[:converter].id}},
               key: {{field[:key].id.stringify}},
+              insert_nil: {{field[:insert_nil]}},
             },
           {% end %}
         }

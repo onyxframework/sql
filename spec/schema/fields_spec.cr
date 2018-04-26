@@ -14,7 +14,7 @@ module Schema::FieldsSpec
     schema :users do
       primary_key :id
       field :role, Role, converter: Core::Converters::Enum(Role)
-      field :active, Bool, default: true
+      field :active, Bool, insert_nil: true
       field :foo, String, key: :foo_column, default: "Foo"
       field :bar, Float64?, converter: Core::Converters::PG::Numeric
       field :created_at, Time, created_at_field: true
@@ -22,22 +22,22 @@ module Schema::FieldsSpec
     end
   end
 
-  describe ".field" do
-    it "gen class getter .primary_key_field" do
+  describe "Schema#field" do
+    it "gen .primary_key_field" do
       User.primary_key[:name].should eq :id
     end
 
-    it "gen class getter .primary_key_type" do
+    it "gen .primary_key_type" do
       User.primary_key[:type].should eq Core::PrimaryKey
     end
 
     user = User.new(id: 42, bar: 0.to_f64.as(Float64?))
 
-    it "gen instance getter #fields" do
+    it "gen #fields" do
       user.fields.should eq ({
         :id         => 42,
         :role       => nil,
-        :active     => true,
+        :active     => nil,
         :foo        => "Foo",
         :bar        => 0.to_f64,
         :created_at => nil,
@@ -45,15 +45,14 @@ module Schema::FieldsSpec
       })
     end
 
-    it "gen instance getter #primary_key_value" do
+    it "gen #primary_key_value" do
       user.primary_key.should eq 42
     end
 
     it "gen properties" do
       user.id.should eq 42
 
-      user.active.should be_true # Somehow it is possible - Crystal bug?
-      user.active?.should be_true
+      user.active?.should be_nil
 
       expect_raises Exception do
         user.role

@@ -28,23 +28,26 @@ class Core::Repository
 
       klass = instances[0].class
 
-      fields = instances.map(&.fields.dup.tap do |f|
+      instances_fields = instances.map(&.fields.dup.tap do |f|
         f.each do |k, _|
           f[k] = now if klass.created_at_fields.includes?(k) && f[k].nil?
+          f[k] = default if f[k].nil? && klass.fields[k][:insert_nil]
           f.delete(k) if k == klass.primary_key[:name]
         end
       end)
 
-      single_value = "(" + (1..fields[0].size).map { "?" }.join(", ") + ")"
+      inserted_columns = instances_fields[0].keys.map { |f| klass.fields[f][:key] }
 
       query = SQL_INSERT % {
         table_name: klass.table,
-        keys:       fields[0].keys.map { |f| klass.fields[f][:key] }.join(", "),
-        values:     (Array(String).new(instances.size) { single_value }).join(", "),
+        keys:       inserted_columns.join(", "),
+        values:     instances_fields.map do |fields|
+          "(" + fields.values.map { |f| f == default ? default : "?" }.join(", ") + ")"
+        end.join(", "),
       }
 
       query = prepare_query(query)
-      params = Core.prepare_params(fields.map(&.values).flatten)
+      params = Core.prepare_params(instances_fields.map(&.values).flatten.reject { |v| v == default })
 
       query_logger.wrap(query) do
         rows_affected = db.exec(query, *params).rows_affected

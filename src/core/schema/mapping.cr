@@ -23,6 +23,8 @@ module Core
         end
 
         def initialize(rs : ::DB::ResultSet, reference = false, column_indexer : ColumnIndexer = ColumnIndexer.new)
+          @explicitly_initialized = false
+
           {% skip_file() if INTERNAL__CORE_FIELDS.empty? %}
 
           %temp_fields = Hash(Symbol, {{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new
