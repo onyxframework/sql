@@ -38,7 +38,7 @@ class Core::Repository
 
       query = SQL_UPDATE % {
         table_name:  instance.class.table,
-        set_fields:  fields.keys.map { |k| k.to_s + " = ?" }.join(", "),
+        set_fields:  fields.keys.map { |f| instance.class.fields[f][:key] + " = ?" }.join(", "),
         primary_key: instance.class.primary_key[:name], # TODO: Handle empty primary key
         returning:   instance.class.primary_key[:name],
       }

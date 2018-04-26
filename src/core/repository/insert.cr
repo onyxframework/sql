@@ -39,7 +39,7 @@ class Core::Repository
 
       query = SQL_INSERT % {
         table_name: klass.table,
-        keys:       fields[0].keys.join(", "),
+        keys:       fields[0].keys.map { |f| klass.fields[f][:key] }.join(", "),
         values:     (Array(String).new(instances.size) { single_value }).join(", "),
       }
 

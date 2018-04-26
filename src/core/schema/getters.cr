@@ -21,6 +21,7 @@ module Core
             {{field[:name]}} => {
               type: {{field[:type].id}},
               converter: {{field[:converter].id}},
+              key: {{field[:key].id.stringify}},
             },
           {% end %}
         }

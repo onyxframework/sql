@@ -50,7 +50,7 @@ module RepoSpec
       reference :author, User, key: :author_id
       reference :editor, User?, key: :editor_id
 
-      field :content, String
+      field :the_content, String, key: :content
 
       created_at_field :created_at
       updated_at_field :updated_at
@@ -74,7 +74,7 @@ module RepoSpec
     end
 
     it "works with references" do
-      post = Post.new(author: user, content: "Some content")
+      post = Post.new(author: user, the_content: "Some content")
       repo.insert(post).should be_truthy
     end
 
