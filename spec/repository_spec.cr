@@ -297,6 +297,8 @@ module RepoSpec
       end
     end
 
+    repo.insert(User.new(name: "Foo").valid!)
+
     context "with Query" do
       result = repo.scalar(User.last.select(:id)).as(Int32)
 
