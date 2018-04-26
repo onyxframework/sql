@@ -117,13 +117,13 @@ module Core
     # schema do
     #   created_at_field :creation_time
     #   # Is an alias of
-    #   field :creation_time, Time, created_at_field: true
+    #   field :creation_time, Time, created_at_field: true, insert_nil: true
     # end
     # ```
     #
     # NOTE: created_at field **is not set by default**. You have to define it yourself.
     macro created_at_field(name, **options)
-      field({{name}}, Time, created_at_field: true, {{**options}})
+      field({{name}}, Time, created_at_field: true, insert_nil: true, {{**options}})
     end
 
     # Define a field which will be updated with `NOW()` each time a `Repository#update` is called.
