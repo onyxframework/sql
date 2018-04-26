@@ -6,39 +6,37 @@ require "../../src/core/query"
 module QuerySelectSpec
   class User
     include Core::Schema
-    schema :users { }
+    include Core::Query
+
+    schema :users do
+      primary_key :id
+      field :foo, String
+      field :bar, String, key: :baz
+    end
   end
 
-  describe "#select" do
+  describe "Query::Instance#select" do
     context "with single argument" do
-      it do
-        sql = <<-SQL
-          SELECT DISTINCT id FROM users
-        SQL
+      q = User.select("DISTINCT id")
 
-        Core::Query.new(User).select("DISTINCT id").to_s.should eq(sql.strip)
+      it do
+        q.to_s.should eq "SELECT DISTINCT id FROM users"
       end
     end
 
     context "with multiple arguments" do
-      sql = <<-SQL
-        SELECT name, role FROM users
-      SQL
+      q = User.select(:bar, "role", "*")
 
-      context "passed as separate values" do
-        it do
-          Core::Query.new(User).select(:name, "role").to_s.should eq(sql.strip)
-        end
+      it do
+        q.to_s.should eq "SELECT baz, role, * FROM users"
       end
     end
 
     context "when called multiple times" do
-      it "rewrites to the last value" do
-        sql = <<-SQL
-          SELECT id, name, role FROM users
-        SQL
+      q = User.select(:id).select(:foo, :bar).select("DISTINCT role")
 
-        Core::Query.new(User).select(:id).select("name, role").to_s.should eq(sql.strip)
+      it do
+        q.to_s.should eq "SELECT id, foo, baz, DISTINCT role FROM users"
       end
     end
   end

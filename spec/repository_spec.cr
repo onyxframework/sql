@@ -102,10 +102,10 @@ module RepoSpec
 
     context "with Query" do
       complex_query = User
-        .select(:*, :"COUNT (posts.id) AS posts_count")
+        .select("*", "COUNT (posts.id) AS posts_count")
         .join(:posts)
-        .group_by(:"users.id", :"posts.id")
-        .order_by(:"users.id DESC")
+        .group_by("users.id", "posts.id")
+        .order_by("users.id", :desc)
         .limit(1)
 
       user = repo.query(complex_query).first
