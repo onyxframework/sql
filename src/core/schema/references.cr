@@ -77,30 +77,30 @@ module Core
     macro reference(name, class klass, key = nil, key_type = nil, foreign_key = nil)
       {%
         _type = klass.is_a?(Generic) ? klass.type_vars.first : klass
-        foreign_key = _type.resolve.constant("PRIMARY_KEY")[:name] unless foreign_key
-
         is_array = klass.is_a?(Generic) ? klass.name.resolve.name == "Array(T)" : false
       %}
 
       macro finished
         \{%
-            INTERNAL__CORE_REFERENCES.push({
+          foreign_key = {{foreign_key}}.is_a?(NilLiteral) ? {{_type}}.constant("PRIMARY_KEY")[:name] : {{foreign_key}}
+
+          INTERNAL__CORE_REFERENCES.push({
             name:        {{name}},
             "class":     {{klass.stringify}},
             type:        {{_type}},
             array:       {{is_array}},
             key:         {{key}},
-            foreign_key: {{foreign_key}},
+            foreign_key: foreign_key,
           })
         %}
+
+        property {{name.id}} : {{klass.id}} | Nil
+
+        \{% if {{key}} %}
+          \{% key_type = {{key_type}}.is_a?(NilLiteral) ? {{_type}}.constant("PRIMARY_KEY")[:type] : {{key_type}} %}
+          field({{key}}, \{{key_type}}, nilable: true)
+        \{% end %}
       end
-
-      property {{name.id}} : {{klass.id}} | Nil
-
-      {% if key %}
-        {% key_type = _type.resolve.constant("PRIMARY_KEY")[:type] unless key_type %}
-        field({{key}}, {{key_type}}, nilable: true)
-      {% end %}
     end
   end
 end

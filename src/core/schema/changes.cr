@@ -2,20 +2,20 @@ module Core
   module Schema
     private macro define_changes
       macro finished
-        {% skip_file unless INTERNAL__CORE_FIELDS.size > 0 %}
+        \{% skip_file unless INTERNAL__CORE_FIELDS.size > 0 %}
 
         # A storage for a `Model`'s changes, empty on initialize. Doesn't track virtual fields. To reset use `changes.clear`.
         @changes = Hash(Symbol, \{{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new
         getter changes
 
         # Track changes made to fields
-        {% for field in INTERNAL__CORE_FIELDS %}
+        \{% for field in INTERNAL__CORE_FIELDS %}
           # :nodoc:
-          def {{field[:name].id}}=(value : {{field[:type].id}})
-            changes[{{field[:name]}}] = value unless @{{field[:name].id}} == value
-            @{{field[:name].id}} = value
+          def \{{field[:name].id}}=(value : \{{field[:type].id}})
+            changes[\{{field[:name]}}] = value unless @\{{field[:name].id}} == value
+            @\{{field[:name].id}} = value
           end
-        {% end %}
+        \{% end %}
 
         # Track changes made to references, updating fields accordingly
         \{% for reference in INTERNAL__CORE_REFERENCES.select { |r| r[:key] } %}
