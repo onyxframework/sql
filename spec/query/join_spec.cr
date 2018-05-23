@@ -90,6 +90,14 @@ module QueryJoinSpec
   end
 
   describe "select" do
+    it "works with nil select" do
+      sql = <<-SQL
+        SELECT * FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
+      SQL
+
+      User.join(:referrer, select: nil).to_s.should eq(sql.strip)
+    end
+
     it "works with single select" do
       sql = <<-SQL
         SELECT users.*, '' AS _referrer, referrer.id FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
