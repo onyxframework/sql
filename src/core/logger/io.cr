@@ -26,7 +26,7 @@ class Core::Logger::IO < Core::Logger
   end
 
   protected def log_query(query)
-    @io << "\n" + query.colorize(:blue).to_s + "\n"
+    @io << query.colorize(:blue).to_s + "\n"
   end
 
   protected def log_time(elapsed : Time::Span)
