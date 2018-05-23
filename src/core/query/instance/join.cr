@@ -1,6 +1,6 @@
 struct Core::Query::Instance(Schema)
   # :nodoc:
-  alias JoinSelectType = String | Symbol | Array(String | Symbol)
+  alias JoinSelectType = String | Symbol | Array(String | Symbol) | Nil
 
   # :nodoc:
   alias JoinTuple = NamedTuple(
@@ -14,7 +14,7 @@ struct Core::Query::Instance(Schema)
   # :nodoc:
   protected property join_clauses = [] of JoinTuple
 
-  # Verbose `JOIN` by *table*.
+  # Verbose `JOIN` by *table*. Selects all joined columns by default.
   #
   # ```
   # User.join(:posts, on: {:author_id, :id}, as: :written_posts).to_s
@@ -43,7 +43,7 @@ struct Core::Query::Instance(Schema)
   # - *reference* means **what** to join;
   # - *as* defines alias. Default to *reference*;
   # - *type* declares a joining type (e.g. :left_outer);
-  # - *select* specifies which fields to select.
+  # - *select* specifies which fields to select (`nil` for none, `*` by default).
   #
   # ```
   # class User
@@ -71,6 +71,9 @@ struct Core::Query::Instance(Schema)
   # Post.join(:author, select: :id).to_s
   # # => SELECT posts.*, '' AS _author, author.id FROM posts JOIN users AS author ON author.id = posts.author_id
   #
+  # Post.join(:author, select: nil).where("author.id = ?", [1]).to_s
+  # # => SELECT posts.* FROM posts JOIN users AS author ON author.id = posts.author_id WHERE author.id = ?
+  #
   # User.join(:authored_posts, as: :written_posts).to_s
   # # => SELECT posts.*, '' as _post, written_posts.* FROM users JOIN posts AS written_posts ON users.id = written_posts.author_id
   #
@@ -91,8 +94,10 @@ struct Core::Query::Instance(Schema)
               {% raise "Reference must have either foreign_key or key" %}
             {% end %}
 
-            _mapped_select = map_select_to_field_keys({{reference[:type]}}, _select)
-            append_mapping_marker({{reference[:name]}}, _as || {{reference[:name]}}, _mapped_select)
+            if _select
+              _mapped_select = map_select_to_field_keys({{reference[:type]}}, _select)
+              append_mapping_marker({{reference[:name]}}, _as || {{reference[:name]}}, _mapped_select)
+            end
 
             join(
               table: {{reference[:type]}}.table,
@@ -101,8 +106,7 @@ struct Core::Query::Instance(Schema)
                 on,
               },
               as: _as || {{reference[:name]}},
-              type: _type,
-              select: _mapped_select
+              type: _type
             )
         {% end %}
         else
