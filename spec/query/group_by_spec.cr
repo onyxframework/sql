@@ -12,7 +12,7 @@ module QueryGroupBySpec
   describe "#group_by" do
     it do
       Core::Query.new(User).group_by("foo.id", "bar.id").to_s.should eq <<-SQL
-      SELECT * FROM users GROUP BY foo.id, bar.id
+      SELECT users.* FROM users GROUP BY foo.id, bar.id
       SQL
     end
   end

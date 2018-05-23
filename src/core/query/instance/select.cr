@@ -50,6 +50,6 @@ struct Core::Query::Instance(Schema)
 
   # :nodoc:
   macro append_select_clauses
-    query += "SELECT " + (select_clauses.any? ? select_clauses.join(", ") : "*")
+    query += "SELECT " + (select_clauses.any? ? select_clauses.join(", ") : Schema.table.to_s + ".*")
   end
 end

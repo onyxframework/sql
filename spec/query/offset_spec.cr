@@ -12,7 +12,7 @@ module QueryOffsetSpec
   describe "#offset" do
     it do
       Core::Query.new(User).offset(0).to_s.should eq <<-SQL
-      SELECT * FROM users OFFSET 0
+      SELECT users.* FROM users OFFSET 0
       SQL
     end
   end

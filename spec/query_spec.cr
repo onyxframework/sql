@@ -29,7 +29,7 @@ module QuerySpec
         query = Query.new(User).order_by(:id).where("char_length(name) > ?", [1]).limit(3).offset(5).group_by("users.id", "posts.id").having("COUNT (posts.id) > ?", [1])
 
         query.reset.to_s.should eq <<-SQL
-        SELECT * FROM users
+        SELECT users.* FROM users
         SQL
       end
     end
@@ -82,7 +82,7 @@ module QuerySpec
       it do
         query = User.limit(3).offset(5)
         query.all.to_s.should eq <<-SQL
-        SELECT * FROM users OFFSET 5
+        SELECT users.* FROM users OFFSET 5
         SQL
       end
     end
@@ -90,7 +90,7 @@ module QuerySpec
     describe "#one" do
       it do
         User.one.to_s.should eq <<-SQL
-        SELECT * FROM users LIMIT 1
+        SELECT users.* FROM users LIMIT 1
         SQL
       end
     end
@@ -98,7 +98,7 @@ module QuerySpec
     describe "#last" do
       it do
         User.last.to_s.should eq <<-SQL
-        SELECT * FROM users ORDER BY id DESC LIMIT 1
+        SELECT users.* FROM users ORDER BY id DESC LIMIT 1
         SQL
       end
     end
@@ -106,7 +106,7 @@ module QuerySpec
     describe "#first" do
       it do
         User.first.to_s.should eq <<-SQL
-        SELECT * FROM users ORDER BY id ASC LIMIT 1
+        SELECT users.* FROM users ORDER BY id ASC LIMIT 1
         SQL
       end
     end
@@ -117,7 +117,7 @@ module QuerySpec
           query = User.where(id: 42, name: !nil).and(role: User::Role::Admin)
 
           query.to_s.should eq <<-SQL
-          SELECT * FROM users WHERE (users.id = ? AND users.name IS NOT NULL) AND (users.role = ?)
+          SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NOT NULL) AND (users.role = ?)
           SQL
 
           query.params.should eq([42, 1])
@@ -129,7 +129,7 @@ module QuerySpec
           query = User.where(id: 43).or_where(id: 42, name: nil).and(role: User::Role::Admin)
 
           query.to_s.should eq <<-SQL
-          SELECT * FROM users WHERE (users.id = ?) OR (users.id = ? AND users.name IS NULL) AND (users.role = ?)
+          SELECT users.* FROM users WHERE (users.id = ?) OR (users.id = ? AND users.name IS NULL) AND (users.role = ?)
           SQL
 
           query.params.should eq([43, 42, 1])
@@ -142,7 +142,7 @@ module QuerySpec
         query = User.where(id: 42, name: !nil).and_not(role: User::Role::Admin)
 
         query.to_s.should eq <<-SQL
-        SELECT * FROM users WHERE (users.id = ? AND users.name IS NOT NULL) AND NOT (users.role = ?)
+        SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NOT NULL) AND NOT (users.role = ?)
         SQL
 
         query.params.should eq([42, 1])
@@ -155,7 +155,7 @@ module QuerySpec
           query = User.where(id: 42).or(role: User::Role::Admin, name: nil)
 
           query.to_s.should eq <<-SQL
-          SELECT * FROM users WHERE (users.id = ?) OR (users.role = ? AND users.name IS NULL)
+          SELECT users.* FROM users WHERE (users.id = ?) OR (users.role = ? AND users.name IS NULL)
           SQL
 
           query.params.should eq([42, 1])
@@ -167,7 +167,7 @@ module QuerySpec
           query = User.or_where(id: 42, name: !nil).or(role: User::Role::Admin)
 
           query.to_s.should eq <<-SQL
-          SELECT * FROM users WHERE (users.id = ? AND users.name IS NOT NULL) OR (users.role = ?)
+          SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NOT NULL) OR (users.role = ?)
           SQL
 
           query.params.should eq([42, 1])
@@ -180,7 +180,7 @@ module QuerySpec
         query = User.having(id: 42).or_not(role: User::Role::Admin, name: nil)
 
         query.to_s.should eq <<-SQL
-        SELECT * FROM users HAVING (users.id = ?) OR NOT (users.role = ? AND users.name IS NULL)
+        SELECT users.* FROM users HAVING (users.id = ?) OR NOT (users.role = ? AND users.name IS NULL)
         SQL
 
         query.params.should eq([42, 1])
@@ -192,7 +192,7 @@ module QuerySpec
         query = User.where(id: [42, 43, 44]).having("char_length(name) > ?", [3]).and(role: User::Role::Admin).and_where(name: nil).or("id > ?", [24]).and_not(name: "john")
 
         query.to_s.should eq <<-SQL
-        SELECT * FROM users WHERE (users.id IN (?, ?, ?)) AND (users.name IS NULL) OR (id > ?) AND NOT (users.name = ?) HAVING (char_length(name) > ?) AND (users.role = ?)
+        SELECT users.* FROM users WHERE (users.id IN (?, ?, ?)) AND (users.name IS NULL) OR (id > ?) AND NOT (users.name = ?) HAVING (char_length(name) > ?) AND (users.role = ?)
         SQL
 
         query.params.should eq([42, 43, 44, 24, "john", 3, 1])

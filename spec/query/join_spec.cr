@@ -92,7 +92,7 @@ module QueryJoinSpec
   describe "select" do
     it "works with nil select" do
       sql = <<-SQL
-        SELECT * FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
+        SELECT users.* FROM users JOIN users AS "referrer" ON "referrer".id = users.referrer_id
       SQL
 
       User.join(:referrer, select: nil).to_s.should eq(sql.strip)

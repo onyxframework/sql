@@ -13,7 +13,7 @@ module QueryOrderBySpec
     context "with column only" do
       it do
         Core::Query.new(User).order_by(:id).to_s.should eq <<-SQL
-        SELECT * FROM users ORDER BY id
+        SELECT users.* FROM users ORDER BY id
         SQL
       end
     end
@@ -21,7 +21,7 @@ module QueryOrderBySpec
     context "with column and order" do
       it do
         Core::Query.new(User).order_by(:name, :DESC).to_s.should eq <<-SQL
-        SELECT * FROM users ORDER BY name DESC
+        SELECT users.* FROM users ORDER BY name DESC
         SQL
       end
     end
@@ -29,7 +29,7 @@ module QueryOrderBySpec
     context "when called multiple times" do
       it "appends" do
         Core::Query.new(User).order_by(:id, :desc).order_by(:name).to_s.should eq <<-SQL
-        SELECT * FROM users ORDER BY id DESC, name
+        SELECT users.* FROM users ORDER BY id DESC, name
         SQL
       end
     end
