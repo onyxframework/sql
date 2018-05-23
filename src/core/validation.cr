@@ -76,7 +76,7 @@ module Core
             {{field = _field[:name]}}
 
             if @{{field.id}}.nil?
-              if !{{_field[:nilable]}} && !({{_field[:insert_nil]}} && explicitly_initialized)
+              if !{{_field[:nilable]}} && !({{_field[:db_default]}} && explicitly_initialized)
                 error!({{field}}, "must not be nil")
               end
             else

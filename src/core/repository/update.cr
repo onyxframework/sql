@@ -28,10 +28,6 @@ class Core::Repository
     def update(instance : Schema)
       fields = instance.fields.select do |k, _|
         instance.changes.keys.includes?(k)
-      end.tap do |f|
-        f.each do |k, _|
-          f[k] = now if instance.class.updated_at_fields.includes?(k)
-        end
       end
 
       return unless fields.any?

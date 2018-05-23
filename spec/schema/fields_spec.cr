@@ -14,11 +14,11 @@ module Schema::FieldsSpec
     schema :users do
       primary_key :id
       field :role, Role, converter: Core::Converters::Enum(Role)
-      field :active, Bool, insert_nil: true
+      field :active, Bool, db_default: true
       field :foo, String, key: :foo_column, default: "Foo"
       field :bar, Float64?, converter: Core::Converters::PG::Numeric
-      field :created_at, Time, created_at_field: true
-      field :updated_at, Time, nilable: true, updated_at_field: true
+      field :created_at, Time
+      field :updated_at, Time, nilable: true
     end
   end
 

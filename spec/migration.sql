@@ -10,7 +10,7 @@ CREATE TABLE users(
   active      BOOL          NOT NULL  DEFAULT true,
   role        INT           NOT NULL  DEFAULT 0,
   name        VARCHAR(100)  NOT NULL,
-  created_at  TIMESTAMPTZ   NOT NULL,
+  created_at  TIMESTAMPTZ   NOT NULL  DEFAULT NOW(),
   updated_at  TIMESTAMPTZ
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE posts(
   editor_id   INT                   REFERENCES users (id),
   content     TEXT        NOT NULL,
   tags        TEXT[],
-  created_at  TIMESTAMPTZ NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL  DEFAULT NOW(),
   updated_at  TIMESTAMPTZ
 );
 

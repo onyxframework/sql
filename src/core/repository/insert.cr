@@ -30,8 +30,7 @@ class Core::Repository
 
       instances_fields = instances.map(&.fields.dup.tap do |f|
         f.each do |k, _|
-          f[k] = now if klass.created_at_fields.includes?(k) && f[k].nil?
-          next f.delete(k) if f[k].nil? && klass.fields[k][:insert_nil]
+          next f.delete(k) if f[k].nil? && klass.fields[k][:db_default]
           next f.delete(k) if k == klass.primary_key[:name]
         end
       end)

@@ -8,14 +8,6 @@ module Core
           TABLE.to_s
         end
 
-        def self.created_at_fields
-          {{INTERNAL__CORE_CREATED_AT_FIELDS.id || nil}}
-        end
-
-        def self.updated_at_fields
-          {{INTERNAL__CORE_UPDATED_AT_FIELDS.id || nil}}
-        end
-
         \{% if INTERNAL__CORE_FIELDS.size > 0 %}
           FIELDS = {
             \{% for field in INTERNAL__CORE_FIELDS %}
@@ -23,7 +15,7 @@ module Core
                 type: \{{field[:type].id}},
                 converter: \{{field[:converter].id}},
                 key: \{{field[:key].id.stringify}},
-                insert_nil: \{{field[:insert_nil]}},
+                db_default: \{{field[:db_default]}},
               },
             \{% end %}
           }

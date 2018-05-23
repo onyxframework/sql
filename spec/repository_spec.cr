@@ -33,12 +33,12 @@ module RepoSpec
       reference :posts, Array(Post), foreign_key: :author_id
       reference :edited_posts, Array(Post), foreign_key: :editor_id
 
-      field :active, Bool, insert_nil: true
+      field :active, Bool, db_default: true
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
 
-      created_at_field :created_at
-      updated_at_field :updated_at
+      field :created_at, Time, db_default: true
+      field :updated_at, Time?
     end
   end
 
@@ -56,8 +56,8 @@ module RepoSpec
       field :the_content, String, key: :content
       field :tags, Array(String)?
 
-      created_at_field :created_at
-      updated_at_field :updated_at
+      field :created_at, Time, db_default: true
+      field :updated_at, Time?
     end
   end
 

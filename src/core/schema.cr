@@ -17,7 +17,7 @@ module Core
   #     reference :posts, Post, foreign_key: :author_id
   #     field :name, String
   #     field :age, Int32?
-  #     created_at_field :created_at
+  #     field :created_at, Time, db_default: true
   #   end
   # end
   #
@@ -28,8 +28,8 @@ module Core
   #     primary_key :id
   #     reference :author, User, key: :author_id
   #     field :content, String
-  #     created_at_field :created_at
-  #     updated_at_field :updated_at
+  #     field :created_at, Time, db_default: true
+  #     field :updated_at, Time?
   #   end
   # end
   # ```

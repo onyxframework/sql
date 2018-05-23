@@ -15,7 +15,7 @@ module ValidationSpec
           error!(:name, "has reserved value") if %w(foo bar baz).includes?(name)
         },
       }
-      field :active, Bool, insert_nil: true
+      field :active, Bool, db_default: true
       field :age, Int32, nilable: true, validate: {min!: 17}
       field :height, Float64?, validate: {in: (0.5..2.5)}
       field :iq, Int32?, validate: {min: 100, max!: 200}
@@ -36,7 +36,7 @@ module ValidationSpec
         end
       end
 
-      context ":insert_nil with implicit initialization" do
+      context ":db_default with implicit initialization" do
         user = User.new(name: "Alex", explicitly_initialized: false)
 
         it "doesn't pass validation" do
