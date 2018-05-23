@@ -103,7 +103,7 @@ struct Core::Query::Instance(Schema)
               table: {{reference[:type]}}.table,
               on: {
                 {{reference[:foreign_key]}},
-                on,
+                "#{Schema.table}.#{on}",
               },
               as: _as || {{reference[:name]}},
               type: _type
@@ -208,6 +208,6 @@ struct Core::Query::Instance(Schema)
 
   # :nodoc:
   SQL_JOIN_AS_CLAUSE = <<-SQL
-  %{join_table} AS "%{alias}" ON "%{alias}".%{join_key} = %{table}.%{key}
+  %{join_table} AS "%{alias}" ON "%{alias}".%{join_key} = %{key}
   SQL
 end
