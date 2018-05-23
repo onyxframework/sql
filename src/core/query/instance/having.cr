@@ -2,8 +2,8 @@ require "./wherish"
 
 struct Core::Query::Instance(Schema)
   # :nodoc:
-  alias HavingTuple = NamedTuple(clause: String, params: Array(::DB::Any)?, or: Bool, not: Bool)
-  alias InternalHavingTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
+  alias HavingTuple = NamedTuple(clause: String, params: Array(Param)?, or: Bool, not: Bool)
+  alias InternalHavingTuple = NamedTuple(clause: String, params: Array(Param)?)
 
   # :nodoc:
   property having_clauses = [] of HavingTuple
@@ -15,7 +15,7 @@ struct Core::Query::Instance(Schema)
   # # => HAVING (char_length(name) > ?) AND NOT (created_at > NOW())
   # ```
   def having(clause : String, params : Array | Tuple | Nil = nil, or = false, not = false)
-    @having_clauses << HavingTuple.new(clause: clause, params: params.try &.to_a.map(&.as(::DB::Any)), or: or, not: not)
+    @having_clauses << HavingTuple.new(clause: clause, params: params.try &.to_a.map(&.as(Param)), or: or, not: not)
     @last_wherish_clause = :having
     self
   end
@@ -83,7 +83,7 @@ struct Core::Query::Instance(Schema)
             else
               next group << InternalHavingTuple.new(
                 clause: column + " = ?",
-                params: Array(::DB::Any){field_to_db({{field}}, value)},
+                params: Array(Param){field_to_db({{field}}, value)},
               )
             end
         {% end %}
@@ -105,12 +105,12 @@ struct Core::Query::Instance(Schema)
             elsif value.is_a?({{reference[:type]}})
               next group << InternalHavingTuple.new(
                 clause: column + " = ?",
-                params: [value.primary_key.as(::DB::Any)],
+                params: [value.primary_key.as(Param)],
               )
             elsif value.is_a?(Enumerable({{reference[:type]}}))
               next group << InternalHavingTuple.new(
                 clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-                params: value.map &.primary_key.as(::DB::Any),
+                params: value.map &.primary_key.as(Param),
               )
             else
               raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class].id}} or Enumerable({{reference[:class].id}})! Given: #{value.class}")

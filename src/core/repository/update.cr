@@ -13,12 +13,12 @@ class Core::Repository
     end
 
     private SQL_UPDATE = <<-SQL
-    UPDATE %{table_name} SET %{set_fields} WHERE %{primary_key} = ? RETURNING %{returning}
+    UPDATE %{table_name} SET %{set_fields} WHERE %{primary_key} = ?
     SQL
 
     # Update single *instance*.
     # Only fields appearing in `Schema#changes` are affected.
-    # Returns affected rows count (doesn't work for PostgreSQL driver yet: [https://github.comwill/crystal-pg/issues/112](https://github.com/will/crystal-pg/issues/112)).
+    # Returns `DB::ExecResult`.
     #
     # NOTE: Does not check if `Schema::Validation#valid?`.
     # NOTE: To update multiple instances, exec custom query (this is because instances may have different changes).
@@ -40,15 +40,9 @@ class Core::Repository
         table_name:  instance.class.table,
         set_fields:  fields.keys.map { |f| instance.class.fields[f][:key] + " = ?" }.join(", "),
         primary_key: instance.class.primary_key[:name], # TODO: Handle empty primary key
-        returning:   instance.class.primary_key[:name],
       }
 
-      query = prepare_query(query)
-      params = Core.prepare_params(fields.values.push(instance.primary_key))
-
-      query_logger.wrap(query) do
-        db.exec(query, *params).rows_affected
-      end
+      exec(query, fields.values.push(instance.primary_key))
     end
   end
 end

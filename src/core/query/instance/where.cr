@@ -2,8 +2,8 @@ require "./wherish"
 
 struct Core::Query::Instance(Schema)
   # :nodoc:
-  alias WhereTuple = NamedTuple(clause: String, params: Array(::DB::Any)?, or: Bool, not: Bool)
-  alias InternalWhereTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
+  alias WhereTuple = NamedTuple(clause: String, params: Array(Param)?, or: Bool, not: Bool)
+  alias InternalWhereTuple = NamedTuple(clause: String, params: Array(Param)?)
 
   # :nodoc:
   property where_clauses = [] of WhereTuple
@@ -15,7 +15,7 @@ struct Core::Query::Instance(Schema)
   # # => WHERE (char_length(name) > ?) AND NOT (created_at > NOW())
   # ```
   def where(clause : String, params : Array | Tuple | Nil = nil, or = false, not = false)
-    @where_clauses << WhereTuple.new(clause: clause, params: params.try &.to_a.map(&.as(::DB::Any)), or: or, not: not)
+    @where_clauses << WhereTuple.new(clause: clause, params: params.try &.to_a.map(&.as(Param)), or: or, not: not)
     @last_wherish_clause = :where
     self
   end
@@ -83,7 +83,7 @@ struct Core::Query::Instance(Schema)
             else
               next group << InternalWhereTuple.new(
                 clause: column + " = ?",
-                params: Array(::DB::Any){field_to_db({{field}}, value)},
+                params: Array(Param){field_to_db({{field}}, value)},
               )
             end
         {% end %}
@@ -105,12 +105,12 @@ struct Core::Query::Instance(Schema)
             elsif value.is_a?({{reference[:type]}})
               next group << InternalWhereTuple.new(
                 clause: column + " = ?",
-                params: [value.primary_key.as(::DB::Any)],
+                params: [value.primary_key.as(Param)],
               )
             elsif value.is_a?(Enumerable({{reference[:type]}}))
               next group << InternalWhereTuple.new(
                 clause: column + " IN (" + value.size.times.map { "?" }.join(", ") + ")",
-                params: value.map &.primary_key.as(::DB::Any),
+                params: value.map &.primary_key.as(Param),
               )
             else
               raise ArgumentError.new("#{key} value must be either nil, true, {{reference[:class].id}} or Enumerable({{reference[:class].id}})! Given: #{value.class}")

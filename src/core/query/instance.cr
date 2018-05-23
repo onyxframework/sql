@@ -3,7 +3,7 @@ require "./instance/*"
 module Core::Query
   struct Instance(Schema)
     # A list of params for this query.
-    getter params = [] of ::DB::Any
+    getter params = [] of Param
     protected setter params
 
     enum QueryType

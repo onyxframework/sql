@@ -17,7 +17,7 @@ class Core::Repository
     SQL
 
     # Delete a single *instance* from Database.
-    # Returns affected rows count (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
+    # Returns `DB::ExecResult`.
     #
     # TODO: Handle errors.
     def delete(instance : Schema)
@@ -25,7 +25,7 @@ class Core::Repository
     end
 
     # Delete multiple *instances* from Database.
-    # Returns affected rows count (doesn't work for PostgreSQL driver yet: https://github.com/will/crystal-pg/issues/112).
+    # Returns `DB::ExecResult`.
     #
     # TODO: Handle errors.
     def delete(instances : Array(Schema))
@@ -42,12 +42,7 @@ class Core::Repository
         primary_key_values: instances.map { '?' }.join(", "),
       }
 
-      query = prepare_query(query)
-      params = Core.prepare_params(instances.map(&.primary_key))
-
-      query_logger.wrap(query) do
-        db.exec(query, *params).rows_affected
-      end
+      exec(query, instances.map(&.primary_key))
     end
   end
 end

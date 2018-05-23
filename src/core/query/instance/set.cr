@@ -1,5 +1,5 @@
 struct Core::Query::Instance(Schema)
-  private alias SetTuple = NamedTuple(clause: String, params: Array(::DB::Any)?)
+  private alias SetTuple = NamedTuple(clause: String, params: Array(Param)?)
   protected property set_clauses = [] of SetTuple
 
   # Append explicit value to `SET` clauses, setting Query type to `UPDATE`.
@@ -13,7 +13,7 @@ struct Core::Query::Instance(Schema)
 
     set_clauses << SetTuple.new(
       clause: clause,
-      params: params.try &.to_a.map(&.as(::DB::Any))
+      params: params.try &.to_a.map(&.as(Param))
     )
 
     self

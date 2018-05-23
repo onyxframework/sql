@@ -8,7 +8,7 @@ class Core::Repository
     SELECT currval(pg_get_serial_sequence('%{table_name}', '%{primary_key}'))
     SQL
 
-    # Insert a single *instance* into Database. Returns last inserted ID or nil if not inserted.
+    # Insert a single *instance* into Database. Returns `DB::ExecResult`.
     #
     # TODO: Handle errors.
     # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
@@ -16,7 +16,7 @@ class Core::Repository
       insert([instance])
     end
 
-    # Insert multiple *instances* into Database. Returns last inserted ID or nil if nothing was inserted.
+    # Insert multiple *instances* into Database. Returns `DB::ExecResult`.
     #
     # TODO: Handle errors.
     # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
@@ -31,8 +31,8 @@ class Core::Repository
       instances_fields = instances.map(&.fields.dup.tap do |f|
         f.each do |k, _|
           f[k] = now if klass.created_at_fields.includes?(k) && f[k].nil?
-          f[k] = default if f[k].nil? && klass.fields[k][:insert_nil]
-          f.delete(k) if k == klass.primary_key[:name]
+          next f.delete(k) if f[k].nil? && klass.fields[k][:insert_nil]
+          next f.delete(k) if k == klass.primary_key[:name]
         end
       end)
 
@@ -46,21 +46,12 @@ class Core::Repository
         end.join(", "),
       }
 
-      query = prepare_query(query)
-      params = Core.prepare_params(instances_fields.map(&.values).flatten.reject { |v| v == default })
-
-      query_logger.wrap(query) do
-        rows_affected = db.exec(query, *params).rows_affected
-
-        if rows_affected > 0
-          last_pk_query = SQL_LAST_INSERTED_PK % {
-            table_name:  klass.table,
-            primary_key: klass.primary_key[:name],
-          }
-
-          db.scalar(last_pk_query)
-        end
+      params = instances_fields.first.values
+      instances_fields[1..-1].each do |fields|
+        params += fields.values
       end
+
+      exec(query, params)
     end
   end
 end

@@ -54,6 +54,7 @@ module RepoSpec
       reference :editor, User?, key: :editor_id
 
       field :the_content, String, key: :content
+      field :tags, Array(String)?
 
       created_at_field :created_at
       updated_at_field :updated_at
@@ -65,7 +66,8 @@ module RepoSpec
 
   describe "#insert" do
     user = User.new(name: "Test User")
-    user.id = repo.insert(user.valid!).as(Int64)
+    repo.insert(user.valid!)
+    user = repo.query(User.last).first
 
     it "sets created_at field" do
       user_created_at = repo.scalar(User.last.select(:created_at)).as(Time)
@@ -77,13 +79,8 @@ module RepoSpec
     end
 
     it "works with references" do
-      post = Post.new(author: user, the_content: "Some content")
+      post = Post.new(author: user, the_content: "Some content", tags: ["foo", "bar"])
       repo.insert(post.valid!).should be_truthy
-    end
-
-    it "returns fresh id" do
-      previous_id = repo.scalar(User.last.select(:id)).as(Int32)
-      repo.insert(user).should eq(previous_id + 1)
     end
 
     it "works with multiple instances" do
@@ -94,7 +91,7 @@ module RepoSpec
 
   describe "#query" do
     context "with SQL" do
-      user = repo.query(User, "SELECT * FROM users WHERE id = ?", 1).first
+      user = repo.query(User, "SELECT * FROM users ORDER BY id LIMIT 1").first
 
       it "returns a valid instance" do
         user.id.should be_a(Int32)
@@ -129,6 +126,7 @@ module RepoSpec
 
       it "returns models with references" do
         post = repo.query(Post.where(author: user).join(:author, select: [:id, :name, :active, :role])).first
+        post.tags.should be_a(Array(String))
         author = post.author.not_nil!
         author.should eq user
         author.id.should eq that_user_id
@@ -153,7 +151,6 @@ module RepoSpec
 
       it "returns valid instances" do
         users.should be_a(Array(User))
-        users.first.id.should eq(1)
       end
     end
 
@@ -186,11 +183,10 @@ module RepoSpec
 
   describe "#query_one" do
     context "with SQL" do
-      user = repo.query_one(User, "SELECT * FROM users WHERE id = ?", 1)
+      user = repo.query_one(User, "SELECT * FROM users ORDER BY id DESC LIMIT 1")
 
       it "returns a valid instance" do
         user.should be_a(User)
-        user.id.should eq(1)
       end
 
       it "raises on zero results" do

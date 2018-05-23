@@ -19,6 +19,7 @@ CREATE TABLE posts(
   author_id   INT         NOT NULL  REFERENCES users (id),
   editor_id   INT                   REFERENCES users (id),
   content     TEXT        NOT NULL,
+  tags        TEXT[],
   created_at  TIMESTAMPTZ NOT NULL,
   updated_at  TIMESTAMPTZ
 );
