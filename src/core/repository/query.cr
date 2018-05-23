@@ -1,5 +1,15 @@
 class Core::Repository
   module Query
+    # Query `#db` and return raw `DB::ResultSet`.
+    def query(query : String, *params)
+      query = prepare_query(query)
+      params = Core.prepare_params(*params) if params.any?
+
+      query_logger.wrap(query) do
+        db.query(query, *params)
+      end
+    end
+
     # Query `#db` returning an array of *model* instances.
     #
     # ```
