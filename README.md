@@ -1,27 +1,34 @@
-# Core
+# ![Core](https://user-images.githubusercontent.com/7955682/40578252-6f1929b2-6119-11e8-9348-81505cec939f.png)
 
-**C**rystal **O**bject **RE**lational Mapping you've been waiting for.
+[![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
+[![Build status](https://img.shields.io/travis/vladfaust/core.cr/master.svg?style=flat-square)](https://travis-ci.org/vladfaust/core.cr)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg?style=flat-square)](https://github.vladfaust.com/core.cr)
+[![Releases](https://img.shields.io/github/release/vladfaust/core.cr.svg?style=flat-square)](https://github.com/vladfaust/core.cr/releases)
+[![Awesome](https://img.shields.io/badge/style-awesome-lightgrey.svg?longCache=true&style=flat-square&label=&colorA=fc60a8&colorB=494368&status=ok&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgd2lkdGg9IjE1NC43ODEyNW1tIiAgIGhlaWdodD0iODAuMTE1ODI5bW0iICAgdmlld0JveD0iMCAwIDE1NC43ODEyNSA4MC4xMTU4MjkiICAgdmVyc2lvbj0iMS4xIiAgIGlkPSJzdmc4IiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTIuMSByMTUzNzEiICAgc29kaXBvZGk6ZG9jbmFtZT0iYXdlc29tZS5zdmciPiAgPGRlZnMgICAgIGlkPSJkZWZzMiIgLz4gIDxzb2RpcG9kaTpuYW1lZHZpZXcgICAgIGlkPSJiYXNlIiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiICAgICBib3JkZXJvcGFjaXR5PSIxLjAiICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIgICAgIGlua3NjYXBlOnpvb209IjAuNyIgICAgIGlua3NjYXBlOmN4PSIxMzMuMTU2NTYiICAgICBpbmtzY2FwZTpjeT0iMTAxLjUzNjMiICAgICBpbmtzY2FwZTpkb2N1bWVudC11bml0cz0ibW0iICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiICAgICBzaG93Z3JpZD0iZmFsc2UiICAgICBmaXQtbWFyZ2luLXRvcD0iMCIgICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIgICAgIGZpdC1tYXJnaW4tcmlnaHQ9IjAiICAgICBmaXQtbWFyZ2luLWJvdHRvbT0iMCIgICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIgICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjEwMTciICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTgiICAgICBpbmtzY2FwZTp3aW5kb3cteT0iLTgiICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIiAvPiAgPG1ldGFkYXRhICAgICBpZD0ibWV0YWRhdGE1Ij4gICAgPHJkZjpSREY+ICAgICAgPGNjOldvcmsgICAgICAgICByZGY6YWJvdXQ9IiI+ICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4gICAgICAgIDxkYzp0eXBlICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+ICAgICAgPC9jYzpXb3JrPiAgICA8L3JkZjpSREY+ICA8L21ldGFkYXRhPiAgPGcgICAgIGlua3NjYXBlOmxhYmVsPSJMYXllciAxIiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJsYXllciIgICAgIGlkPSJsYXllcjEiICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzIuMjA5MjQzLC05OS4zODI3MDcpIj4gICAgPHBhdGggICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtzdHJva2Utd2lkdGg6MC4yNjQ1ODMzMiIgICAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIgICAgICAgZD0ibSAxODYuOTkwNDksMTM1LjgxNTgzIC0zOS42ODc1LC0zNi40MDY2NjQgLTUuNTgyNzEsNi4wODU0MTQgMzMuMDcyOTIsMzAuMzIxMjUgSCA0NC40MzI5OTQgTCA3Ny41MDU5MSwxMDUuNDY4MTIgNzEuOTIzMjAyLDk5LjM4MjcwNyAzMi4yMzU3MDMsMTM1LjgxNTgzIGggLTAuMDI2NDYgdiAyMy45OTc3MSBjIDAsMTAuODQ3OTEgMTAuNDUxMDQxLDE5LjY4NSAyMy4yODMzMzIsMTkuNjg1IGggMjQuNDczOTU4IGMgMTIuODMyMjkyLDAgMjMuMjgzMzM3LC04LjgzNzA5IDIzLjI4MzMzNywtMTkuNjg1IHYgLTE1Ljc2OTE3IGggMTIuNyB2IDE1Ljc2OTE3IGMgMCwxMC44NDc5MSAxMC40NTEwNCwxOS42ODUgMjMuMjgzMzMsMTkuNjg1IGggMjQuNDczOTYgYyAxMi44MzIyOSwwIDIzLjI4MzMzLC04LjgzNzA5IDIzLjI4MzMzLC0xOS42ODUgeiIgICAgICAgaWQ9InBhdGg0NDg3IiAvPiAgPC9nPjwvc3ZnPg==)](https://github.com/veelenga/awesome-crystal)
+[![vladfaust.com](https://img.shields.io/badge/style-.com-lightgrey.svg?longCache=true&style=flat-square&label=vladfaust&colorB=0a83d8)](https://vladfaust.com)
 
-[![Build Status](https://travis-ci.org/vladfaust/core.cr.svg?branch=master)](https://travis-ci.org/vladfaust/core.cr) [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://vladfaust.com/core.cr) [![Dependency Status](https://shards.rocks/badge/github/vladfaust/core.cr/status.svg)](https://shards.rocks/github/vladfaust/core.cr) [![GitHub release](https://img.shields.io/github/release/vladfaust/core.cr.svg)](https://github.com/vladfaust/core.cr/releases)
+Core is an expressive modular ORM for [Crystal](https://crystal-lang.org) featuring:
+
+- ⚡️ **Efficiency** based on [Crystal](https://crystal-lang.org) performance
+- ✨ **Expressiveness** with powerful DSL and lesser code
+- 💼 **Safety** with strictly typed attributes
 
 ## About
 
-Tired of [ActiveRecord](https://wikipedia.org/wiki/Active_record_pattern)'s magic? Forget it. It's time for real programming!
+Core does not follow Active Record pattern, it's more like a data-mapping solution. There is a concept of Repository, which is basically a gateway to the database. For example:
 
-**Core** is inspired by [Crecto](https://github.com/Crecto/crecto) but more transparent and Crystal-ish.
+```crystal
+repo = Core::Repository.new(db)
+users = repo.query(User, "SELECT * FROM users WHERE id > 42")
+users.class # => Array(User)
+```
 
-### Features:
+Core also has a plently of features, including:
 
-  - Use plain Crystal `Core::Model`s without ActiveRecord's magic methods;
-  - Interact with Database via `Core::Repository`;
-  - Build powerful queries with `Core::Query`;
-  - Enjoy comprehensive [documenation](https://vladfaust.com/core.cr)!
+- Expressive Query builder, either standalone or module, allowing to use constructions like `Post.join(:author).where(author_id: 42)`, which turns into a plain SQL
+- Validations module allowing to perform both inline and custom validations (`user.valid? # => true`)
 
-### What Core does not:
-
-  - It doesn't do database migrations. Use [micrate](https://github.com/vladfaust/migrate.cr), for example;
-  - It doesn't have _"handy"_ methods you probably got used to.
-  Need to count something? Use plain [db#scalar](http://crystal-lang.github.io/crystal-db/api/latest/DB/QueryMethods.html#scalar). `Core::Repository` is for [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), not for endless utils.
+However, Core is designed to be minimal, so it doesn't perform task you may got used to, for example, it doesn't do database migrations itself. You may use [migrate](https://github.com/vladfaust/migrate.cr) instead.
 
 ## Installation
 
@@ -31,93 +38,84 @@ Add this to your application's `shard.yml`:
 dependencies:
   core:
     github: vladfaust/core.cr
+    version: ~> 0.4.0 # See actual version in releases
 ```
 
-## Usage
+This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/vladfaust/core.cr/releases) and change the `version` accordingly.
 
-Assuming following initial database migration:
+## Basic example
+
+Assuming following database schema:
 
 ```sql
 CREATE TABLE users(
-  id          SERIAL PRIMARY KEY,
+  id          SERIAL        PRIMARY KEY,
   name        VARCHAR(100)  NOT NULL,
-  created_at  TIMESTAMPTZ   NOT NULL,
-  updated_at  TIMESTAMPTZ
+  created_at  TIMESTAMPTZ   NOT NULL  DEFAULT NOW()
 );
 
 CREATE TABLE posts(
-  id          SERIAL PRIMARY KEY,
+  id          SERIAL      PRIMARY KEY,
   author_id   INT         NOT NULL  REFERENCES users (id),
-  content     TEXT,
-  created_at  TIMESTAMPTZ NOT NULL,
+  content     TEXT        NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL  DEFAULT NOW(),
   updated_at  TIMESTAMPTZ
 );
 ```
 
 ```crystal
 require "core"
-require "db"
-require "pg" # Or another driver
+require "pg" # Or maybe another driver
 
-class User < Core::Model
-  schema do
+class User
+  include Core::Schema
+  include Core::Query
+  include Core::Validations
+
+  schema :users do
     primary_key :id
-    field :name, String, validate: {size: (3..32)}
     reference :posts, Array(Post), foreign_key: :author_id
-    created_at_field :created_at
-    updated_at_field :updated_at
+
+    field :name, String, validate: {size: (3..100)}
+    field :created_at, Time, db_default: true # Means that DB is handling the default value
   end
 end
 
-class Post < Core::Model
-  schema do
+class Post
+  include Core::Schema
+  include Core::Query
+  include Core::Validations
+
+  schema :posts do
     primary_key :id
-    field :content, String?
     reference :author, User, key: :author_id
-    created_at_field :created_at
-    updated_at_field :updated_at
+
+    field :content, String
+    field :created_at, Time, db_default: true
+    field :updated_at, Time?
   end
 end
 
 db = DB.open(ENV["DATABASE_URL"])
-query_logger = Core::QueryLogger.new(STDOUT)
+query_logger = Core::Logger::IO.new(STDOUT)
 repo = Core::Repository.new(db, query_logger)
 
-user = User.new(name: "Fo")
+user = User.new(name: "Vl")
 user.valid? # => false
-user.errors # => [{:name => "must have size in range of 3..32"}]
-user.name = "Foo"
+user.errors # => [{:name => "must have size in range of 3..100"}]
+user.name = "Vlad"
 
-user.id = repo.insert(user.valid!).as(Int64)
-# INSERT INTO users (name, created_at) VALUES ($1, $2)
+repo.insert(user)
 
-post = Post.new(author: user, content: "Foo Bar")
-post.id = repo.insert(post).as(Int64)
-# INSERT INTO posts (author_id, content, created_at) VALUES ($1, $2, $3)
+# PG driver is unable to return fresh ids yet
+user.id = repo.query(User.where(name: "Vlad").select(:id)).first.id
 
-alias Query = Core::Query
+post = Post.new(author: user, content: "What a beauteful day!")
+repo.insert(post)
+post.id = repo.query(Post, "SELECT * FROM posts ORDER BY id DESC LIMIT 1").first.id
 
-posts = repo.query(Query(Post).where(author: user))
-# SELECT * FROM posts WHERE author_id = $1
-
-posts.first.content # => "Foo Bar"
-
-query = Query(User)
-  .join(:posts)
-  .group_by(%i(users.id posts.id))
-  .one
-user = repo.query(query).first
-# SELECT *
-# FROM users JOIN posts AS posts ON posts.author_id = users.id
-# GROUP BY users.id, posts.id LIMIT 1
-
-user.name = "Bar"
-user.changes # => {:name => "Bar"}
-repo.update(user)
-# UPDATE users SET name = $1 WHERE id = $2 RETURNING id
-
-repo.delete(posts.first)
-# DELETE FROM posts WHERE id = $1
+post.content = "What a beautiful day!"
+repo.update(post)
 ```
 
 ## Testing
