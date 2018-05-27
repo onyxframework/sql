@@ -104,18 +104,16 @@ user = User.new(name: "Vl")
 user.valid? # => false
 user.errors # => [{:name => "must have size in range of 3..100"}]
 user.name = "Vlad"
+user = repo.insert(user)
 
-repo.insert(user)
-
-# PG driver is unable to return fresh ids yet
-user.id = repo.query(User.where(name: "Vlad").select(:id)).first.id
-
-post = Post.new(author: user, content: "What a beauteful day!")
-repo.insert(post)
-post.id = repo.query(Post, "SELECT * FROM posts ORDER BY id DESC LIMIT 1").first.id
+post = repo.insert(Post.new(author: user, content: "What a beauteful day!")) # Oops
 
 post.content = "What a beautiful day!"
 repo.update(post)
+
+posts = repo.query(Post.where(author: user).join(:author))
+puts posts.first.inspect
+# => <Post @author=<User @name="Vlad"> @content="What a beautiful day!">
 ```
 
 ## Testing
