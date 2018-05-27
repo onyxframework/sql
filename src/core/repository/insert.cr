@@ -9,7 +9,7 @@ class Core::Repository
     # TODO: Handle errors.
     # TODO: [RFC] Call `#query` and return `Schema` instance instead (see https://github.com/will/crystal-pg/issues/101).
     def insert(instance : Schema)
-      insert([instance])
+      insert([instance]).first
     end
 
     # Insert multiple *instances* into Database. Returns `DB::ExecResult`.

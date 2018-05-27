@@ -68,7 +68,7 @@ module RepoSpec
     user = User.new(name: "Test User")
 
     it "returns inserted user" do
-      user = repo.insert(user.valid!).first
+      user = repo.insert(user.valid!)
       user.should be_truthy
     end
 
@@ -82,7 +82,7 @@ module RepoSpec
 
     it "works with references" do
       post = Post.new(author: user, the_content: "Some content", tags: ["foo", "bar"])
-      repo.insert(post.valid!).first.should be_a(Post)
+      repo.insert(post.valid!).should be_a(Post)
     end
 
     it "works with multiple instances" do
