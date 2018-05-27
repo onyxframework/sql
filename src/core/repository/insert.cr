@@ -1,11 +1,7 @@
 class Core::Repository
   module Insert
     private SQL_INSERT = <<-SQL
-    INSERT INTO %{table_name} (%{keys}) VALUES %{values}
-    SQL
-
-    private SQL_LAST_INSERTED_PK = <<-SQL
-    SELECT currval(pg_get_serial_sequence('%{table_name}', '%{primary_key}'))
+    INSERT INTO %{table_name} (%{keys}) VALUES %{values} RETURNING *
     SQL
 
     # Insert a single *instance* into Database. Returns `DB::ExecResult`.
@@ -50,7 +46,7 @@ class Core::Repository
         params += fields.values
       end
 
-      exec(query, params)
+      query(klass, query, params)
     end
   end
 end

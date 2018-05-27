@@ -66,26 +66,28 @@ module RepoSpec
 
   describe "#insert" do
     user = User.new(name: "Test User")
-    repo.insert(user.valid!)
-    user = repo.query(User.last).first
+
+    it "returns inserted user" do
+      user = repo.insert(user.valid!).first
+      user.should be_truthy
+    end
 
     it "sets created_at field" do
-      user_created_at = repo.scalar(User.last.select(:created_at)).as(Time)
-      user_created_at.should be_truthy
+      user.created_at.should be_truthy
     end
 
     it "doesn't set updated_at field" do
-      repo.scalar(User.last.select(:updated_at)).as(Time?).should be_nil
+      user.updated_at.should be_nil
     end
 
     it "works with references" do
       post = Post.new(author: user, the_content: "Some content", tags: ["foo", "bar"])
-      repo.insert(post.valid!).should be_truthy
+      repo.insert(post.valid!).first.should be_a(Post)
     end
 
     it "works with multiple instances" do
       users = [User.new(name: "Foo"), User.new(name: "Bar")]
-      repo.insert(users.map(&.valid!)).should be_truthy
+      repo.insert(users.map(&.valid!)).should be_a(Array(User))
     end
   end
 
