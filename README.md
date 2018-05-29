@@ -25,7 +25,8 @@ users.class # => Array(User)
 
 Core also has a plently of features, including:
 
-- Expressive Query builder, either standalone or module, allowing to use constructions like `Post.join(:author).where(author_id: 42)`, which turns into a plain SQL
+- Expressive Query builder, either standalone or module, allowing to use constructions like `Post.join(:author).where(author: user)`, which turns into a plain SQL
+- References preloader (the example above would return a `Post` which has `#author = <User @id=42>` attribute)
 - Validations module allowing to perform both inline and custom validations (`user.valid? # => true`)
 
 However, Core is designed to be minimal, so it doesn't perform task you may got used to, for example, it doesn't do database migrations itself. You may use [migrate](https://github.com/vladfaust/migrate.cr) instead.
