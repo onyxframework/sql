@@ -19,9 +19,9 @@ class Core::Logger::IO < Core::Logger
   # ```
   def wrap(query : String, &block : String -> _)
     log_query(query)
-    started_at = Time.now
+    started_at = Time.monotonic
     r = yield(query)
-    log_time(Time.now - started_at)
+    log_time(Time.monotonic - started_at)
     r
   end
 
