@@ -12,10 +12,24 @@ struct Core::Query::Instance(Schema)
   # # => SELECT * FROM users ORDER BY name DESC
   # ```
   def order_by(column : Symbol | String, order : Symbol | String | Nil = nil)
+    if column.is_a?(Symbol)
+      {% begin %}
+        case column
+        {% for field in Schema::INTERNAL__CORE_FIELDS %}
+          when {{field[:name]}}
+            column = {{field[:key].id.stringify}}
+        {% end %}
+        else
+          raise ArgumentError.new("Invalid field name #{column} for #{Schema}!")
+        end
+      {% end %}
+    end
+
     @order_by_clauses.push(OrderByTuple.new(
-      column: column.to_s,
+      column: column,
       order: order.try &.to_s.upcase,
     ))
+
     self
   end
 
