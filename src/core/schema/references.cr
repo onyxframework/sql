@@ -2,7 +2,7 @@ module Core
   module Schema
     # Define a reference.
     #
-    # Generates an always nilable *name* property, as well as initializers, for example:
+    # Generates an always nilable property, as well as initializers, for example:
     #
     # ```
     # schema do
@@ -10,7 +10,7 @@ module Core
     #   reference :posts, Array(Post)
     # end
     #
-    # # Will expand in:
+    # # Will expand into:
     #
     # property referrer : User?
     # property posts : Array(Post)?
@@ -19,7 +19,7 @@ module Core
     # end
     # ```
     #
-    # If *key* is given, also generates a field property. Basically, the key should copy one from SQL schema. For example:
+    # If a *key* argument is given, also generates a field property. Basically, the key should copy one from SQL schema. For example:
     #
     # ```
     # schema do
@@ -42,14 +42,12 @@ module Core
     #   @referrer_id : PrimaryKey? = nil,
     #   @creator_id : PrimaryKey? = nil
     # )
-    #   @referrer_id ||= @referrer.try &.id # Smarty!
+    #   @referrer_id ||= @referrer.try &.id # Smart!
     #   @creator_id ||= @creator.try &.id
     # end
     # ```
     #
-    # A reference's primary key is obtained from the *class* itself, or, if given, from *foreign_key*. But remember that *foreign_key* is needed for `Query#join` and other methods!
-    #
-    # NOTE: For now you have to specify full path to the reference class (with modules)
+    # A reference's primary key is obtained from the reference *class* itself, or, if given, from *foreign_key*. But remember that *foreign_key* is required for `Query::Instance#join`.
     #
     # Another example:
     #
@@ -60,16 +58,17 @@ module Core
     #
     #     schema "users" do
     #       primary_key :id
-    #       reference :referrer, Models::User, key: :referrer_id
-    #       reference :referrals, Array(Models::User), foreign_key: :referrer_id
-    #       reference :posts, Array(Models::Post), foreign_key: :author_id
+    #       reference :referrer, User, key: :referrer_id
+    #       reference :referrals, Array(User), foreign_key: :referrer_id
+    #       reference :posts, Array(Post), foreign_key: :author_id
+    #     end
     #   end
     #
     #   class Post
     #     include Core::Schema
     #
     #     schema "posts" do
-    #       reference :author, Models::User, key: :author_id
+    #       reference :author, User, key: :author_id
     #     end
     #   end
     # end

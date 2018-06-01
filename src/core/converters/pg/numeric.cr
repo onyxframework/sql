@@ -12,13 +12,16 @@ module Core
     #
     # require "core/converters/pg/numeric"
     #
-    # class User < Core::Model
+    # class User
+    #   include Core::Schema
+    #   include Core::Query
+    #
     #   schema do
-    #     field :balance, Float64, converter: Converters::PG::Numeric
+    #     field :balance, Float64, converter: Core::Converters::PG::Numeric
     #   end
     # end
     #
-    # user = repository.query(Query(User).last).first
+    # user = repository.query_one(User.last)
     # user.balance # => 42.0
     # ```
     class Numeric < Converter(Float64)

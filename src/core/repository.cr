@@ -23,18 +23,18 @@ require "./repository/*"
 # repo = Core::Repository.new(db, logger)
 #
 # user = User.new(name: "Foo")
-# repo.insert(user) # TODO: [RFC] Return last inserted ID
-# # INSERT INTO users (name, created_at) VALUES ($1, $2) RETURNING id
+# user = repo.insert(user)
+# # INSERT INTO users (name, created_at) VALUES ($1, $2) RETURNING *
 # # 1.773ms
 #
-# query = Query(User).last
+# query = User.last
 # user = repo.query_one(query)
 # # SELECT * FROM users ORDER BY id DESC LIMIT 1
 # # 275μs
 #
 # user.name = "Bar"
-# repo.update(user) # TODO: [RFC] Return a number of affected rows
-# # UPDATE users SET name = $1 WHERE (id = $2) RETURNING id
+# repo.update(user)
+# # UPDATE users SET name = $1 WHERE (id = $2) RETURNING *
 # # 1.578ms
 #
 # repo.delete(user)

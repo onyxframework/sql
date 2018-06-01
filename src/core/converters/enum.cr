@@ -11,14 +11,16 @@ module Core
     #
     # require "core/converters/enum"
     #
-    # class User < Core::Model
+    # class User
+    #   include Core::Schema
+    #
     #   enum Role
     #     JustAUser
     #     Admin
     #   end
     #
     #   schema do
-    #     field :role, Role, converter: Converters::Enum(Role)
+    #     field :role, Role, converter: Core::Converters::Enum(Role)
     #   end
     # end
     #

@@ -1,5 +1,5 @@
 require "./core/*"
 
-# Meet `Core` - **C**rystal **O**bject **RE**lational mapping you've been waiting for!
+# Meet `Core`, an expressive modular ORM for Crystal.
 module Core
 end

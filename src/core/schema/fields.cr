@@ -1,16 +1,14 @@
 module Core
   module Schema
-    # Define a field for **Database mapping** (see [DB::Mappable](https://github.com/crystal-lang/crystal-db/blob/master/src/db/mapping.cr)).
-    #
-    # A getter and setter are generated for each field.
+    # Define a schema field, generating properties for each field.
     #
     # Possible *options*:
-    # - *default* (`Proc?`) - Proc called for the field on `Model` instance initialization if it's `nil`;
-    # - *nilable* (`Bool?`) - Is this field nilable? Has the same effect as providing a nilable *type*. If nilable, will generate `getter!`, otherwise `getter`;
-    # - *db_default* (`Bool?`) - Whether is this field value has `DEFAULT` set in DB schema. As a result, when an instance is initialized explicitly (e.g. `User.new`), this field **will not** be checked against `nil`. However, if an instance is initialized implicitly (e.g. `from_rs` or `User.new(explicitly_initialized: false)`), then this field **will** be checked against `nil`.
-    # - *primary_key* (`Bool?`) - Is this field primary key? See `#primary_key`;
+    # - *default* (`Proc?`) - Proc called for the field on instance initialization if it's `nil`;
+    # - *nilable* (`Bool?`) - Whether is this field nilable. Has the same effect as providing a nilable *type*. If nilable, will generate `getter!`, otherwise just `getter` (see https://crystal-lang.org/api/0.24.2/Object.html#getter%21%28%2Anames%29-macro);
+    # - *db_default* (`Bool?`) - Whether is this field has `DEFAULT` value handled by database. As a result, when an instance is initialized explicitly (e.g. `User.new`), this field **will not** be checked against `nil`. However, if an instance is initialized implicitly (e.g. `from_rs` or `User.new(explicitly_initialized: false)`), then this field **will** be checked against `nil`, failing validation if not nilable.
+    # - *primary_key* (`Bool?`) - Is this field a primary key? See `#primary_key`;
     # - *key* (`Symbol?`) - Column name for this field. Defaults to *name*;
-    # - *converter* (`Object?`) - An object extending `Converter`;
+    # - *converter* (`Object?`) - An object extending `Core::Converter`;
     #
     # ```
     # schema do

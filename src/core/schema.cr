@@ -4,7 +4,7 @@ require "./validation"
 require "./schema/*"
 
 module Core
-  # Schema defines Database mapping and model fields. It allows `Repository` and `Query` to work with this model.
+  # Schema defines mapping between database and model.
   #
   # ```
   # class User
@@ -12,9 +12,11 @@ module Core
   #
   #   schema "users" do
   #     primary_key :id
+  #
   #     reference :referrer, self, key: :referrer_id
   #     reference :referrals, self, foreign_key: :referrer_id
   #     reference :posts, Post, foreign_key: :author_id
+  #
   #     field :name, String
   #     field :age, Int32?
   #     field :created_at, Time, db_default: true
@@ -27,6 +29,7 @@ module Core
   #   schema "posts" do
   #     primary_key :id
   #     reference :author, User, key: :author_id
+  #
   #     field :content, String
   #     field :created_at, Time, db_default: true
   #     field :updated_at, Time?
@@ -36,7 +39,7 @@ module Core
   module Schema
     # A basic macro for schema definition.
     # All other macros have to be called **within** the *block*.
-    # It can only be called **once** per model.
+    # It should only be called **once** per model.
     #
     # ```
     # class User

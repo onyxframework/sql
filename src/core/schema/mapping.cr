@@ -38,7 +38,7 @@ module Core
 
             case
               \{% for field in INTERNAL__CORE_FIELDS %}
-                # Once a field matched by key with a column, it's value will not be overriden.
+                # Once a field matched by key with a column, it's value will not be overwritten.
                 #
                 # For example, when querying Post joining User, both have "id" column; the first occurence will go to `%temp_fields`, the second one will be skipped.
                 when column_name == \{{field[:key].id.stringify}} && !%temp_fields.has_key?(\{{field[:name]}})
@@ -66,7 +66,7 @@ module Core
                 end
               \{% end %}
 
-              # Column is not mappable neither for self nor for any reference, skip further columns then
+              # RFC: Column is not mappable neither for self nor for any reference, skip further columns then.
               break
             end
           end

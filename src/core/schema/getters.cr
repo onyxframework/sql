@@ -24,7 +24,7 @@ module Core
             FIELDS
           end
 
-          # Return a `Hash` of field keys with their actual values.
+          # Return a `Hash` of fields with their actual values.
           #
           # ```
           # user = User.new(id: 42)

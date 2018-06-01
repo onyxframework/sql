@@ -36,7 +36,7 @@ class Core::Repository
     # Query `#db` returning an array of model instances inherited from *query*.
     #
     # ```
-    # repo.query(Query(User).all) # => Array(User)
+    # repo.query(User.all) # => Array(User)
     # ```
     #
     # TODO: Handle errors (PQ::PQError)
@@ -61,7 +61,7 @@ class Core::Repository
     # Query `#db` returning a model instance inherited from *query*.
     #
     # ```
-    # repo.query_one?(Query(User).first) # => User?
+    # repo.query_one?(User.first) # => User?
     # ```
     def query_one?(query : Core::Query::Instance(T)) forall T
       query_one?(T, query.to_s, query.params)
@@ -79,7 +79,7 @@ class Core::Repository
     # Query `#db` returning a model instance inherited from *query*. Will raise `NoResultsError` if query returns no instances.
     #
     # ```
-    # repo.query_one(Query(User).first) # => User
+    # repo.query_one(User.first) # => User
     # ```
     def query_one(query : Core::Query::Instance(T)) forall T
       query_one(T, query.to_s, query.params)

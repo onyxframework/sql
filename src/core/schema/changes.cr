@@ -4,7 +4,7 @@ module Core
       macro finished
         \{% skip_file unless INTERNAL__CORE_FIELDS.size > 0 %}
 
-        # A storage for a `Model`'s changes, empty on initialize. Doesn't track virtual fields. To reset use `changes.clear`.
+        # A storage for changes, empty on initialize. To reset use `changes.clear`.
         @changes = Hash(Symbol, \{{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new
         getter changes
 
