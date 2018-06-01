@@ -18,7 +18,7 @@ struct Core::Query::Instance(Schema)
   #
   # ```
   # User.join(:posts, on: {:author_id, :id}, as: :written_posts).to_s
-  # # => SELECT * FROM users JOIN posts AS written_posts ON written_posts.author_id = users.id
+  # # => SELECT users.* FROM users JOIN posts AS written_posts ON written_posts.author_id = users.id
   # ```
   def join(
     table : Symbol | String,

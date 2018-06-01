@@ -67,7 +67,7 @@ module Core::Query
     # Remove this query's `#limit` and return itself.
     #
     # ```
-    # query = Query(User).new.limit(3).offset(5).all.to_s
+    # query = Instance(User).new.limit(3).offset(5).all.to_s
     # # => SELECT * FROM users OFFSET 5
     # ```
     def all
@@ -78,7 +78,7 @@ module Core::Query
     # Sets this query limit to 1.
     #
     # ```
-    # query = Query(User).new.one.to_s
+    # query = Instance(User).new.one.to_s
     # # => SELECT * FROM users LIMIT 1
     # ```
     def one
@@ -89,7 +89,7 @@ module Core::Query
     # Query the last row by `Model::Schema.primary_key[:name]`.
     #
     # ```
-    # Query(User).new.last.to_s
+    # Instance(User).new.last.to_s
     # # => SELECT * FROM users ORDER BY id DESC LIMIT 1
     # ```
     def last
@@ -101,7 +101,7 @@ module Core::Query
     # Query the first row by `Model::Schema.primary_key[:name]`.
     #
     # ```
-    # Query(User).new.first.to_s
+    # Instance(User).new.first.to_s
     # # => SELECT * FROM users ORDER BY id ASC LIMIT 1
     # ```
     def first

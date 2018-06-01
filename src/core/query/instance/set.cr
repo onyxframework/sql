@@ -5,7 +5,7 @@ struct Core::Query::Instance(Schema)
   # Append explicit value to `SET` clauses, setting Query type to `UPDATE`.
   #
   # ```
-  # User.update.set("popularity = floor(random() * ?)", 100).to_s
+  # Core::Query::Instance(User).new.update.set("popularity = floor(random() * ?)", 100).to_s
   # # => UPDATE users SET popularity = floor(random() * ?) with params [100]
   # ```
   def set(clause, *params)
@@ -24,8 +24,8 @@ struct Core::Query::Instance(Schema)
   # NOTE: It's not included in `Query` module to avoid confusion about possible `Schema#set` method. Use `Query#update` beforeahead.
   #
   # ```
-  # User.update.set(active: true).to_s     # Equal
-  # Query.new(User).set(active: true).to_s # Equal
+  # User.update.set(active: true).to_s                     # Equal
+  # Core::Query::Instance(User).new.set(active: true).to_s # Equal
   # # => UPDATE users SET active = true
   # ```
   def set(**values)

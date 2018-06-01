@@ -5,8 +5,8 @@ struct Core::Query::Instance(Schema)
   # Set `LIMIT` clause.
   #
   # ```
-  # Query.new(User).limit(50).to_s
-  # # => SELECT * FROM users LIMIT 50
+  # Core::Query::Instance(User).new.limit(50).to_s
+  # # => SELECT users.* FROM users LIMIT 50
   # ```
   def limit(limit : Int32 | Int64 | Nil)
     @limit_clause = limit

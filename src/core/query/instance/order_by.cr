@@ -8,8 +8,8 @@ struct Core::Query::Instance(Schema)
   # Add `ORDER BY` clause. Only `Symbol`s are accepted.
   #
   # ```
-  # Query.new(User).order_by(:name, :DESC).to_s
-  # # => SELECT * FROM users ORDER BY name DESC
+  # Core::Query::Instance.new(User).order_by("name", :DESC).to_s
+  # # => SELECT users.* FROM users ORDER BY name DESC
   # ```
   def order_by(column : Symbol | String, order : Symbol | String | Nil = nil)
     if column.is_a?(Symbol)

@@ -16,11 +16,11 @@ struct Core::Query::Instance(Schema)
   #   end
   # end
   #
-  # Query.new(User).select("name").to_s
+  # Core::Query::Instance(User).new.select("name").to_s
   # # => SELECT name FROM users
   #
   # User.select("DISTINCT name").select(:foo, :bar).to_s
-  # # => SELECT DISTINCT name, foom baz FROM users
+  # # => SELECT DISTINCT name, foo, baz FROM users
   #
   # User.select(:id).select("*")
   # # => SELECT id, * FROM users

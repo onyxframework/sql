@@ -5,8 +5,8 @@ struct Core::Query::Instance(Schema)
   # Set `OFFSET` clause.
   #
   # ```
-  # Query(User).new.offset(5).to_s
-  # # => SELECT * FROM users OFFSET 5
+  # Core::Query::Instance(User).new.offset(5).to_s
+  # # => SELECT users.* FROM users OFFSET 5
   # ```
   def offset(offset : Int32 | Int64 | Nil)
     @offset_clause = offset

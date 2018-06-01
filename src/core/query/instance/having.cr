@@ -24,7 +24,7 @@ struct Core::Query::Instance(Schema)
   #
   # ```
   # user = User.new(id: 42)
-  # query = Query.new(Post)
+  # query = Core::Query::Instance(Post).new
   #
   # # All clauses below will result in
   # # "HAVING (posts.author_id = ?)"
