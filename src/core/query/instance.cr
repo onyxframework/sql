@@ -138,20 +138,5 @@ module Core::Query
 
       query.strip
     end
-
-    # :nodoc:
-    macro append_from_clause
-
-    end
-
-    # :nodoc:
-    macro append_update_clause
-      query += "UPDATE "
-    end
-
-    # :nodoc:
-    macro append_delete_clause
-      query += "DELETE "
-    end
   end
 end
