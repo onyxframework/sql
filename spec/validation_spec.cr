@@ -97,7 +97,7 @@ module ValidationSpec
         it "validates in" do
           user.height = 0.1
           user.validate
-          user.errors.should eq ([{:height => "must be included in 0.5..2.5"}])
+          user.errors.should eq ([{:height => "must be included in (0.5..2.5)"}])
         end
       end
 
