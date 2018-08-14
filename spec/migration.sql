@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pg_numeric;
+DROP TABLE IF EXISTS enums;
 
 CREATE TABLE users(
   id          SERIAL PRIMARY KEY,
@@ -30,3 +31,10 @@ CREATE TABLE pg_numeric(
 );
 
 INSERT INTO pg_numeric (foo, bar) VALUES (12345678.00000001, NULL);
+
+CREATE TABLE enums(
+  foo SMALLINT  NOT NULL,
+  bar SMALLINT
+);
+
+INSERT INTO enums (foo, bar) VALUES (1, NULL);

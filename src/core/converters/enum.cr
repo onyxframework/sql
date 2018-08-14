@@ -2,7 +2,7 @@ require "../converter"
 
 module Core
   module Converters
-    # Allows to represent `SMALLINT`, `INT` or `BIGINT` values as Enums in models.
+    # Allows to represent integer values as Enums in models.
     #
     # ```
     # # SQL:
@@ -29,8 +29,7 @@ module Core
     # ```
     class Enum(EnumClass) < Converter(Enum)
       def self.from_rs(rs)
-        value = rs.read(Int32 | Nil)
-        EnumClass.new(value) if value
+        rs.read(Int16 | Int32 | Int64 | Nil).try { |v| EnumClass.new(v.to_i32) }
       end
 
       def self.to_db(enum _enum : EnumClass)
