@@ -66,12 +66,13 @@ CREATE TABLE posts(
 
 ```crystal
 require "core"
+require "core/logger/io"
 require "pg" # Or maybe another driver
 
 class User
   include Core::Schema
   include Core::Query
-  include Core::Validations
+  include Core::Validation
 
   schema :users do
     primary_key :id
@@ -85,7 +86,7 @@ end
 class Post
   include Core::Schema
   include Core::Query
-  include Core::Validations
+  include Core::Validation
 
   schema :posts do
     primary_key :id
@@ -121,6 +122,13 @@ puts posts.first.inspect
 
 1. Apply migration from `./spec/migration.sql`
 2. Run `env DATABASE_URL=your_database_url crystal spec`
+
+Database URL should use a format such as:
+
+```
+# For PostgreSQL:
+postgresql://[user[:password]@][host][:port][/dbname][?param1=value1&...]
+```
 
 ## Contributing
 
