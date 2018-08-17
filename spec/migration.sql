@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS pg_numeric;
 DROP TABLE IF EXISTS enums;
+DROP TABLE IF EXISTS enum_arrays;
 
 CREATE TABLE users(
   id          SERIAL PRIMARY KEY,
@@ -11,6 +12,7 @@ CREATE TABLE users(
   active      BOOL          NOT NULL  DEFAULT true,
   role        INT           NOT NULL  DEFAULT 0,
   name        VARCHAR(100)  NOT NULL,
+  permissions SMALLINT[]    NOT NULL  DEFAULT '{0}',
   created_at  TIMESTAMPTZ   NOT NULL  DEFAULT NOW(),
   updated_at  TIMESTAMPTZ
 );
@@ -38,3 +40,10 @@ CREATE TABLE enums(
 );
 
 INSERT INTO enums (foo, bar) VALUES (1, NULL);
+
+CREATE TABLE enum_arrays(
+  foo SMALLINT[] NOT NULL,
+  bar INT[]
+);
+
+INSERT INTO enum_arrays (foo, bar) VALUES ('{1,2}', NULL);

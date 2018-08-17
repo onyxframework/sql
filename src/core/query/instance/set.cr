@@ -34,7 +34,15 @@ struct Core::Query::Instance(Schema)
         case key
         {% for field in Schema::INTERNAL__CORE_FIELDS %}
           when {{field[:name]}}
-            set({{field[:key].id.stringify}} + " = ?", value)
+            {% if field[:converter] %}
+              if value.is_a?({{field[:type]}})
+                set({{field[:key].id.stringify}} + " = ?", {{field[:converter].id}}.to_db(value))
+              end
+            {% else %}
+              if value.is_a?({{field[:type]}})
+                set({{field[:key].id.stringify}} + " = ?", value)
+              end
+            {% end %}
         {% end %}
         else
           raise ArgumentError.new("Invalid field name #{key} for #{Schema}!")
@@ -49,7 +57,7 @@ struct Core::Query::Instance(Schema)
   macro append_set_clauses
     if set_clauses.any?
       query += " SET " + set_clauses.map(&.[:clause]).join(", ")
-      params.concat(set_clauses.map(&.[:params]).flatten.compact)
+      params.concat(set_clauses.map(&.[:params]).flat_map(&.itself).compact)
     end
   end
 end

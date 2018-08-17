@@ -6,6 +6,7 @@ require "../src/core/repository"
 require "../src/core/schema"
 require "../src/core/query"
 require "../src/core/converters/enum"
+require "../src/core/converters/enum_array"
 require "../src/core/logger/io"
 
 alias Repo = Core::Repository
@@ -24,6 +25,11 @@ module RepoSpec
       Admin
     end
 
+    enum Permission
+      CreatePosts
+      EditPosts
+    end
+
     schema :users do
       primary_key :id
 
@@ -36,6 +42,7 @@ module RepoSpec
       field :active, Bool, db_default: true
       field :role, Role, default: Role::User, converter: Core::Converters::Enum(Role)
       field :name, String
+      field :permissions, Array(Permission), converter: Core::Converters::EnumArray(Permission, Int16), db_default: true
 
       field :created_at, Time, db_default: true
       field :updated_at, Time?
@@ -118,6 +125,7 @@ module RepoSpec
         user.active.should be_true
         user.role.should eq(User::Role::User)
         user.name.should eq("Test User")
+        user.permissions.should eq [User::Permission::CreatePosts]
         user.created_at.should be_a(Time)
         user.updated_at.should eq(nil)
       end
@@ -225,11 +233,10 @@ module RepoSpec
     end
 
     context "with Query instance" do
-      update = repo.update(User.where(id: user.id).set(name: "Updated Again User"))
-      updated_user = repo.query_one(User.last)
-
       it do
-        updated_user.name.should eq "Updated Again User"
+        update = repo.update(User.where(id: user.id).set(permissions: [User::Permission::CreatePosts, User::Permission::EditPosts]))
+        updated_user = repo.query_one(User.last)
+        updated_user.permissions.should eq [User::Permission::CreatePosts, User::Permission::EditPosts]
       end
     end
   end

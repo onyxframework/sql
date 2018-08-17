@@ -43,7 +43,7 @@ module Core
                 %}
                 \{{field[:name]}} => \{{val.id}},
               \{% end %}
-            } of Symbol => \{{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}
+            } of Symbol => Core::Param
           end
         \{% end %}
 

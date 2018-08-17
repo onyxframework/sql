@@ -48,7 +48,7 @@ module Core
       {%
         converter = if options[:converter]
                       if options[:converter].is_a?(Generic)
-                        (options[:converter].name.resolve.stringify.gsub(/\(\w+\)/, "(" + options[:converter].type_vars.first.resolve.stringify + ")")).id
+                        (options[:converter].name.resolve.stringify.gsub(/\([\w, ]+\)/, "(" + options[:converter].type_vars.map { |v| v.resolve.stringify }.join(", ") + ")")).id
                       else
                         options[:converter]
                       end
@@ -60,7 +60,13 @@ module Core
       {% INTERNAL__CORE_FIELDS.push({
            name: name,
            type: (if _type.is_a?(Generic)
-             _type
+             if ("#{_type.name.resolve}" == "Array(T)")
+               _type.name.resolve.stringify.gsub(/\([\w, ]+\)/, "(" + _type.type_vars.map do |v|
+                 v.resolve.stringify
+               end.join(", ") + ")").id
+             else
+               _type
+             end
            else
              _type.resolve
            end),
