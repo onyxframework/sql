@@ -39,7 +39,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   core:
     github: vladfaust/core
-    version: ~> 0.4.1
+    version: ~> 0.4.2
 ```
 
 This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/vladfaust/core/releases) and change the `version` accordingly.
