@@ -1,20 +1,20 @@
 name: core
-version: 0.4.2
+version: 0.5.0
 
 authors:
   - Vlad Faust <mail@vladfaust.com>
 
-crystal: 0.26.0
+crystal: master
 
 license: MIT
 
 dependencies:
-  db:
-    github: crystal-lang/crystal-db
-    version: ~> 0.5.0
   time_format:
     github: vladfaust/time_format.cr
     version: ~> 0.1.0
+  db:
+    github: crystal-lang/crystal-db
+    version: ~> 0.5.0
 
 development_dependencies:
   pg:

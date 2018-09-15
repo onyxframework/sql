@@ -1,23 +1,27 @@
-require "../spec_helper"
+require "../models"
 
-require "../../src/core/schema"
-require "../../src/core/query"
+describe "Query#order_by" do
+  context "with attribute argument" do
+    it do
+      q = Core::Query(User).new.order_by(:active, :desc)
 
-module QueryOrderBySpec
-  class User
-    include Core::Schema
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users ORDER BY users.activity_status DESC
+      SQL
 
-    schema :users do
-      primary_key :id
-      field :name, String, key: :the_name_column
+      q.params.should be_nil
     end
   end
 
-  describe "#order_by" do
+  context "with string argument" do
     it do
-      Core::Query.new(User).order_by(:id, :desc).order_by(:name).order_by("custom_order").to_s.should eq <<-SQL
-      SELECT users.* FROM users ORDER BY id DESC, the_name_column, custom_order
+      q = Core::Query(User).new.order_by("some_column")
+
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users ORDER BY some_column ASC
       SQL
+
+      q.params.should be_nil
     end
   end
 end

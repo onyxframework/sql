@@ -1,24 +1,40 @@
-class Core::Repository
-  module Exec
-    # Execute *query* and return a `DB::ExecResult`.
-    #
-    # See http://crystal-lang.github.io/crystal-db/api/0.5.0/DB/QueryMethods.html#exec%28query%2C%2Aargs%29-instance-method
-    #
-    # ```
-    # repo.exec("UPDATE foo SET now = NOW()")
-    # ```
-    def exec(query : String, *params)
-      query = prepare_query(query)
-      params = Core.prepare_params(*params) if params.any?
+module Core
+  class Repository
+    # Call `db.exec(sql, *params)`.
+    def exec(sql : String, *params : DB::Any | Array(DB::Any)) : DB::ExecResult
+      sql = prepare_query(sql)
 
-      query_logger.wrap(query) do
-        db.exec(query, *params)
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        db.exec(sql, *params)
       end
     end
 
-    # Execute *query* (after stringifying and extracting params) and return a `DB::ExecResult`.
-    def exec(query : Core::Query::Instance(T)) forall T
-      exec(query.to_s, query.params)
+    # Call `db.exec(sql, params)`.
+    def exec(sql : String, params : Enumerable(DB::Any | Array(DB::Any))? = nil) : DB::ExecResult
+      sql = prepare_query(sql)
+
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        if params
+          db.exec(sql, params.to_a)
+        else
+          db.exec(sql)
+        end
+      end
+    end
+
+    # Build *query* and call `db.exec(query.to_s, query.params)`.
+    def exec(query : Query)
+      raise ArgumentError.new("Must not call 'Repository#exec' with SELECT Query. Consider using 'Repository#scalar' or 'Repository#query' instead") if query.type == :select
+
+      # Removes `.returning`, so DB doesn't hang! 🍬
+      query.returning = nil
+      sql = prepare_query(query.to_s)
+
+      if query.params.try &.any?
+        exec(sql, query.params)
+      else
+        exec(sql)
+      end
     end
   end
 end

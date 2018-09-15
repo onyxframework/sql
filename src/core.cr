@@ -1,5 +1,7 @@
+require "db"
 require "./core/*"
+require "./core/ext/**"
 
-# Meet `Core`, an expressive modular ORM for Crystal.
+# Type-safe and expressive SQL ORM for Crystal.
 module Core
 end

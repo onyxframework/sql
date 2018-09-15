@@ -1,8 +1,10 @@
 language: crystal
+crystal: nightly
 services:
   - postgresql
 script:
   - crystal spec
+  - env POSTGRESQL_URL=$POSTGRESQL_URL crystal spec db_spec
   - crystal docs
 deploy:
   provider: pages
@@ -12,7 +14,7 @@ deploy:
     branch: master
   local_dir: docs
 before_script:
-  - psql -c 'create database core_test;' -U postgres
-  - psql $DATABASE_URL < spec/migration.sql
+  - psql -c 'create database test;' -U postgres
+  - psql $POSTGRESQL_URL < spec/migration.sql
 env:
-  - DATABASE_URL=postgres://postgres@localhost:5432/core_test
+  - POSTGRESQL_URL=postgres://postgres@localhost:5432/test

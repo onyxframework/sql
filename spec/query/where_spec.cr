@@ -1,218 +1,195 @@
-require "../spec_helper"
+require "../models"
 
-require "../../src/core/schema"
-require "../../src/core/query"
-require "../../src/core/converters/enum"
+describe "Query#where" do
+  context "with explicit clause" do
+    context "with params" do
+      it do
+        q = Core::Query(User).new.where("foo = ? AND bar = ?", 42, [43, 44])
 
-module QueryWhereSpec
-  class User
-    include Core::Schema
-    include Core::Query
+        q.to_s.should eq <<-SQL
+        SELECT users.* FROM users WHERE (foo = ? AND bar = ?)
+        SQL
 
-    enum Role
-      User
-      Admin
+        q.params.should eq [42, [43, 44]]
+      end
     end
 
-    schema :users do
-      primary_key :id
-      field :role, Role, converter: Core::Converters::Enum(Role)
-      field :name, String
-    end
-  end
+    context "without params" do
+      it do
+        q = Core::Query(User).new.where("foo")
 
-  class Post
-    include Core::Schema
-    include Core::Query
+        q.to_s.should eq <<-SQL
+        SELECT users.* FROM users WHERE (foo)
+        SQL
 
-    schema :posts do
-      reference :author, User, key: :author_id
+        q.params.should eq nil
+      end
     end
   end
 
-  describe "complex where" do
+  context "with attributes" do
     it do
-      query = User.where(id: 42).and("char_length(name) > ?", [3]).or(role: User::Role::Admin, name: !nil)
+      q = Core::Query(User).new.where(active: true, name: "John")
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.id = ?) AND (char_length(name) > ?) OR (users.role = ? AND users.name IS NOT NULL)
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users WHERE (users.activity_status = ? AND users.name = ?)
       SQL
 
-      query.params.should eq([42, 3, 1])
+      q.params.should eq [true, "John"]
     end
   end
 
-  describe "where" do
-    context "with named arguments" do
-      context "with one clause" do
-        it do
-          query = User.where(id: 42)
+  context "with references" do
+    uuid = UUID.random
 
-          query.to_s.should eq <<-SQL
-          SELECT users.* FROM users WHERE (users.id = ?)
-          SQL
-
-          query.params.should eq([42])
-        end
-      end
-
-      context "with multiple clauses" do
-        it do
-          query = User.where(id: 42, name: nil)
-
-          query.to_s.should eq <<-SQL
-          SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL)
-          SQL
-
-          query.params.should eq([42])
-        end
-      end
-
-      context "with multiple calls" do
-        it do
-          query = User.where(id: 42, name: nil).where(role: User::Role::Admin)
-
-          query.to_s.should eq <<-SQL
-          SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL) AND (users.role = ?)
-          SQL
-
-          query.params.should eq([42, 1])
-        end
-      end
-
-      context "with reference" do
-        user = User.new(id: 42)
-
-        it do
-          query = Post.where(author: user)
-
-          query.to_s.should eq <<-SQL
-          SELECT posts.* FROM posts WHERE (posts.author_id = ?)
-          SQL
-
-          query.params.should eq([42])
-        end
-
-        expect_raises ArgumentError do
-          query = Post.where(writer: user)
-          query.to_s
-        end
-      end
-
-      context "with nil reference" do
-        it do
-          query = Post.where(author: nil)
-
-          query.to_s.should eq <<-SQL
-          SELECT posts.* FROM posts WHERE (posts.author_id IS NULL)
-          SQL
-        end
-      end
-
-      context "with reference key" do
-        user = User.new(id: 42)
-
-        it do
-          query = Post.where(author_id: user.id)
-
-          query.to_s.should eq <<-SQL
-          SELECT posts.* FROM posts WHERE (posts.author_id = ?)
-          SQL
-
-          query.params.should eq([42])
-        end
-
-        expect_raises ArgumentError do
-          query = Post.where(writer_id: user.id)
-          query.to_s
-        end
-      end
-    end
-
-    context "with string argument" do
-      context "with params" do
-        it do
-          query = User.where("char_length(name) > ?", [3])
-
-          query.to_s.should eq <<-SQL
-          SELECT users.* FROM users WHERE (char_length(name) > ?)
-          SQL
-
-          query.params.should eq([3])
-        end
-      end
-
-      context "without params" do
-        it do
-          query = User.where("name IS NOT NULL")
-
-          query.to_s.should eq <<-SQL
-          SELECT users.* FROM users WHERE (name IS NOT NULL)
-          SQL
-
-          query.params.empty?.should be_truthy
-        end
-      end
-    end
-  end
-
-  describe "#where_not" do
     it do
-      query = User.where_not(id: 42, name: nil)
+      q = Core::Query(Post).new.where(author: User.new(uuid: uuid))
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE NOT (users.id = ? AND users.name IS NULL)
+      q.to_s.should eq <<-SQL
+      SELECT posts.* FROM posts WHERE (posts.author_uuid = ?)
       SQL
 
-      query.params.should eq([42])
+      q.params.should eq [uuid.to_s]
     end
   end
 
-  describe "#or_where" do
-    it do
-      query = User.where(id: 42, name: nil).or_where(role: User::Role::Admin)
+  describe "shorthands" do
+    describe "#where_not" do
+      context "with explicit clause" do
+        context "without params" do
+          it do
+            Core::Query(User).new.where_not("foo = 'bar'").to_s.should eq <<-SQL
+            SELECT users.* FROM users WHERE NOT (foo = 'bar')
+            SQL
+          end
+        end
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL) OR (users.role = ?)
-      SQL
+        context "with params" do
+          it do
+            q = Core::Query(User).new.where_not("foo = ?", 42)
 
-      query.params.should eq([42, 1])
+            q.to_s.should eq <<-SQL
+            SELECT users.* FROM users WHERE NOT (foo = ?)
+            SQL
+
+            q.params.should eq [42]
+          end
+        end
+      end
+
+      context "with named arguments" do
+        it do
+          q = Core::Query(User).new.where_not(active: true, name: "John")
+
+          q.to_s.should eq <<-SQL
+          SELECT users.* FROM users WHERE NOT (users.activity_status = ? AND users.name = ?)
+          SQL
+
+          q.params.should eq [true, "John"]
+        end
+      end
     end
-  end
 
-  describe "#or_where_not" do
-    it do
-      query = User.where(id: 42, name: nil).or_where_not(role: User::Role::Admin)
+    describe "manually tested" do
+      uuid = UUID.random
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL) OR NOT (users.role = ?)
-      SQL
+      it do
+        q = Core::Query(User).new.where(uuid: uuid).and_where("activity_status IS NOT NULL").and_not("name = ?", "John")
 
-      query.params.should eq([42, 1])
+        q.to_s.should eq <<-SQL
+        SELECT users.* FROM users WHERE (users.uuid = ?) AND (activity_status IS NOT NULL) AND NOT (name = ?)
+        SQL
+
+        q.params.should eq [uuid.to_s, "John"]
+      end
     end
-  end
 
-  describe "#and_where" do
-    it do
-      query = User.where(id: 42, name: nil).and_where(role: User::Role::Admin)
+    # It has almost zero benefit for you as a reader, but it allows to check that all methods delegate their arguments as expected.
+    #
+    # Methods which are tested:
+    #
+    # - `#or_where_not`
+    # - `#or_where`
+    # - `#and_where_not`
+    # - `#and_where`
+    #
+    # Each method has three variants (clause with params, single clause, named arguments) and two situations - when it's called for first time (e.g. `Query.new.and_where`) and when it's called afterwards (e.g. `Query.new.where.and_where`), which results in 24 tests. I decided that it would be simpler to use macros, which however require some skill to understand.
+    {% for or in [true, false] %}
+      {% for not in [true, false] %}
+        describe '#' + {{(or ? "or" : "and")}} + "_where" do
+          context "when first call" do
+            context "with explicit clause" do
+              context "without params" do
+                it do
+                  Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = 'bar')
+                  SQL
+                end
+              end
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL) AND (users.role = ?)
-      SQL
+              context "with params" do
+                it do
+                  q = Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
 
-      query.params.should eq([42, 1])
-    end
-  end
+                  q.to_s.should eq <<-SQL
+                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = ?)
+                  SQL
 
-  describe "#and_where_not" do
-    it do
-      query = User.where(id: 42, name: nil).and_where_not(role: User::Role::Admin)
+                  q.params.should eq [42]
+                end
+              end
 
-      query.to_s.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.id = ? AND users.name IS NULL) AND NOT (users.role = ?)
-      SQL
+              context "with named arguments" do
+                it do
+                  q = Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
 
-      query.params.should eq([42, 1])
-    end
+                  q.to_s.should eq <<-SQL
+                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
+                  SQL
+
+                  q.params.should eq [true, "John"]
+                end
+              end
+            end
+          end
+
+          context "when non-first call" do
+            context "with explicit clause" do
+              context "without params" do
+                it do
+                  Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                  SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
+                  SQL
+                end
+              end
+
+              context "with params" do
+                it do
+                  q = Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
+
+                  q.to_s.should eq <<-SQL
+                  SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
+                  SQL
+
+                  q.params.should eq [42]
+                end
+              end
+            end
+
+            context "with named arguments" do
+              it do
+                q = Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
+
+                q.to_s.should eq <<-SQL
+                SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
+                SQL
+
+                q.params.should eq [true, "John"]
+              end
+            end
+          end
+        end
+      {% end %}
+    {% end %}
   end
 end

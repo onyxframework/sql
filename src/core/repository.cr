@@ -1,82 +1,71 @@
-require "db"
-require "./params"
-require "./logger/dummy"
+require "./logger/*"
 require "./repository/*"
 
-# `Repository` is a gateway between `Model`s and Database.
-#
-# Supported methods:
-#
-# - `#query` (alias of `#query_all`)
-# - `#query_one`
-# - `#query_one?`
-# - `#insert`
-# - `#update`
-# - `#delete`
-# - `#exec`
-# - `#scalar`
-#
-# See `Query` for a handy queries builder.
-#
-# ```
-# logger = Core::Logger::IO.new(STDOUT)
-# repo = Core::Repository.new(db, logger)
-#
-# user = User.new(name: "Foo")
-# user = repo.insert(user)
-# # INSERT INTO users (name, created_at) VALUES ($1, $2) RETURNING *
-# # 1.773ms
-#
-# query = User.last
-# user = repo.query_one(query)
-# # SELECT * FROM users ORDER BY id DESC LIMIT 1
-# # 275μs
-#
-# user.name = "Bar"
-# repo.update(user)
-# # UPDATE users SET name = $1 WHERE (id = $2) RETURNING *
-# # 1.578ms
-#
-# repo.delete(user)
-# # DELETE FROM users WHERE id = $1
-# # 1.628ms
-# ```
-class Core::Repository
-  # :nodoc:
-  property db
-  # :nodoc:
-  property query_logger
-
-  include Query
-  include Insert
-  include Update
-  include Delete
-  include Exec
-  include Scalar
-
-  # Initialize a new `Repository` istance linked to *db*,
-  # which is data storage, and *query_logger*,
-  # which logs Database queries.
-  #
-  # NOTE: *db* and *query_logger* can be changed in the runtime with according `#db=` and `#query_logger=` methods.
-  def initialize(@db : ::DB::Database, @query_logger : Core::Logger = Core::Logger::Dummy.new)
+{% if @type.has_constant?("PG") %}
+  module Core
+    class Repository
+      # :nodoc:
+      PGDefined = true
+    end
   end
+{% end %}
 
-  # Prepare *query* for execution. Replaces "?" with "$i" for PostgreSQL.
-  def prepare_query(query : String) : String
-    if db.driver.is_a?(PG::Driver)
-      counter = 0
-      query = query.as(String).gsub("?") { "$" + (counter += 1).to_s }
+module Core
+  # A gateway between models and DB. Its main features are logging, expanding `Core::Query` instances and mapping models from resulting `DB::ResultSet`.
+  #
+  # ```
+  # repo = Core::Repository.new(DB.open(ENV["DATABASE_URL"]), Core::Logger::IO.new(STDOUT))
+  #
+  # repo.scalar("SELECT 1").as(Int32)
+  # # [postgresql] SELECT 1
+  # # 593μs
+  #
+  # repo.scalar("SELECT ?::int", 1).as(Int32)
+  # # ditto
+  #
+  # repo.query("SELECT * FROM users")       # Returns raw `DB::ResultSet`
+  # repo.query(User, "SELECT * FROM users") # Returns `Array(User)`
+  # repo.query(User.all)                    # Returns `Array(User)` as well
+  # # [postgresql] SELECT users.* FROM users
+  # # 442μs
+  # # [map] User
+  # # 101μs
+  # ```
+  class Repository
+    # A `DB::Database` instance for this repository.
+    property db
+
+    # A `Core::Logger` instance for this repository.
+    property logger
+
+    # Initialize the repository.
+    def initialize(@db : DB::Database, @logger : Core::Logger = Core::Logger::Dummy.new)
     end
 
-    query
-  end
+    # Prepare query for initialization.
+    #
+    # If the `#db` driver is `PG::Driver`, replace all `?` with `$1`, `$2` etc. Otherwise return *sql_query* untouched.
+    def prepare_query(sql_query : String)
+      {% if @type.has_constant?("PGDefined") %}
+        if db.driver.is_a?(PG::Driver)
+          counter = 0
+          sql_query = sql_query.gsub("?") { '$' + (counter += 1).to_s }
+        end
+      {% end %}
 
-  private def now
-    "NOW()"
-  end
+      sql_query
+    end
 
-  private def default
-    "DEFAULT"
+    # Return `#db` driver name, e.g. `"postgresql"` for `PG::Driver`.
+    def driver_name
+      {% begin %}
+        case db.driver
+        {% if @type.has_constant?("PGDefined") %}
+          when PG::Driver then "postgresql"
+        {% end %}
+        else "sql"
+        end
+      {% end %}
+    end
   end
 end

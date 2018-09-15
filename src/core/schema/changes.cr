@@ -1,31 +1,17 @@
-module Core
-  module Schema
-    private macro define_changes
-      macro finished
-        \{% skip_file unless INTERNAL__CORE_FIELDS.size > 0 %}
+module Core::Schema
+  # Define `changes` getter for this schema. It will track all changes made to instance's attributes, be it a scalar attribute or a reference.
+  private macro define_changes
+    {% types = CORE_ATTRIBUTES.map(&.["type"]) + CORE_REFERENCES.select(&.["direct"]).map(&.["type"]) + [Nil] %}
 
-        # A storage for changes, empty on initialize. To reset use `changes.clear`.
-        @changes = Hash(Symbol, \{{INTERNAL__CORE_FIELDS.map(&.[:type]).join(" | ").id}}).new
-        getter changes
+    # A storage for changes, empty on initialization. To reset use `changes.clear`.
+    getter changes = Hash(String, {{types.join(" | ").id}}).new
 
-        # Track changes made to fields
-        \{% for field in INTERNAL__CORE_FIELDS %}
-          # :nodoc:
-          def \{{field[:name].id}}=(value : \{{field[:type].id}})
-            changes[\{{field[:name]}}] = value unless @\{{field[:name].id}} == value
-            @\{{field[:name].id}} = value
-          end
-        \{% end %}
-
-        # Track changes made to references, updating fields accordingly
-        \{% for reference in INTERNAL__CORE_REFERENCES.select { |r| r[:key] } %}
-          # :nodoc:
-          def \{{reference[:name].id}}=(value : \{{reference[:class].id}} | Nil)
-            self.\{{reference[:key].id}} = value.try &.\{{reference[:foreign_key].id}}
-            @\{{reference[:name].id}} = value
-          end
-        \{% end %}
+    {% for type in CORE_ATTRIBUTES + CORE_REFERENCES.select(&.["direct"]) %}
+      # :nodoc:
+      def {{type["name"]}}=(value : {{type["type"]}} | Nil)
+        changes[{{type["name"].stringify}}] = value unless {{type["name"]}} == value
+        @{{type["name"]}} = value
       end
-    end
+    {% end %}
   end
 end

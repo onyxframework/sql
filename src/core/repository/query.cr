@@ -1,100 +1,55 @@
-class Core::Repository
-  module Query
-    # Query `#db` and return raw `DB::ResultSet`.
-    def query(query : String, *params)
-      query = prepare_query(query)
-      params = Core.prepare_params(*params) if params.any?
+module Core
+  class Repository
+    # Call `db.query(sql, *params)`.
+    def query(sql : String, *params : DB::Any | Array(DB::Any))
+      sql = prepare_query(sql)
 
-      query_logger.wrap(query) do
-        db.query(query, *params)
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        db.query(sql, *params)
       end
     end
 
-    # Query `#db` returning an array of *model* instances.
-    #
-    # ```
-    # repo.query(User, "SELECT * FROM users") # => Array(User)
-    # ```
-    #
-    # TODO: Handle errors (PQ::PQError)
-    def query(model : Schema.class, query : String, *params) : Array
-      query = prepare_query(query)
-      params = Core.prepare_params(*params) if params.any?
+    # Call `db.query(sql, params)`.
+    def query(sql : String, params : Enumerable(DB::Any | Array(DB::Any))? = nil)
+      sql = prepare_query(sql)
 
-      query_logger.wrap(query) do
-        db.query_all(query, *params) do |rs|
-          rs.read(model)
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        if params
+          db.query(sql, params.to_a)
+        else
+          db.query(sql)
         end
       end
     end
 
-    # ditto
-    def query_all(model, query, *params)
-      query(model, query, *params)
+    # Call `db.query(sql, *params)` and map the result to `Array(T)`.
+    def query(klass : T.class, sql : String, *params : DB::Any | Array(DB::Any)) : Array(T) forall T
+      rs = query(sql, *params)
+
+      @logger.wrap("[map] #{{{T.name.stringify}}}") do
+        T.from_rs(rs)
+      end
     end
 
-    # Query `#db` returning an array of model instances inherited from *query*.
-    #
-    # ```
-    # repo.query(User.all) # => Array(User)
-    # ```
-    #
-    # TODO: Handle errors (PQ::PQError)
-    def query(query : Core::Query::Instance(T)) forall T
-      query(T, query.to_s, query.params)
+    # Call `db.query(sql, params)` and map the result to `Array(T)`.
+    def query(klass : T.class, sql : String, params : Enumerable(DB::Any | Array(DB::Any))? = nil) : Array(T) forall T
+      rs = query(sql, params)
+
+      @logger.wrap("[map] #{{{T.name.stringify}}}") do
+        T.from_rs(rs)
+      end
     end
 
-    # ditto
-    def query_all(query)
-      query(query)
-    end
+    # Build *query*, call `db.query(sql, params)` and map the result it to `Array(T)` afterwards.
+    def query(query : Query(T)) : Array(T) forall T
+      # Adds `.returning('*')` if forgot to, so DB doesn't hang! 🍬
+      query.returning = ['*'.as(String | Char)] if query.returning.nil?
+      sql = query.to_s
 
-    # Query `#db` returning a single *model* instance.
-    #
-    # ```
-    # repo.query_one?(User, "SELECT * FROM users WHERE id = 1") # => User?
-    # ```
-    def query_one?(model : Schema.class, query : String, *params) : Object
-      query(model, query, *params).first?
-    end
-
-    # Query `#db` returning a model instance inherited from *query*.
-    #
-    # ```
-    # repo.query_one?(User.first) # => User?
-    # ```
-    def query_one?(query : Core::Query::Instance(T)) forall T
-      query_one?(T, query.to_s, query.params)
-    end
-
-    # Query `#db` returning a single *model* instance. Will raise `NoResultsError` if query returns no instances.
-    #
-    # ```
-    # repo.query_one(User, "SELECT * FROM users WHERE id = 1") # => User
-    # ```
-    def query_one(model : Schema.class, query : String, *params) : Object
-      query_one?(model, query, *params) || raise NoResultsError.new(model.to_s, query)
-    end
-
-    # Query `#db` returning a model instance inherited from *query*. Will raise `NoResultsError` if query returns no instances.
-    #
-    # ```
-    # repo.query_one(User.first) # => User
-    # ```
-    def query_one(query : Core::Query::Instance(T)) forall T
-      query_one(T, query.to_s, query.params)
-    end
-
-    # Raised if query returns zero model instances.
-    class NoResultsError < Exception
-      # TODO: Wait for https://github.com/crystal-lang/crystal/issues/5692 to be fixed
-      # getter model : Schema.class
-
-      getter model_name
-      getter query
-
-      def initialize(@model_name : String, @query : String)
-        super("Zero #{@model_name} instances returned after query \"#{@query}\"")
+      if query.params.try &.any?
+        query(T, sql, query.params)
+      else
+        query(T, sql)
       end
     end
   end

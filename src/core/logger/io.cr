@@ -3,33 +3,37 @@ require "colorize"
 
 require "../logger"
 
-# Logs queries into IO.
+# Logs anything followed by time elapsed by the block run into the specified `IO`.
+# ```
+# logger = Core::Logger::IO.new(STDOUT)
+#
+# result = logger.wrap("SELECT * FROM users") do
+#   db.query("SELECT * FROM users")
+# end
+#
+# # => SELECT * FROM users
+# # => 501μs
+# ```
 class Core::Logger::IO < Core::Logger
-  def initialize(@io : ::IO)
+  def initialize(@io : ::IO, @colors = true)
   end
 
-  # Wrap a query, logging elaped time.
-  #
-  # ```
-  # wrap("SELECT * FROM users") do |q|
-  #   db.query(q)
-  # end
-  # # => SELECT * FROM users
-  # # => 501μs
-  # ```
-  def wrap(query : String, &block : String -> _)
-    log_query(query)
+  # Wrap a block, logging elapsed time and returning the result.
+  def wrap(data_to_log : String, &block)
+    log(data_to_log)
     started_at = Time.monotonic
-    r = yield(query)
-    log_time(Time.monotonic - started_at)
-    r
+
+    result = yield
+
+    log_elapsed(TimeFormat.auto(Time.monotonic - started_at))
+    result
   end
 
-  protected def log_query(query)
-    @io << query.colorize(:blue).to_s + "\n"
+  protected def log(data_to_log)
+    @io << (@colors ? data_to_log.colorize(:blue).to_s : data_to_log) + "\n"
   end
 
-  protected def log_time(elapsed : Time::Span)
-    @io << TimeFormat.auto(elapsed).colorize(:magenta).to_s + "\n"
+  protected def log_elapsed(time)
+    @io << (@colors ? time.colorize(:magenta).to_s : time) + "\n"
   end
 end

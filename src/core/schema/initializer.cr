@@ -1,25 +1,18 @@
-module Core
-  module Schema
-    private macro define_initializer
-      property explicitly_initialized : Bool
+module Core::Schema
+  # Would define an `initialize` method for this schema.
+  #
+  # Each schema has an `explicitly_initialized : Bool` property, which is set to true when this particular initializer is called.
+  #
+  # It would accept named arguments only (e.g. `User.new(42)` is invalid, but `User.new(id: 42)` is).
+  private macro define_initializer
+    property explicitly_initialized : Bool
 
-      macro finished
-        def initialize(
-          {% for field in INTERNAL__CORE_FIELDS %}
-            @{{field[:name].id}} : {{field[:type].id}} | Nil = {{ field[:default] || nil.id }},
-          {% end %}
-
-          \{% for reference in INTERNAL__CORE_REFERENCES %}
-            @\{{reference[:name].id}} : \{{reference[:class].id}} | Nil = nil,
-          \{% end %}
-
-          @explicitly_initialized = true,
-        )
-          \{% for reference in INTERNAL__CORE_REFERENCES.select(&.[:key]) %}
-            @\{{reference[:key].id}} ||= \{{reference[:name].id}}.try &.\{{reference[:foreign_key].id}}
-          \{% end %}
-        end
-      end
+    def initialize(*,
+      {% for type in CORE_ATTRIBUTES + CORE_REFERENCES %}
+        @{{type["name"]}} : {{type["type"]}} | Nil = {{type["default_instance_value"]}},
+      {% end %}
+    )
+      @explicitly_initialized = true
     end
   end
 end

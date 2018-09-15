@@ -1,8 +1,9 @@
 require "../logger"
 
-# Does not log queries.
+# Does not log anything.
 class Core::Logger::Dummy < Core::Logger
-  def wrap(query : String, &block : String -> _)
-    yield query
+  # Does nothing except yielding the *block*.
+  def wrap(data_to_log : String, &block)
+    yield
   end
 end

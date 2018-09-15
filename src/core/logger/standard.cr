@@ -1,35 +1,43 @@
 require "logger"
 require "colorize"
 require "time_format"
+
 require "../logger"
 
-# Logs queries into standard `::Logger` at debug level.
+# Logs anything followed by elapsed time by the block into a standard `::Logger`.
+#
+# ```
+# logger = Logger.new(STDOUT, Logger::Severity::DEBUG)
+# core_logger = Core::Logger::Standard(Logger::Severity::INFO).new(logger)
+#
+# result = core_logger.wrap("SELECT * FROM users") do
+#   db.query("SELECT * FROM users")
+# end
+#
+# # [21:54:51:068]  INFO > SELECT * FROM users
+# # [21:54:51:068]  INFO > 501μs
+# ```
 class Core::Logger::Standard < Core::Logger
-  def initialize(@logger : ::Logger)
+  def initialize(@logger : ::Logger, @log_level : ::Logger::Severity, @colors = true)
   end
 
-  # Wrap a query, logging elaped time at debug level.
-  #
-  # ```
-  # wrap("SELECT * FROM users") do |q|
-  #   db.query(q)
-  # end
-  # # [21:54:51:068] DEBUG > SELECT * FROM users
-  # # [21:54:51:068] DEBUG > 501μs
-  # ```
-  def wrap(query : String, &block : String -> _)
-    log_query(query)
+  # Wrap a block, logging elapsed time at *log_level* and returning the result.
+  def wrap(data_to_log : String, &block)
+    log(data_to_log)
     started_at = Time.monotonic
-    r = yield(query)
-    log_time(Time.monotonic - started_at)
-    r
+
+    result = yield
+
+    log_elapsed(TimeFormat.auto(Time.monotonic - started_at))
+
+    result
   end
 
-  protected def log_query(query)
-    @logger.debug(query.colorize(:blue))
+  protected def log(data_to_log)
+    @logger.log(@log_level, @colors ? data_to_log.colorize(:blue) : data_to_log)
   end
 
-  protected def log_time(elapsed : Time::Span)
-    @logger.debug(TimeFormat.auto(elapsed).colorize(:magenta))
+  protected def log_elapsed(time)
+    @logger.log(@log_level, @colors ? time.colorize(:magenta) : time)
   end
 end

@@ -1,19 +1,27 @@
-require "../spec_helper"
+require "../models"
 
-require "../../src/core/schema"
-require "../../src/core/query"
+describe "Query#limit" do
+  context "with int argument" do
+    it do
+      q = Core::Query(User).new.limit(2)
 
-module QueryLimitSpec
-  class User
-    include Core::Schema
-    schema :users { }
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users LIMIT ?
+      SQL
+
+      q.params.should eq [2]
+    end
   end
 
-  describe "#limit" do
+  context "with nil argument" do
     it do
-      Core::Query.new(User).limit(3).to_s.should eq <<-SQL
-      SELECT users.* FROM users LIMIT 3
+      q = Core::Query(User).new.limit(nil)
+
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users
       SQL
+
+      q.params.should be_nil
     end
   end
 end

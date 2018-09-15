@@ -1,3 +1,2 @@
 require "spec"
-
-# alias Repo = Core::Repository
+require "../src/core"

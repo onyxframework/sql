@@ -1,19 +1,27 @@
-require "../spec_helper"
+require "../models"
 
-require "../../src/core/schema"
-require "../../src/core/query"
+describe "Query#offset" do
+  context "with int argument" do
+    it do
+      q = Core::Query(User).new.offset(2)
 
-module QueryOffsetSpec
-  class User
-    include Core::Schema
-    schema :users { }
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users OFFSET ?
+      SQL
+
+      q.params.should eq [2]
+    end
   end
 
-  describe "#offset" do
+  context "with nil argument" do
     it do
-      Core::Query.new(User).offset(0).to_s.should eq <<-SQL
-      SELECT users.* FROM users OFFSET 0
+      q = Core::Query(User).new.offset(nil)
+
+      q.to_s.should eq <<-SQL
+      SELECT users.* FROM users
       SQL
+
+      q.params.should be_nil
     end
   end
 end

@@ -1,24 +1,36 @@
-class Core::Repository
-  module Scalar
-    # Execute *query* and return a single scalar value.
-    #
-    # See http://crystal-lang.github.io/crystal-db/api/0.5.0/DB/QueryMethods.html#scalar%28query%2C%2Aargs%29-instance-method
-    #
-    # ```
-    # repo.scalar("SELECT 1").as(Int32)
-    # ```
-    def scalar(query : String, *params)
-      query = prepare_query(query)
-      params = Core.prepare_params(*params) if params.any?
+module Core
+  class Repository
+    # Call `db.scalar(sql, *params)`.
+    def scalar(sql : String, *params : DB::Any | Array(DB::Any))
+      sql = prepare_query(sql)
 
-      query_logger.wrap(query) do
-        db.scalar(query, *params)
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        db.scalar(sql, *params)
       end
     end
 
-    # Execute *query* (after stringifying and extracting params) and return a single scalar value.
-    def scalar(query : Core::Query::Instance(T)) forall T
-      scalar(query.to_s, query.params)
+    # Call `db.scalar(sql, params)`.
+    def scalar(sql : String, params : Enumerable(DB::Any | Array(DB::Any))? = nil)
+      sql = prepare_query(sql)
+
+      @logger.wrap("[#{driver_name}] #{sql}") do
+        if params
+          db.scalar(sql, params.to_a)
+        else
+          db.scalar(sql)
+        end
+      end
+    end
+
+    # Build *query* and call `db.scalar(query.to_s, query.params)`.
+    def scalar(query : Query)
+      sql = prepare_query(query.to_s)
+
+      if query.params.try &.any?
+        scalar(sql, query.params)
+      else
+        scalar(sql)
+      end
     end
   end
 end
