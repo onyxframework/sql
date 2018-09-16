@@ -78,8 +78,8 @@ class User
   schema users do
     pkey uuid : UUID # UUIDs are supported out of the box
 
-    type name : String # Has NOT NULL in the column definition
-    type age : Union(Int32 | Nil) # Does not have NULL in the column definition
+    type name : String                   # Has NOT NULL in the column definition
+    type age : Union(Int32 | Nil)        # Does not have NULL in the column definition
     type created_at : Time = DB::Default # Has DEFAULT in the column definition
 
     type posts : Array(Post), foreign_key: "author_uuid" # That is an implicit reference
@@ -105,23 +105,26 @@ repo = Core::Repository.new(DB.open(ENV["DATABASE_URL"]), query_logger)
 
 # Most of the query builder methods (e.g. insert) are type-safe
 user = repo.query(User.insert(name: "Vlad")).first
-post = repo.query(Post.insert(author: user, content: "What a beauteful day!")).first # Oops
 
+# You can use object-oriented approach as well
+post = Post.new(author: user, content: "What a beauteful day!") # Oops
+
+post = repo.query(post.insert).first
 # Logging to STDOUT:
 # [postgresql] INSERT INTO posts (author_uuid, content) VALUES (?, ?) RETURNING *
 # 1.708ms
 # [map] Post
 # 126μs
 
-# #to_s returns raw SQL string, and for superiour performance you can store them in constants
+# #to_s returns raw SQL string, so for superiour performance you may want to store it in constants
 QUERY = Post.update.set(content: "placeholder").where(id: 0).to_s
 # UPDATE posts SET content = ? WHERE (id = ?)
 
-# Would not return anything, however, doesn't check for incoming params types
+# However, such approach doesn't check for incoming params types, `post.id` could be anything
 repo.exec(QUERY, "What a beautiful day!", post.id)
 
-# Join with preloading references
-posts = repo.query(Post.select('*').where(author: user).join(:author, select: {'*'}))
+# Join with preloading references!
+posts = repo.query(Post.where(author: user).join(:author, select: {"uuid", "name"}))
 
 puts posts.first.inspect
 # => <Post @id=42 @author=<User @name="Vlad" @uuid="..."> @content="What a beautiful day!">
