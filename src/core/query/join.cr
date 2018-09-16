@@ -89,6 +89,9 @@ module Core
            end
 
       if _select
+        # Add `SELECT table.*` if not set before, so the model is selected along with the reference
+        self.select(T) if self.select.empty?
+
         self.select("'' AS _#{reference.to_s.underscore}")
 
         if _select.is_a?(Enumerable)
