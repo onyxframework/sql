@@ -137,7 +137,6 @@ module Core::Schema
       end
 
       # Safely check for instance's primary key. Returns `nil` if not set.
-      # TODO: Remove safety
       def primary_key?
         {{declaration.var}}?
       end
