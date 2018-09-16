@@ -72,6 +72,8 @@ module Core
     #
     # NOTE: Direct enumerable reference joins are forbidden at the moment, e.g. you can't join `:tags` with `type tags : Array(Tag), key: "tag_ids"`.
     #
+    # NOTE: *select*s are modified like `"{as}.{select}"`.
+    #
     # TODO: Allow to `select:` by *reference* `Attrubute`, e.g. `select: {:content}`.
     def join(
       reference : T::Reference,
@@ -91,12 +93,10 @@ module Core
 
         if _select.is_a?(Enumerable)
           _select.each do |s|
-            s = "#{_as}.*" if s == '*' || s == "*"
-            self.select(s)
+            self.select(_as ? _as + '.' + s : s)
           end
         else
-          _select = "#{_as}.*" if _select == '*' || _select == "*"
-          self.select(_select)
+          self.select(_as ? _as + '.' + _select : _select)
         end
       end
 

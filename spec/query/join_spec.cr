@@ -28,7 +28,7 @@ describe "Query#join" do
 
     context "with arguments" do
       it do
-        q = Core::Query(User).new.join(:authored_posts, type: :right, as: "the_posts", select: {"the_posts.created_at", "the_posts.id"})
+        q = Core::Query(User).new.join(:authored_posts, type: :right, as: "the_posts", select: {"created_at", "id"})
 
         q.to_s.should eq <<-SQL
         SELECT '' AS _authored_posts, the_posts.created_at, the_posts.id FROM users RIGHT JOIN posts AS the_posts ON the_posts.author_uuid = users.uuid
@@ -41,7 +41,7 @@ describe "Query#join" do
 
   context "with direct reference" do
     it do
-      q = Core::Query(Post).new.join(:author, type: :left, select: "author.id")
+      q = Core::Query(Post).new.join(:author, type: :left, select: "id")
 
       q.to_s.should eq <<-SQL
       SELECT '' AS _author, author.id FROM posts LEFT JOIN users AS author ON posts.author_uuid = author.uuid

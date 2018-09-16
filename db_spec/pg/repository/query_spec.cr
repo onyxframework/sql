@@ -121,7 +121,7 @@ describe "Repository(Postgres)#query" do
         post = repo.query(Post
           .where(id: post.id).and("cardinality(tag_ids) = ?", 0)
           .join(:author, select: '*')
-          .join(:editor, select: {"editor." + User.uuid})
+          .join(:editor, select: {User.uuid})
         ).first
 
         it "returns model instance" do
