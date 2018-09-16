@@ -147,10 +147,13 @@ module Core::Schema
         {{declaration.var}}
       end
 
-      # Equality check between two instances by their `primary_key`s.
-      # Raises `"Nil assertion failed"` if any of instances have primary key not set.
+      def raw_primary_key
+        @{{declaration.var}}
+      end
+
+      # Equality check between two instances by their raw `primary_key`s (allowing `DB::Default`).
       def ==(other : self)
-        self.primary_key == other.primary_key
+        self.raw_primary_key == other.raw_primary_key
       end
     {% end %}
 
