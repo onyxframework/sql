@@ -43,7 +43,7 @@ module Core
     # Build *query*, call `db.query(sql, params)` and map the result it to `Array(T)` afterwards.
     def query(query : Query(T)) : Array(T) forall T
       # Adds `.returning('*')` if forgot to, so DB doesn't hang! 🍬
-      query.returning = ['*'.as(String | Char)] if query.returning.nil?
+      query.returning = ['*'.as(String | Char)] if query.type != :select && query.returning.nil?
       sql = query.to_s
 
       if query.params.try &.any?
