@@ -93,7 +93,7 @@ module Core
 
             if key == type["name"]
               if type["db_default"]
-                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| [type["type"], DB::Default.class].includes?(t) })
+                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| t <= type["type"] || t == DB::Default.class })
                   raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#set' call. Expected: '#{type["type"]}' or 'DB::Default.class'"
                 end
               else
@@ -113,7 +113,7 @@ module Core
 
             if key == type["name"] # If key == type name (e.g. author)
               if type["db_default"]
-                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| [type["type"], DB::Default.class].includes?(t) })
+                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| t <= type["type"] || t == DB::Default.class })
                   raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#set' call. Expected: '#{type["type"]}' or 'DB::Default.class'"
                 end
               else
@@ -125,7 +125,7 @@ module Core
               found = true
             elsif key.stringify == type["key"] # If key == type key (e.g. author_id)
               if type["db_default"]
-                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| [type["type"], DB::Default.class].includes?(t) })
+                unless value <= type["type"] || value == DB::Default.class || (value.union? && value.union_types.all? { |t| t <= type["type"] || t == DB::Default.class })
                   raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#set' call. Expected: '#{type["type"]}' or 'DB::Default.class'"
                 end
               else
