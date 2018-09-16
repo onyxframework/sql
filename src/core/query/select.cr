@@ -16,9 +16,10 @@ module Core
     # ```
     #
     # If `#select` is not called and the query type is select, a default `SELECT table.*` is appended.
-    def select(*values : T::Attribute | String | Char)
+    def select(*values : T.class | T::Attribute | String | Char)
       @select.concat(values.map do |value|
         case value
+        when T.class      then "#{T.table}.*"
         when T::Attribute then "#{T.table}.#{value.key}"
         else                   value
         end

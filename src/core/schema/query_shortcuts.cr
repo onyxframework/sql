@@ -33,7 +33,7 @@ module Core::Schema
       query.returning(*values)
     end
 
-    def self.select(*values : Attribute | String | Char)
+    def self.select(*values : self.class | Attribute | String | Char)
       query.select(*values)
     end
 
