@@ -46,7 +46,7 @@ module Core::Schema
           case value
           {% for type, i in references %}
             when {{i}}
-              {{type["reference_type"]}}::CORE_TABLE
+              {{type["reference_type"].constant("CORE_TABLE")}}
           {% end %}
           else
             raise "Bug: unknown value '#{value}'"
@@ -72,11 +72,11 @@ module Core::Schema
           case value
           {% for type, i in references %}
             when {{i}}
-              if {{type["foreign"]}}
+              {% if type["foreign"] %}
                 {{type["foreign_key"]}}
-              else
+              {% else %}
                 raise "Direct references don't have foreign table keys"
-              end
+              {% end %}
           {% end %}
           else raise "Bug: unknown value '#{value}'"
           end
@@ -85,7 +85,7 @@ module Core::Schema
         def primary_key
           case value
           {% for type, i in references %}
-            when {{i}} then {{type["reference_type"]}}::PRIMARY_KEY
+            when {{i}} then {{type["reference_type"].constant("PRIMARY_KEY")}}
           {% end %}
           else raise "Bug: unknown value '#{value}'"
           end
