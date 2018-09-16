@@ -36,5 +36,46 @@ module Core::Schema
     def self.select(*values : Attribute | String | Char)
       query.select(*values)
     end
+
+    # Create an insert `Core::Query` for this instance.
+    #
+    # ```
+    # User.new(name: "John").insert.to_s # INSERT INTO users (name) VALUES (?)
+    # ```
+    def insert
+      self.class.query.insert(
+        {% for type in CORE_ATTRIBUTES + CORE_REFERENCES.select(&.["direct"]) %}
+          {{type["name"]}}: @{{type["name"]}}{{".not_nil!".id unless type["db_nilable"]}},
+        {% end %}
+      )
+    end
+
+    # Create an update `Core::Query` for this instance.
+    #
+    # ```
+    # user.name = "Jake"
+    # user.update.to_s # UPDATE users SET name = ? WHERE uuid = ?
+    # ```
+    def update
+      raise ArgumentError.new("No changes to update") if changes.empty?
+
+      q = self.class.query.update
+
+      {% for type in CORE_ATTRIBUTES + CORE_REFERENCES.select(&.["direct"]) %}
+        v = changes[{{type["name"].stringify}}]?
+        q.set({{type["name"]}}: v.as({{type["true_type"]}}{{" | DB::Default.class".id if type["db_default"]}})) if v
+      {% end %}
+
+      q.where({{PRIMARY_KEY}}: primary_key)
+    end
+
+    # Create a deletion `Core::Query` for this instance.
+    #
+    # ```
+    # user.delete.to_s # DELETE FROM users WHERE uuid = ?
+    # ```
+    def delete
+      self.class.query.delete.where({{PRIMARY_KEY}}: primary_key)
+    end
   end
 end

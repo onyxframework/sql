@@ -9,11 +9,13 @@ describe "Repository(Postgres)#query" do
 
     describe "insert" do
       context "with a simple model" do
-        user = repo.query(User.insert(
+        user = User.new(
           name: "John",
           active: (rand > 0.5 ? DB::Default : true),
-          balance: DB::Default,
-        )).first
+          balance: DB::Default
+        )
+
+        user = repo.query(user.insert).first
 
         it "returns instance" do
           user.should be_a(User)
@@ -94,7 +96,11 @@ describe "Repository(Postgres)#query" do
 
     describe "update" do
       context "with complex reference updates" do
-        post = repo.query(Post.update.set(tags: [] of Tag).set(editor: new_user).set(created_at: DB::Default).where(id: post.id)).first
+        post.tags = [] of Tag
+        post.editor = new_user
+        post.created_at = DB::Default
+
+        post = repo.query(post.update).first
 
         it "returns model instance" do
           post.should be_a(Post)

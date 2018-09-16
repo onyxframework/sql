@@ -82,4 +82,29 @@ describe "Schema query shortcuts" do
       User.select(:name).select('*').should eq Core::Query(User).new.select(:name).select('*')
     end
   end
+
+  describe "#insert" do
+    it do
+      User.new(name: "John").insert.should eq User.insert(name: "John", referrer: nil, updated_at: nil)
+    end
+  end
+
+  describe "#update" do
+    uuid = UUID.random
+    user = User.new(uuid: uuid, name: "John")
+    user.name = "Jake"
+
+    it do
+      user.update.should eq User.update.set(name: "Jake").where(uuid: uuid)
+    end
+  end
+
+  describe "#delete" do
+    uuid = UUID.random
+    user = User.new(uuid: uuid, name: "John")
+
+    it do
+      user.delete.should eq User.delete.where(uuid: uuid)
+    end
+  end
 end
