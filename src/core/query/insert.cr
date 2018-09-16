@@ -137,7 +137,7 @@ module Core
 
           case key
             {% for type in T::CORE_ATTRIBUTES.select(&.["key"]) %}
-              # insert(id: 42) # "WHERE posts.id = ?", 42
+              # insert(id: 42) # "INSERT INTO posts (id) VALUES (?)", 42
               when {{type["name"].symbolize}}{{", #{type["key"].id.symbolize}".id unless type["name"].stringify == type["key"]}}
                 ensure_insert << Insert.new(
                   name: {{type["key"]}},
@@ -152,7 +152,7 @@ module Core
             {% for type in T::CORE_REFERENCES.select { |t| t["direct"] } %}
               {% pk_type = type["reference_type"].constant("PRIMARY_KEY_TYPE") %}
 
-              # insert(author: user) # "WHERE posts.author_id = ?", user.primary_key
+              # insert(author: user) # "INSERT INTO posts (author_id) VALUES (?)", user.primary_key
               when {{type["name"].symbolize}}
                 ensure_insert << Insert.new(
                   name: {{type["key"]}},
@@ -163,7 +163,7 @@ module Core
                   {% end %}
                 )
 
-              # insert(author_id: 42) # "WHERE posts.author_id = ?", 42
+              # insert(author_id: 42) # "INSERT INTO posts (author_id) VALUES (?)", 42
               when {{type["key"].id.symbolize}}
                 ensure_insert << Insert.new(
                   name: {{type["key"]}},
