@@ -158,7 +158,7 @@ module Core::Schema
           # Raw, as given (e.g. `Int32`)
           type: declaration.type.resolve,
           # True type (if within Union, would extract it)
-          true_type: (declaration.type.resolve.union? ? declaration.type.resolve.union_types.find { |t| t != Nil } : type),
+          true_type: (declaration.type.resolve.union? ? declaration.type.resolve.union_types.find { |t| t != Nil } : declaration.type.resolve),
           # Is this type an enumerable?
           enumerable: enumerable,
           # If the type is an enumerable and its only type var <= DB::Any

@@ -171,9 +171,9 @@ module Core
                   internal_clauses[index] = "#{T.table}.#{{{type["key"]}}} = ?"
 
                   internal_params << {% if type["enumerable"] %}
-                    value.unsafe_as({{type["type"]}}).to_db({{type["type"]}})
+                    value.unsafe_as({{type["true_type"]}}).to_db({{type["true_type"]}})
                   {% else %}
-                    value.unsafe_as({{type["type"]}}).to_db
+                    value.unsafe_as({{type["true_type"]}}).to_db
                   {% end %}
               {% end %}
 
