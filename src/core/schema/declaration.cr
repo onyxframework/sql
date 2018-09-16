@@ -33,6 +33,12 @@ module Core::Schema
   # - `primary_key` - whether is this type a primary key. There must be exactly **one** primary key for a single schema
   # - `key` - table key for this type *if it differs from the name*, e.g. `type encrypted_password : String, key: "password"`. If it's present for a reference, the type is considered *direct reference*
   # - `foreign_key` - foreign table key for this type, e.g. `type posts : Array(Post), foreign_key: "author_id"`. If it's present, the type is treated as *foreign reference*
+  #
+  # If the type is either nilable attribute or a nilable direct reference or a foreign reference, a `Model#type` method will be generated for it, returning a nilable value, as expected.
+  #
+  # If the type is non-nilable attribute or a non-nilable direct reference, a `Model#type` and `Model#type?` methods are generated, the first one returning `@type.not_nil!` and the second one just `@type`.
+  #
+  # The initializer generated would require all non-nilable and non-foreign-reference types to be set.
   macro type(declaration, **options)
     {%
       raise "A schema cannot contain multiple primary keys" if CORE_ATTRIBUTES.find(&.["primary_key"]) && options["primary_key"]
@@ -79,16 +85,39 @@ module Core::Schema
       raise "A reference attribute cannot be a primary key" if reference && options["primary_key"]
       raise "An enumerable attribute cannot be a primary key" if enumerable && options["primary_key"]
 
+      true_type = declaration.type.resolve.union? ? declaration.type.resolve.union_types.find { |t| t != Nil } : declaration.type.resolve
       db_nilable = declaration.type.resolve.union? && declaration.type.resolve.nilable?
       db_default = declaration.value && declaration.value.resolve == DB::Default
-      default_instance_value = (declaration.value unless db_default) || nil
+      default_instance_value = (declaration.value.resolve if declaration.value) || nil
       key = options["key"] || (declaration.var.stringify unless options["foreign_key"])
     %}
 
-    getter {{declaration.var}} : {{declaration.type}} | Nil = {{default_instance_value}}
+    @{{declaration.var}} : {{declaration.type}}{{" | DB::Default.class".id if db_default}} | Nil = {{default_instance_value}}
+
+    {% if db_nilable %}
+      def {{declaration.var}}
+        raise DefaultValueError.new({{@type.stringify}}, {{declaration.var.stringify}}) if @{{declaration.var}}.is_a?(DB::Default.class)
+        @{{declaration.var}}.as({{declaration.type.resolve}})
+      end
+    {% elsif !(reference && options["foreign_key"]) %}
+      def {{declaration.var}}?
+        raise DefaultValueError.new({{@type.stringify}}, {{declaration.var.stringify}}) if @{{declaration.var}}.is_a?(DB::Default.class)
+        @{{declaration.var}}.as({{declaration.type.resolve}} | Nil)
+      end
+
+      def {{declaration.var}}
+        {{declaration.var}}?.not_nil!
+      end
+    {% end %}
 
     {% if reference && options["foreign_key"] %}
-      property {{declaration.var}} : {{declaration.type}} | Nil = {{default_instance_value}}
+      def {{declaration.var}}=(value : {{declaration.type}})
+        @{{declaration.var}} = value
+      end
+
+      def {{declaration.var}}
+        @{{declaration.var}}.as({{declaration.type.resolve}} | Nil)
+      end
     {% end %}
 
     {% if key %}
@@ -108,18 +137,18 @@ module Core::Schema
       end
 
       # Safely check for instance's primary key. Returns `nil` if not set.
+      # TODO: Remove safety
       def primary_key?
-        @{{declaration.var}}
+        {{declaration.var}}?
       end
 
-      # Strictly check for instance's primary key. Raises `ArgumentError` if not set.
+      # Strictly check for instance's primary key. Raises `"Nil assertion failed"` if not set.
       def primary_key
-        raise ArgumentError.new("{{@type}}#primary_key must be called only if primary key is set. Consider calling #primary_key? instead") if @{{declaration.var}}.nil?
-        return @{{declaration.var}}
+        {{declaration.var}}
       end
 
-      # Equality check between two instances by their `primary_key`.
-      # Raises `ArgumentError` if any of instances have primary key not set.
+      # Equality check between two instances by their `primary_key`s.
+      # Raises `"Nil assertion failed"` if any of instances have primary key not set.
       def ==(other : self)
         self.primary_key == other.primary_key
       end
@@ -130,12 +159,14 @@ module Core::Schema
         CORE_REFERENCES.push({
           # E.g. `id`
           name: declaration.var,
-          # Raw, as given (e.g. `Array(Post)?`)
+          # Raw, as given (e.g. `Array(Post) | Nil`)
           type: declaration.type.resolve,
+          # True type (e.g. `Array(Post)` for `Array(Post) | Nil` or `Array(Post)`)
+          true_type: true_type,
+          # Single reference type (e.g. `Post` for `Array(Post) | Nil` or `Array(Post)`)
+          reference_type: reference,
           # Is this reference an enumerable? And if it is, which one (e.g. `Array` or `Set`)?
           enumerable: enumerable,
-          # True reference type (e.g. `Post` for `Array(Post)`)
-          true_type: reference,
           # Is the reference direct?
           direct: !!key && !options["foreign_key"],
           # Is the reference foreign?
@@ -155,10 +186,10 @@ module Core::Schema
         CORE_ATTRIBUTES.push({
           # E.g. `id`
           name: declaration.var,
-          # Raw, as given (e.g. `Int32`)
+          # Raw, as given (e.g. `Array(Int32) | Nil`)
           type: declaration.type.resolve,
-          # True type (if within Union, would extract it)
-          true_type: (declaration.type.resolve.union? ? declaration.type.resolve.union_types.find { |t| t != Nil } : declaration.type.resolve),
+          # True type (e.g. `Array(Int32)` for `Array(Int32) | Nil` or `Array(Int32)`)
+          true_type: true_type,
           # Is this type an enumerable?
           enumerable: enumerable,
           # If the type is an enumerable and its only type var <= DB::Any

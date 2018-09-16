@@ -43,7 +43,7 @@ describe "Query#where" do
     uuid = UUID.random
 
     it do
-      q = Core::Query(Post).new.where(author: User.new(uuid: uuid))
+      q = Core::Query(Post).new.where(author: User.new(uuid: uuid, name: "Jake"))
 
       q.to_s.should eq <<-SQL
       SELECT posts.* FROM posts WHERE (posts.author_uuid = ?)

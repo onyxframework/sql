@@ -63,6 +63,6 @@ end
 
 class User
   def self.from_rs(rs : MockDB::ResultSet)
-    [self.new]
+    [self.new(name: "Jannet")]
   end
 end

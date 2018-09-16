@@ -25,7 +25,7 @@ describe "Repository(Postgres)#query" do
 
     describe "update" do
       context "with attributes" do
-        user = repo.query(User.update.set(active: (rand > 0.5 ? DB::Default : false)).set(balance: 100.0_f32).where(uuid: user.uuid.not_nil!).returning(:uuid, :balance)).first
+        user = repo.query(User.update.set(active: (rand > 0.5 ? DB::Default : false)).set(balance: 100.0_f32).where(uuid: user.uuid).returning(:uuid, :balance)).first
 
         it "preloads attributes" do
           user.uuid.should be_a(UUID)
@@ -34,7 +34,7 @@ describe "Repository(Postgres)#query" do
       end
 
       context "with direct references" do
-        user = repo.query(User.update.set(referrer: referrer).where(uuid: user.uuid.not_nil!)).first
+        user = repo.query(User.update.set(referrer: referrer).where(uuid: user.uuid)).first
 
         it "preloads references" do
           user.referrer.not_nil!.uuid.should be_a(UUID)
@@ -43,7 +43,7 @@ describe "Repository(Postgres)#query" do
     end
 
     describe "where" do
-      user = repo.query(User.where(uuid: user.uuid.not_nil!).and_where(balance: 100.0_f32)).first
+      user = repo.query(User.where(uuid: user.uuid).and_where(balance: 100.0_f32)).first
 
       it "returns instance" do
         user.should be_a(User)
@@ -51,7 +51,7 @@ describe "Repository(Postgres)#query" do
 
       context "with direct non-enumerable join" do
         user = repo.query(User
-          .where(uuid: user.uuid.not_nil!)
+          .where(uuid: user.uuid)
           .join(:referrer, select: '*')
           .select(:name, :uuid)
         ).first
@@ -78,14 +78,14 @@ describe "Repository(Postgres)#query" do
         end
 
         it "preloads direct non-enumerable references" do
-          post.author.not_nil!.uuid.should eq user.uuid
-          post.author.not_nil!.name.should be_nil
+          post.author.uuid.should eq user.uuid
+          post.author.name?.should be_nil
         end
 
         it "preloads direct enumerable references" do
-          post.tags.not_nil!.size.should eq 1
-          post.tags.not_nil!.first.id.should eq tag.id
-          post.tags.not_nil!.first.content.should be_nil
+          post.tags.size.should eq 1
+          post.tags.first.id.should eq tag.id
+          post.tags.first.content?.should be_nil
         end
       end
     end
@@ -94,7 +94,7 @@ describe "Repository(Postgres)#query" do
 
     describe "update" do
       context "with complex reference updates" do
-        post = repo.query(Post.update.set(tags: [] of Tag).set(editor: new_user).set(created_at: DB::Default).where(id: post.id.not_nil!)).first
+        post = repo.query(Post.update.set(tags: [] of Tag).set(editor: new_user).set(created_at: DB::Default).where(id: post.id)).first
 
         it "returns model instance" do
           post.should be_a(Post)
@@ -105,7 +105,7 @@ describe "Repository(Postgres)#query" do
         end
 
         it "preloads direct enumerable references" do
-          post.tags.not_nil!.size.should eq 0
+          post.tags.size.should eq 0
         end
       end
     end
@@ -113,7 +113,7 @@ describe "Repository(Postgres)#query" do
     describe "where" do
       context "with foreign non-enumerable join" do
         post = repo.query(Post
-          .where(id: post.id.not_nil!).and("cardinality(tag_ids) = ?", 0)
+          .where(id: post.id).and("cardinality(tag_ids) = ?", 0)
           .join(:author, select: '*')
           .join(:editor, select: {"editor." + User.uuid})
         ).first
@@ -123,7 +123,7 @@ describe "Repository(Postgres)#query" do
         end
 
         it "preloads references" do
-          post.author.not_nil!.uuid.should eq user.uuid
+          post.author.uuid.should eq user.uuid
           post.editor.not_nil!.uuid.should eq new_user.uuid
         end
       end

@@ -8,11 +8,23 @@ module Core::Schema
     property explicitly_initialized : Bool
 
     def initialize(*,
-      {% for type in CORE_ATTRIBUTES + CORE_REFERENCES %}
-        @{{type["name"]}} : {{type["type"]}} | Nil = {{type["default_instance_value"]}},
+      {% for type in (CORE_ATTRIBUTES + CORE_REFERENCES).select { |t| !t["db_nilable"] && !t["db_default"] && !t["default_instance_value"] }.reject(&.["foreign"]) %}
+        {{type["name"]}} : {{type["type"]}},
+      {% end %}
+
+      {% for type in (CORE_ATTRIBUTES + CORE_REFERENCES).select { |t| !t["db_nilable"] && !t["db_default"] && !t["default_instance_value"] }.select(&.["foreign"]) %}
+        {{type["name"]}} : {{type["type"]}} | Nil = nil,
+      {% end %}
+
+      {% for type in (CORE_ATTRIBUTES + CORE_REFERENCES).reject { |t| !t["db_nilable"] && !t["db_default"] && !t["default_instance_value"] } %}
+        {{type["name"]}} : {{type["type"]}}{{" | DB::Default.class".id if type["db_default"]}} = {{type["default_instance_value"]}},
       {% end %}
     )
       @explicitly_initialized = true
+
+      {% for type in (CORE_ATTRIBUTES + CORE_REFERENCES) %}
+        @{{type["name"]}} = {{type["name"]}}
+      {% end %}
     end
   end
 end

@@ -19,6 +19,14 @@ module Core::Schema
       rs.close
     end
 
+    protected def initialize(soft : Bool, *,
+      {% for type in (CORE_ATTRIBUTES + CORE_REFERENCES) %}
+        @{{type["name"]}} : {{type["type"]}}{{" | DB::Default.class".id if type["db_default"]}} | Nil = {{type["default_instance_value"]}},
+      {% end %}
+    )
+      @explicitly_initialized = false
+    end
+
     protected def initialize(rs : DB::ResultSet, is_reference = false, column_indexer : Mapping::ColumnIndexer = Mapping::ColumnIndexer.new)
       @explicitly_initialized = false
 
@@ -67,12 +75,12 @@ module Core::Schema
                 # ```
                 # post # => Post<@users=[User<@uuid="abc-def">, User<@uuid="xyz-123">]>
                 # ```
-                {% pk = type["true_type"].constant("PRIMARY_KEY") %}
-                {% pk_type = type["true_type"].constant("PRIMARY_KEY_TYPE") %}
+                {% pk = type["reference_type"].constant("PRIMARY_KEY") %}
+                {% pk_type = type["reference_type"].constant("PRIMARY_KEY_TYPE") %}
 
                 {% if type["enumerable"] %}
                   @{{type["name"]}} = rs.read({{type["enumerable"]}}({{pk_type}}) | Nil).try &.map do |pk|
-                    {{type["true_type"]}}.new({{pk}}: pk)
+                    {{type["reference_type"]}}.new(true, {{pk}}: pk)
                   end
 
                 # Consider incoming values as a reference primary key value
@@ -95,7 +103,7 @@ module Core::Schema
                 # user # => User<@referrer=User<@uuid="abc-def-"> @name="...">
                 # ```
                 {% else %}
-                  @{{type["name"]}} = rs.read({{pk_type}} | Nil).try { |pk| {{type["true_type"]}}.new({{pk}}: pk) }
+                  @{{type["name"]}} = rs.read({{pk_type}} | Nil).try { |pk| {{type["reference_type"]}}.new(true, {{pk}}: pk) }
                 {% end %}
 
                 types_already_set[{{type["name"].stringify}}] = true
@@ -116,7 +124,7 @@ module Core::Schema
                 column_indexer.value += 1
 
                 # Read reference's attributes from further columns
-                @{{type["name"]}} = {{type["true_type"]}}.new(rs, true, column_indexer)
+                @{{type["name"]}} = {{type["reference_type"]}}.new(rs, true, column_indexer)
                 types_already_set[{{type["name"].stringify}}] = true
 
                 next

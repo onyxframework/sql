@@ -182,11 +182,11 @@ module Core
                 # where(author: user) # "WHERE posts.author_id = ?", user.primary_key
                 when {{type["name"].symbolize}}
                   internal_clauses[index] = "#{T.table}.#{{{type["key"]}}} = ?"
-                  internal_params << value.unsafe_as({{type["true_type"]}}).primary_key.to_db
+                  internal_params << value.unsafe_as({{type["reference_type"]}}).primary_key.to_db
 
                 # where(author_id: 42) # "WHERE posts.author_id = ?", 42
                 when {{type["key"].id.symbolize}}
-                  {% pk_type = type["true_type"].constant("PRIMARY_KEY_TYPE") %}
+                  {% pk_type = type["reference_type"].constant("PRIMARY_KEY_TYPE") %}
 
                   internal_clauses[index] = "#{T.table}.#{{{type["key"]}}} = ?"
                   internal_params << value.unsafe_as({{pk_type}}).to_db

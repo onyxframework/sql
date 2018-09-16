@@ -131,8 +131,8 @@ module Core
         %}
 
         values.each_with_index do |key, value, index|
-          if value.is_a?(DB::Default.class)
-            next # Skip if inserting DEFAULT
+          if value.nil? || value.is_a?(DB::Default.class)
+            next # Skip if inserting DEFAULT or NULL
           end
 
           case key
@@ -150,16 +150,16 @@ module Core
             {% end %}
 
             {% for type in T::CORE_REFERENCES.select { |t| t["direct"] } %}
-              {% pk_type = type["true_type"].constant("PRIMARY_KEY_TYPE") %}
+              {% pk_type = type["reference_type"].constant("PRIMARY_KEY_TYPE") %}
 
               # insert(author: user) # "WHERE posts.author_id = ?", user.primary_key
               when {{type["name"].symbolize}}
                 ensure_insert << Insert.new(
                   name: {{type["key"]}},
                   value: {% if type["enumerable"] %}
-                    value.unsafe_as(Enumerable({{type["true_type"]}})).map(&.primary_key).to_db(Enumerable({{pk_type}})),
+                    value.unsafe_as(Enumerable({{type["reference_type"]}})).map(&.primary_key).to_db(Enumerable({{pk_type}})),
                   {% else %}
-                    value.unsafe_as({{type["true_type"]}}).primary_key.to_db,
+                    value.unsafe_as({{type["reference_type"]}}).primary_key.to_db,
                   {% end %}
                 )
 

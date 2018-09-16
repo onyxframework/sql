@@ -46,7 +46,7 @@ module Core::Schema
           case value
           {% for type, i in references %}
             when {{i}}
-              {{type["true_type"]}}::CORE_TABLE
+              {{type["reference_type"]}}::CORE_TABLE
           {% end %}
           else
             raise "Bug: unknown value '#{value}'"
@@ -85,7 +85,7 @@ module Core::Schema
         def primary_key
           case value
           {% for type, i in references %}
-            when {{i}} then {{type["true_type"]}}::PRIMARY_KEY
+            when {{i}} then {{type["reference_type"]}}::PRIMARY_KEY
           {% end %}
           else raise "Bug: unknown value '#{value}'"
           end

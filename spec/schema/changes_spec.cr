@@ -1,7 +1,7 @@
 require "../models"
 
 describe "Schema changes" do
-  user = User.new
+  user = User.new(name: "John")
 
   it "has initially empty changes" do
     user.changes.empty?.should be_true
@@ -25,7 +25,7 @@ describe "Schema changes" do
   end
 
   context "with references" do
-    referrer = User.new(uuid: UUID.random)
+    referrer = User.new(uuid: UUID.random, name: "Jake")
     user.changes.clear
 
     it "tracks changes" do
@@ -45,7 +45,7 @@ describe "Schema changes" do
     user.changes.clear
 
     it "ignores changes" do
-      user.referrals = [User.new]
+      user.referrals = [User.new(name: "Jane")]
       user.changes.empty?.should be_true
     end
   end
