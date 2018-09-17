@@ -159,6 +159,10 @@ module Core::Schema
     {%
       if reference
         CORE_REFERENCES.push({
+          # May be helpful in concatenated arrays
+          is_reference: true,
+          # ditto
+          is_attribute: false,
           # E.g. `id`
           name: declaration.var,
           # Raw, as given (e.g. `Array(Post) | Nil`)
@@ -186,6 +190,10 @@ module Core::Schema
         })
       else
         CORE_ATTRIBUTES.push({
+          # May be helpful in concatenated arrays
+          is_reference: false,
+          # ditto
+          is_attribute: true,
           # E.g. `id`
           name: declaration.var,
           # Raw, as given (e.g. `Array(Int32) | Nil`)

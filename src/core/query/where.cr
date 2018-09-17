@@ -100,34 +100,18 @@ module Core
       {% for key, value in Values %}
         {% found = false %}
 
-        {% for type in T::CORE_ATTRIBUTES.select(&.["key"]) %}
+        {% for type in (T::CORE_ATTRIBUTES + T::CORE_REFERENCES.select { |t| t["direct"] && !t["enumerable"] }) %}
+          {% type = type %} # Say hi to a Crystal bug, "begin" doesn't help :)
+          {% value = value %}
+
+          # In cases like `#where(author_id: 42)` check against reference's primary key type
+          {% _type = (type["is_reference"] && key.stringify == type["key"]) ? type["reference_type"].constant("PRIMARY_KEY_TYPE") : type["type"] %}
+
+          # First case is `#where(id: 42)` or `#where(author: user)` and the second is `#where(author_id: 42)` mentioned above
           {%
-            value = value # Crystal bug. Remove it and it doesn't compile
-
-            if key == type["name"]
-              unless value <= type["type"]
-                raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#where' call. Expected: '#{type["type"]}'"
-              end
-
-              found = true
-            end
-          %}
-        {% end %}
-
-        # Only allow direct non-enumerable references
-        {% for type in T::CORE_REFERENCES.select { |t| t["direct"] && !t["enumerable"] } %}
-          {%
-            value = value # Crystal bug. Remove it and it doesn't compile
-
-            if key == type["name"] # If key == type name (e.g. author)
-              unless value <= type["type"]
-                raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#where' call. Expected: '#{type["type"]}'"
-              end
-
-              found = true
-            elsif key.stringify == type["key"] # If key == type key (e.g. author_id)
-              unless value <= type["type"].constant("PRIMARY_KEY_TYPE")
-                raise "Invalid type '#{value}' of argument '#{type["name"]}' for 'Core::Query(#{T})#where' call. Expected: '#{type["type"]}'"
+            if key == type["name"] || (key.stringify == type["key"] && type["is_reference"])
+              unless value <= _type
+                raise "Invalid compile-time type '#{value}' for argument '#{type["name"]}' in 'Query#where' call. Expected: '#{_type}'"
               end
 
               found = true
