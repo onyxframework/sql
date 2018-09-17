@@ -27,6 +27,7 @@ module Core::Schema
       @explicitly_initialized = false
     end
 
+    # TODO: Read by "posts_id" instead of "id", see `Query#join` for usecase.
     protected def initialize(rs : DB::ResultSet, is_reference = false, column_indexer : Mapping::ColumnIndexer = Mapping::ColumnIndexer.new)
       @explicitly_initialized = false
 

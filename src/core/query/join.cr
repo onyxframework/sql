@@ -70,6 +70,24 @@ module Core
     # # SELECT users.*, '' AS _posts, posts.id, posts.content FROM users JOIN posts ON posts.author_id = users.id
     # ```
     #
+    # If `#select` hasn't been called before, a `#select(T)` call is made to ensure the model itself is selected along with the joined reference.
+    #
+    # Note that if you call `#select` with any of curent model columns **after** `#join` for the first time, it will lead to repeated columns and therefore to `DB::MappingException`:
+    #
+    # ```
+    # Post.join(:author, select: {"id"}).select(:id)
+    # # SELECT posts.*, '' AS author, author.id, posts.id ...
+    # #                                                ^ error
+    #
+    # Post.select(:id).join(:author, select: {"id"})
+    # # SELECT posts.id, '' AS author, author.id
+    # # OK                                        ^ error
+    #
+    # Post.select(:id).join(:author, select: {"id"}).select(:content)
+    # # SELECT posts.id, '' AS author, author.id, posts.content
+    # # OK, but may lead to confusion if author has "content" column
+    # ```
+    #
     # NOTE: Direct enumerable reference joins are forbidden at the moment, e.g. you can't join `:tags` with `type tags : Array(Tag), key: "tag_ids"`.
     #
     # NOTE: *select*s are modified like `"{as}.{select}"`.

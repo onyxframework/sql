@@ -53,9 +53,9 @@ describe "Repository(Postgres)#query" do
 
       context "with direct non-enumerable join" do
         user = repo.query(User
-          .where(uuid: user.uuid)
-          .join(:referrer, select: '*')
           .select(:name, :uuid)
+          .join(:referrer, select: '*')
+          .where(uuid: user.uuid)
         ).first
 
         it "returns a User instance" do
