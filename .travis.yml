@@ -1,11 +1,21 @@
-language: crystal
-crystal: nightly
+dist: xenial
+language: generic
+sudo: required
 services:
+  - docker
   - postgresql
+env:
+  - POSTGRESQL_URL=postgres://postgres@localhost:5432/test
+before_install:
+  - docker pull crystallang/crystal:nightly
+before_script:
+  - psql -c 'create database test;' -U postgres
+  - psql $POSTGRESQL_URL < db_spec/pg/migration.sql
 script:
-  - crystal spec
-  - env POSTGRESQL_URL=$POSTGRESQL_URL crystal spec db_spec
-  - crystal docs
+  - docker run -v ${PWD}:/x -w /x crystallang/crystal:nightly bash -c "/usr/bin/shards install"
+  - docker run -v ${PWD}:/x -w /x crystallang/crystal:nightly bash -c "/usr/bin/crystal spec"
+  - docker run -v ${PWD}:/x -w /x --net=host -e POSTGRESQL_URL=$POSTGRESQL_URL crystallang/crystal:nightly bash -c "/usr/bin/crystal spec db_spec/"
+  - docker run -v ${PWD}:/x -w /x crystallang/crystal:nightly bash -c "/usr/bin/crystal docs"
 deploy:
   provider: pages
   skip_cleanup: true
@@ -13,8 +23,3 @@ deploy:
   on:
     branch: master
   local_dir: docs
-before_script:
-  - psql -c 'create database test;' -U postgres
-  - psql $POSTGRESQL_URL < spec/migration.sql
-env:
-  - POSTGRESQL_URL=postgres://postgres@localhost:5432/test

@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS users;
 DROP TYPE IF EXISTS users_role;
 DROP TYPE IF EXISTS users_permissions;
+DROP EXTENSION IF EXISTS pgcrypto;
+CREATE EXTENSION pgcrypto;
 
 CREATE TYPE users_role AS ENUM ('writer', 'moderator', 'admin');
 CREATE TYPE users_permissions AS ENUM ('create_posts', 'edit_posts');
