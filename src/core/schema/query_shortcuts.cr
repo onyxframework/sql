@@ -63,7 +63,7 @@ module Core::Schema
 
       {% for type in CORE_ATTRIBUTES + CORE_REFERENCES.select(&.["direct"]) %}
         if changes.has_key?({{type["name"].stringify}})
-          q.set({{type["name"]}}: changes[{{type["name"].stringify}}].as({{type["true_type"]}}{{" | DB::Default.class".id if type["db_default"]}}))
+          q.set({{type["name"]}}: changes[{{type["name"].stringify}}].as({{type["true_type"]}}{{" | DB::Default.class".id if type["db_default"]}}{{" | ::Nil".id if type["db_nilable"]}}))
         end
       {% end %}
 

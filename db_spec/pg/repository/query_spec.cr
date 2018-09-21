@@ -27,7 +27,7 @@ describe "Repository(Postgres)#query" do
 
     describe "update" do
       context "with attributes" do
-        user = repo.query(User.update.set(active: (rand > 0.5 ? DB::Default : false)).set(balance: 100.0_f32).where(uuid: user.uuid).returning(:uuid, :balance)).first
+        user = repo.query(User.update.set(active: (rand > 0.5 ? DB::Default : false)).set(balance: 100.0_f32, updated_at: nil).where(uuid: user.uuid).returning(:uuid, :balance)).first
 
         it "preloads attributes" do
           user.uuid.should be_a(UUID)

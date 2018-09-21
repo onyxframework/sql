@@ -125,6 +125,8 @@ module Core
               when {{type["name"].symbolize}}{{", #{type["key"].id.symbolize}".id unless type["name"].stringify == type["key"]}}
                 if value.is_a?(DB::Default.class)
                   set({{type["key"]}} + " = DEFAULT")
+                elsif value.nil?
+                  set({{type["key"]}} + " = NULL")
                 else
                   set({{type["key"]}} + " = ?",
                     {% if type["enumerable"] %}
@@ -144,6 +146,8 @@ module Core
               when {{type["name"].symbolize}}
                 if value.is_a?(DB::Default.class)
                   set({{type["key"]}} + " = DEFAULT")
+                elsif value.nil?
+                  set({{type["key"]}} + " = NULL")
                 else
                   {% if type["enumerable"] %}
                     pkeys = value.unsafe_as(Enumerable({{type["reference_type"]}})).map(&.raw_primary_key)
@@ -173,6 +177,8 @@ module Core
               when {{type["key"].id.symbolize}}
                 if value.is_a?(DB::Default.class)
                   set({{type["key"]}} + " = DEFAULT")
+                elsif value.nil?
+                  set({{type["key"]}} + " = NULL")
                 else
                   set(
                     {{type["key"]}} + " = ?",
