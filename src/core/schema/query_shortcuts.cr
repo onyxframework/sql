@@ -62,8 +62,9 @@ module Core::Schema
       q = self.class.query.update
 
       {% for type in CORE_ATTRIBUTES + CORE_REFERENCES.select(&.["direct"]) %}
-        v = changes[{{type["name"].stringify}}]?
-        q.set({{type["name"]}}: v.as({{type["true_type"]}}{{" | DB::Default.class".id if type["db_default"]}})) if v
+        if changes.has_key?({{type["name"].stringify}})
+          q.set({{type["name"]}}: changes[{{type["name"].stringify}}].as({{type["true_type"]}}{{" | DB::Default.class".id if type["db_default"]}}))
+        end
       {% end %}
 
       q.where({{PRIMARY_KEY}}: primary_key)

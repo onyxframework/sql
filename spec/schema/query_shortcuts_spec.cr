@@ -91,11 +91,12 @@ describe "Schema query shortcuts" do
 
   describe "#update" do
     uuid = UUID.random
-    user = User.new(uuid: uuid, name: "John")
+    user = User.new(uuid: uuid, name: "John", active: true)
     user.name = "Jake"
+    user.active = false
 
     it do
-      user.update.should eq User.update.set(name: "Jake").where(uuid: uuid)
+      user.update.should eq User.update.set(active: false, name: "Jake").where(uuid: uuid)
     end
   end
 
