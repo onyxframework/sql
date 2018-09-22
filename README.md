@@ -1,8 +1,6 @@
 > ⚠️ Master branch requires Crystal master to compile. See [installation instructions for Crystal](https://crystal-lang.org/docs/installation/from_source_repository.html).
 
-![Core](https://user-images.githubusercontent.com/7955682/40578252-6f1929b2-6119-11e8-9348-81505cec939f.png)
-
-Type-safe and expressive SQL ORM for [Crystal](https://crystal-lang.org).
+# ![Core](https://user-images.githubusercontent.com/7955682/40578252-6f1929b2-6119-11e8-9348-81505cec939f.png)
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
 [![Build status](https://img.shields.io/travis/vladfaust/core/master.svg?style=flat-square)](https://travis-ci.org/vladfaust/core)
@@ -11,6 +9,11 @@ Type-safe and expressive SQL ORM for [Crystal](https://crystal-lang.org).
 [![Gitter Chat](https://img.shields.io/badge/style-chat-ed1965.svg?longCache=true&style=flat-square&label=&logo=gitter-white&colorA=555)](https://gitter.im/core-orm/Lobby)
 [![Awesome](https://github.com/vladfaust/awesome/blob/badge-flat-alternative/media/badge-flat-alternative.svg)](https://github.com/veelenga/awesome-crystal)
 [![vladfaust.com](https://img.shields.io/badge/style-.com-lightgrey.svg?longCache=true&style=flat-square&label=vladfaust&colorB=0a83d8)](https://vladfaust.com)
+[![Patrons count](https://img.shields.io/badge/dynamic/json.svg?label=patrons&url=https://www.patreon.com/api/user/11296360&query=$.included[0].attributes.patron_count&style=flat-square&colorB=red&maxAge=86400)](https://www.patreon.com/vladfaust)
+
+Type-safe and expressive SQL ORM for [Crystal](https://crystal-lang.org).
+
+[![Become Patron](https://vladfaust.com/img/patreon-small.svg)](https://www.patreon.com/vladfaust)
 
 ## About
 
