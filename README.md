@@ -15,6 +15,12 @@ Type-safe and expressive SQL ORM for [Crystal](https://crystal-lang.org).
 
 [![Become Patron](https://vladfaust.com/img/patreon-small.svg)](https://www.patreon.com/vladfaust)
 
+## Projects using Core
+
+* [Crystal Jobs](https://crystaljobs.org)
+* [Crystal World](https://github.com/vladfaust/crystalworld)
+* *add yours!*
+
 ## About
 
 Core is a [crystal-db](https://github.com/crystal-lang/crystal-db) ORM which does not follow Active Record pattern, it's more like a data-mapping solution. There is a concept of Repository, which is basically a gateway to the database. For example:
