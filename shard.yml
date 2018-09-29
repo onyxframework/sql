@@ -6,8 +6,6 @@ authors:
 
 crystal: master
 
-license: MIT
-
 dependencies:
   time_format:
     github: vladfaust/time_format.cr
