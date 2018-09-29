@@ -1,7 +1,7 @@
-require "../src/core"
+require "./spec_helper"
 
 class User
-  include Core::Schema
+  include Atom::Model
 
   enum Role
     Writer
@@ -43,7 +43,7 @@ class User
 end
 
 class Tag
-  include Core::Schema
+  include Atom::Model
 
   schema tags do
     pkey id : Int32
@@ -53,7 +53,7 @@ class Tag
 end
 
 class Post
-  include Core::Schema
+  include Atom::Model
 
   schema posts do
     pkey id : Int32

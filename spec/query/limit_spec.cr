@@ -1,9 +1,9 @@
 require "../models"
 
-describe "Query#limit" do
+describe "Atom::Query#limit" do
   context "with int argument" do
     it do
-      q = Core::Query(User).new.limit(2)
+      q = Atom::Query(User).new.limit(2)
 
       q.to_s.should eq <<-SQL
       SELECT users.* FROM users LIMIT ?
@@ -15,7 +15,7 @@ describe "Query#limit" do
 
   context "with nil argument" do
     it do
-      q = Core::Query(User).new.limit(nil)
+      q = Atom::Query(User).new.limit(nil)
 
       q.to_s.should eq <<-SQL
       SELECT users.* FROM users

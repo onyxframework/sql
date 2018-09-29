@@ -1,9 +1,9 @@
 require "../models"
 
-describe "Query#offset" do
+describe "Atom::Query#offset" do
   context "with int argument" do
     it do
-      q = Core::Query(User).new.offset(2)
+      q = Atom::Query(User).new.offset(2)
 
       q.to_s.should eq <<-SQL
       SELECT users.* FROM users OFFSET ?
@@ -15,7 +15,7 @@ describe "Query#offset" do
 
   context "with nil argument" do
     it do
-      q = Core::Query(User).new.offset(nil)
+      q = Atom::Query(User).new.offset(nil)
 
       q.to_s.should eq <<-SQL
       SELECT users.* FROM users

@@ -1,13 +1,13 @@
-require "./mock_db"
+require "../repository_spec"
 
-describe Core::Repository do
+describe Atom::Repository do
   db = MockDB.new
-  repo = Core::Repository.new(db)
+  repo = Atom::Repository.new(db)
 
   describe "#query" do
     context "with Query" do
       time = Time.now - 3.days
-      result = repo.query(Core::Query(User).new.select(:active).where("created_at > ?", time).last)
+      result = repo.query(Atom::Query(User).new.select(:active).where("created_at > ?", time).last)
 
       it "calls #query with valid sql" do
         db.latest_query_sql.should eq <<-SQL

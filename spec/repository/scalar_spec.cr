@@ -1,12 +1,12 @@
-require "./mock_db"
+require "../repository_spec"
 
-describe Core::Repository do
+describe Atom::Repository do
   db = MockDB.new
-  repo = Core::Repository.new(db)
+  repo = Atom::Repository.new(db)
 
   describe "#scalar" do
     context "with paramsless Query" do
-      result = repo.scalar(Core::Query(User).new.update.set("foo = 42").returning(User.uuid))
+      result = repo.scalar(Atom::Query(User).new.update.set("foo = 42").returning(User.uuid))
 
       it "calls DB#scalar with valid sql" do
         db.latest_scalar_sql.should eq <<-SQL
@@ -20,7 +20,7 @@ describe Core::Repository do
     end
 
     context "with params Query" do
-      result = repo.scalar(Core::Query(User).new.update.set(active: true).returning(User.active))
+      result = repo.scalar(Atom::Query(User).new.update.set(active: true).returning(User.active))
 
       it "calls DB#scalar with valid sql" do
         db.latest_scalar_sql.should eq <<-SQL

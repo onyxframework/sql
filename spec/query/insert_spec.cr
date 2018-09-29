@@ -1,9 +1,9 @@
 require "../models"
 
-describe "Query#insert" do
+describe "Atom::Query#insert" do
   context "with minimum arguments" do
     it do
-      q = Core::Query(User).new.insert(name: "John")
+      q = Atom::Query(User).new.insert(name: "John")
 
       q.to_s.should eq <<-SQL
       INSERT INTO users (name) VALUES (?)
@@ -17,7 +17,7 @@ describe "Query#insert" do
     it do
       ref_uuid = UUID.random
 
-      q = Core::Query(User).new.insert(referrer: User.new(uuid: ref_uuid, name: "Jake"), active: DB::Default, role: User::Role::Moderator, permissions: [User::Permission::EditPosts], name: "John")
+      q = Atom::Query(User).new.insert(referrer: User.new(uuid: ref_uuid, name: "Jake"), active: DB::Default, role: User::Role::Moderator, permissions: [User::Permission::EditPosts], name: "John")
 
       q.to_s.should eq <<-SQL
       INSERT INTO users (referrer_uuid, role, permissions, name) VALUES (?, ?, ?, ?)

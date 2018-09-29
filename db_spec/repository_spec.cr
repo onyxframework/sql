@@ -5,5 +5,5 @@ enum Database
 end
 
 def repo(database : Database)
-  Core::Repository.new(DB.open(ENV["#{database.to_s.upcase}_URL"]), Core::Logger::IO.new(STDOUT))
+  Atom::Repository.new(DB.open(ENV["#{database.to_s.upcase}_URL"]), Atom::Repository::Logger::IO.new(STDOUT))
 end

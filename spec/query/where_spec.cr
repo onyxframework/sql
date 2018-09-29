@@ -1,10 +1,10 @@
 require "../models"
 
-describe "Query#where" do
+describe "Atom::Query#where" do
   context "with explicit clause" do
     context "with params" do
       it do
-        q = Core::Query(User).new.where("foo = ? AND bar = ?", 42, [43, 44])
+        q = Atom::Query(User).new.where("foo = ? AND bar = ?", 42, [43, 44])
 
         q.to_s.should eq <<-SQL
         SELECT users.* FROM users WHERE (foo = ? AND bar = ?)
@@ -16,7 +16,7 @@ describe "Query#where" do
 
     context "without params" do
       it do
-        q = Core::Query(User).new.where("foo")
+        q = Atom::Query(User).new.where("foo")
 
         q.to_s.should eq <<-SQL
         SELECT users.* FROM users WHERE (foo)
@@ -29,7 +29,7 @@ describe "Query#where" do
 
   context "with attributes" do
     it do
-      q = Core::Query(User).new.where(active: true, name: "John")
+      q = Atom::Query(User).new.where(active: true, name: "John")
 
       q.to_s.should eq <<-SQL
       SELECT users.* FROM users WHERE (users.activity_status = ? AND users.name = ?)
@@ -43,7 +43,7 @@ describe "Query#where" do
     uuid = UUID.random
 
     it do
-      q = Core::Query(Post).new.where(author: User.new(uuid: uuid, name: "Jake"))
+      q = Atom::Query(Post).new.where(author: User.new(uuid: uuid, name: "Jake"))
 
       q.to_s.should eq <<-SQL
       SELECT posts.* FROM posts WHERE (posts.author_uuid = ?)
@@ -58,7 +58,7 @@ describe "Query#where" do
       context "with explicit clause" do
         context "without params" do
           it do
-            Core::Query(User).new.where_not("foo = 'bar'").to_s.should eq <<-SQL
+            Atom::Query(User).new.where_not("foo = 'bar'").to_s.should eq <<-SQL
             SELECT users.* FROM users WHERE NOT (foo = 'bar')
             SQL
           end
@@ -66,7 +66,7 @@ describe "Query#where" do
 
         context "with params" do
           it do
-            q = Core::Query(User).new.where_not("foo = ?", 42)
+            q = Atom::Query(User).new.where_not("foo = ?", 42)
 
             q.to_s.should eq <<-SQL
             SELECT users.* FROM users WHERE NOT (foo = ?)
@@ -79,7 +79,7 @@ describe "Query#where" do
 
       context "with named arguments" do
         it do
-          q = Core::Query(User).new.where_not(active: true, name: "John")
+          q = Atom::Query(User).new.where_not(active: true, name: "John")
 
           q.to_s.should eq <<-SQL
           SELECT users.* FROM users WHERE NOT (users.activity_status = ? AND users.name = ?)
@@ -94,7 +94,7 @@ describe "Query#where" do
       uuid = UUID.random
 
       it do
-        q = Core::Query(User).new.where(uuid: uuid).and_where("activity_status IS NOT NULL").and_not("name = ?", "John")
+        q = Atom::Query(User).new.where(uuid: uuid).and_where("activity_status IS NOT NULL").and_not("name = ?", "John")
 
         q.to_s.should eq <<-SQL
         SELECT users.* FROM users WHERE (users.uuid = ?) AND (activity_status IS NOT NULL) AND NOT (name = ?)
@@ -121,7 +121,7 @@ describe "Query#where" do
             context "with explicit clause" do
               context "without params" do
                 it do
-                  Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                  Atom::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
                   SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = 'bar')
                   SQL
                 end
@@ -129,7 +129,7 @@ describe "Query#where" do
 
               context "with params" do
                 it do
-                  q = Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
+                  q = Atom::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
 
                   q.to_s.should eq <<-SQL
                   SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = ?)
@@ -141,7 +141,7 @@ describe "Query#where" do
 
               context "with named arguments" do
                 it do
-                  q = Core::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
+                  q = Atom::Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
 
                   q.to_s.should eq <<-SQL
                   SELECT users.* FROM users WHERE {{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
@@ -157,7 +157,7 @@ describe "Query#where" do
             context "with explicit clause" do
               context "without params" do
                 it do
-                  Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                  Atom::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
                   SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
                   SQL
                 end
@@ -165,7 +165,7 @@ describe "Query#where" do
 
               context "with params" do
                 it do
-                  q = Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
+                  q = Atom::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = ?", 42)
 
                   q.to_s.should eq <<-SQL
                   SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
@@ -178,7 +178,7 @@ describe "Query#where" do
 
             context "with named arguments" do
               it do
-                q = Core::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
+                q = Atom::Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}(active: true, name: "John")
 
                 q.to_s.should eq <<-SQL
                 SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
