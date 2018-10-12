@@ -138,15 +138,15 @@ puts posts.first.inspect
 
 ### With [Atom](https://github.com/atomframework/atom)
 
-Define your models as above, but with `Model` as an alias of `Atom::Model` and [`Validations`](https://github.com/vladfaust/validations.cr) included by default. You also don't need to initialize repository explicitly when using Atom:
+Define your models just as above, but with [`Validations`](https://github.com/vladfaust/validations.cr) included by default. You also don't need to initialize repository explicitly when using Atom:
 
 ```crystal
+require "pg"
 require "atom"
-
-Atom.model(PG)
+require "atom/model"
 
 class User
-  include Model
+  include Atom::Model
 
   schema do
     type name : String
@@ -155,8 +155,8 @@ class User
   validate name, size: (3..50)
 end
 
-users = query(User.all) # Top-level `query`, `exec` and `scalar` methods
-User.new("Jo").valid?   # Validations
+users = Atom.query(User.all) # Atom-level `query`, `exec` and `scalar` methods
+User.new("Jo").valid?        # Validations
 ```
 
 ## Testing
