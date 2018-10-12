@@ -34,7 +34,7 @@ class User
     type meta : Meta = DB::Default
 
     type created_at : Time = DB::Default
-    type updated_at : Union(Time | Nil)
+    type updated_at : Union(Time, Nil)
 
     type referrals : Array(User), foreign_key: "referrer_uuid"
     type authored_posts : Array(Post), foreign_key: "author_uuid"
@@ -58,7 +58,7 @@ class Post
   schema posts do
     pkey id : Int32
     type author : User, key: "author_uuid"
-    type editor : Union(User | Nil), key: "editor_uuid"
+    type editor : Union(User, Nil), key: "editor_uuid"
     type tags : Array(Tag) = DB::Default, key: "tag_ids"
 
     type content : String
