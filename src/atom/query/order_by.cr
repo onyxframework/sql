@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     # Possible orders for `ORDER BY` clauses.
     enum Order

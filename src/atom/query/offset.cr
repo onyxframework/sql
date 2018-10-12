@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     @offset : Int32 | Nil = nil
     protected property offset

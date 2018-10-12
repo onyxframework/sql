@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     @returning : Array(String | Char) | Nil = nil
 

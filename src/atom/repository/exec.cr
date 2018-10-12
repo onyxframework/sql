@@ -1,4 +1,4 @@
-module Atom
+class Atom
   class Repository
     # Call `db.exec(sql, *params)`.
     def exec(sql : String, *params : DB::Any | Array(DB::Any)) : DB::ExecResult

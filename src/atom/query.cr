@@ -1,6 +1,6 @@
 require "./query/*"
 
-module Atom
+class Atom
   # A powerful and type-safe SQL Query builder. Can be used either as a separate struct:
   #
   # ```

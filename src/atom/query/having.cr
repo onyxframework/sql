@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     struct Having
       getter clause, params, or, not

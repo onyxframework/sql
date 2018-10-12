@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     @group_by : Array(String) | Nil = nil
     protected property group_by

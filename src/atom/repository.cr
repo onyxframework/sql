@@ -1,7 +1,7 @@
 require "./repository/*"
 
 {% if @type.has_constant?("PG") %}
-  module Atom
+  class Atom
     class Repository
       # :nodoc:
       PGDefined = true
@@ -9,7 +9,7 @@ require "./repository/*"
   end
 {% end %}
 
-module Atom
+class Atom
   # A gateway between models and DB. Its main features are logging, expanding `Atom::Query` instances and mapping models from resulting `DB::ResultSet`.
   #
   # ```

@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     @select = [] of String | Char
     protected property :select

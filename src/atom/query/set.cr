@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     private struct SetStruct
       getter clause, params

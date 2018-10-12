@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     @limit : Int32 | Nil = nil
     protected property limit

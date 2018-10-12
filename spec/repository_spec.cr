@@ -56,7 +56,7 @@ class MockDB
   end
 end
 
-module Atom
+class Atom
   class Repository
     def initialize(@db : MockDB, @logger = Atom::Repository::Logger::Dummy.new)
     end

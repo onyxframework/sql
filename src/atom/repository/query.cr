@@ -1,4 +1,4 @@
-module Atom
+class Atom
   class Repository
     # Call `db.query(sql, *params)`.
     def query(sql : String, *params : DB::Any | Array(DB::Any))

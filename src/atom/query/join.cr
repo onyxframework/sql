@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     # Supported join types.
     enum JoinType

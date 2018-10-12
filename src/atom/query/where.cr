@@ -1,4 +1,4 @@
-module Atom
+class Atom
   struct Query(T)
     private struct Where
       getter clause, params, or, not

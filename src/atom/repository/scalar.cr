@@ -1,4 +1,4 @@
-module Atom
+class Atom
   class Repository
     # Call `db.scalar(sql, *params)`.
     def scalar(sql : String, *params : DB::Any | Array(DB::Any))
