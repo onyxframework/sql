@@ -133,6 +133,15 @@ describe "Repository(Postgres)#query" do
           post.editor.not_nil!.uuid.should eq new_user.uuid
         end
       end
+
+      context "with foreign enumerable join" do
+        user = repo.query(User.where(uuid: user.uuid).join(:authored_posts, select: '*')).first
+
+        it "preloads references" do
+          user.authored_posts.should_not be_nil
+          user.authored_posts.not_nil!.first.content.should eq "Blah-blah"
+        end
+      end
     end
   end
 end

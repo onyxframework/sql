@@ -133,6 +133,24 @@ class Atom
                 end
               {% end %}
 
+              # Preload foreign enumerable references
+              {% for type in MODEL_REFERENCES.select(&.["enumerable"]).select(&.["foreign"]) %}
+                # Check if current column is a reference marker (e.g. "_referrer")
+                # Do not check for `!types_already_set` because "_referrer" takes higher precedence
+                if column_name == "_" + {{type["name"].stringify}}
+
+                  # Skip marker column because it doesn't have any data
+                  rs.read
+                  column_indexer.value += 1
+
+                  # Read reference's attributes from further columns
+                  @{{type["name"]}} ||= {{type["true_type"]}}.new
+                  @{{type["name"]}}.not_nil!.push({{type["reference_type"]}}.new(rs, true, column_indexer))
+
+                  next
+                end
+              {% end %}
+
               # Unknown column in the result set
               raise DB::MappingException.new("#{{{@type}}}: cannot map column #{column_name} from a result set at index #{column_indexer.value}")
             end
