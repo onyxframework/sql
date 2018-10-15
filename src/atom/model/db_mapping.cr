@@ -79,6 +79,26 @@ class Atom
                   # ```
                   {% pk = type["reference_type"].constant("MODEL_PRIMARY_KEY") %}
                   {% pk_type = type["reference_type"].constant("MODEL_PRIMARY_KEY_TYPE") %}
+                  {%
+                    type = type
+                    unless pk && pk_type
+                      raise <<-TEXT
+                      Primary key of #{type["reference_type"]} is not defined at this moment of compilation.
+
+                      Please try requiring it before using as a reference.
+
+                      \e[32m+\e[39m️ Valid code:
+
+                        \e[32mrequire "./#{type["reference_type"].stringify.underscore.id}"\e[39m # Actual path may be different
+
+                        class #{@type}
+                          schema #{MODEL_TABLE} do
+                            type #{type["name"]} : #{type["type"]}
+                          end
+                        end
+                      TEXT
+                    end
+                  %}
 
                   {% if type["enumerable"] %}
                     @{{type["name"]}} = rs.read({{type["enumerable"]}}({{pk_type}}) | Nil).try &.map do |pk|
