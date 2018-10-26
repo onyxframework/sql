@@ -101,9 +101,9 @@ class Atom
       select _select : Char | String | Enumerable(String | Char) | Nil = nil
     )
       on = if reference.direct?
-             "#{T.table}.#{reference.key} = #{_as}.#{reference.primary_key}"
+             "#{T.table}.#{reference.key} = \"#{_as}\".#{reference.primary_key}"
            else
-             "#{_as}.#{reference.foreign_key} = #{T.table}.#{T.primary_key.key}"
+             "\"#{_as}\".#{reference.foreign_key} = #{T.table}.#{T.primary_key.key}"
            end
 
       if _select
@@ -115,10 +115,10 @@ class Atom
 
         if _select.is_a?(Enumerable)
           _select.each do |s|
-            self.select(_as ? _as + '.' + s : s)
+            self.select(_as ? "\"#{_as}\"" + '.' + s : s)
           end
         else
-          self.select(_as ? _as + '.' + _select : _select)
+          self.select(_as ? "\"#{_as}\"" + '.' + _select : _select)
         end
       end
 
@@ -141,7 +141,7 @@ class Atom
       unless @join.nil?
         {{query}} += @join.not_nil!.join(" ") do |join|
           j = " #{join.type} JOIN #{join.table}"
-          j += (" AS #{join.alias}") if join.alias && join.table != join.alias
+          j += (" AS \"#{join.alias}\"") if join.alias && join.table != join.alias
           j += " ON #{join.on}"
         end
       end

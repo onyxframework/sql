@@ -19,7 +19,7 @@ describe "Atom::Query#join" do
         q = Atom::Query(User).new.join(:authored_posts)
 
         q.to_s.should eq <<-SQL
-        SELECT users.* FROM users INNER JOIN posts AS authored_posts ON authored_posts.author_uuid = users.uuid
+        SELECT users.* FROM users INNER JOIN posts AS "authored_posts" ON "authored_posts".author_uuid = users.uuid
         SQL
 
         q.params.should be_nil
@@ -31,7 +31,7 @@ describe "Atom::Query#join" do
         q = Atom::Query(User).new.join(:authored_posts, type: :right, as: "the_posts", select: {"created_at", "id"})
 
         q.to_s.should eq <<-SQL
-        SELECT users.*, '' AS _authored_posts, the_posts.created_at, the_posts.id FROM users RIGHT JOIN posts AS the_posts ON the_posts.author_uuid = users.uuid
+        SELECT users.*, '' AS _authored_posts, "the_posts".created_at, "the_posts".id FROM users RIGHT JOIN posts AS "the_posts" ON "the_posts".author_uuid = users.uuid
         SQL
 
         q.params.should be_nil
@@ -44,7 +44,7 @@ describe "Atom::Query#join" do
       q = Atom::Query(Post).new.join(:author, type: :left, select: "id")
 
       q.to_s.should eq <<-SQL
-      SELECT posts.*, '' AS _author, author.id FROM posts LEFT JOIN users AS author ON posts.author_uuid = author.uuid
+      SELECT posts.*, '' AS _author, "author".id FROM posts LEFT JOIN users AS "author" ON posts.author_uuid = "author".uuid
       SQL
 
       q.params.should be_nil
