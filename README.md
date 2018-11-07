@@ -1,5 +1,3 @@
-> ⚠️ Master branch requires Crystal master to compile. See [installation instructions for Crystal](https://crystal-lang.org/docs/installation/from_source_repository.html).
-
 # Atom::Model
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
