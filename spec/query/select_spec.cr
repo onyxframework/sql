@@ -1,13 +1,31 @@
 require "../models"
 
-describe "Atom::Query#select" do
-  it do
-    q = Atom::Query(User).new.select(:active, "foo")
+describe "Query#select" do
+  context "without call" do
+    it do
+      q = Query(User).new
 
-    q.to_s.should eq <<-SQL
-    SELECT users.activity_status, foo FROM users
-    SQL
+      sql, params = q.build
 
-    q.params.should be_nil
+      sql.should eq <<-SQL
+      SELECT users.* FROM users
+      SQL
+
+      params.should be_empty
+    end
+  end
+
+  context "with call" do
+    it do
+      q = Query(User).new.select(:active, "foo")
+
+      sql, params = q.build
+
+      sql.should eq <<-SQL
+      SELECT users.activity_status, foo FROM users
+      SQL
+
+      params.should be_empty
+    end
   end
 end

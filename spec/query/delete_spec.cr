@@ -1,15 +1,16 @@
 require "../models"
 
-describe "Atom::Query#delete" do
+describe "Query#delete" do
   it do
     uuid = UUID.random
 
-    q = Atom::Query(User).new.delete.where(uuid: uuid)
+    q = Query(User).new.delete.where(uuid: uuid)
+    sql, params = q.build
 
-    q.to_s.should eq <<-SQL
+    sql.should eq <<-SQL
     DELETE FROM users WHERE (users.uuid = ?)
     SQL
 
-    q.params.should eq [uuid.to_s]
+    params.to_a.should eq [uuid.to_s]
   end
 end

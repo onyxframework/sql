@@ -1,2 +1,2 @@
 require "spec"
-require "../src/atom-model"
+require "../src/onyx-sql"

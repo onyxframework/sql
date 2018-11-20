@@ -1,27 +1,29 @@
-require "../models"
+require "../query_spec"
 
-describe "Atom::Query#having" do
+describe "Query#having" do
   context "without params" do
     it do
-      q = Atom::Query(User).new.having("foo")
+      q = Query(User).new.having("foo")
 
-      q.to_s.should eq <<-SQL
+      sql, params = q.build
+      sql.should eq <<-SQL
       SELECT users.* FROM users HAVING (foo)
       SQL
 
-      q.params.should eq nil
+      params.should be_empty
     end
   end
 
   context "with params" do
     it do
-      q = Atom::Query(User).new.having("foo = ? AND bar = ?", 42, [43, 44]).having("foo")
+      q = Query(User).new.having("foo = ? AND bar = ?", 42, 43).having("foo")
 
-      q.to_s.should eq <<-SQL
+      sql, params = q.build
+      sql.should eq <<-SQL
       SELECT users.* FROM users HAVING (foo = ? AND bar = ?) AND (foo)
       SQL
 
-      q.params.should eq [42, [43, 44]]
+      params.to_a.should eq [42, 43]
     end
   end
 
@@ -29,7 +31,7 @@ describe "Atom::Query#having" do
     describe "#having_not" do
       context "without params" do
         it do
-          Atom::Query(User).new.having_not("foo = 'bar'").to_s.should eq <<-SQL
+          Query(User).new.having_not("foo = 'bar'").to_s.should eq <<-SQL
           SELECT users.* FROM users HAVING NOT (foo = 'bar')
           SQL
         end
@@ -37,13 +39,14 @@ describe "Atom::Query#having" do
 
       context "with params" do
         it do
-          q = Atom::Query(User).new.having_not("foo = ?", 42)
+          q = Query(User).new.having_not("foo = ?", 42)
 
-          q.to_s.should eq <<-SQL
+          sql, params = q.build
+          sql.should eq <<-SQL
           SELECT users.* FROM users HAVING NOT (foo = ?)
           SQL
 
-          q.params.should eq [42]
+          params.to_a.should eq [42]
         end
       end
     end
@@ -52,13 +55,14 @@ describe "Atom::Query#having" do
       uuid = UUID.random
 
       it do
-        q = Atom::Query(User).new.having("activity_status IS NOT NULL").and_not("name = ?", "John").or_having("foo")
+        q = Query(User).new.having("activity_status IS NOT NULL").and_not("name = ?", "John").or_having("foo")
 
-        q.to_s.should eq <<-SQL
+        sql, params = q.build
+        sql.should eq <<-SQL
         SELECT users.* FROM users HAVING (activity_status IS NOT NULL) AND NOT (name = ?) OR (foo)
         SQL
 
-        q.params.should eq ["John"]
+        params.to_a.should eq ["John"]
       end
     end
 
@@ -78,7 +82,7 @@ describe "Atom::Query#having" do
           context "when first call" do
             context "without params" do
               it do
-                Atom::Query(User).new.{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                Query(User).new.{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
                 SELECT users.* FROM users HAVING {{"NOT ".id if not}}(foo = 'bar')
                 SQL
               end
@@ -86,13 +90,14 @@ describe "Atom::Query#having" do
 
             context "with params" do
               it do
-                q = Atom::Query(User).new.{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = ?", 42)
+                q = Query(User).new.{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = ?", 42)
 
-                q.to_s.should eq <<-SQL
+                sql, params = q.build
+                sql.should eq <<-SQL
                 SELECT users.* FROM users HAVING {{"NOT ".id if not}}(foo = ?)
                 SQL
 
-                q.params.should eq [42]
+                params.to_a.should eq [42]
               end
             end
           end
@@ -100,7 +105,7 @@ describe "Atom::Query#having" do
           context "when non-first call" do
             context "without params" do
               it do
-                Atom::Query(User).new.having("first = true").{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
+                Query(User).new.having("first = true").{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
                 SELECT users.* FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
                 SQL
               end
@@ -108,13 +113,14 @@ describe "Atom::Query#having" do
 
             context "with params" do
               it do
-                q = Atom::Query(User).new.having("first = true").{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = ?", 42)
+                q = Query(User).new.having("first = true").{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = ?", 42)
 
-                q.to_s.should eq <<-SQL
+                sql, params = q.build
+                sql.should eq <<-SQL
                 SELECT users.* FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
                 SQL
 
-                q.params.should eq [42]
+                params.to_a.should eq [42]
               end
             end
           end

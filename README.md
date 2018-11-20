@@ -1,177 +1,289 @@
-# Atom::Model
+<a href="https://onyxframework.org"><img width="100" height="100" src="https://onyxframework.org/img/logo.svg"></a>
+
+# Onyx::SQL
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
-[![Build status](https://img.shields.io/travis/atomframework/model/master.svg?style=flat-square)](https://travis-ci.org/atomframework/model)
-[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg?style=flat-square)](http://api.model.atomframework.org)
-[![Releases](https://img.shields.io/github/release/atomframework/model.svg?style=flat-square)](https://github.com/atomframework/model/releases)
-[![Awesome](https://github.com/vladfaust/awesome/blob/badge-flat-alternative/media/badge-flat-alternative.svg)](https://github.com/veelenga/awesome-crystal)
+[![Travis CI build](https://img.shields.io/travis/onyxframework/sql/master.svg?style=flat-square)](https://travis-ci.org/onyxframework/sql)
+[![API docs](https://img.shields.io/badge/api_docs-online-brightgreen.svg?style=flat-square)](https://api.onyxframework.org/sql)
+[![Latest release](https://img.shields.io/github/release/onyxframework/sql.svg?style=flat-square)](https://github.com/onyxframework/sql/releases)
 
-The official SQL ORM for [Atom Framework](https://github.com/atomframework/atom).
+An MIT-licensed SQL ORM for [Crystal](https://crystal-lang.org).
 
-## Projects using Atom::Model
+## Supporters ❤️
 
-* [Crystal Jobs](https://crystaljobs.org)
-* [Crystal World](https://github.com/vladfaust/crystalworld)
-* *add yours!*
+Thanks to all my patrons, I can continue working on beautiful Open Source Software! 🙏
 
-## About
+[Alexander Maslov](https://seendex.ru), [Lauri Jutila](https://github.com/ljuti)
 
-Atom::Model is a [crystal-db](https://github.com/crystal-lang/crystal-db) ORM which does not follow Active Record pattern, it's more like a data-mapping solution. There is a concept of Repository, which is basically a gateway to the database. For example:
+*You can become a patron too in exchange of prioritized support and other perks*
 
-```crystal
-repo = Atom::Repository.new(db)
-users = repo.query(User.where(id: 42)).first
-users.class # => User
-```
+<a href="https://www.patreon.com/vladfaust"><img height="50" src="https://onyxframework.org/img/patreon-button.svg"></a>
 
-Atom::Model also has a plently of features, including:
+## About 👋
 
-- Expressive and **type-safe** Query builder, allowing to use constructions like `Post.join(:author).where(author: user)`, which turns into a plain SQL
-- References preloader (the example above would return a `Post` which has `#author = <User @id=42>` attribute set)
-- Beautiful schema definition syntax
+Onyx::SQL is an SQL ORM for the [Crystal Language](https://crystal-lang.org). It features handy schema definition DSL and powerful type-safe query builder. It preserves composition and has a decent API documentation.
 
-However, Atom::Model is designed to be minimal, so it doesn't perform tasks you may got used to, for example, it doesn't do database migrations itself. You may use [migrate](https://github.com/vladfaust/migrate.cr) instead. Also its Query builder is not intended to fully replace SQL but instead to help a developer to write less and safer code.
+It is a part of [Onyx Framework](https://onyxframework.org), but it is **not** strictly tied to it. You absolutely can use this ORM with a web framework other than [Onyx::HTTP](https://github.com/onyxframework/http) and [Onyx::REST](https://github.com/onyxframework/rest).
 
-Also note that although Atom::Model code is designed to be abstract sutiable for any [crystal-db](https://github.com/crystal-lang/crystal-db) driver, it currently works with PostgreSQL only. But it's fairly easy to implement other drivers like MySQL or SQLite (see `/src/model/ext/pg` and `/src/model/repository.cr`).
+It implements the [crystal-db](https://github.com/crystal-lang/crystal-db) API, which makes it usable with any SQL database! It has been successfully tested with the following DBs:
 
-## Installation
+- [x] SQLite3
+- [x] PostgreSQL
+- [ ] MySQL (*coming soon*)
+
+This ORM, as all other Onyx components, targets to be easily understandble for newcomers, but be able to grow with a developers's knowledge. Fundamentally, it relies on extremely powerful Crystal annotations, but they may be tedious for daily tasks, that why they're hidden by default under the convenient schema DSL. See the examples below.
+
+## Installation 📥
 
 Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  atom-model:
-    github: atomframework/model
-    version: ~> 0.5.0
+  onyx-sql:
+    github: onyxframework/sql
+    version: ~> 0.6.0
 ```
 
-This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/atomframework/model/releases) and change the `version` accordingly.
+This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/onyxframework/sql/releases) and change the `version` accordingly. Please visit [github.com/crystal-lang/shards](https://github.com/crystal-lang/shards) to know more about Crystal shards.
 
-## Using
+You'd also need to add a database dependency conforming the [crystal-db](https://github.com/crystal-lang/crystal-db) interface. For example, [pg](https://github.com/will/crystal-pg):
 
-### Basic example
+```yaml
+dependencies:
+  onyx-sql:
+    github: onyxframework/sql
+    version: ~> 0.6.0
+  pg:
+    github: will/crystal-pg
+    version: ~> 0.15.0
+```
 
-Assuming following database migration:
+## Usage 💻
+
+The API docs are hosted at <https://api.onyxframework.org/sql>, and they're pretty comprehensive. Don't hesistate to read them all after you're done with this section!
+
+It's a good idea to get yourself familiar with the [Crystal DB docs](https://crystal-lang.org/reference/database/) before moving on.
+
+### 101 📖
+
+As any other ORM, Onyx::SQL allows to define models which will be mapped to SQL tables. Assuming that you have the following table in a PostgreSQL database:
 
 ```sql
-CREATE TABLE users(
-  uuid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(100) NOT NULL,
-  age INT,
-  created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE posts(
-  id SERIAL PRIMARY KEY,
-  author_uuid INT NOT NULL REFERENCES users (uuid),
-  content TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ
+CREATE TABLE users (
+  id    SERIAL  PRIMARY KEY,
+  name  TEXT    NOT NULL
 );
 ```
 
-Crystal code:
+> **Note:** Onyx::SQL does not provide any tools for migrations. Check [migrate.cr](https://github.com/vladfaust/migrate.cr) for a production-ready solution.
+
+Then in your code you would do:
 
 ```crystal
 require "pg"
-require "atom-model"
+require "onyx-sql"
 
 class User
-  include Atom::Model
+  include Onyx::SQL::Model
 
   schema users do
-    pkey uuid : UUID # UUIDs are supported out of the box
+    pkey id : Int32
+    type name : String
+  end
+end
 
-    type name : String                   # Has NOT NULL in the column definition
-    type age : Union(Int32 | Nil)        # Does not have NULL in the column definition
-    type created_at : Time = DB::Default # Has DEFAULT in the column definition
+db = DB.open("postgresql://postgres:postgres@localhost:5432/my_db")
 
-    type posts : Array(Post), foreign_key: "author_uuid" # That is an implicit reference
+user = User.new(name: "John")
+rs = db.query(*user.insert.returning(User).build(true))
+
+users = User.from_rs(rs)
+user = users.first
+
+pp user.id # => 1
+```
+
+Congratulations, you've successfully inserted a brand new User instance! :tada:
+
+> **Note:** `.build(true)` is required instead of simple `.build` because PostgreSQL has different syntax for query arguments (`$n` instead of `?`).
+
+#### Querying
+
+```crystal
+rs = db.query("SELECT * FROM users WHERE id = $1", 1)
+user = User.from_rs(rs).first
+
+pp user # => <User @id=1 @name="John">
+```
+
+#### Updating
+
+You can easily update models with the [`Changeset`](https://api.onyxframework.org/sql/Onyx/SQL/Model/Changeset.html) concept:
+
+```crystal
+changeset = user.changeset
+changeset.update(name: "Jake")
+
+db.exec(*user.update(changeset).build(true))
+```
+
+#### Deletion
+
+Deleting from DB is simple as well:
+
+```crystal
+db.exec(*user.delete.build(true))
+```
+
+### Repository
+
+Onyx::SQL has the [`Onyx::SQL::Repository`](https://api.onyxframework.org/sql/Onyx/SQL/Repository.html) class, which effectively wraps the database connection with logging, automatically builds queries and more:
+
+```crystal
+repo = Onyx::SQL::Repository.new(db)
+
+user = User.new(name: "Archer")
+user = repo.query(user.insert.returning(User)).first
+
+# [postgresql] INSERT INTO users (name) VALUES (?)
+# 1.234ms
+```
+
+### Query
+
+[`Onyx::SQL::Query`](https://api.onyxframework.org/sql/Onyx/SQL/Query.html) is a powerful type-safe SQL query builder with almost all SQL methods implemented:
+
+```crystal
+query = User.select(:name).where(id: 2)
+pp query       # => <Onyx::SQL::Query(User) ...>
+pp query.build # => {"SELECT users.name FROM users WHERE id = ?", {2}}
+```
+
+`Query` is just an object which could be expanded into a pair of SQL string a query params. You can then use it however you want:
+
+```crystal
+sql, params = query.build(true)
+rs = db.query(sql, params)
+
+# Or shorter
+rs = db.query(*query.build(true))
+
+# Or with repository
+user = repo.query(query).first
+```
+
+### References
+
+Onyx::SQL has a native support for model references, both direct and foreign ones.
+
+```sql
+CREATE TABLE posts (
+  id          SERIAL      PRIMARY KEY,
+  author_id   INT         NOT NULL  REFERENCES users (id),
+  content     TEXT        NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL  DEFAULT now()
+);
+```
+
+```crystal
+class User
+  include Onyx::SQL::Model
+
+  schema users do
+    pkey id : Int32
+    type name : String
+    type authored_posts : Array(Post), foreign_key: "author_id"
   end
 end
 
 class Post
-  include Atom::Model
+  include Onyx::SQL::Model
 
   schema posts do
     pkey id : Int32
-
-    type author : User, key: "author_id" # That is an explicit reference
     type content : String
-
-    type created_at : Time = DB::Default
-    type updated_at : Union(Time | Nil)
+    type author : User, key: "author_id"
   end
 end
 
-logger = Atom::Repository::Logger::IO.new(STDOUT)
-repo = Atom::Repository.new(DB.open(ENV["DATABASE_URL"]), logger)
+user = User.new(id: 2, name: "Archer")
+post = Post.new(content: "Classic", author: user)
+repo.exec(post.insert)
 
-# Most of the query builder methods (e.g. insert) are type-safe
-user = repo.query(User.insert(name: "Vlad")).first
-
-# You can use object-oriented approach as well
-post = Post.new(author: user, content: "What a beauteful day!") # Oops
-
-post = repo.query(post.insert).first
-# Logging to STDOUT:
-# [postgresql] INSERT INTO posts (author_uuid, content) VALUES (?, ?) RETURNING *
-# 1.708ms
-# [map] Post
-# 126μs
-
-# #to_s returns raw SQL string, so for superiour performance you may want to store it in constants
-QUERY = Post.update.set(content: "placeholder").where(id: 0).to_s
-# UPDATE posts SET content = ? WHERE (id = ?)
-
-# However, such approach doesn't check for incoming params types, `post.id` could be anything
-repo.exec(QUERY, "What a beautiful day!", post.id)
-
-# Join with preloading references!
-posts = repo.query(Post.where(author: user).join(:author, select: {"uuid", "name"}))
-
-puts posts.first.inspect
-# => <Post @id=42 @author=<User @name="Vlad" @uuid="..."> @content="What a beautiful day!">
+# [postgresql] INSERT INTO posts (content, author_id) VALUES (?, ?)
+# The actual DB arguments are "Classic" and 2
 ```
 
-### With [Atom](https://github.com/atomframework/atom)
-
-Define your models just as above, but with [`Validations`](https://github.com/vladfaust/validations.cr) included by default. You also don't need to initialize repository explicitly when using Atom:
+Thanks to the `Query` builder, it is possible to build powerful type-safe joins in no time:
 
 ```crystal
-require "pg"
-require "atom"
-require "atom/model"
+posts = repo.query(Post
+  .select(:id, :content)
+  .join(author: true) do |q|
+    q.select(:id, :name)
+    q.where(name: "Archer")
+  end)
 
-class User
-  include Atom::Model
-
-  schema do
-    type name : String
-  end
-
-  validate name, size: (3..50)
-end
-
-users = Atom.query(User.all) # Atom-level `query`, `exec` and `scalar` methods
-User.new("Jo").valid?        # Validations
+pp posts.first # <Post @id=1 @content="Classic" @author=<User @id=2 @name="Archer">>
 ```
 
-## Testing
+### Macros
 
-1. Run generic specs with `crystal spec`
-2. Apply migrations from `./db_spec/*/migration.sql`
-3. Run DB-specific specs with `env POSTGRESQL_URL=postgres://postgres:postgres@localhost:5432/model crystal spec db_spec`
-4. Optionally run benchmarks with `crystal bench.cr --release`
+[Onyx top-level macros](https://github.com/onyxframework/onyx#sql) allow to define top-level repository methods:
+
+```crystal
+require "onyx/env"
+require "onyx/sql"
+
+Onyx.query  # Singleton Onyx::SQL::Repository.query call
+Onyx.exec   # ditto
+Onyx.scalar # ditto
+```
+
+### Next steps
+
+That's all for this README! Jump to the API docs at <https://api.onyxframework.org/sql> or explore the [Crystal World](https://github.com/vladfaust/crystalworld) application built with Onyx, which is greatly documented as well!
+
+Direct API links:
+
+* [`Onyx::SQL::Model`](https://api.onyxframework.org/sql/Onyx/SQL/Model.html)
+* [`Onyx::SQL::Query`](https://api.onyxframework.org/sql/Onyx/SQL/Query.html)
+* [`Onyx::SQL::Repository`](https://api.onyxframework.org/sql/Onyx/SQL/Repository.html)
+
+## Community 🍪
+
+There are multiple places to talk about this particular shard and about other ones as well:
+
+* [Onyx::SQL Gitter chat](https://gitter.im/onyxframework/sql)
+* [Onyx Framework Gitter community](https://gitter.im/onyxframework)
+* [Vlad Faust Gitter community](https://gitter.im/vladfaust)
+* [Onyx Framework Twitter](https://twitter.com/onyxframework)
+* [Onyx Framework Telegram channel](https://telegram.me/onyxframework)
+
+## Support ❤️
+
+This shard is maintained by me, [Vlad Faust](https://vladfaust.com), a passionate developer with years of programming and product experience. I love creating Open-Source and I want to be able to work full-time on Open-Source projects.
+
+I will do my best to answer your questions in the free communication channels above, but if you want prioritized support, then please consider becoming my patron. Your issues will be labeled with your patronage status, and if you have a sponsor tier, then you and your team be able to communicate with me in private or semi-private channels such as e-mail and [Twist](https://twist.com). There are other perks to consider, so please, don't hesistate to check my Patreon page:
+
+<a href="https://www.patreon.com/vladfaust"><img height="50" src="https://onyxframework.org/img/patreon-button.svg"></a>
+
+You could also help me a lot if you leave a star to this GitHub repository and spread the world about Crystal and Onyx! 📣
 
 ## Contributing
 
-1. Fork it ( https://github.com/atomframework/model/fork )
+1. Fork it ( https://github.com/onyxframework/http/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
+3. Commit your changes (git commit -am 'feat: some feature') using [Angular style commits](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
 ## Contributors
 
-- [@vladfaust](https://github.com/vladfaust) Vlad Faust - creator, maintainer
+- [Vlad Faust](https://github.com/vladfaust) - creator and maintainer
+
+## Licensing
+
+This software is licensed under [MIT License](LICENSE).
+
+[![Open Source Initiative](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Opensource.svg/100px-Opensource.svg.png)](https://opensource.org/licenses/MIT)

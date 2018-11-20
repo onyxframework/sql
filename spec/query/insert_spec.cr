@@ -1,15 +1,17 @@
 require "../models"
 
-describe "Atom::Query#insert" do
+describe "Query#insert" do
   context "with minimum arguments" do
     it do
-      q = Atom::Query(User).new.insert(name: "John")
+      q = Query(User).new.insert(name: "John")
 
-      q.to_s.should eq <<-SQL
+      sql, params = q.build
+
+      sql.should eq <<-SQL
       INSERT INTO users (name) VALUES (?)
       SQL
 
-      q.params.should eq ["John"]
+      params.to_a.should eq ["John"]
     end
   end
 
@@ -17,13 +19,21 @@ describe "Atom::Query#insert" do
     it do
       ref_uuid = UUID.random
 
-      q = Atom::Query(User).new.insert(referrer: User.new(uuid: ref_uuid, name: "Jake"), active: DB::Default, role: User::Role::Moderator, permissions: [User::Permission::EditPosts], name: "John")
+      q = Query(User).new.insert(
+        referrer: User.new(uuid: ref_uuid, name: "Jake"),
+        role: User::Role::Moderator,
+        permissions: [User::Permission::CreatePosts, User::Permission::EditPosts],
+        name: "John",
+        favorite_numbers: [3, 17, 42]
+      )
 
-      q.to_s.should eq <<-SQL
-      INSERT INTO users (referrer_uuid, role, permissions, name) VALUES (?, ?, ?, ?)
+      sql, params = q.build
+
+      sql.should eq <<-SQL
+      INSERT INTO users (referrer_uuid, role, permissions, name, favorite_numbers) VALUES (?, ?, ?, ?, ?)
       SQL
 
-      q.params.should eq [ref_uuid.to_s, "moderator", ["edit_posts"], "John"]
+      params.to_a.should eq [ref_uuid.to_s, "Moderator", "CreatePosts,EditPosts", "John", "3,17,42"]
     end
   end
 end

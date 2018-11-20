@@ -1,10 +1,12 @@
-name: atom-model
-version: 0.5.0
+name: onyx-sql
+version: 0.6.0
 
 authors:
   - Vlad Faust <mail@vladfaust.com>
 
-crystal: 0.27.0
+crystal: 0.27.2
+
+license: MIT
 
 dependencies:
   time_format:
@@ -15,6 +17,9 @@ dependencies:
     version: ~> 0.5.0
 
 development_dependencies:
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+    version: ~> 0.10.0
   pg:
     github: will/crystal-pg
     version: ~> 0.15.0

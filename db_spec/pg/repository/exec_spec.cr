@@ -3,6 +3,7 @@ require "../../repository_spec"
 
 describe "Repository(Postgres)#exec" do
   repo = repo(:postgresql)
+
   describe "with SQL" do
     context "without params" do
       it do
@@ -24,13 +25,13 @@ describe "Repository(Postgres)#exec" do
 
     context "with single array of params" do
       it do
-        repo.exec("SELECT ?::int[]", {[1, 2]}).should be_truthy
+        repo.exec("SELECT ?::int[]", "{1,2}").should be_truthy
       end
     end
 
     context "with multiple arguments which have an array of params" do
       it do
-        repo.exec("SELECT ?::text, ?::int[]", "foo", [1, 2]).should be_truthy
+        repo.exec("SELECT ?::text, ?::int[]", "foo", "{1,2}").should be_truthy
       end
     end
   end

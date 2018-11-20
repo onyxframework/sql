@@ -1,7 +1,15 @@
 require "./spec_helper"
+require "./dummy_converters/*"
 
+require "uuid"
+require "json"
+
+alias Model = Onyx::SQL::Model
+alias Field = Onyx::SQL::Field
+
+@[Model::Options(table: "users", primary_key: @uuid)]
 class User
-  include Atom::Model
+  include Model
 
   enum Role
     Writer
@@ -22,28 +30,53 @@ class User
     end
   end
 
-  schema users do
-    pkey uuid : UUID
-    type referrer : Union(User | Nil), key: "referrer_uuid"
+  @[Field(converter: DummyConverters::UUID)]
+  @uuid : UUID?
+  property! uuid
 
-    type active : Bool = DB::Default, key: "activity_status"
-    type role : Role = DB::Default
-    type permissions : Array(Permission) = DB::Default
-    type name : String
-    type balance : Float32 = DB::Default
-    type meta : Meta = DB::Default
+  @[Field(key: "activity_status", default: true)]
+  property! active : Bool
 
-    type created_at : Time = DB::Default
-    type updated_at : Union(Time, Nil)
+  @[Field(converter: DummyConverters::Enum(Role), default: true)]
+  property! role : Role
 
-    type referrals : Array(User), foreign_key: "referrer_uuid"
-    type authored_posts : Array(Post), foreign_key: "author_uuid"
-    type edited_posts : Array(Post), foreign_key: "editor_uuid"
-  end
+  @[Field(converter: DummyConverters::Enum(Permission), default: true)]
+  property! permissions : Array(Permission)
+
+  @[Field(converter: DummyConverters::Int32Array, default: true)]
+  property! favorite_numbers : Array(Int32)
+
+  property! name : String
+
+  @[Field(default: true)]
+  property! balance : Float32
+
+  @[Field(converter: DummyConverters::JSON(Meta), default: true)]
+  property! meta : Meta
+
+  @[Field(default: true)]
+  property! created_at : Time
+
+  property! updated_at : Time
+
+  @[Onyx::SQL::Reference(key: "referrer_uuid")]
+  property! referrer : self
+
+  @[Onyx::SQL::Reference(foreign_key: "referrer_uuid")]
+  property! referrals : Array(self)
+
+  @[Onyx::SQL::Reference(foreign_key: "author_uuid")]
+  property! authored_posts : Array(Post)
+
+  @[Onyx::SQL::Reference(foreign_key: "editor_uuid")]
+  property! edited_posts : Array(Post)
+
+  # def initialize(@name : String, @uuid : UUID? = nil, @active : Bool? = nil)
+  # end
 end
 
 class Tag
-  include Atom::Model
+  include Model
 
   schema tags do
     pkey id : Int32
@@ -53,16 +86,17 @@ class Tag
 end
 
 class Post
-  include Atom::Model
+  include Model
 
   schema posts do
-    pkey id : Int32
-    type author : User, key: "author_uuid"
-    type editor : Union(User, Nil), key: "editor_uuid"
-    type tags : Array(Tag) = DB::Default, key: "tag_ids"
+    pkey id : Int32, converter: DummyConverters::Int32Array
 
     type content : String
-    type created_at : Time = DB::Default
-    type updated_at : Union(Time | Nil)
+    type created_at : Time, default: true
+    type updated_at : Time
+
+    type author : User, key: "author_uuid"
+    type editor : User, key: "editor_uuid"
+    type tags : Array(Tag), key: "tag_ids"
   end
 end

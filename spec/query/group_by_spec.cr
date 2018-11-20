@@ -1,10 +1,14 @@
 require "../models"
 
-describe "Atom::Query#group_by" do
+describe "Query#group_by" do
   it do
-    q = Atom::Query(User).new.group_by("foo", "bar")
-    q.to_s.should eq <<-SQL
+    q = Query(User).new.group_by("foo", "bar")
+    sql, params = q.build
+
+    sql.should eq <<-SQL
     SELECT users.* FROM users GROUP BY foo, bar
     SQL
+
+    params.should be_empty
   end
 end

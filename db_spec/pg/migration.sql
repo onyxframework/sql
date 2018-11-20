@@ -15,6 +15,7 @@ CREATE TABLE users(
   activity_status BOOL                NOT NULL  DEFAULT true,
   role            users_role          NOT NULL  DEFAULT 'writer',
   permissions     users_permissions[] NOT NULL  DEFAULT '{create_posts}',
+  favorite_numbers INT[]              NOT NULL  DEFAULT '{}',
   name            VARCHAR(100)        NOT NULL,
   balance         REAL                NOT NULL  DEFAULT 0,
   meta            JSON                NOT NULL  DEFAULT '{}',

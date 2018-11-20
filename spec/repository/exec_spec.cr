@@ -1,12 +1,12 @@
 require "../repository_spec"
 
-describe Atom::Repository do
+describe Repository do
   db = MockDB.new
-  repo = Atom::Repository.new(db)
+  repo = Repository.new(db)
 
   describe "#exec" do
     context "with paramsless Query" do
-      result = repo.exec(Atom::Query(User).new.update.set("foo = 42"))
+      result = repo.exec(Query(User).new.update.set("foo = 42"))
 
       it "calls DB#exec with valid sql" do
         db.latest_exec_sql.should eq <<-SQL
@@ -15,12 +15,12 @@ describe Atom::Repository do
       end
 
       it "does not pass any params to DB#exec" do
-        db.latest_exec_params.should be_nil
+        db.latest_exec_params.not_nil!.should be_empty
       end
     end
 
     context "with params Query" do
-      result = repo.exec(Atom::Query(User).new.update.set(active: true))
+      result = repo.exec(Query(User).new.update.set(active: true))
 
       it "calls DB#exec with valid sql" do
         db.latest_exec_sql.should eq <<-SQL

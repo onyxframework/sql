@@ -19,7 +19,7 @@ describe "Repository(Postgres)#scalar" do
 
     context "with array of params" do
       it do
-        repo.scalar("SELECT ?::int[]", {[1, 2]}).as(Array(PG::Int32Array)).should eq [1, 2]
+        repo.scalar("SELECT ?::int[]", "{1,2}").as(Array(PG::Int32Array)).should eq [1, 2]
       end
     end
   end
