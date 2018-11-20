@@ -14,6 +14,6 @@ deploy:
   local_dir: docs
 before_script:
   - psql -c 'create database test;' -U postgres
-  - psql $POSTGRESQL_URL < spec/migration.sql
+  - psql $POSTGRESQL_URL < db_spec/pg/migration.sql
 env:
   - POSTGRESQL_URL=postgres://postgres@localhost:5432/test
