@@ -27,16 +27,16 @@ jobs:
         - sqlite3 ./test.sqlite3 < db_spec/sqlite3/migration.sql
       script:
         - env SQLITE3_URL=$SQLITE3_URL crystal spec db_spec/sqlite3
-    - name: Generate docs
+    - stage: Deploy
       script:
         - crystal docs
-deploy:
-  provider: pages
-  skip_cleanup: true
-  keep_history: true
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
-  local_dir: docs
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        keep_history: true
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master
+        local_dir: docs
 addons:
   postgresql: "9.5"
