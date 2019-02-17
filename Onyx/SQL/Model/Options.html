@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.2">
+
+
+<link href="../../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../../";
+</script>
+
+  <meta id="repository-name" content="github.com/onyxframework/sql">
+  <title>Onyx::SQL::Model::Options - github.com/onyxframework/sql</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
+      <a href="../../../Onyx.html">Onyx</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL" data-name="onyx::sql">
+      <a href="../../../Onyx/SQL.html">SQL</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
+      <a href="../../../Onyx/SQL/Converters.html">Converters</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
+      <a href="../../../Onyx/SQL/Converters/PG.html">PG</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Any" data-name="onyx::sql::converters::pg::any(t)">
+      <a href="../../../Onyx/SQL/Converters/PG/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Enum" data-name="onyx::sql::converters::pg::enum(t)">
+      <a href="../../../Onyx/SQL/Converters/PG/Enum.html">Enum</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSON" data-name="onyx::sql::converters::pg::json(t)">
+      <a href="../../../Onyx/SQL/Converters/PG/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/UUID" data-name="onyx::sql::converters::pg::uuid">
+      <a href="../../../Onyx/SQL/Converters/PG/UUID.html">UUID</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
+      <a href="../../../Onyx/SQL/Converters/SQLite3.html">SQLite3</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/Any" data-name="onyx::sql::converters::sqlite3::any(t)">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumInt" data-name="onyx::sql::converters::sqlite3::enumint(t)">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/EnumInt.html">EnumInt</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumText" data-name="onyx::sql::converters::sqlite3::enumtext(t)">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/EnumText.html">EnumText</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/JSON" data-name="onyx::sql::converters::sqlite3::json(t)">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">UUIDBlob</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDText" data-name="onyx::sql::converters::sqlite3::uuidtext">
+      <a href="../../../Onyx/SQL/Converters/SQLite3/UUIDText.html">UUIDText</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Field" data-name="onyx::sql::field">
+      <a href="../../../Onyx/SQL/Field.html">Field</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model" data-name="onyx::sql::model">
+      <a href="../../../Onyx/SQL/Model.html">Model</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset" data-name="onyx::sql::model::changeset(t, u)">
+      <a href="../../../Onyx/SQL/Model/Changeset.html">Changeset</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset/NoChanges" data-name="onyx::sql::model::changeset::nochanges">
+      <a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+      <a href="../../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+      <a href="../../../Onyx/SQL/Model/Mappable.html">Mappable</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Options" data-name="onyx::sql::model::options">
+      <a href="../../../Onyx/SQL/Model/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Query" data-name="onyx::sql::query(t)">
+      <a href="../../../Onyx/SQL/Query.html">Query</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/JoinType" data-name="onyx::sql::query::jointype">
+      <a href="../../../Onyx/SQL/Query/JoinType.html">JoinType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Order" data-name="onyx::sql::query::order">
+      <a href="../../../Onyx/SQL/Query/Order.html">Order</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Type" data-name="onyx::sql::query::type">
+      <a href="../../../Onyx/SQL/Query/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Reference" data-name="onyx::sql::reference">
+      <a href="../../../Onyx/SQL/Reference.html">Reference</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository" data-name="onyx::sql::repository">
+      <a href="../../../Onyx/SQL/Repository.html">Repository</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger" data-name="onyx::sql::repository::logger">
+      <a href="../../../Onyx/SQL/Repository/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Dummy" data-name="onyx::sql::repository::logger::dummy">
+      <a href="../../../Onyx/SQL/Repository/Logger/Dummy.html">Dummy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/IO" data-name="onyx::sql::repository::logger::io">
+      <a href="../../../Onyx/SQL/Repository/Logger/IO.html">IO</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Standard" data-name="onyx::sql::repository::logger::standard">
+      <a href="../../../Onyx/SQL/Repository/Logger/Standard.html">Standard</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Serializable" data-name="onyx::sql::serializable">
+      <a href="../../../Onyx/SQL/Serializable.html">Serializable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">annotation</span> Onyx::SQL::Model::Options
+
+</h1>
+
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>This annotation specifies options for a <code><a href="../../../Onyx/SQL/Model.html">Model</a></code>. It has two mandatory options itself:</p>
+
+<ul><li><code>:table</code> -- the table name in the DB, e.g. "users"</li><li><code>:primary_key</code> -- the primary key <strong>variable</strong>, for example:</li></ul>
+
+<pre><code>@[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Options</span>(table: <span class="s">&quot;users&quot;</span>, primary_key: @id)]
+<span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+  @id : <span class="t">Int32</span>?
+<span class="k">end</span></code></pre>
+
+<p>The <code><a href="../../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">Model.schema</a></code> macro defines the <code><a href="../../../Onyx/SQL/Model/Options.html">Options</a></code> annotation for you:</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema users <span class="k">do</span>   <span class="c"># &quot;users&quot; is going to be the :table option</span>
+    pkey id : <span class="t">Int32</span> <span class="c"># @id is the :primary_key</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Handle different <code>:primary_key</code> variants:</p>
+
+<pre><code>@[<span class="t">Options</span>(primary_key: {@a, @b})] <span class="c"># Composite</span>
+
+@[<span class="t">Options</span>(primary_key: {x: @a, y: @b})] <span class="c"># With different getters (and composite)</span>
+<span class="k">class</span> <span class="t">User</span>
+  <span class="k">def</span> <span class="m">x</span>
+    @a
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model.cr#L200" target="_blank">
+        onyx-sql/model.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

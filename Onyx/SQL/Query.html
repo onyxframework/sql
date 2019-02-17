@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.2">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../";
+</script>
+
+  <meta id="repository-name" content="github.com/onyxframework/sql">
+  <title>Onyx::SQL::Query(T) - github.com/onyxframework/sql</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
+      <a href="../../Onyx.html">Onyx</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL" data-name="onyx::sql">
+      <a href="../../Onyx/SQL.html">SQL</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
+      <a href="../../Onyx/SQL/Converters.html">Converters</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
+      <a href="../../Onyx/SQL/Converters/PG.html">PG</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Any" data-name="onyx::sql::converters::pg::any(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Enum" data-name="onyx::sql::converters::pg::enum(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Enum.html">Enum</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSON" data-name="onyx::sql::converters::pg::json(t)">
+      <a href="../../Onyx/SQL/Converters/PG/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/UUID" data-name="onyx::sql::converters::pg::uuid">
+      <a href="../../Onyx/SQL/Converters/PG/UUID.html">UUID</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
+      <a href="../../Onyx/SQL/Converters/SQLite3.html">SQLite3</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/Any" data-name="onyx::sql::converters::sqlite3::any(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumInt" data-name="onyx::sql::converters::sqlite3::enumint(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumInt.html">EnumInt</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumText" data-name="onyx::sql::converters::sqlite3::enumtext(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumText.html">EnumText</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/JSON" data-name="onyx::sql::converters::sqlite3::json(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">UUIDBlob</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDText" data-name="onyx::sql::converters::sqlite3::uuidtext">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDText.html">UUIDText</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Field" data-name="onyx::sql::field">
+      <a href="../../Onyx/SQL/Field.html">Field</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model" data-name="onyx::sql::model">
+      <a href="../../Onyx/SQL/Model.html">Model</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset" data-name="onyx::sql::model::changeset(t, u)">
+      <a href="../../Onyx/SQL/Model/Changeset.html">Changeset</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset/NoChanges" data-name="onyx::sql::model::changeset::nochanges">
+      <a href="../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+      <a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+      <a href="../../Onyx/SQL/Model/Mappable.html">Mappable</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Options" data-name="onyx::sql::model::options">
+      <a href="../../Onyx/SQL/Model/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/Query" data-name="onyx::sql::query(t)">
+      <a href="../../Onyx/SQL/Query.html">Query</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/JoinType" data-name="onyx::sql::query::jointype">
+      <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Order" data-name="onyx::sql::query::order">
+      <a href="../../Onyx/SQL/Query/Order.html">Order</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Type" data-name="onyx::sql::query::type">
+      <a href="../../Onyx/SQL/Query/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Reference" data-name="onyx::sql::reference">
+      <a href="../../Onyx/SQL/Reference.html">Reference</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository" data-name="onyx::sql::repository">
+      <a href="../../Onyx/SQL/Repository.html">Repository</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger" data-name="onyx::sql::repository::logger">
+      <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Dummy" data-name="onyx::sql::repository::logger::dummy">
+      <a href="../../Onyx/SQL/Repository/Logger/Dummy.html">Dummy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/IO" data-name="onyx::sql::repository::logger::io">
+      <a href="../../Onyx/SQL/Repository/Logger/IO.html">IO</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Standard" data-name="onyx::sql::repository::logger::standard">
+      <a href="../../Onyx/SQL/Repository/Logger/Standard.html">Standard</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Serializable" data-name="onyx::sql::serializable">
+      <a href="../../Onyx/SQL/Serializable.html">Serializable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Onyx::SQL::Query(T)
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Onyx/SQL/Query.html">Onyx::SQL::Query(T)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Type-safe-where-possible SQL query builder.</p>
+
+<h2>Cheatsheet</h2>
+
+<p>For your convenience, here is the full list of <code><a href="../../Onyx/SQL/Query.html">Query</a></code> methods:</p>
+
+<ul><li>Shortcuts:</li><ul><li><code><a href="../../Onyx/SQL/Query.html#one-instance-method">#one</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#all-instance-method">#all</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#first-instance-method">#first</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#last-instance-method">#last</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#and</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#or</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#and_not</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#or_not</a></code></li></ul><li><code><a href="../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#insert</a></code> -- type-safe</li><li><code><a href="../../Onyx/SQL/Query.html#update-instance-method">#update</a></code> -- must call <code>Set</code> afterwards ↴</li><li>Set:</li><ul><li><code><a href="../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#set</a></code> -- type-safe</li><li><code><a href="../../Onyx/SQL/Query.html#set%28clause%3AString%29-instance-method">#set(clause)</a></code> -- expilicit clause</li><li><code><a href="../../Onyx/SQL/Query.html#set%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">#set(clause, params)</a></code> -- explicit clause with params</li></ul><li>Returning (currently not type-safe):</li><ul><li><code><a href="../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method">#returning(values)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method">#returning(klass)</a></code> (link is broken, scroll a little)</li></ul><li>Select (currently not type-safe):</li><ul><li><code><a href="../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">#select(values)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">#select(klass)</a></code> (link is broken, scroll a little)</li><li><code><a href="../../Onyx/SQL/Query.html#select%28klass%3AT.class%2C%2Aargs%29-instance-method">#select(klass, args)</a></code></li></ul><li>Where:</li><ul><li><code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> -- type-safe</li><li><a href="#where%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" target="_blank"><code>#where(clause)</code></a> -- expilicit clause</li><li><code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where(clause, params)</a></code> -- explicit clause with params</li><li><code><a href="../../Onyx/SQL/Query.html#where_not%28clause%29-instance-method">#where_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#where_not%28clause%2C%2Aparams%29-instance-method">#where_not(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where%28clause%3AString%29-instance-method">#and_where(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where%28clause%3AString%2C%2Aparams%29-instance-method">#and_where(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where_not%28clause%3AString%29-instance-method">#and_where_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_where_not%28clause%3AString%2C%2Aparams%29-instance-method">#and_where_not(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where%28clause%3AString%29-instance-method">#or_where(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where%28clause%3AString%2C%2Aparams%29-instance-method">#or_where(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where_not%28clause%3AString%29-instance-method">#or_where_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_where_not%28clause%3AString%2C%2Aparams%29-instance-method">#or_where_not(clause, params)</a></code></li></ul><li>Join:</li><ul><li><a href="#join%28%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%2C%2A%2Avalues%3A%2A%2AU%2C%26block%29%3AselfforallU-instance-method" target="_blank"><code>#join</code></a> -- type-safe</li><li><a href="#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method" target="_blank"><code>#join(reference, on, as, type)</code></a> -- not type-safe by reference</li><li><code><a href="../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#join(table, on, as, type)</a></code> -- explicit</li></ul><li><code><a href="../../Onyx/SQL/Query.html#group_by%28values%3AEnumerable%28String%29%29-instance-method">#group_by(string_values)</a></code></li><li>Having (doesn't have type-safe methods):</li><ul><li><a href="file:///home/faust/Projects/onyxframework/sql/docs/Onyx/SQL/Query.html#having%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" target="_blank"><code>#having(clause)</code></a> -- expilicit clause</li><li><code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having(clause, params)</a></code> -- explicit clause with params</li><li><code><a href="../../Onyx/SQL/Query.html#having_not%28clause%29-instance-method">#having_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#having_not%28clause%2C%2Aparams%29-instance-method">#having_not(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_having%28clause%3AString%29-instance-method">#and_having(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_having%28clause%3AString%2C%2Aparams%29-instance-method">#and_having(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_having_not%28clause%3AString%29-instance-method">#and_having_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#and_having_not%28clause%3AString%2C%2Aparams%29-instance-method">#and_having_not(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_having%28clause%3AString%29-instance-method">#or_having(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_having%28clause%3AString%2C%2Aparams%29-instance-method">#or_having(clause, params)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_having_not%28clause%3AString%29-instance-method">#or_having_not(clause)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#or_having_not%28clause%3AString%2C%2Aparams%29-instance-method">#or_having_not(clause, params)</a></code></li></ul><li><code><a href="../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">#limit(number)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#offset%28offset%3AInt32%3F%29-instance-method">#offset(number)</a></code></li><li><code><a href="../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#order_by(value, order)</a></code> -- currently not type-safe</li></ul>
+
+<h2>Basics</h2>
+
+<p><code><a href="../../Onyx/SQL/Query.html">Query</a></code> is a generic class and it can be only of a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> type (not bare <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code>s).
+The model must have <code><a href="../../Onyx/SQL/Model/Options.html">Model::Options</a></code> annotation with both <code>:table</code> and <code>:primary_key</code> options set.</p>
+
+<p><code><a href="../../Onyx/SQL/Query.html">Query</a></code> implements most of the SQL syntax. It does <strong>not</strong> make queries to a DB itself,
+it only <strong>builds</strong> the SQL string with SQL-ready params.
+Its main purposes are to make the application less error-prone with type-safety and reduce
+the usage of raw SQL within the code-base. However, it's <strong>not</strong> a complete replacement
+for SQL. You have to know SQL and may be would have to still use it in some cases.</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema users <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+query <span class="o">=</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>  <span class="c"># OK</span>
+query <span class="o">=</span> <span class="t">Query</span>(<span class="t">Int32</span>).<span class="k">new</span> <span class="c"># Totally not OK</span></code></pre>
+
+<p>To build a query, call <code><a href="../../Onyx/SQL/Query.html#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#build</a></code> on it:</p>
+
+<pre><code>query.<span class="k">select</span>(<span class="s">&quot;*&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;SELECT users.* FROM users&quot;, &lt;EmptyParams&gt;}</span></code></pre>
+
+<p>Once the query is built, pass it either to a raw <code>DB</code> instance:</p>
+
+<pre><code>sql, params <span class="o">=</span> query.build
+result_set <span class="o">=</span> db.query(sql, params)
+
+<span class="c"># Or you can *splat* the two-element Tuple resulting from Query#build</span>
+result_set <span class="o">=</span> db.query(<span class="o">*</span>query.build)
+
+users <span class="o">=</span> <span class="t">User</span>.from_rs(result_set)
+pp <span class="k">typeof</span>(users) <span class="c"># =&gt; Array(User)</span></code></pre>
+
+<p>Or give it to a <code><a href="../../Onyx/SQL/Repository.html">Repository</a></code> instance so it builds it and extracts its generic type implicitly:</p>
+
+<pre><code>users <span class="o">=</span> repo.query(query)
+
+<span class="c"># query has User as its generic type, and the repo knows it</span>
+pp <span class="k">typeof</span>(users) <span class="c"># =&gt; Array(User)</span></code></pre>
+
+<p>As <code><a href="../../Onyx/SQL/Query.html#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#build</a></code> returns a pair of raw SQL string and params, you can combine its usage as you want:</p>
+
+<pre><code>db.scalar(<span class="o">*</span>query.build)
+db.exec(query.build[<span class="n">0</span>]) <span class="c"># Will omit params</span>
+repo.scalar(query)
+repo.query(<span class="t">User</span>, query.build[<span class="n">0</span>], query.build[<span class="n">1</span>])
+repo.exec(<span class="o">*</span>query)</code></pre>
+
+<h2>Type safety</h2>
+
+<p>Some of the <code><a href="../../Onyx/SQL/Query.html">Query</a></code> methods are type-safe. For example, <code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code>:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.where(name: <span class="s">&quot;John&quot;</span>)</code></pre>
+
+<p>In this example, the query would look for an instance variable with getter called <code>#name</code>
+in the <code>User</code> class. And if it does not find it, it raises in compilation time with meaningful
+error message:</p>
+
+<pre><code class="language-text">Class `User` has neither field nor reference with key `:name` eligible for `Query(User)#where` call</code></pre>
+
+<p>And if you pass the wrong type to the <code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> call, it would raise as well:</p>
+
+<pre><code>query.where(name: <span class="n">42</span>)</code></pre>
+
+<pre><code class="language-text">Invalid compile-time type `Int32` for argument `:name` in `Query(User)#where` call. Expected: `(String | Nil)`</code></pre>
+
+<p><code><a href="../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#insert</a></code>, <code><a href="../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#join</a></code> and <code><a href="../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#set</a></code> are also type-safe. Other methods could be type-safe in theory,
+but there is an <a href="https://forum.crystal-lang.org/t/symbols/391" target="_blank">issue</a> blocking it.
+<em>All</em> <code><a href="../../Onyx/SQL/Query.html">Query</a></code> methods are expected to be type-safe in the future.</p>
+
+<h2>Model shortucts</h2>
+
+<p><code><a href="../../Onyx/SQL/Model.html">Model</a></code> has both class and instance shortcuts. Class shortcuts are available for almost
+every <code><a href="../../Onyx/SQL/Query.html">Query</a></code> method, for example:</p>
+
+<pre><code><span class="t">User</span>.where(id: <span class="n">42</span>) <span class="o">==</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.where(id: <span class="n">42</span>)</code></pre>
+
+<p>See <code><a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">Model::ClassQueryShortcuts</a></code>. Instance shortucts are <code><a href="../../Onyx/SQL/Model.html#insert%3AQuery-instance-method">Model#insert</a></code>, <code><a href="../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code>
+and <code><a href="../../Onyx/SQL/Model.html#delete%3AQuery-instance-method">Model#delete</a></code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/delete.cr#L2" target="_blank">
+        onyx-sql/query/delete.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/group_by.cr#L2" target="_blank">
+        onyx-sql/query/group_by.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/having.cr#L2" target="_blank">
+        onyx-sql/query/having.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/insert.cr#L2" target="_blank">
+        onyx-sql/query/insert.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/join.cr#L2" target="_blank">
+        onyx-sql/query/join.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/limit.cr#L2" target="_blank">
+        onyx-sql/query/limit.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/offset.cr#L2" target="_blank">
+        onyx-sql/query/offset.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/order_by.cr#L2" target="_blank">
+        onyx-sql/query/order_by.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/returning.cr#L2" target="_blank">
+        onyx-sql/query/returning.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/select.cr#L2" target="_blank">
+        onyx-sql/query/select.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/set.cr#L2" target="_blank">
+        onyx-sql/query/set.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/update.cr#L2" target="_blank">
+        onyx-sql/query/update.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L2" target="_blank">
+        onyx-sql/query/where.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L2" target="_blank">
+        onyx-sql/query/wherish.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L176" target="_blank">
+        onyx-sql/query.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3Aself%29-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
+        
+          <div class="summary"><p>Compare queries.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#all-instance-method" class="signature"><strong>#all</strong></a>
+        
+          <div class="summary"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">#limit(nil)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and%28clause%3AString%29-instance-method" class="signature"><strong>#and</strong>(clause : String)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and</strong>(**args : **U) forall U</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and_having</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>AND</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having%28clause%3AString%29-instance-method" class="signature"><strong>#and_having</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>AND</code> <em>clause</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and_having</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>This method will raise in compilation-time, because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having_not%28clause%3AString%29-instance-method" class="signature"><strong>#and_having_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>AND NOT</code> <em>clause</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and_having_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>AND NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and_having_not</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>This method will raise in compilation-time, because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and_not</strong>(**args : **U) forall U</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_not%28clause%3AString%29-instance-method" class="signature"><strong>#and_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and_where</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>Add <code>AND</code> clause with <em>values</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and_where</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>AND</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where%28clause%3AString%29-instance-method" class="signature"><strong>#and_where</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>AND</code> <em>clause</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#and_where_not</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>Add <code>AND NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#and_where_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>AND NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#and_where_not%28clause%3AString%29-instance-method" class="signature"><strong>#and_where_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>AND NOT</code> <em>clause</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method" class="signature"><strong>#build</strong>(index_params = <span class="n">false</span>) : Tuple(String, Enumerable(DB::Any))</a>
+        
+          <div class="summary"><p>Build this query, returning its SQL representation and <code>Enumerable</code> of DB-ready params.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete-instance-method" class="signature"><strong>#delete</strong></a>
+        
+          <div class="summary"><p>Mark this query as a <code>DELETE</code> one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#first-instance-method" class="signature"><strong>#first</strong></a>
+        
+          <div class="summary"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#order_by(primary_key, :asc)</a><a href="../../Onyx/SQL/Query.html#one-instance-method">.one</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by%28values%3AEnumerable%28String%29%29-instance-method" class="signature"><strong>#group_by</strong>(values : Enumerable(String))</a>
+        
+          <div class="summary"><p>Add <code>GROUP_BY</code> clause.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by%28%2Avalues%3AString%29-instance-method" class="signature"><strong>#group_by</strong>(*values : String)</a>
+        
+          <div class="summary"><p>Add <code>GROUP_BY</code> clause.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method" class="signature"><strong>#having</strong>(or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>, **values : **U) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>This method will raise in compilation-time, because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#having%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" class="signature"><strong>#having</strong>(clause : String, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Add <code>HAVING</code> <em>clause</em> without params.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#having%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" class="signature"><strong>#having</strong>(clause : String, *params : DB::Any, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Add <code>HAVING</code> <em>clause</em> with <em>params</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#having_not%28clause%2C%2Aparams%29-instance-method" class="signature"><strong>#having_not</strong>(clause, *params)</a>
+        
+          <div class="summary"><p>Add <code>NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#having_not%28clause%29-instance-method" class="signature"><strong>#having_not</strong>(clause)</a>
+        
+          <div class="summary"><p>Add <code>NOT</code> <em>clause</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method" class="signature"><strong>#insert</strong>(**values : **U) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>Mark this query as <code>INSERT</code> one and insert the arguments.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method" class="signature"><strong>#join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : JoinType = <span class="n">:inner</span>)</a>
+        
+          <div class="summary"><p>Add explicit <code>JOIN</code> clause.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#join%28%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%2C%2A%2Avalues%3A%2A%2AU%2C%26block%29%3AselfforallU-instance-method" class="signature"><strong>#join</strong>(*, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : JoinType = <span class="n">:inner</span>, **values : **U, &block) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>Add <code>JOIN</code> clause by <strong>type-safe</strong> reference.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method" class="signature"><strong>#join</strong>(reference : Symbol, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : JoinType = <span class="n">:inner</span>)</a>
+        
+          <div class="summary"><p>Add <code>JOIN</code> clause by <strong>type-UNsafe</strong> <em>reference</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#last-instance-method" class="signature"><strong>#last</strong></a>
+        
+          <div class="summary"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#order_by(primary_key, :desc)</a><a href="../../Onyx/SQL/Query.html#one-instance-method">.one</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#limit%28limit%3AInt32%3F%29-instance-method" class="signature"><strong>#limit</strong>(limit : Int32?)</a>
+        
+          <div class="summary"><p>Add <code>LIMIT</code> clause.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#offset%28offset%3AInt32%3F%29-instance-method" class="signature"><strong>#offset</strong>(offset : Int32?)</a>
+        
+          <div class="summary"><p>Add <code>OFFSET</code> clause.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#one-instance-method" class="signature"><strong>#one</strong></a>
+        
+          <div class="summary"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">#limit(1)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or%28clause%3AString%29-instance-method" class="signature"><strong>#or</strong>(clause : String)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or</strong>(**args : **U) forall U</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or_having</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>OR</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or_having</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>This method will raise in compilation-time, because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having%28clause%3AString%29-instance-method" class="signature"><strong>#or_having</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>OR</code> <em>clause</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or_having_not</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>This method will raise in compilation-time, because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or_having_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>OR NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_having_not%28clause%3AString%29-instance-method" class="signature"><strong>#or_having_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>OR NOT</code> <em>clause</em> to <code>HAVING</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or_not</strong>(**args : **U) forall U</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_not%28clause%3AString%29-instance-method" class="signature"><strong>#or_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or_where</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>OR</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or_where</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>Add <code>OR</code> clause with <em>values</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where%28clause%3AString%29-instance-method" class="signature"><strong>#or_where</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>OR</code> <em>clause</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where_not%28clause%3AString%29-instance-method" class="signature"><strong>#or_where_not</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add <code>OR NOT</code> <em>clause</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method" class="signature"><strong>#or_where_not</strong>(**values : **U) forall U</a>
+        
+          <div class="summary"><p>Add <code>OR NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#or_where_not%28clause%3AString%2C%2Aparams%29-instance-method" class="signature"><strong>#or_where_not</strong>(clause : String, *params)</a>
+        
+          <div class="summary"><p>Add <code>OR NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method" class="signature"><strong>#order_by</strong>(value : Symbol | String, order : Order? = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Add <code>ORDER BY</code> clause either by explicit <em>value</em> or by a <code>T</code> field.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method" class="signature"><strong>#returning</strong>(values : Enumerable(Symbol | Char | String))</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28klass%3AT.class%29-instance-method" class="signature"><strong>#returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28%2Avalues%3ASymbol%7CChar%7CString%29-instance-method" class="signature"><strong>#returning</strong>(*values : Symbol | Char | String)</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method" class="signature"><strong>#select</strong>(values : Enumerable(Symbol | String))</a>
+        
+          <div class="summary"><p>Add <code>SELECT</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28klass%3AT.class%29-instance-method" class="signature"><strong>#select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)</a>
+        
+          <div class="summary"><p>Add <code>SELECT</code> asterisk clause for the whole <code>T</code> table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28klass%3AT.class%2C%2Aargs%29-instance-method" class="signature"><strong>#select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *args)</a>
+        
+          <div class="summary"><p>Add <code>SELECT</code> asterisk clause for the whole <code>T</code> table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28%2Avalues%3ASymbol%7CString%29-instance-method" class="signature"><strong>#select</strong>(*values : Symbol | String)</a>
+        
+          <div class="summary"><p>Add <code>SELECT</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28clause%3AString%29-instance-method" class="signature"><strong>#set</strong>(clause : String)</a>
+        
+          <div class="summary"><p>Add explicit <code>SET</code> <em>clause</em> and mark this query as <code>UPDATE</code> one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method" class="signature"><strong>#set</strong>(clause : String, *params : DB::Any)</a>
+        
+          <div class="summary"><p>Add explicit <code>SET</code> <em>clause</em> with <em>params</em> and mark this query as <code>UPDATE</code> one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method" class="signature"><strong>#set</strong>(**values : **U) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>Add <code>SET</code> clauses from <em>values</em> and mark this query as <code>UPDATE</code> one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type%3AType-instance-method" class="signature"><strong>#type</strong> : Type</a>
+        
+          <div class="summary"><p>The query type.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update-instance-method" class="signature"><strong>#update</strong></a>
+        
+          <div class="summary"><p>Mark this query as <code>UPDATE</code> one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method" class="signature"><strong>#where</strong>(or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>, **values : **U) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>Add <code>WHERE</code> clause with <em>values</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" class="signature"><strong>#where</strong>(clause : String, *params : DB::Any, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Add <code>WHERE</code> <em>clause</em> with <em>params</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method" class="signature"><strong>#where</strong>(clause : String, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)</a>
+        
+          <div class="summary"><p>Add <code>WHERE</code> <em>clause</em> without params.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where_not%28clause%29-instance-method" class="signature"><strong>#where_not</strong>(clause)</a>
+        
+          <div class="summary"><p>Add <code>NOT</code> <em>clause</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where_not%28clause%2C%2Aparams%29-instance-method" class="signature"><strong>#where_not</strong>(clause, *params)</a>
+        
+          <div class="summary"><p>Add <code>NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#where_not%28%2A%2Avalues%29-instance-method" class="signature"><strong>#where_not</strong>(**values)</a>
+        
+          <div class="summary"><p>Add <code>NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="==(other:self)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <span class="k">self</span>)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Compare queries.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L197" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="all-instance-method">
+      <div class="signature">
+        
+        def <strong>all</strong>
+
+        <a class="method-permalink" href="#all-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">#limit(nil)</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L215" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and</strong>(clause : String)
+
+        <a class="method-permalink" href="#and%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and(**args:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and</strong>(**args : **U) forall U
+
+        <a class="method-permalink" href="#and%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and_having%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.and_having(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having</strong>(clause : String)
+
+        <a class="method-permalink" href="#and_having%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND</code> <em>clause</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.and_having(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#and_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This method will raise in compilation-time,
+because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#and_having_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND NOT</code> <em>clause</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.and_having_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and_having_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.and_having_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_having_not(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and_having_not</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This method will raise in compilation-time,
+because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_not(**args:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and_not</strong>(**args : **U) forall U
+
+        <a class="method-permalink" href="#and_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#and_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#and_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#and_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#and_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND</code> clause with <em>values</em> to <code>WHERE</code>.</p>
+
+<pre><code>and_where(id: <span class="n">42</span>) <span class="c"># =&gt; &quot;WHERE (...) AND (id = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and_where%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.and_where(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where</strong>(clause : String)
+
+        <a class="method-permalink" href="#and_where%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND</code> <em>clause</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.and_where(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where_not(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where_not</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#and_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p>
+
+<pre><code>and_where_not(id: <span class="n">42</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (id = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#and_where_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.and_where_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="and_where_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>and_where_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#and_where_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>AND NOT</code> <em>clause</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.and_where_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build(index_params=false):Tuple(String,Enumerable(DB::Any))-instance-method">
+      <div class="signature">
+        
+        def <strong>build</strong>(index_params = <span class="n">false</span>) : Tuple(String, Enumerable(DB::Any))
+
+        <a class="method-permalink" href="#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Build this query, returning its SQL representation and <code>Enumerable</code> of DB-ready params.
+Pass <code>true</code> to replace <code>"?"</code> query arguments with <code>"$n"</code>, which would work for PostgreSQL.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L253" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>
+
+        <a class="method-permalink" href="#delete-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Mark this query as a <code>DELETE</code> one. It's recommended to call <code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> as well:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.delete.where(id: <span class="n">17</span>)
+query.build <span class="c"># =&gt; {&quot;DELETE FROM users WHERE id = ?&quot;, {17}}</span></code></pre>
+
+<p><code><a href="../../Onyx/SQL/Model.html">Model</a></code>s have a handy <code><a href="../../Onyx/SQL/Model.html#delete%3AQuery-instance-method">Model#delete</a></code> shortcut:</p>
+
+<pre><code>user.delete <span class="o">==</span> <span class="t">User</span>.delete.where(id: user.id)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/delete.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="first-instance-method">
+      <div class="signature">
+        
+        def <strong>first</strong>
+
+        <a class="method-permalink" href="#first-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#order_by(primary_key, :asc)</a><a href="../../Onyx/SQL/Query.html#one-instance-method">.one</a></code>. The primary key is determined by the
+<code><a href="../../Onyx/SQL/Model/Options.html">Model::Options</a></code> <code>:primary_key</code> option.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L226" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by(values:Enumerable(String))-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by</strong>(values : Enumerable(String))
+
+        <a class="method-permalink" href="#group_by%28values%3AEnumerable%28String%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>GROUP_BY</code> clause.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/group_by.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by(*values:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by</strong>(*values : String)
+
+        <a class="method-permalink" href="#group_by%28%2Avalues%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>GROUP_BY</code> clause.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/group_by.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="having(or:Bool=false,not:Bool=false,**values:**U):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>having</strong>(or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>, **values : **U) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This method will raise in compilation-time,
+because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/having.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="having(clause:String,or:Bool=false,not:Bool=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>having</strong>(clause : String, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#having%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>HAVING</code> <em>clause</em> without params.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.having(<span class="s">&quot;foo IS NULL&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;HAVING (foo IS NULL)&quot;, {}}</span></code></pre>
+
+<p>Multiple calls concatenate clauses with <code>AND</code>:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.having(<span class="s">&quot;foo IS NULL&quot;</span>).having(<span class="s">&quot;bar IS NOT NULL&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;HAVING (foo IS NULL) AND (bar IS NOT NULL)&quot;, {}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="having(clause:String,*params:DB::Any,or:Bool=false,not:Bool=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>having</strong>(clause : String, *params : DB::Any, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#having%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>HAVING</code> <em>clause</em> with <em>params</em>.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.having(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;HAVING (foo = ?)&quot;, {&quot;bar&quot;}}</span></code></pre>
+
+<p>Multiple calls concatenate clauses with <code>AND</code>:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.having(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>).having(<span class="s">&quot;baz = ?&quot;</span>, <span class="n">42</span>)
+query.build <span class="c"># =&gt; {&quot;HAVING (foo = ?) AND (baz = ?)&quot;, {&quot;bar&quot;, 42}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="having_not(clause,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>having_not</strong>(clause, *params)
+
+        <a class="method-permalink" href="#having_not%28clause%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.having_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="having_not(clause)-instance-method">
+      <div class="signature">
+        
+        def <strong>having_not</strong>(clause)
+
+        <a class="method-permalink" href="#having_not%28clause%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>NOT</code> <em>clause</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.having_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) AND NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert(**values:**U):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>insert</strong>(**values : **U) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Mark this query as <code>INSERT</code> one and insert the arguments. It's a <strong>type-safe</strong> method.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.insert(name: <span class="s">&quot;John&quot;</span>, age: <span class="n">18</span>)
+query.build <span class="c"># =&gt; {&quot;INSERT INTO users (name, age) VALUES (?, ?)&quot;, {&quot;John&quot;, 18}}</span></code></pre>
+
+<p><code><a href="../../Onyx/SQL/Model.html">Model</a></code>s have a handy <code><a href="../../Onyx/SQL/Model.html#insert%3AQuery-instance-method">Model#insert</a></code> shortcut:</p>
+
+<pre><code>user.insert <span class="o">==</span> <span class="t">User</span>.insert(id: user.id, name: user.name)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/insert.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="join(table:String,on:String,as_as:String?=nil,type:JoinType=:inner)-instance-method">
+      <div class="signature">
+        
+        def <strong>join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a> = <span class="n">:inner</span>)
+
+        <a class="method-permalink" href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add explicit <code>JOIN</code> clause.</p>
+
+<pre><code>query.join(<span class="s">&quot;a&quot;</span>, on: <span class="s">&quot;a.id = b.id&quot;</span>, <span class="k">as</span>: <span class="s">&quot;c&quot;</span>, <span class="n">:right</span>) <span class="c"># =&gt; RIGHT JOIN a ON a.id = b.id AS c</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/join.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="join(*,on:String?=nil,as_as:String?=nil,type:JoinType=:inner,**values:**U,&amp;block):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>join</strong>(*, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a> = <span class="n">:inner</span>, **values : **U, &block) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#join%28%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%2C%2A%2Avalues%3A%2A%2AU%2C%26block%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>JOIN</code> clause by <strong>type-safe</strong> reference.
+Yields another <code><a href="../../Onyx/SQL/Query.html">Query</a></code> instance which has the reference's type.
+It then merges the yielded query with the main query.</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema users <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> username : <span class="t">String</span>
+    <span class="k">type</span> authored_posts : <span class="t">Array</span>(<span class="t">Post</span>), foreign_key: <span class="s">&quot;author_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="t">Post</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema posts <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> body : <span class="t">String</span>
+    <span class="k">type</span> author : <span class="t">User</span>, key: <span class="s">&quot;author_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+query <span class="o">=</span> <span class="t">Post</span>
+  .<span class="k">select</span>(<span class="t">Post</span>)
+  .join(author: <span class="n">true</span>) <span class="k">do</span> <span class="o">|</span>q<span class="o">|</span>
+    pp <span class="k">typeof</span>(q)        <span class="c"># =&gt; Query(User)</span>
+    q.<span class="k">select</span>(<span class="n">:username</span>) <span class="c"># :username is looked up in User in compilation time</span>
+    q.where(id: <span class="n">42</span>)
+  <span class="k">end</span>
+
+query.build <span class="c"># =&gt; {&quot;SELECT posts.*, author.username FROM posts INNER JOIN users ON posts.author_id = author.id AS author WHERE author.id = ?&quot;, {42}}</span></code></pre>
+
+<p>In fact, the resulting SQL slightly differs from the example above:</p>
+
+<pre><code class="language-text">SELECT posts.*, '' AS _author, author.username, '' AS _author FROM posts ...</code></pre>
+
+<p>The <code>"AS _author"</code> thing is a <em>marker</em>, which is used to preload references on
+<code><a href="../../Onyx/SQL/Serializable.html#from_rs%28rs%3ADB%3A%3AResultSet%29%3AArray%28self%29-class-method">Serializable.from_rs</a></code> call:</p>
+
+<pre><code>posts <span class="o">=</span> repo.query(query)
+pp posts <span class="c"># =&gt; [&lt;Post @author=&lt;User @id=42 @username=&quot;John&quot;&gt;&gt;, &lt;Post @author=&lt;User @id=42 @username=&quot;John&quot;&gt;&gt;, ...]</span></code></pre>
+
+<p>Read more about preloading references in <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code> docs.</p>
+
+<p><span class="flag purple">NOTE</span>  The syntax is about to be improved from <code>join(author: true)</code> to <code>join(:author)</code>.
+See the relevant <a href="https://forum.crystal-lang.org/t/symbols/391" target="_blank">forum topic</a>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/join.cr#L81" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="join(reference:Symbol,on:String?=nil,as_as:String?=nil,type:JoinType=:inner)-instance-method">
+      <div class="signature">
+        
+        def <strong>join</strong>(reference : Symbol, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a> = <span class="n">:inner</span>)
+
+        <a class="method-permalink" href="#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>JOIN</code> clause by <strong>type-UNsafe</strong> <em>reference</em>. This method would <strong>not</strong> check
+in compilation time and the reference will looked up in the <code>T</code> in runtime.
+It does not yield the reference subquery, unlike the type-safe <code><a href="../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#join</a></code> variant.
+It's because of language limitations and may change in the future. See <a href="https://forum.crystal-lang.org/t/symbols/391" target="_blank">this forum topic</a> for details.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">Post</span>.join(<span class="n">:author</span>).where(id: <span class="n">17</span>)
+query.build <span class="c"># =&gt; {&quot;SELECT posts.* FROM posts INNER JOIN users AS author ON posts.author_id = author.id WHERE posts.id = ?&quot;, {17}}</span></code></pre>
+
+<p>To select from the joined table, unlike the type-safe <code><a href="../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">#join</a></code> variant, you have to call it explicitly:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">Post</span>.<span class="k">select</span>(<span class="t">Post</span>, <span class="s">&quot;author.username&quot;</span>).join(<span class="n">:author</span>)
+<span class="c"># SELECT posts.*, author.username FROM posts</span></code></pre>
+
+<p>Note that there are no markers, so a post's <code>@author</code> reference would not
+have <code>@username</code> variable filled. However, the refernece itself would still present,
+as a post row itself contains the <code>"author_id"</code> column, which would be put into
+a post's <code>@author</code> instance upon calling <code><a href="../../Onyx/SQL/Serializable.html#from_rs%28rs%3ADB%3A%3AResultSet%29%3AArray%28self%29-class-method">Serializable.from_rs</a></code>:</p>
+
+<pre><code>post <span class="o">=</span> repo.query(<span class="t">Post</span>.<span class="k">select</span>(<span class="t">Post</span>, <span class="s">&quot;author.username&quot;</span>).join(<span class="n">:author</span>)).first
+pp post <span class="c"># =&gt; &lt;Post @author=&lt;User @id=... @username=nil&gt;&gt;</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/join.cr#L161" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="last-instance-method">
+      <div class="signature">
+        
+        def <strong>last</strong>
+
+        <a class="method-permalink" href="#last-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#order_by(primary_key, :desc)</a><a href="../../Onyx/SQL/Query.html#one-instance-method">.one</a></code>. The primary key is determined by the
+<code><a href="../../Onyx/SQL/Model/Options.html">Model::Options</a></code> <code>:primary_key</code> option.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L232" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="limit(limit:Int32?)-instance-method">
+      <div class="signature">
+        
+        def <strong>limit</strong>(limit : Int32?)
+
+        <a class="method-permalink" href="#limit%28limit%3AInt32%3F%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>LIMIT</code> clause. <code>nil</code> argument cancels it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/limit.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="offset(offset:Int32?)-instance-method">
+      <div class="signature">
+        
+        def <strong>offset</strong>(offset : Int32?)
+
+        <a class="method-permalink" href="#offset%28offset%3AInt32%3F%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OFFSET</code> clause. <code>nil</code> argument cancels it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/offset.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="one-instance-method">
+      <div class="signature">
+        
+        def <strong>one</strong>
+
+        <a class="method-permalink" href="#one-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Alias of <code><a href="../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">#limit(1)</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L220" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or</strong>(clause : String)
+
+        <a class="method-permalink" href="#or%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or(**args:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or</strong>(**args : **U) forall U
+
+        <a class="method-permalink" href="#or%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or_having%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.or_having(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) OR (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#or_having%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This method will raise in compilation-time,
+because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having</strong>(clause : String)
+
+        <a class="method-permalink" href="#or_having%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR</code> <em>clause</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.or_having(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) OR (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having_not(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having_not</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This method will raise in compilation-time,
+because having a <code>HAVING</code> query with a <code><a href="../../Onyx/SQL/Model.html">Model</a></code>'s attributes makes no sense.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or_having_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR NOT</code> <em>clause</em> with <em>params</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.or_having_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) OR NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_having_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_having_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#or_having_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR NOT</code> <em>clause</em> to <code>HAVING</code>.</p>
+
+<pre><code>query.or_having_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;HAVING (...) OR NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_not(**args:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or_not</strong>(**args : **U) forall U
+
+        <a class="method-permalink" href="#or_not%28%2A%2Aargs%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#or_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shorthand for calling <code><a href="../../Onyx/SQL/Query.html#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_where_not</a></code> or <code><a href="../../Onyx/SQL/Query.html#or_having_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#or_having_not</a></code> depending on the latest call (<code><a href="../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#where</a></code> by default).</p>
+
+<p><span class="flag red">BUG</span>  It will raise in runtime if called after <code><a href="../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#having</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L271" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or_where%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.or_where(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) OR (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#or_where%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR</code> clause with <em>values</em> to <code>WHERE</code>.</p>
+
+<pre><code>or_where(id: <span class="n">42</span>) <span class="c"># =&gt; &quot;WHERE (...) OR (id = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where</strong>(clause : String)
+
+        <a class="method-permalink" href="#or_where%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR</code> <em>clause</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.or_where(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) OR (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where_not(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where_not</strong>(clause : String)
+
+        <a class="method-permalink" href="#or_where_not%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR NOT</code> <em>clause</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.or_where_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) OR NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where_not(**values:**U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where_not</strong>(**values : **U) forall U
+
+        <a class="method-permalink" href="#or_where_not%28%2A%2Avalues%3A%2A%2AU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p>
+
+<pre><code>or_where_not(id: <span class="n">42</span>) <span class="c"># =&gt; &quot;WHERE (...) OR NOT (id = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="or_where_not(clause:String,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>or_where_not</strong>(clause : String, *params)
+
+        <a class="method-permalink" href="#or_where_not%28clause%3AString%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>OR NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.or_where_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) OR NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="order_by(value:Symbol|String,order:Order?=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>order_by</strong>(value : Symbol | String, order : <a href="../../Onyx/SQL/Query/Order.html">Order</a>? = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>ORDER BY</code> clause either by explicit <em>value</em> or by a <code>T</code> field.
+When <em>value</em> is a <code>Symbol</code>, it's treated as a <code>T</code> field and tried to be found in
+<strong>runtime</strong>, raising otherwise. So you'll not know if you mistyped until the code is run.</p>
+
+<p><span class="flag purple">NOTE</span>  You must refer a <code>T</code> field by its instance variable name, not the DB column name.</p>
+
+<pre><code>q <span class="o">=</span> <span class="t">User</span>.all.order_by(<span class="n">:id</span>, <span class="n">:desc</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT users.* FROM users ORDER BY id DESC&quot;}</span>
+
+q <span class="o">=</span> <span class="t">User</span>.all.order_by(<span class="s">&quot;foo(bar)&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT users.* FROM users ORDER BY foo(bar)&quot;}</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/order_by.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(values:Enumerable(Symbol|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(values : Enumerable(Symbol | Char | String))
+
+        <a class="method-permalink" href="#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.
+When <em>values</em> contains a <code>Symbol</code>, it's treated as a <code>T</code> field and tried to be found in
+<strong>runtime</strong>, raising otherwise. So you'll not know if you mistyped until the code is run.</p>
+
+<p><span class="flag purple">NOTE</span>  You must refer a <code>T</code> field by its instance variable name, not the DB column name.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3AQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>q <span class="o">=</span> user.insert.returning(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING id, name&quot;}</span>
+
+q <span class="o">=</span> user.insert.returning(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING foo&quot;}</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/returning.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(klass:T.class)-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)
+
+        <a class="method-permalink" href="#returning%28klass%3AT.class%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3AQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code><span class="t">Post</span>.returning(<span class="t">Post</span>) <span class="c"># =&gt; RETURNING posts.*</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/returning.cr#L58" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(*values:Symbol|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(*values : Symbol | Char | String)
+
+        <a class="method-permalink" href="#returning%28%2Avalues%3ASymbol%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.
+When <em>values</em> contains a <code>Symbol</code>, it's treated as a <code>T</code> field and tried to be found in
+<strong>runtime</strong>, raising otherwise. So you'll not know if you mistyped until the code is run.</p>
+
+<p><span class="flag purple">NOTE</span>  You must refer a <code>T</code> field by its instance variable name, not the DB column name.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3AQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>q <span class="o">=</span> user.insert.returning(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING id, name&quot;}</span>
+
+q <span class="o">=</span> user.insert.returning(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING foo&quot;}</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/returning.cr#L46" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(values:Enumerable(Symbol|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(values : Enumerable(Symbol | String))
+
+        <a class="method-permalink" href="#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>SELECT</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.
+When <em>values</em> contains a <code>Symbol</code>, it's treated as a <code>T</code> field and tried to be found in
+<strong>runtime</strong>, raising otherwise. So you'll not know if you mistyped until the code is run.</p>
+
+<p>If no <code><a href="../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">#select</a></code> is called on a query, then it would select the whole table (<code>"table.*"</code>).</p>
+
+<p><span class="flag purple">NOTE</span>  You must refer a <code>T</code> field by its instance variable name, not the DB column name.</p>
+
+<pre><code>q <span class="o">=</span> <span class="t">User</span>.all
+q.build <span class="c"># =&gt; {&quot;SELECT users.* FROM users&quot;}</span>
+
+q <span class="o">=</span> <span class="t">User</span>.<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT users.id, users.name FROM users&quot;}</span>
+
+q <span class="o">=</span> <span class="t">User</span>.<span class="k">select</span>(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT foo FROM users&quot;}</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/select.cr#L23" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(klass:T.class)-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)
+
+        <a class="method-permalink" href="#select%28klass%3AT.class%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>SELECT</code> asterisk clause for the whole <code>T</code> table.</p>
+
+<pre><code><span class="k">select</span>(<span class="t">Post</span>) <span class="c"># =&gt; SELECT posts.*</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/select.cr#L78" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(klass:T.class,*args)-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *args)
+
+        <a class="method-permalink" href="#select%28klass%3AT.class%2C%2Aargs%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>SELECT</code> asterisk clause for the whole <code>T</code> table.</p>
+
+<pre><code><span class="t">Post</span>.<span class="k">select</span>(<span class="t">Post</span>, <span class="n">:id</span>) <span class="c"># =&gt; SELECT posts.*, posts.id</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/select.cr#L60" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(*values:Symbol|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(*values : Symbol | String)
+
+        <a class="method-permalink" href="#select%28%2Avalues%3ASymbol%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>SELECT</code> clause either by explicit <em>values</em> or by a <code>T</code> fields.
+When <em>values</em> contains a <code>Symbol</code>, it's treated as a <code>T</code> field and tried to be found in
+<strong>runtime</strong>, raising otherwise. So you'll not know if you mistyped until the code is run.</p>
+
+<p>If no <code><a href="../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">#select</a></code> is called on a query, then it would select the whole table (<code>"table.*"</code>).</p>
+
+<p><span class="flag purple">NOTE</span>  You must refer a <code>T</code> field by its instance variable name, not the DB column name.</p>
+
+<pre><code>q <span class="o">=</span> <span class="t">User</span>.all
+q.build <span class="c"># =&gt; {&quot;SELECT users.* FROM users&quot;}</span>
+
+q <span class="o">=</span> <span class="t">User</span>.<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT users.id, users.name FROM users&quot;}</span>
+
+q <span class="o">=</span> <span class="t">User</span>.<span class="k">select</span>(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;SELECT foo FROM users&quot;}</span></code></pre>
+
+<p><span class="flag orange">TODO</span>  Make it type-safe.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/select.cr#L51" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(clause:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(clause : String)
+
+        <a class="method-permalink" href="#set%28clause%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add explicit <code>SET</code> <em>clause</em> and mark this query as <code>UPDATE</code> one.</p>
+
+<pre><code>query.set(<span class="s">&quot;salary = salary * 2&quot;</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/set.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(clause:String,*params:DB::Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(clause : String, *params : DB::Any)
+
+        <a class="method-permalink" href="#set%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add explicit <code>SET</code> <em>clause</em> with <em>params</em> and mark this query as <code>UPDATE</code> one.</p>
+
+<pre><code>query.set(<span class="s">&quot;salary = salary * ?&quot;</span>, <span class="n">2</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/set.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(**values:**U):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(**values : **U) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>SET</code> clauses from <em>values</em> and mark this query as <code>UPDATE</code> one.
+It's a <strong>type-safe</strong> method.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.update.set(name: <span class="s">&quot;Jake&quot;</span>, age: <span class="n">17</span>)
+query.build <span class="c"># =&gt; {&quot;UPDATE users SET name = ?, age = ?&quot;, {&quot;Jake&quot;, 17}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/set.cr#L38" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type:Type-instance-method">
+      <div class="signature">
+        
+        def <strong>type</strong> : <a href="../../Onyx/SQL/Query/Type.html">Type</a>
+
+        <a class="method-permalink" href="#type%3AType-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>The query type. It's automatically updated on appropriate methods call
+(e.g. it changes to <code>:insert</code> on <code><a href="../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#insert</a></code> call)</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query.cr#L189" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>
+
+        <a class="method-permalink" href="#update-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Mark this query as <code>UPDATE</code> one. This is for convenience only, and the <code><a href="../../Onyx/SQL/Query.html#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#build</a></code> would
+raise if there are no <code>SET</code> clauses in the query.</p>
+
+<pre><code><span class="t">User</span>.update.build             <span class="c"># Runtime error: No values to SET in the UPDATE query</span>
+<span class="t">User</span>.update.set(name: <span class="s">&quot;Jane&quot;</span>) <span class="c"># OK</span></code></pre>
+
+<p><code><a href="../../Onyx/SQL/Model.html">Model</a></code>s have a handy <code><a href="../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code> shortcut:</p>
+
+<pre><code>changeset <span class="o">=</span> user.changeset
+changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
+user.update(changeset) <span class="o">==</span> <span class="t">User</span>.update.set(name: <span class="s">&quot;Jake&quot;</span>).where(id: user.id)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/update.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where(or:Bool=false,not:Bool=false,**values:**U):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>where</strong>(or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>, **values : **U) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>WHERE</code> clause with <em>values</em>. All clauses in a single call are concatenated with <code>AND</code>.
+It's a <strong>type-safe</strong> method.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.where(name: <span class="s">&quot;John&quot;</span>, age: <span class="n">18</span>)
+query.build <span class="c"># =&gt; {&quot;SELECT ... FROM users WHERE (name = ? AND age = ?)&quot;, {&quot;John&quot;, 18}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where(clause:String,*params:DB::Any,or:Bool=false,not:Bool=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>where</strong>(clause : String, *params : DB::Any, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#where%28clause%3AString%2C%2Aparams%3ADB%3A%3AAny%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>WHERE</code> <em>clause</em> with <em>params</em>.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.where(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;WHERE (foo = ?)&quot;, {&quot;bar&quot;}}</span></code></pre>
+
+<p>Multiple calls concatenate clauses with <code>AND</code>:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.where(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>).where(<span class="s">&quot;baz = ?&quot;</span>, <span class="n">42</span>)
+query.build <span class="c"># =&gt; {&quot;WHERE (foo = ?) AND (baz = ?)&quot;, {&quot;bar&quot;, 42}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where(clause:String,or:Bool=false,not:Bool=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>where</strong>(clause : String, or : Bool = <span class="n">false</span>, not : Bool = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#where%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>WHERE</code> <em>clause</em> without params.</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.where(<span class="s">&quot;foo IS NULL&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;WHERE (foo IS NULL)&quot;, {}}</span></code></pre>
+
+<p>Multiple calls concatenate clauses with <code>AND</code>:</p>
+
+<pre><code>query <span class="o">=</span> <span class="t">User</span>.where(<span class="s">&quot;foo IS NULL&quot;</span>).where(<span class="s">&quot;bar IS NOT NULL&quot;</span>)
+query.build <span class="c"># =&gt; {&quot;WHERE (foo IS NULL) AND (bar IS NOT NULL)&quot;, {}}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where_not(clause)-instance-method">
+      <div class="signature">
+        
+        def <strong>where_not</strong>(clause)
+
+        <a class="method-permalink" href="#where_not%28clause%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>NOT</code> <em>clause</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.where_not(<span class="s">&quot;foo IS NULL&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (foo IS NULL)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where_not(clause,*params)-instance-method">
+      <div class="signature">
+        
+        def <strong>where_not</strong>(clause, *params)
+
+        <a class="method-permalink" href="#where_not%28clause%2C%2Aparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>NOT</code> <em>clause</em> with <em>params</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.where_not(<span class="s">&quot;foo = ?&quot;</span>, <span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (foo = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/wherish.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="where_not(**values)-instance-method">
+      <div class="signature">
+        
+        def <strong>where_not</strong>(**values)
+
+        <a class="method-permalink" href="#where_not%28%2A%2Avalues%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>NOT</code> clause with <em>values</em> to <code>WHERE</code>.</p>
+
+<pre><code>query.where_not(id: <span class="n">42</span>) <span class="c"># =&gt; &quot;WHERE (...) AND NOT (id = ?)&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/query/where.cr#L119" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

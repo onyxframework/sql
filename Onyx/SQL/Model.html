@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.2">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../";
+</script>
+
+  <meta id="repository-name" content="github.com/onyxframework/sql">
+  <title>Onyx::SQL::Model - github.com/onyxframework/sql</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
+      <a href="../../Onyx.html">Onyx</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL" data-name="onyx::sql">
+      <a href="../../Onyx/SQL.html">SQL</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
+      <a href="../../Onyx/SQL/Converters.html">Converters</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
+      <a href="../../Onyx/SQL/Converters/PG.html">PG</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Any" data-name="onyx::sql::converters::pg::any(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Enum" data-name="onyx::sql::converters::pg::enum(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Enum.html">Enum</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSON" data-name="onyx::sql::converters::pg::json(t)">
+      <a href="../../Onyx/SQL/Converters/PG/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/UUID" data-name="onyx::sql::converters::pg::uuid">
+      <a href="../../Onyx/SQL/Converters/PG/UUID.html">UUID</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
+      <a href="../../Onyx/SQL/Converters/SQLite3.html">SQLite3</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/Any" data-name="onyx::sql::converters::sqlite3::any(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumInt" data-name="onyx::sql::converters::sqlite3::enumint(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumInt.html">EnumInt</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumText" data-name="onyx::sql::converters::sqlite3::enumtext(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumText.html">EnumText</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/JSON" data-name="onyx::sql::converters::sqlite3::json(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">UUIDBlob</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDText" data-name="onyx::sql::converters::sqlite3::uuidtext">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDText.html">UUIDText</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Field" data-name="onyx::sql::field">
+      <a href="../../Onyx/SQL/Field.html">Field</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model" data-name="onyx::sql::model">
+      <a href="../../Onyx/SQL/Model.html">Model</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset" data-name="onyx::sql::model::changeset(t, u)">
+      <a href="../../Onyx/SQL/Model/Changeset.html">Changeset</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset/NoChanges" data-name="onyx::sql::model::changeset::nochanges">
+      <a href="../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+      <a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+      <a href="../../Onyx/SQL/Model/Mappable.html">Mappable</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Options" data-name="onyx::sql::model::options">
+      <a href="../../Onyx/SQL/Model/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Query" data-name="onyx::sql::query(t)">
+      <a href="../../Onyx/SQL/Query.html">Query</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/JoinType" data-name="onyx::sql::query::jointype">
+      <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Order" data-name="onyx::sql::query::order">
+      <a href="../../Onyx/SQL/Query/Order.html">Order</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Type" data-name="onyx::sql::query::type">
+      <a href="../../Onyx/SQL/Query/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Reference" data-name="onyx::sql::reference">
+      <a href="../../Onyx/SQL/Reference.html">Reference</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository" data-name="onyx::sql::repository">
+      <a href="../../Onyx/SQL/Repository.html">Repository</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger" data-name="onyx::sql::repository::logger">
+      <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Dummy" data-name="onyx::sql::repository::logger::dummy">
+      <a href="../../Onyx/SQL/Repository/Logger/Dummy.html">Dummy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/IO" data-name="onyx::sql::repository::logger::io">
+      <a href="../../Onyx/SQL/Repository/Logger/IO.html">IO</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Standard" data-name="onyx::sql::repository::logger::standard">
+      <a href="../../Onyx/SQL/Repository/Logger/Standard.html">Standard</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Serializable" data-name="onyx::sql::serializable">
+      <a href="../../Onyx/SQL/Serializable.html">Serializable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Onyx::SQL::Model
+
+</h1>
+
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Model (also <em>record</em>) is a business unit.
+Models usually have fields and relations with other models.
+The <code><a href="../../Onyx/SQL/Model.html">Model</a></code> module allows to represent an SQL model as a plain Crystal object.</p>
+
+<pre><code class="language-sql">CREATE TABLE users (
+  id        SERIAL  PRIMARY KEY,
+  username  TEXT    NOT NULL
+);
+
+CREATE TABLE posts (
+  id        SERIAL  PRIMARY KEY,
+  content   TEXT    NOT NULL,
+  author_id INT     NOT NULL  REFERENCES users (id),
+);</code></pre>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema users <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> username : <span class="t">String</span>
+    <span class="k">type</span> authored_posts : <span class="t">Array</span>(<span class="t">Post</span>), foreign_key: <span class="s">&quot;author_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="t">Post</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema posts <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> content : <span class="t">String</span>
+    <span class="k">type</span> author : <span class="t">User</span>, key: <span class="s">&quot;author_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+<p>In this example, <code>User</code> and <code>Post</code> are models. <code>User</code> has primary key <code>id</code>, field <code>username</code> and
+foreign enumerable reference <code>authored_posts</code>. <code>Post</code> also has primary key <code>id</code>,
+field <code>content</code> and direct reference <code>author</code>. It's pretty simple and straightforward mapping.
+Read more about references in <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code> docs.</p>
+
+<h2>Serialization</h2>
+
+<p><code><a href="../../Onyx/SQL/Model.html">Model</a></code> module includes <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code>, which enables deserializing models from a <code>DB::ResultSet</code>,
+effectively allowing this:</p>
+
+<pre><code>db <span class="o">=</span> <span class="t">DB</span>.open(<span class="t">ENV</span>[<span class="s">&quot;DATABASE_URL&quot;</span>])
+users <span class="o">=</span> <span class="t">User</span>.from_rs(db.query(<span class="s">&quot;SELECT * FROM users&quot;</span>))</code></pre>
+
+<p>But it's more convenient to use <code><a href="../../Onyx/SQL/Repository.html">Repository</a></code> to interact with the database:</p>
+
+<pre><code>repo <span class="o">=</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Repository</span>.<span class="k">new</span>(db)
+users <span class="o">=</span> repo.query(<span class="t">User</span>, <span class="s">&quot;SELECT * FROM users&quot;</span>)</code></pre>
+
+<p>That's not much less code, but the repo, for example, handles query arguments
+(<code>?</code> -> <code>$1</code> for PostrgreSQL queries) and also logs the requests.
+The real power of repository is handling <code><a href="../../Onyx/SQL/Query.html">Query</a></code> arguments:</p>
+
+<pre><code>user <span class="o">=</span> repo.query(<span class="t">User</span>.where(id: <span class="n">42</span>)).first</code></pre>
+
+<h2>Schema</h2>
+
+<p>Onyx::SQL is based on Crystal annotations to keep composition and simplify the underlying code.
+But since annotations are quite low-level, they are masked under the convenient <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> DSL.
+It's a good idea to understand what the <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> macro generates, but it's not mandatory
+for most of developers.</p>
+
+
+
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../Onyx/SQL/Converters.html">Onyx::SQL::Converters</a></li>
+  
+  </ul>
+
+
+
+  <h2>Extended Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">Onyx::SQL::Model::ClassQueryShortcuts</a></li>
+  
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/changes.cr#L1" target="_blank">
+        onyx-sql/model/changes.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/instance_query_shortcuts.cr#L4" target="_blank">
+        onyx-sql/model/instance_query_shortcuts.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/schema.cr#L1" target="_blank">
+        onyx-sql/model/schema.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model.cr#L80" target="_blank">
+        onyx-sql/model.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28%2A%2Avalues%3A%2A%2AT%29forallT-class-method" class="signature"><strong>.new</strong>(**values : **T) forall T</a>
+        
+          <div class="summary"><p>Initialize an instance of <code>self</code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3Aself%29-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
+        
+          <div class="summary"><p>Compare <code>self</code> against <em>other</em> model of the same type by their primary keys.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#apply%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AselfforallU-instance-method" class="signature"><strong>#apply</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : <span class="k">self</span> forall U</a>
+        
+          <div class="summary"><p>Apply a <em>changeset</em>, merging self values with the changeset's.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#changeset-instance-method" class="signature"><strong>#changeset</strong></a>
+        
+          <div class="summary"><p>Create a new changeset for this instance with snapshot of actual values.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%3AQuery-instance-method" class="signature"><strong>#delete</strong> : Query</a>
+        
+          <div class="summary"><p>A shortcut method to genereate a delete <code><a href="../../Onyx/SQL/Query.html">Query</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert%3AQuery-instance-method" class="signature"><strong>#insert</strong> : Query</a>
+        
+          <div class="summary"><p>A shortcut method to genereate an insert <code><a href="../../Onyx/SQL/Query.html">Query</a></code> pre-filled with actual <code>self</code> values.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method" class="signature"><strong>#update</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : Query forall U</a>
+        
+          <div class="summary"><p>A shortcut method to genereate an update <code><a href="../../Onyx/SQL/Query.html">Query</a></code> with <em>changeset</em> values.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Macro Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#pkey%28declaration%2C%2A%2Aoptions%29-macro" class="signature"><strong>pkey</strong>(declaration, **options)</a>
+        
+          <div class="summary"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#schema%28table%2C%26block%29-macro" class="signature"><strong>schema</strong>(table, &block)</a>
+        
+          <div class="summary"><p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful) annotations directly.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type%28declaration%2C%2A%2Aoptions%29-macro" class="signature"><strong>type</strong>(declaration, **options)</a>
+        
+          <div class="summary"><p>Declare a model field or reference, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(**values:**T)forallT-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(**values : **T) forall T
+
+        <a class="method-permalink" href="#new%28%2A%2Avalues%3A%2A%2AT%29forallT-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Initialize an instance of <code>self</code>. It accepts an arbitrary amount of arguments,
+but they must match the variable names, raising in compile-time instead:</p>
+
+<pre><code><span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, username: <span class="s">&quot;John&quot;</span>) <span class="c"># =&gt; &lt;User @id=42 @username=&quot;John&quot;&gt;</span>
+<span class="t">User</span>.<span class="k">new</span>(foo: <span class="s">&quot;bar&quot;</span>)               <span class="c"># Compilation-time error</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model.cr#L120" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="==(other:self)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <span class="k">self</span>)
+
+        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Compare <code>self</code> against <em>other</em> model of the same type by their primary keys.
+Returns <code>false</code> if the <code>self</code> primary key is <code>nil</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model.cr#L94" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="apply(changeset:Onyx::SQL::Model::Changeset(self,U)):selfforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>apply</strong>(changeset : <a href="../../Onyx/SQL/Model/Changeset.html">Onyx::SQL::Model::Changeset</a>(<span class="k">self</span>, U)) : <span class="k">self</span> forall U
+
+        <a class="method-permalink" href="#apply%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AselfforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply a <em>changeset</em>, merging self values with the changeset's.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/changes.cr#L127" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="changeset-instance-method">
+      <div class="signature">
+        
+        def <strong>changeset</strong>
+
+        <a class="method-permalink" href="#changeset-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new changeset for this instance with snapshot of actual values.
+It is then likely to be passed to the <code><a href="../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">#update</a></code> method.</p>
+
+<pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
+changeset <span class="o">=</span> user.changeset
+pp changeset.initial_values <span class="c"># =&gt; {&quot;id&quot; =&gt; 42, &quot;name&quot; =&gt; &quot;John&quot;}</span>
+pp changeset.values         <span class="c"># =&gt; {&quot;id&quot; =&gt; 42, &quot;name&quot; =&gt; &quot;John&quot;}</span>
+
+changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
+pp changeset.values  <span class="c"># =&gt; {&quot;id&quot; =&gt; 42, &quot;name&quot; =&gt; &quot;Jake&quot;}</span>
+pp changeset.empty?  <span class="c"># =&gt; false</span>
+pp changeset.changes <span class="c"># =&gt; {&quot;name&quot; =&gt; &quot;Jake&quot;}</span>
+
+user.update(changeset) <span class="o">==</span> <span class="t">User</span>.update.set(name: <span class="s">&quot;Jake&quot;</span>).where(id: <span class="n">42</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/changes.cr#L104" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete:Query-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong> : <a href="../../Onyx/SQL/Query.html">Query</a>
+
+        <a class="method-permalink" href="#delete%3AQuery-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shortcut method to genereate a delete <code><a href="../../Onyx/SQL/Query.html">Query</a></code>.
+See <code><a href="../../Onyx/SQL/Query.html#delete-instance-method">Query#delete</a></code>.</p>
+
+<pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>)
+user.delete <span class="o">==</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.delete.where(id: <span class="n">42</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/instance_query_shortcuts.cr#L60" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert:Query-instance-method">
+      <div class="signature">
+        
+        def <strong>insert</strong> : <a href="../../Onyx/SQL/Query.html">Query</a>
+
+        <a class="method-permalink" href="#insert%3AQuery-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shortcut method to genereate an insert <code><a href="../../Onyx/SQL/Query.html">Query</a></code> pre-filled with actual <code>self</code> values.
+See <code><a href="../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#insert</a></code>.</p>
+
+<pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
+user.insert <span class="o">==</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.insert(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/instance_query_shortcuts.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>(changeset : <a href="../../Onyx/SQL/Model/Changeset.html">Onyx::SQL::Model::Changeset</a>(<span class="k">self</span>, U)) : <a href="../../Onyx/SQL/Query.html">Query</a> forall U
+
+        <a class="method-permalink" href="#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>A shortcut method to genereate an update <code><a href="../../Onyx/SQL/Query.html">Query</a></code> with <em>changeset</em> values.
+See <code><a href="../../Onyx/SQL/Query.html#update-instance-method">Query#update</a></code> and <code><a href="../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#set</a></code>.</p>
+
+<pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
+changeset <span class="o">=</span> user.changeset
+changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
+user.update(changeset) <span class="o">==</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.update.set(name: <span class="s">&quot;Jake&quot;</span>).where(id: <span class="n">42</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/instance_query_shortcuts.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Macro Detail</h2>
+  
+    <div class="entry-detail" id="pkey(declaration,**options)-macro">
+      <div class="signature">
+        
+        macro <strong>pkey</strong>(declaration, **options)
+
+        <a class="method-permalink" href="#pkey%28declaration%2C%2A%2Aoptions%29-macro">#</a>
+      </div>
+      
+        <div class="doc"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block. It is equal to <code><a href="../../Onyx/SQL/Model.html#type%28declaration%2C%2A%2Aoptions%29-macro">.type</a></code>,
+but also defines the <code>:primary_key</code> option for the <code><a href="../../Onyx/SQL/Model/Options.html">Options</a></code> annotation.
+It's currently mandatory to have a primary key in a model, which may change in the future.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/schema.cr#L121" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="schema(table,&amp;block)-macro">
+      <div class="signature">
+        
+        macro <strong>schema</strong>(table, &block)
+
+        <a class="method-permalink" href="#schema%28table%2C%26block%29-macro">#</a>
+      </div>
+      
+        <div class="doc"><p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful)
+annotations directly. Consider this code:</p>
+
+<pre><code>@[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span><span class="t">::</span><span class="t">Options</span>(table: <span class="s">&quot;users&quot;</span>, primary_key: @id)]
+<span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Converters</span><span class="t">::</span><span class="t">PG</span><span class="t">::</span><span class="t">Any</span>(<span class="t">Int32</span>))]
+  property! id : <span class="t">Int32</span>
+
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Reference</span>(foreign_key: <span class="s">&quot;author_id&quot;</span>)]
+  property! authored_posts : <span class="t">Array</span>(<span class="t">Post</span>)
+<span class="k">end</span>
+
+@[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span><span class="t">::</span><span class="t">Options</span>(table: <span class="s">&quot;posts&quot;</span>, primary_key: @id)]
+<span class="k">class</span> <span class="t">Post</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Converters</span><span class="t">::</span><span class="t">PG</span><span class="t">::</span><span class="t">Any</span>(<span class="t">Int32</span>))]
+  property! id : <span class="t">Int32</span>
+
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Reference</span>(key: <span class="s">&quot;author_id&quot;</span>)]
+  property! author : <span class="t">User</span>
+<span class="k">end</span></code></pre>
+
+<p>With the DSL, it could be simplifed to:</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  schema users <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> settings : <span class="t">Settings</span>, foreign_key: <span class="s">&quot;user_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="t">Settings</span>
+  schema settings <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> foo : <span class="t">String</span>
+    <span class="k">type</span> user : <span class="t">User</span>, key: <span class="s">&quot;user_id&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+<p>This macro has a single mandatory argument <em>table</em>, which is, obviously, the model's table name.
+The schema currently <strong>requires</strong> a <code><a href="../../Onyx/SQL/Model.html#pkey%28declaration%2C%2A%2Aoptions%29-macro">.pkey</a></code> variable.</p>
+
+<p><span class="flag orange">TODO</span>  Make the primary key optional.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/schema.cr#L52" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type(declaration,**options)-macro">
+      <div class="signature">
+        
+        macro <strong>type</strong>(declaration, **options)
+
+        <a class="method-permalink" href="#type%28declaration%2C%2A%2Aoptions%29-macro">#</a>
+      </div>
+      
+        <div class="doc"><p>Declare a model field or reference, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.
+Expands to <code>property!</code>, which make the variable nilable, but it would
+raise <code>NilAssertionError</code> if trying to access it's being <code>nil</code>. For example:</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+
+  schema users <span class="k">do</span>
+    pkey id : <span class="t">Int32</span>
+    <span class="k">type</span> name : <span class="t">String</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+user <span class="o">=</span> repo.query(<span class="t">User</span>.first.<span class="k">select</span>(<span class="n">:id</span>)).first <span class="c"># Note that we select the @id only</span>
+
+pp user   <span class="c"># =&gt; &lt;User @id=42 @name=nil&gt;</span>
+user.id   <span class="c"># =&gt; 42</span>
+user.name <span class="c"># =&gt; NilAssertionError</span></code></pre>
+
+<p>If you are not sure if a variable is preloaded, use <code>?</code> methods:</p>
+
+<pre><code><span class="k">if</span> user.name?  <span class="c"># Will gently check if it&#39;s not `nil`</span>
+  pp user.name <span class="c"># &quot;John&quot;</span>
+<span class="k">end</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/0b5b0ca9cd85902fbb755246163157265caea4c5/src/onyx-sql/model/schema.cr#L85" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>
