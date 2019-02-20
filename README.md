@@ -41,7 +41,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.6.1
+    version: ~> 0.6.2
 ```
 
 This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/onyxframework/sql/releases) and change the `version` accordingly. Please visit [github.com/crystal-lang/shards](https://github.com/crystal-lang/shards) to know more about Crystal shards.
