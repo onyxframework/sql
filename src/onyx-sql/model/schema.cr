@@ -112,7 +112,8 @@ module Onyx::SQL::Model
         \{% end %}
       {% end %}
 
-      \{{"property! {{declaration}}".id}}
+      \{{("@{{declaration.var}} : {{declaration.type}} | Nil" + ({{!!declaration.value}} ? " = {{declaration.value}}" : "")).id}}
+      \{{"property! {{declaration.var}}".id}}
     end
   end
 
