@@ -3,9 +3,13 @@ module Onyx::SQL::Model::Mappable
   # Return a `Tuple` of DB-ready values. It respects `Field` and `Reference` annotations,
   # also working with `Converter`s.
   #
+  # It ignores `not_null` option. It will call `.not_nil!` on enumerable references'
+  # primary keys, thus can raise `NilAssertionError`.
+  #
   # ```
-  # User.db_values(id: user.id) # => {42}
-  # User.db_values(foo: "bar")  # => Compilation-time error: unknown User instance foo
+  # User.db_values(id: user.id)  # => {42}
+  # User.db_values(foo: "bar")   # => Compilation-time error: unknown User instance variable foo
+  # Post.db_values(author: user) # => May raise NilAssertionError if `user.id` is `nil`
   # ```
   def self.db_values(**values : **U) : Tuple forall U
   end
@@ -82,7 +86,7 @@ module Onyx::SQL::Model::Mappable
                     %}
 
                     {% if enumerable %}
-                      {% val = "values[#{key.symbolize}].try &.map(&.#{pk_rivar.name})".id %}
+                      {% val = "values[#{key.symbolize}].try &.map(&.#{pk_rivar.name}.not_nil!)".id %}
                     {% else %}
                       {% val = "values[#{key.symbolize}].try &.#{pk_rivar.name}".id %}
                     {% end %}

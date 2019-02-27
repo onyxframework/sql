@@ -15,6 +15,7 @@ require "./converters"
 # CREATE TABLE posts (
 #   id        SERIAL  PRIMARY KEY,
 #   content   TEXT    NOT NULL,
+#   cover     TEXT,
 #   author_id INT     NOT NULL  REFERENCES users (id),
 # );
 # ```
@@ -25,7 +26,7 @@ require "./converters"
 #
 #   schema users do
 #     pkey id : Int32
-#     type username : String
+#     type username : String, not_null: true
 #     type authored_posts : Array(Post), foreign_key: "author_id"
 #   end
 # end
@@ -35,15 +36,17 @@ require "./converters"
 #
 #   schema posts do
 #     pkey id : Int32
-#     type content : String
-#     type author : User, key: "author_id"
+#     type content : String, not_null: true
+#     type cover : String
+#     type author : User, key: "author_id", not_null: true
 #   end
 # end
 # ```
 #
 # In this example, `User` and `Post` are models. `User` has primary key `id`, field `username` and
 # foreign enumerable reference `authored_posts`. `Post` also has primary key `id`,
-# field `content` and direct reference `author`. It's pretty simple and straightforward mapping.
+# non-nilable field `content` and nilable field `cover`, and direct reference `author`.
+# It's pretty simple and straightforward mapping.
 # Read more about references in `Serializable` docs.
 #
 # ## Serialization

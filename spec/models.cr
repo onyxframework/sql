@@ -30,49 +30,24 @@ class User
     end
   end
 
-  @[Field(converter: DummyConverters::UUID)]
-  @uuid : UUID?
-  property! uuid
+  schema users do
+    pkey uuid : UUID, converter: DummyConverters::UUID
 
-  @[Field(key: "activity_status", default: true)]
-  property! active : Bool
+    type active : Bool, key: "activity_status", default: true
+    type role : Role, converter: DummyConverters::Enum(Role), default: true
+    type permissions : Array(Permission), converter: DummyConverters::Enum(Permission), default: true
+    type favorite_numbers : Array(Int32), converter: DummyConverters::Int32Array, default: true
+    type name : String, not_null: true
+    type balance : Float32, default: true
+    type meta : Meta, converter: DummyConverters::JSON(Meta), default: true
+    type created_at : Time, default: true
+    type updated_at : Time
 
-  @[Field(converter: DummyConverters::Enum(Role), default: true)]
-  property! role : Role
-
-  @[Field(converter: DummyConverters::Enum(Permission), default: true)]
-  property! permissions : Array(Permission)
-
-  @[Field(converter: DummyConverters::Int32Array, default: true)]
-  property! favorite_numbers : Array(Int32)
-
-  property! name : String
-
-  @[Field(default: true)]
-  property! balance : Float32
-
-  @[Field(converter: DummyConverters::JSON(Meta), default: true)]
-  property! meta : Meta
-
-  @[Field(default: true)]
-  property! created_at : Time
-
-  property! updated_at : Time
-
-  @[Onyx::SQL::Reference(key: "referrer_uuid")]
-  property! referrer : self
-
-  @[Onyx::SQL::Reference(foreign_key: "referrer_uuid")]
-  property! referrals : Array(self)
-
-  @[Onyx::SQL::Reference(foreign_key: "author_uuid")]
-  property! authored_posts : Array(Post)
-
-  @[Onyx::SQL::Reference(foreign_key: "editor_uuid")]
-  property! edited_posts : Array(Post)
-
-  # def initialize(@name : String, @uuid : UUID? = nil, @active : Bool? = nil)
-  # end
+    type referrer : User, key: "referrer_uuid"
+    type referrals : Array(User), foreign_key: "referrer_uuid"
+    type authored_posts : Array(Post), foreign_key: "author_uuid"
+    type edited_posts : Array(Post), foreign_key: "editor_uuid"
+  end
 end
 
 class Tag

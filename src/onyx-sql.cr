@@ -5,9 +5,11 @@ require "./onyx-sql/*"
 module Onyx::SQL
   # Use this annotation to mark an Object's instance variable as an SQL field.
   # It's not mandatory, though, as including `Serializable` and `Model` has meaningful defaults.
-  # In particular, the serialization process would rely on a variable name
-  # when mapping a database column by default. You can change this behaviour with `:key` option.
-  # For example:
+  #
+  # ## `:key` option
+  #
+  # The serialization process would rely on a variable name when mapping a database column
+  # by default. You can alter this behaviour with the `:key` option. For example:
   #
   # ```
   # class User
@@ -35,9 +37,11 @@ module Onyx::SQL
   #
   # Now the serialization will map from `"the_id"` column to the `@id` instance variable.
   #
-  # Furthermore, there is a `:converter` option which would define a converter to use
-  # for the serialization. For example, you have an integer enum column with value `0`
-  # stored in an SQLite database. In this case, the `Converters::SQLite3::EnumInt` would be helpful:
+  # ## `:converter` option
+  #
+  # There is a `:converter` option which would define a converter to use for the
+  # serialization. For example, you have an integer enum column with value `0` stored in
+  # an SQLite database. In this case, the `Converters::SQLite3::EnumInt` would be helpful:
   #
   # ```
   # class User
@@ -56,7 +60,61 @@ module Onyx::SQL
   # From now on, the serialization would expect an `INT` column and try to parse
   # the `User::Role` enum out from it.
   #
-  # You can use both `:key` and `:converter` options simultaneously on a variable.
+  # ## `:not_null` option
+  #
+  # Set to `true` if a field column is `NOT NULL` in the DB. It is used in `Query`
+  # builder. For example, it would prohibit doing some queries with `not_null` fields
+  # with an actual `nil` value:
+  #
+  # ```
+  # class User
+  #   @[Onyx::SQL::Field(not_null: true)]
+  #   @name : String?
+  # end
+  #
+  # User.update.set(name: nil) # Compilation-time error
+  # User.insert(name: nil)     # Compilation-time error
+  # ```
+  #
+  # NOTE: `User.new(name: nil).insert` (the instance-level `Model#insert` shortcut) would
+  # raise `NilAssertionError` in **runtime**, not in compilation-time! So, for increased
+  # type-safety, consider using class-level `User.insert(name: nil)`, which would raise
+  # in compilation time instead.
+  #
+  # `Model::Changeset` will also get affected by this option: you will not be able to call
+  # `Model::Changeset#update` with a `nil` value on a `not_null` field.
+  #
+  # You will also be unable to **set** the field to a `nil` value when
+  # using `schema` (see below):
+  #
+  # ```
+  # class User
+  #   schema users do
+  #     type name : String, not_null: true
+  #   end
+  # end
+  #
+  # user.name = nil # Compilation-time error
+  # pp user.name    # String only, raise `NilAssertionError` if `nil`
+  # ```
+  #
+  # ## `:default` option
+  #
+  # Will mark a field as having `DEFAULT` value in the DB. From now on, a `nil` value
+  # will be ignored on inserting the model instance:
+  #
+  # ```
+  # class User
+  #   @name : String?
+  #
+  #   @[Onyx::SQL::Field(default: true)]
+  #   @created_at : Time?
+  # end
+  #
+  # User.new(name: "John").insert.to_s # INSERT INTO users (name) VALUES (?)
+  # # But
+  # User.new(name: "John", created_at: Time.now).to_s # INSERT INTO users (name, created_at) VALUES (?, ?)
+  # ```
   #
   # ## Usage in schema
   #
@@ -69,7 +127,8 @@ module Onyx::SQL
   #
   #   schema users do
   #     pkey id : Int32, converter: PG::Any(Int32)
-  #     type username : String, key: "the_username"
+  #     type username : String, key: "the_username", not_null: true
+  #     type age : Int32
   #   end
   # end
   #
@@ -79,11 +138,13 @@ module Onyx::SQL
   # class User
   #   include Onyx::SQL::Model
   #
-  #   @[Onyx::SQL::Field(converter: Onyx::SQL::Converters::PG::Any(Int32))]
+  #   @[Onyx::SQL::Field(converter: PG::Any(Int32))]
   #   property! id : Int32
   #
-  #   @[Onyx::SQL::Field(key: "the_username")]
+  #   @[Onyx::SQL::Field(key: "the_username", not_null: true)]
   #   property! username : String
+  #
+  #   property age : Int32?
   # end
   # ```
   annotation Field
@@ -191,6 +252,9 @@ module Onyx::SQL
   #
   # NOTE: You must not use both `:key` and `:foreign_key` options on a single instance variable.
   #
+  # `Reference` annotation also accepts `not_null` option, which is equal to the `Field`s.
+  # Mark a reference `not_null` if it has a `NOT NULL` clause in the database.
+  #
   # ## Usage in schema
   #
   # `Model.schema` DSL macro effectively reduces and beautifies the code,
@@ -212,7 +276,7 @@ module Onyx::SQL
   #
   #   schema posts do
   #     pkey id : Int32, converter: PG::Any(Int32)
-  #     type author : User, key: "author_id" # And this
+  #     type author : User, key: "author_id", not_null: true # And this
   #   end
   # end
   # ```

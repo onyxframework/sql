@@ -1,7 +1,21 @@
 module Onyx::SQL
   class Query(T)
     # Add `WHERE` clause with *values*. All clauses in a single call are concatenated with `AND`.
-    # It's a **type-safe** method.
+    #
+    # It's a **type-safe** method. However, it will call `.not_nil!` on references'
+    # primary keys, thus it can raise `NilAssertionError` in runtime:
+    #
+    # ```
+    # Post.where(author: user) # Will raise NilAssertionError in runtime if `user.id` is `nil`
+    # ```
+    #
+    # Consider using explicit reference keys instead in this case, e.g.
+    #
+    # ```
+    # Post.where(author_id: user.id.not_nil!)
+    # ```
+    #
+    # ## Example:
     #
     # ```
     # query = User.where(name: "John", age: 18)
@@ -41,6 +55,8 @@ module Onyx::SQL
 
                   {% raise "`primary_key: #{pk}` option didn't match any of `#{type}` instance variables" unless pk_rivar %}
 
+                  {% raise "On Query#where: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if ann[:not_null] && value.nilable? %}
+
                   {% reference_sql_key = ivar.annotation(Reference)[:key].id %}
 
                   # If the key is a reference primary key (e.g. `#where(author_id: 42)`)
@@ -77,6 +93,10 @@ module Onyx::SQL
 
               # If the ivar is not a reference, but a field
               {% elsif key.id == ivar.name %}
+                {% not_null = (a = ivar.annotation(Field)) && a[:not_null] %}
+
+                {% raise "On Query#where: argument `#{key}:` is nilable in compilation time #{value}, but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the `#{key}:` argument" if not_null && value.nilable? %}
+
                 {% raise "Invalid compile-time type `#{value}` for argument `#{key.symbolize}` in `Query(#{T})#where` call. Expected: `#{ivar.type}`" unless value <= ivar.type %}
 
                 {% found = true %}

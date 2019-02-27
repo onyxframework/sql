@@ -7,22 +7,29 @@ module Onyx::SQL::Model
   # class User
   #   include Onyx::SQL::Model
   #
-  #   @[Onyx::SQL::Field(converter: Onyx::SQL::Converters::PG::Any(Int32))]
-  #   property! id : Int32
+  #   property! id : Int32?
+  #
+  #   @[Onyx::SQL::Field(not_null: true)]
+  #   property! username : String
   #
   #   @[Onyx::SQL::Reference(foreign_key: "author_id")]
-  #   property! authored_posts : Array(Post)
+  #   property! authored_posts : Array(Post)?
   # end
   #
   # @[Onyx::SQL::Model::Options(table: "posts", primary_key: @id)]
   # class Post
   #   include Onyx::SQL::Model
   #
-  #   @[Onyx::SQL::Field(converter: Onyx::SQL::Converters::PG::Any(Int32))]
-  #   property! id : Int32
+  #   @[Onyx::SQL::Field(converter: PG::Any(Int32))]
+  #   property! id : Int32?
   #
-  #   @[Onyx::SQL::Reference(key: "author_id")]
-  #   property! author : User
+  #   @[Onyx::SQL::Field(not_null: true)]
+  #   property! content : String?
+  #
+  #   property cover : String?
+  #
+  #   @[Onyx::SQL::Reference(key: "author_id", not_null: true)]
+  #   property! author : User?
   # end
   # ```
   #
@@ -32,15 +39,17 @@ module Onyx::SQL::Model
   # class User
   #   schema users do
   #     pkey id : Int32
-  #     type settings : Settings, foreign_key: "user_id"
+  #     type username : String, not_null: true
+  #     type authored_posts : Array(Post), foreign_key: "author_id"
   #   end
   # end
   #
-  # class Settings
-  #   schema settings do
+  # class Post
+  #   schema posts do
   #     pkey id : Int32
-  #     type foo : String
-  #     type user : User, key: "user_id"
+  #     type content : String, not_null: true
+  #     type cover : String
+  #     type author : User, key: "author_id", not_null: true
   #   end
   # end
   # ```
@@ -54,9 +63,10 @@ module Onyx::SQL::Model
     define_options({{table}})
   end
 
-  # Declare a model field or reference, **must** be called within `.schema` block.
-  # Expands to `property!`, which make the variable nilable, but it would
-  # raise `NilAssertionError` if trying to access it's being `nil`. For example:
+  # Declare a model field or reference. **Must** be called within `.schema` block.
+  # Expands `type` to either nilable `property` or raise-on-nil `property!`, depending on
+  # the `not_null` option. The latter would raise in runtime if accessed or tried to
+  # be set with the `nil` value.
   #
   # ```
   # class User
@@ -64,23 +74,23 @@ module Onyx::SQL::Model
   #
   #   schema users do
   #     pkey id : Int32
-  #     type name : String
+  #     type name : String, not_null: true
+  #     type age : Int32
   #   end
   # end
   #
-  # user = repo.query(User.first.select(:id)).first # Note that we select the @id only
+  # user = User.new
   #
-  # pp user   # => <User @id=42 @name=nil>
-  # user.id   # => 42
-  # user.name # => NilAssertionError
-  # ```
+  # user.id   # => nil
+  # user.name # => nil
+  # user.age  # => nil
   #
-  # If you are not sure if a variable is preloaded, use `?` methods:
+  # user.insert                  # Will raise in runtime, because name is `nil`
+  # User.insert(name: user.name) # Safer alternative, would raise in compilation time instead
   #
-  # ```
-  # if user.name?  # Will gently check if it's not `nil`
-  #   pp user.name # "John"
-  # end
+  # user = User.new(name: "John", age: 18)
+  # user.name = nil # Would raise in compilation time, cannot set to `nil`
+  # user.age = nil  # OK
   # ```
   macro type(declaration, **options)
     macro finished
@@ -106,23 +116,44 @@ module Onyx::SQL::Model
         %}
 
         \{% if type < Onyx::SQL::Model %}
-          \{{"@[Onyx::SQL::Reference(key: #{{{options[:key]}}}, foreign_key: #{{{options[:foreign_key]}}})]".id}}
+          \{{"@[Onyx::SQL::Reference(key: #{{{options[:key]}}}, foreign_key: #{{{options[:foreign_key]}}}, not_null: #{{{options[:not_null]}}})]".id}}
         \{% else %}
-          \{{"@[Onyx::SQL::Field(key: #{{{options[:key]}}}, default: #{{{options[:default]}}}, converter: #{{{options[:converter]}}})]".id}}
+          \{{"@[Onyx::SQL::Field(key: #{{{options[:key]}}}, default: #{{{options[:default]}}}, converter: #{{{options[:converter]}}}, not_null: #{{{options[:not_null]}}})]".id}}
         \{% end %}
       {% end %}
 
       \{{("@{{declaration.var}} : {{declaration.type}} | Nil" + ({{!!declaration.value}} ? " = {{declaration.value}}" : "")).id}}
-      \{{"property! {{declaration.var}}".id}}
+
+      {% if options[:not_null] %}
+        \{{"property! {{declaration.var}}".id}}
+      {% else %}
+        \{{"property {{declaration.var}}".id}}
+      {% end %}
     end
   end
 
-  # Declare a model primary key, **must** be called within `.schema` block. It is equal to `.type`,
-  # but also defines the `:primary_key` option for the `Options` annotation.
+  # Declare a model primary key, **must** be called within `.schema` block.
+  # It is equal to `.type`, but also passes `not_null: true` and
+  # defines the `:primary_key` option for the `Options` annotation.
   # It's currently mandatory to have a primary key in a model, which may change in the future.
+  #
+  # ```
+  # class User
+  #   schema users do
+  #     pkey id : Int32
+  #   end
+  # end
+  #
+  # # Expands to
+  #
+  # @[Onyx::SQL::Model::Options(primary_key: @id)]
+  # class User
+  #   @[Onyx::SQL::Field(not_null: true)]
+  #   property! id : Int32
+  # end
   macro pkey(declaration, **options)
     private ONYX_SQL_MODEL_SCHEMA_PK = {{"@#{declaration.var}".id}}
-    type({{declaration}}, {{**options}})
+    type({{declaration}}, not_null: true, {{**options}})
   end
 
   private macro define_options(table)

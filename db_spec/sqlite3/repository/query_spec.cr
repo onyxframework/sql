@@ -105,14 +105,14 @@ describe "Repository(Postgres)#query" do
       end
 
       it "preloads direct non-enumerable references" do
-        post.author.id.should eq user.id
-        post.author.name?.should be_nil
+        post.author.not_nil!.id.should eq user.id
+        post.author.not_nil!.name?.should be_nil
       end
 
       it "preloads direct enumerable references" do
-        post.tags.size.should eq 1
-        post.tags.first.id.should eq tag.id
-        post.tags.first.content?.should be_nil
+        post.tags.not_nil!.size.should eq 1
+        post.tags.not_nil!.first.id.should eq tag.id
+        post.tags.not_nil!.first.not_nil!.content?.should be_nil
       end
     end
   end
@@ -156,8 +156,8 @@ describe "Repository(Postgres)#query" do
       end
 
       it "preloads references" do
-        post.author.id.should eq user.id
-        post.editor.id.should eq new_user.id
+        post.author.not_nil!.id.should eq user.id
+        post.editor.not_nil!.id.should eq new_user.id
       end
     end
   end

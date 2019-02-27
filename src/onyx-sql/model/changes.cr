@@ -33,6 +33,10 @@ module Onyx::SQL::Model
 
             {% for ivar in T.instance_vars %}
               {% if ivar.name == key %}
+                {% if ann = ivar.annotation(Field) || ivar.annotation(Reference) %}
+                  {% raise "On Changeset#update: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if ann[:not_null] && value.nilable? %}
+                {% end %}
+
                 {% found = true %}
 
                 when {{ivar.name.symbolize}}

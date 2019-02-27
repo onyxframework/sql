@@ -1,35 +1,74 @@
-require "../../spec/models"
 require "../../src/onyx-sql/converters/pg"
 require "../../src/onyx-sql/converters/pg/uuid"
 require "../../src/onyx-sql/converters/pg/json"
 
+alias Model = Onyx::SQL::Model
+alias Field = Onyx::SQL::Field
+
 class User
-  @[Field(converter: PG::UUID)]
-  @uuid : UUID?
+  include Model
 
-  @[Field(converter: PG::Enum(User::Role), default: true)]
-  @role : Role?
+  enum Role
+    Writer
+    Moderator
+    Admin
+  end
 
-  @[Field(converter: PG::Enum(User::Permission), default: true)]
-  @permissions : Array(Permission)?
+  enum Permission
+    CreatePosts
+    EditPosts
+  end
 
-  @[Field(converter: PG::Any(Int32), default: true)]
-  @favorite_numbers : Array(Int32)?
+  struct Meta
+    include JSON::Serializable
+    property foo : String?
 
-  @[Field(converter: PG::JSON(User::Meta), default: true)]
-  @meta : Meta?
-end
+    def initialize(@foo = nil)
+    end
+  end
 
-class Post
-  macro finished
-    @[Field(converter: PG::Any(Int32))]
-    property! id : Int32
+  schema users do
+    pkey uuid : UUID, converter: PG::UUID
+
+    type active : Bool, key: "activity_status", default: true, not_null: true
+    type role : Role, converter: PG::Enum(Role), default: true, not_null: true
+    type permissions : Array(Permission), converter: PG::Enum(Permission), default: true, not_null: true
+    type favorite_numbers : Array(Int32), converter: PG::Any(Int32), default: true, not_null: true
+    type name : String, not_null: true
+    type balance : Float32, default: true, not_null: true
+    type meta : Meta, converter: PG::JSON(User::Meta), default: true, not_null: true
+    type created_at : Time, default: true, not_null: true
+    type updated_at : Time
+
+    type referrer : User, key: "referrer_uuid"
+    type referrals : Array(User), foreign_key: "referrer_uuid"
+    type authored_posts : Array(Post), foreign_key: "author_uuid"
+    type edited_posts : Array(Post), foreign_key: "editor_uuid"
   end
 end
 
 class Tag
-  macro finished
-    @[Field(converter: PG::Any(Int32))]
-    property! id : Int32
+  include Model
+
+  schema tags do
+    pkey id : Int32, converter: PG::Any(Int32)
+    type content : String, not_null: true
+    type posts : Array(Post), foreign_key: "tag_ids"
+  end
+end
+
+class Post
+  include Model
+
+  schema posts do
+    pkey id : Int32, converter: PG::Any(Int32)
+
+    type content : String, not_null: true
+    type created_at : Time, default: true, not_null: true
+    type updated_at : Time
+
+    type author : User, key: "author_uuid", not_null: true
+    type editor : User, key: "editor_uuid"
+    type tags : Array(Tag), key: "tag_ids"
   end
 end

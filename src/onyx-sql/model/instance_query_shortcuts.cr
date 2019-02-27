@@ -5,21 +5,34 @@ module Onyx::SQL::Model
   # A shortcut method to genereate an insert `Query` pre-filled with actual `self` values.
   # See `Query#insert`.
   #
+  # NOTE: Will raise `NilAssertionError` in runtime if a field has `not_null: true` option and
+  # is actually `nil`. Conisder using `ClassQueryShortcuts#insert` instead.
+  #
   # ```
   # user = User.new(id: 42, name: "John")
   # user.insert == Query(User).new.insert(id: 42, name: "John")
   # ```
   def insert : Query
-    {% begin %}
-      Query(self).new.insert(
-        {% for ivar in @type.instance_vars %}
-          # Skip foreign references. Because they are foreign, you know
-          {% unless ((a = ivar.annotation(Reference)) && !a[:key]) %}
-            {{ivar.name}}: @{{ivar.name}},
-          {% end %}
+    query = Query(self).new
+
+    {% for ivar in @type.instance_vars %}
+      # Skip foreign references. Because they are foreign, you know
+      {% unless ((a = ivar.annotation(Reference)) && !a[:key]) %}
+        {% ann = ivar.annotation(Field) || ivar.annotation(Reference) %}
+
+        {% if (ann && ann[:default]) || @type.annotation(Model::Options)[:primary_key].id == "@#{ivar.name}".id %}
+          unless @{{ivar.name}}.nil?
+            query.insert({{ivar.name}}: @{{ivar.name}}.not_nil!)
+          end
+        {% elsif ann && ann[:not_null] %}
+          query.insert({{ivar.name}}: @{{ivar.name}}.not_nil!)
+        {% else %}
+          query.insert({{ivar.name}}: @{{ivar.name}})
         {% end %}
-      )
+      {% end %}
     {% end %}
+
+    query
   end
 
   # A shortcut method to genereate an update `Query` with *changeset* values.
@@ -39,7 +52,11 @@ module Onyx::SQL::Model
         case key
         {% for ivar in @type.instance_vars %}
           when {{ivar.name.stringify}}
-            query.set({{ivar.name}}: value.as({{ivar.type}}))
+            {% if (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null] %}
+              query.set({{ivar.name}}: value.as({{ivar.type}}).not_nil!)
+            {% else %}
+              query.set({{ivar.name}}: value.as({{ivar.type}}))
+            {% end %}
         {% end %}
         else
           raise "BUG: Unrecognized Changeset({{@type}}) key :#{key}"
@@ -75,7 +92,7 @@ module Onyx::SQL::Model
         raise "Cannot find primary key field #{pk} for #{@type}" unless pk_ivar
       %}
 
-      query.where({{pk_ivar.name}}: @{{pk_ivar.name}})
+      query.where({{pk_ivar.name}}: @{{pk_ivar.name}}.not_nil!)
     {% end %}
   end
 end

@@ -1,57 +1,73 @@
-require "../../spec/models"
 require "../../src/onyx-sql/converters/sqlite3"
-require "../../src/onyx-sql/converters/sqlite3/uuid_blob"
 require "../../src/onyx-sql/converters/sqlite3/json"
 
-@[Onyx::SQL::Model::Options(table: "users", primary_key: @id)]
+alias Model = Onyx::SQL::Model
+alias Field = Onyx::SQL::Field
+
 class User
-  @[Field(key: "rowid", converter: SQLite3::Any(Int32))]
-  property! id : Int32
+  include Model
 
-  @[Field(converter: SQLite3::UUIDBlob, default: true)]
-  @uuid : UUID?
+  enum Role
+    Writer
+    Moderator
+    Admin
+  end
 
-  @[Field(converter: SQLite3::EnumInt(User::Role), default: true)]
-  @role : Role?
+  enum Permission
+    CreatePosts
+    EditPosts
+  end
 
-  @[Field(converter: SQLite3::EnumText(User::Permission), default: true)]
-  @permissions : Array(Permission)?
+  struct Meta
+    include JSON::Serializable
+    property foo : String?
 
-  @[Field(converter: SQLite3::Any(Int32), default: true)]
-  @favorite_numbers : Array(Int32)?
+    def initialize(@foo = nil)
+    end
+  end
 
-  @[Field(converter: SQLite3::JSON(User::Meta), default: true)]
-  @meta : Meta?
+  schema users do
+    pkey id : Int32, key: "rowid", converter: SQLite3::Any(Int32)
 
-  @[Onyx::SQL::Reference(key: "referrer_id")]
-  @referrer : self?
+    type active : Bool, key: "activity_status", default: true, not_null: true
+    type role : Role, converter: SQLite3::EnumInt(Role), default: true, not_null: true
+    type permissions : Array(Permission), converter: SQLite3::EnumText(Permission), default: true, not_null: true
+    type favorite_numbers : Array(Int32), converter: SQLite3::Any(Int32), default: true, not_null: true
+    type name : String, not_null: true
+    type balance : Float32, default: true, not_null: true
+    type meta : Meta, converter: SQLite3::JSON(User::Meta), default: true, not_null: true
+    type created_at : Time, default: true, not_null: true
+    type updated_at : Time
 
-  @[Onyx::SQL::Reference(foreign_key: "referrer_id")]
-  @referrals : Array(self)?
-
-  @[Onyx::SQL::Reference(foreign_key: "author_id")]
-  @authored_posts : Array(Post)?
-
-  @[Onyx::SQL::Reference(foreign_key: "editor_id")]
-  @edited_posts : Array(Post)?
+    type referrer : User, key: "referrer_id"
+    type referrals : Array(User), foreign_key: "referrer_id"
+    type authored_posts : Array(Post), foreign_key: "author_id"
+    type edited_posts : Array(Post), foreign_key: "editor_id"
+  end
 end
 
 class Tag
-  macro finished
-    @[Field(key: "rowid", converter: SQLite3::Any(Int32))]
-    @id : Int32?
+  include Model
+
+  schema tags do
+    pkey id : Int32, converter: SQLite3::Any(Int32), key: "rowid"
+    type content : String, not_null: true
+    type posts : Array(Post), foreign_key: "tag_ids"
   end
 end
 
 class Post
-  macro finished
-    @[Field(key: "rowid", converter: SQLite3::Any(Int32))]
-    @id : Int32?
+  include Model
 
-    @[Onyx::SQL::Reference(key: "author_id")]
-    @author : User?
+  schema posts do
+    pkey id : Int32, converter: SQLite3::Any(Int32), key: "rowid"
 
-    @[Onyx::SQL::Reference(key: "editor_id")]
-    @editor : User?
+    type content : String, not_null: true
+    type created_at : Time, default: true, not_null: true
+    type updated_at : Time
+
+    type author : User, key: "author_id", not_null: true
+    type editor : User, key: "editor_id"
+    type tags : Array(Tag), key: "tag_ids"
   end
 end
