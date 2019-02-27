@@ -59,7 +59,7 @@ module Onyx::SQL
 
                   {% reference_sql_key = ivar.annotation(Reference)[:key].id %}
 
-                  # If the key is a reference primary key (e.g. `#where(author_id: 42)`)
+                  # If the key is a reference key (e.g. `#where(author_id: 42)`)
                   {% if key.id == ann[:key].id %}
                     {% raise "Invalid compile-time type `#{value}` for argument `#{key.symbolize}` in `Query(#{T})#where` call. Expected: `#{pk_rivar.type}`" unless value <= pk_rivar.type %}
 
