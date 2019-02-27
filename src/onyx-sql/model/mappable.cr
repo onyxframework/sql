@@ -120,7 +120,7 @@ module Onyx::SQL::Model::Mappable
                   return {{ann[:key].id.stringify}}
               {% else %}
                 when {{ivar.name.symbolize}}
-                  raise "Cannot map indirect {{@type}} reference @{{ivar.name}} to a DB column"
+                  raise "Cannot map foreign {{@type}} reference @{{ivar.name}} to a DB column"
               {% end %}
             {% else %}
               when {{ivar.name.symbolize}}

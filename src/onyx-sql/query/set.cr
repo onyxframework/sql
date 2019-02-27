@@ -58,7 +58,7 @@ module Onyx::SQL
               raise "On Query#set: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
             %}
 
-            {% raise "TODO: Unknown key :#{key}" unless ivar %}
+            {% raise "Cannot find an instance variable named @#{key} in #{T}" unless ivar %}
 
             when {{key.symbolize}}
               ensure_set << Set.new(
