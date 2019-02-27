@@ -132,6 +132,14 @@ module Onyx::SQL::Model
         unless ivar.type.union_types.size == 2
           raise "Only T | Nil unions can be an Onyx::SQL::Model's variables (got #{ivar.type} type for #{@type}@#{ivar.name})"
         end
+
+        type = ivar.type.union_types.find { |t| t != Nil }
+
+        if type <= Enumerable
+          if (type.type_vars.size != 1 || type.type_vars.first.union?)
+            raise "If an Onyx::SQL::Model variable is a Enumerable, it must have a single non-union type var (got #{type} type for #{@type}@#{ivar.name})"
+          end
+        end
       %}
     {% end %}
 

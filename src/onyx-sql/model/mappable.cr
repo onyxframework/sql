@@ -32,28 +32,6 @@ module Onyx::SQL::Model::Mappable
     def self.db_values(**values : **U) : Tuple forall U
       {% verbatim do %}
         {% begin %}
-          {% for ivar in @type.instance_vars %}
-            {%
-              a = 42
-
-              unless ivar.type.nilable?
-                raise "#{@type}@#{ivar.name} must be nilable, as it's an Onyx::SQL::Serializable variable"
-              end
-
-              unless ivar.type.union_types.size == 2
-                raise "Only T | Nil unions can be an Onyx::SQL::Serializable's variables (got #{ivar.type} type for #{@type}@#{ivar.name})"
-              end
-
-              type = ivar.type.union_types.find { |t| t != Nil }
-
-              if type <= Enumerable
-                if (type.type_vars.size != 1 && type.type_vars.first.union?)
-                  raise "If an Onyx::SQL::Serializable variable is a Enumerable, it must have a single non-union type var (got #{type} type for #{@type}@#{ivar.name})"
-                end
-              end
-            %}
-          {% end %}
-
           return {
             {% for key, value in U %}
               {% found = false %}
