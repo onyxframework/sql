@@ -50,7 +50,7 @@ module Onyx::SQL
   #     Moderator
   #   end
   #
-  #   @[Onyx::SQL::Field(converter: Onyx::SQL::Converters::SQLite3::EnumInt(Role))]
+  #   @[Onyx::SQL::Field(converter: SQLite3::EnumInt(Role))]
   #   @role : Role
   # end
   #
@@ -190,7 +190,12 @@ module Onyx::SQL
   #
   # If a reference is direct (i.e. has the `:key` option), a referenced instance is initialized
   # as soon as a database result set reads that key. For example, if the result set has "author_id"
-  # key with value `42`, the `Post` instance will be initialized as `<Post @author=<User @id=42>>`.
+  # key with value `42`, the `Post` instance will be initialized as
+  #
+  # ```
+  # <Post @author=<User @id=42>>
+  # ```
+  #
   # And if you want to preload a reference field (or sub-reference), you should use `JOIN`.
   # See `Query#join` for more details.
   #

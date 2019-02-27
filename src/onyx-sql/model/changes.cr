@@ -11,8 +11,8 @@ module Onyx::SQL::Model
   # pp changeset.changes # => {"name" => "Jake"}
   # ```
   #
-  # It is handy to use a changeset with `Model::InstanceQueryShortcuts#update` method.
-  # Note that `Model::InstanceQueryShortcuts#update` may raise `NoChanges` error
+  # It is handy to use a changeset with `Model#update` method.
+  # Note that `Model#update` may raise `NoChanges` error
   # if the changeset is empty.
   class Changeset(T, U)
     getter values : Hash(String, U)
@@ -84,7 +84,7 @@ module Onyx::SQL::Model
       actual_changes
     end
 
-    # Raised when there are no actual changes on a changeset on `#changes!` call.
+    # Raised when there are no actual changes on a changeset on `Changeset#changes!` call.
     class NoChanges < Exception
     end
   end
