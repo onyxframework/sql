@@ -108,10 +108,6 @@ module Onyx::SQL
             # because that would result in multiple rows
             append_select = false unless ann[:key]
 
-            if (type.type_vars.size != 1 && type.type_vars.first.union?)
-              raise "Cannot use #{type} as #{T}@#{ivar.name} reference"
-            end
-
             type = type.type_vars.first
           end
         %}
