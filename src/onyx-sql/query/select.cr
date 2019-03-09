@@ -110,6 +110,28 @@ module Onyx::SQL
       self
     end
 
+    # Reset current query selects. This will lead to empty select clause for this partucular
+    # query. It's useful when on joining. However, it would raise in runtime if the resulting
+    # query has no actual selects.
+    #
+    # ```
+    # Post.select(nil).build # "Cannot build a query with empty SELECT clause" runtime error
+    #
+    # q = Post.select(nil).join(author: true) { |x| x.select(:username) }
+    # q.build # => {"SELECT author.username FROM posts JOIN user AS author ..."}
+    # ```
+    #
+    # NOTE: If you call it *after* join, then it will erase everything:
+    #
+    # ```crystal
+    # Post.join(author: true) { |x| x.select(:username) }.select(nil).build
+    # # Cannot build a query with empty SELECT clause
+    # ```
+    def select(nil_value : Nil)
+      @select = Deque(String).new
+      self
+    end
+
     @select : Deque(String)? = nil
 
     protected def get_select
@@ -123,6 +145,8 @@ module Onyx::SQL
 
     protected def append_select(sql, *args)
       if selects = @select
+        raise "Cannot build a query with empty SELECT clause" if selects.empty?
+
         sql << "SELECT "
 
         first = true

@@ -28,4 +28,14 @@ describe "Query#select" do
       params.should be_empty
     end
   end
+
+  context "with nil call" do
+    it do
+      q = Query(User).new.select(nil)
+
+      expect_raises Exception do
+        q.build
+      end
+    end
+  end
 end
