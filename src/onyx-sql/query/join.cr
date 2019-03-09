@@ -9,6 +9,7 @@ module Onyx::SQL
     end
 
     # Add explicit `JOIN` clause.
+    # If the query hasn't had any `#select` calls before, then `#select(T)` is called on it.
     #
     # ```
     # query.join("a", on: "a.id = b.id", as: "c", :right) # => RIGHT JOIN a ON a.id = b.id AS c
@@ -20,6 +21,10 @@ module Onyx::SQL
         as: _as,
         type: type
       )
+
+      if @select.nil?
+        self.select(T)
+      end
 
       self
     end
@@ -50,7 +55,6 @@ module Onyx::SQL
     # end
     #
     # query = Post
-    #   .select(Post)
     #   .join(author: true) do |q|
     #     pp typeof(q)        # => Query(User)
     #     q.select(:username) # :username is looked up in User in compilation time
@@ -75,6 +79,8 @@ module Onyx::SQL
     # ```
     #
     # Read more about preloading references in `Serializable` docs.
+    #
+    # If parent query hasn't had any `#select` calls before, then `#select(T)` is called on it.
     #
     # NOTE: The syntax is about to be improved from `join(author: true)` to `join(:author)`.
     # See the relevant [forum topic](https://forum.crystal-lang.org/t/symbols/391).
@@ -131,20 +137,22 @@ module Onyx::SQL
     end
 
     # Add `JOIN` clause by a model *reference* without yielding a sub-query.
+    # If the query hasn't had any `#select` calls before, then `#select(T)` is called on it.
     #
     # ```
     # query = Post.join(:author).where(id: 17)
     # query.build # => {"SELECT posts.* FROM posts INNER JOIN users AS author ON posts.author_id = author.id WHERE posts.id = ?", {17}}
     # ```
     #
-    # Note that there are no markers, so a post's `@author` reference would not
-    # have `@username` variable filled. However, the refernece itself would still present,
-    # as a post row itself contains the `"author_id"` column, which would be put into
-    # a post's `@author` instance upon calling `Serializable.from_rs`:
+    # Note that in this case there are no markers, so a post's `@author` reference would
+    # **not** have `@username` variable filled. However, the reference itself would
+    # still present, as a post row itself contains the `"author_id"` column, which would
+    # be put into a post's `@author` instance upon calling `Serializable.from_rs`:
     #
     # ```
     # post = repo.query(Post.select(Post, "author.username").join(:author)).first
-    # pp post # => <Post @author=<User @id=... @username=nil>>
+    # # SELECT posts.*, author.username FROM posts ...
+    # pp post # => <Post @author=<User @id=17 @username=nil>>
     # ```
     def join(reference : T::Reference, on : String? = nil, as _as : String = reference.to_s.underscore, type : JoinType = :inner)
       {% begin %}
@@ -215,6 +223,10 @@ module Onyx::SQL
           raise "BUG: Cannot find reference #{reference} in #{T}::Reference"
         end
       {% end %}
+
+      if @select.nil?
+        self.select(T)
+      end
 
       self
     end

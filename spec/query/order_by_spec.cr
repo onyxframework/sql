@@ -8,7 +8,7 @@ describe "Query#order_by" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users ORDER BY users.activity_status DESC
+      SELECT * FROM users ORDER BY users.activity_status DESC
       SQL
 
       params.should be_empty
@@ -22,7 +22,7 @@ describe "Query#order_by" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users ORDER BY some_column
+      SELECT * FROM users ORDER BY some_column
       SQL
 
       params.should be_empty

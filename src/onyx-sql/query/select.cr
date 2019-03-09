@@ -2,17 +2,27 @@ module Onyx::SQL
   class Query(T)
     # Add `SELECT` clause by either model field or reference or explicit Char or String.
     #
-    # If no `#select` is called on a query, then it would select the whole table (`"table.*"`).
+    # If no `#select` is called on this query, then it would select everything (`"*"`).
+    # Otherwise it would select those columns only which were specified explicitly.
     #
     # ```
     # q = User.all
-    # q.build # => {"SELECT users.* FROM users"}
+    # q.build # => {"SELECT * FROM users"}
     #
     # q = User.select(:id, :name)
     # q.build # => {"SELECT users.id, users.name FROM users"}
     #
     # q = User.select("foo")
     # q.build # => {"SELECT foo FROM users"}
+    #
+    # # Note that in this case the author reference would not be
+    # # actually preloaded, because the resulting query is missing markers
+    # q = Post.join(:author)
+    # q.build # => {"SELECT * FROM posts JOIN users ..."}
+    #
+    # # That's better
+    # q = Post.select(Post).join(author: true) { |x| x.select(:name) }
+    # q.build # => {"SELECT posts.*, '' AS _author, author.name ..."}
     # ```
     def select(values : Enumerable(T::Field | T::Reference | Char | String))
       values.each do |value|
@@ -121,7 +131,7 @@ module Onyx::SQL
           sql << s
         end
       else
-        sql << "SELECT " << (@alias || {{T.annotation(Model::Options)[:table].id.stringify}}) << ".*"
+        sql << "SELECT *"
       end
 
       sql << " FROM " << (@alias || {{T.annotation(Model::Options)[:table].id.stringify}})

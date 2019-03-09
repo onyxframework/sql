@@ -7,7 +7,7 @@ describe "Query#having" do
 
       sql, params = q.build
       sql.should eq <<-SQL
-      SELECT users.* FROM users HAVING (foo)
+      SELECT * FROM users HAVING (foo)
       SQL
 
       params.should be_empty
@@ -20,7 +20,7 @@ describe "Query#having" do
 
       sql, params = q.build
       sql.should eq <<-SQL
-      SELECT users.* FROM users HAVING (foo = ? AND bar = ?) AND (foo)
+      SELECT * FROM users HAVING (foo = ? AND bar = ?) AND (foo)
       SQL
 
       params.to_a.should eq [42, 43]
@@ -32,7 +32,7 @@ describe "Query#having" do
       context "without params" do
         it do
           Query(User).new.having_not("foo = 'bar'").to_s.should eq <<-SQL
-          SELECT users.* FROM users HAVING NOT (foo = 'bar')
+          SELECT * FROM users HAVING NOT (foo = 'bar')
           SQL
         end
       end
@@ -43,7 +43,7 @@ describe "Query#having" do
 
           sql, params = q.build
           sql.should eq <<-SQL
-          SELECT users.* FROM users HAVING NOT (foo = ?)
+          SELECT * FROM users HAVING NOT (foo = ?)
           SQL
 
           params.to_a.should eq [42]
@@ -59,7 +59,7 @@ describe "Query#having" do
 
         sql, params = q.build
         sql.should eq <<-SQL
-        SELECT users.* FROM users HAVING (activity_status IS NOT NULL) AND NOT (name = ?) OR (foo)
+        SELECT * FROM users HAVING (activity_status IS NOT NULL) AND NOT (name = ?) OR (foo)
         SQL
 
         params.to_a.should eq ["John"]
@@ -83,7 +83,7 @@ describe "Query#having" do
             context "without params" do
               it do
                 Query(User).new.{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
-                SELECT users.* FROM users HAVING {{"NOT ".id if not}}(foo = 'bar')
+                SELECT * FROM users HAVING {{"NOT ".id if not}}(foo = 'bar')
                 SQL
               end
             end
@@ -94,7 +94,7 @@ describe "Query#having" do
 
                 sql, params = q.build
                 sql.should eq <<-SQL
-                SELECT users.* FROM users HAVING {{"NOT ".id if not}}(foo = ?)
+                SELECT * FROM users HAVING {{"NOT ".id if not}}(foo = ?)
                 SQL
 
                 params.to_a.should eq [42]
@@ -106,7 +106,7 @@ describe "Query#having" do
             context "without params" do
               it do
                 Query(User).new.having("first = true").{{(or ? "or" : "and").id}}_having{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
-                SELECT users.* FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
+                SELECT * FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
                 SQL
               end
             end
@@ -117,7 +117,7 @@ describe "Query#having" do
 
                 sql, params = q.build
                 sql.should eq <<-SQL
-                SELECT users.* FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
+                SELECT * FROM users HAVING (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
                 SQL
 
                 params.to_a.should eq [42]

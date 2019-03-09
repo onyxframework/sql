@@ -9,7 +9,7 @@ describe "Query#where" do
         sql, params = q.build
 
         sql.should eq <<-SQL
-        SELECT users.* FROM users WHERE (foo = ? AND bar = ?)
+        SELECT * FROM users WHERE (foo = ? AND bar = ?)
         SQL
 
         params.to_a.should eq [42, 43]
@@ -23,7 +23,7 @@ describe "Query#where" do
         sql, params = q.build
 
         sql.should eq <<-SQL
-        SELECT users.* FROM users WHERE (foo)
+        SELECT * FROM users WHERE (foo)
         SQL
 
         params.should be_empty
@@ -38,7 +38,7 @@ describe "Query#where" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users WHERE (users.activity_status = ? AND users.name = ?)
+      SELECT * FROM users WHERE (users.activity_status = ? AND users.name = ?)
       SQL
 
       params.to_a.should eq [true, "John"]
@@ -54,7 +54,7 @@ describe "Query#where" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT posts.* FROM posts WHERE (posts.author_uuid = ?)
+      SELECT * FROM posts WHERE (posts.author_uuid = ?)
       SQL
 
       params.to_a.should eq [uuid.to_s]
@@ -67,7 +67,7 @@ describe "Query#where" do
         context "without params" do
           it do
             Query(User).new.where_not("foo = 'bar'").to_s.should eq <<-SQL
-            SELECT users.* FROM users WHERE NOT (foo = 'bar')
+            SELECT * FROM users WHERE NOT (foo = 'bar')
             SQL
           end
         end
@@ -79,7 +79,7 @@ describe "Query#where" do
             sql, params = q.build
 
             sql.should eq <<-SQL
-            SELECT users.* FROM users WHERE NOT (foo = ?)
+            SELECT * FROM users WHERE NOT (foo = ?)
             SQL
 
             params.to_a.should eq [42]
@@ -94,7 +94,7 @@ describe "Query#where" do
           sql, params = q.build
 
           sql.should eq <<-SQL
-          SELECT users.* FROM users WHERE NOT (users.activity_status = ? AND users.name = ?)
+          SELECT * FROM users WHERE NOT (users.activity_status = ? AND users.name = ?)
           SQL
 
           params.to_a.should eq [true, "John"]
@@ -111,7 +111,7 @@ describe "Query#where" do
         sql, params = q.build
 
         sql.should eq <<-SQL
-        SELECT users.* FROM users WHERE (users.uuid = ?) AND (activity_status IS NOT NULL) AND NOT (name = ?)
+        SELECT * FROM users WHERE (users.uuid = ?) AND (activity_status IS NOT NULL) AND NOT (name = ?)
         SQL
 
         params.to_a.should eq [uuid.to_s, "John"]
@@ -136,7 +136,7 @@ describe "Query#where" do
               context "without params" do
                 it do
                   Query(User).new.{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
-                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = 'bar')
+                  SELECT * FROM users WHERE {{"NOT ".id if not}}(foo = 'bar')
                   SQL
                 end
               end
@@ -148,7 +148,7 @@ describe "Query#where" do
                   sql, params = q.build
 
                   sql.should eq <<-SQL
-                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(foo = ?)
+                  SELECT * FROM users WHERE {{"NOT ".id if not}}(foo = ?)
                   SQL
 
                   params.to_a.should eq [42]
@@ -162,7 +162,7 @@ describe "Query#where" do
                   sql, params = q.build
 
                   sql.should eq <<-SQL
-                  SELECT users.* FROM users WHERE {{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
+                  SELECT * FROM users WHERE {{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
                   SQL
 
                   params.to_a.should eq [true, "John"]
@@ -176,7 +176,7 @@ describe "Query#where" do
               context "without params" do
                 it do
                   Query(User).new.where("first = true").{{(or ? "or" : "and").id}}_where{{"_not".id if not}}("foo = 'bar'").to_s.should eq <<-SQL
-                  SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
+                  SELECT * FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = 'bar')
                   SQL
                 end
               end
@@ -188,7 +188,7 @@ describe "Query#where" do
                   sql, params = q.build
 
                   sql.should eq <<-SQL
-                  SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
+                  SELECT * FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(foo = ?)
                   SQL
 
                   params.to_a.should eq [42]
@@ -203,7 +203,7 @@ describe "Query#where" do
                 sql, params = q.build
 
                 sql.should eq <<-SQL
-                SELECT users.* FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
+                SELECT * FROM users WHERE (first = true) {{or ? "OR ".id : "AND ".id}}{{"NOT ".id if not}}(users.activity_status = ? AND users.name = ?)
                 SQL
 
                 params.to_a.should eq [true, "John"]

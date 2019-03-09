@@ -8,7 +8,7 @@ describe "Query#offset" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users OFFSET 2
+      SELECT * FROM users OFFSET 2
       SQL
 
       params.should be_empty
@@ -22,7 +22,7 @@ describe "Query#offset" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users
+      SELECT * FROM users
       SQL
 
       params.should be_empty

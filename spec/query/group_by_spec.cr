@@ -6,7 +6,7 @@ describe "Query#group_by" do
     sql, params = q.build
 
     sql.should eq <<-SQL
-    SELECT users.* FROM users GROUP BY foo, bar
+    SELECT * FROM users GROUP BY foo, bar
     SQL
 
     params.should be_empty

@@ -8,7 +8,7 @@ describe "Query#select" do
       sql, params = q.build
 
       sql.should eq <<-SQL
-      SELECT users.* FROM users
+      SELECT * FROM users
       SQL
 
       params.should be_empty
