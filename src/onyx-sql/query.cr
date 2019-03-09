@@ -10,8 +10,6 @@ module Onyx::SQL
   # * Shortcuts:
   #   * `#one`
   #   * `#all`
-  #   * `#first`
-  #   * `#last`
   #   * `#and`
   #   * `#or`
   #   * `#and_not`
@@ -217,18 +215,6 @@ module Onyx::SQL
       limit(1)
     end
 
-    # Alias of `#order_by(primary_key, :asc).one`. The primary key is determined by the
-    # `Model::Options` `:primary_key` option.
-    def first
-      order_by(primary_key, :asc).one
-    end
-
-    # Alias of `#order_by(primary_key, :desc).one`. The primary key is determined by the
-    # `Model::Options` `:primary_key` option.
-    def last
-      order_by(primary_key, :desc).one
-    end
-
     # Return the SQL representation of this query.
     # Pass `true` to replace `"?"` query arguments with `"$n"`, which would work for PostgreSQL.
     def to_s(index_params = false)
@@ -329,23 +315,6 @@ module Onyx::SQL
 
     private class ParamIndex
       property value = 0
-    end
-
-    protected def primary_key
-      {% begin %}
-        {%
-          options = T.annotation(Model::Options)
-          raise "Onyx::SQL::Model::Options annotation must be defined for #{T}" unless options
-
-          pk = options[:primary_key]
-          raise "Onyx::SQL::Model::Options annotation is missing :primary_key option for #{T}" unless pk
-
-          pk_ivar = T.instance_vars.find { |riv| "@#{riv.name}".id == pk.id }
-          raise "Cannot find primary key field #{pk} for #{T}" unless pk_ivar
-        %}
-
-        {{pk_ivar.name.symbolize}}
-      {% end %}
     end
   end
 end

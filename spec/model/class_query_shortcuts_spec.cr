@@ -49,7 +49,7 @@ describe Onyx::SQL::Model::ClassQueryShortcuts do
     end
   end
 
-  {% for m in %w(update delete all one first last) %}
+  {% for m in %w(update delete all one) %}
     describe {{m}} do
       it do
         User.{{m.id}}.should eq Query(User).new.{{m.id}}
