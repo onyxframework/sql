@@ -15,6 +15,20 @@ describe "Query#insert" do
     end
   end
 
+  context "with explicit arguments" do
+    it do
+      q = Query(User).new.insert(:created_at, "now()")
+
+      sql, params = q.build
+
+      sql.should eq <<-SQL
+      INSERT INTO users (created_at) VALUES (now())
+      SQL
+
+      params.should be_empty
+    end
+  end
+
   context "with many arguments" do
     it do
       ref_uuid = UUID.random

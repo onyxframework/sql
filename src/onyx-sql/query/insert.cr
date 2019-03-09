@@ -59,10 +59,21 @@ module Onyx::SQL
       self
     end
 
+    def insert(name : T::Field | T::Reference | String, value : String)
+      if name.is_a?(T::Field) || name.is_a?(T::Reference)
+        ensure_insert << Insert.new(T.db_column(name), value)
+      else
+        ensure_insert << Insert.new(name, value)
+      end
+
+      @type = :insert
+      self
+    end
+
     private struct Insert
       getter column, value
 
-      def initialize(@column : String, @value : Void*)
+      def initialize(@column : String, @value : Void* | String)
       end
     end
 
@@ -94,8 +105,13 @@ module Onyx::SQL
         end; first = false
 
         sql << insert.column
-        values_sql << (params_index ? "$#{params_index.value += 1}" : "?")
-        params.not_nil!.push(Box(DB::Any).unbox(insert.value)) if params
+
+        if value = insert.value.as?(Void*)
+          values_sql << (params_index ? "$#{params_index.value += 1}" : "?")
+          params.not_nil!.push(Box(DB::Any).unbox(value)) if params
+        else
+          values_sql << insert.value.as(String)
+        end
       end
 
       sql << ") VALUES (" << values_sql << ")"
