@@ -44,7 +44,7 @@ describe "Repository(Postgres)#query" do
         .set(active: false)
         .set(balance: 100.0_f32, updated_at: nil)
         .set(favorite_numbers: [11])
-        .where(uuid: user.uuid)
+        .where(uuid: user.uuid.not_nil!)
         .returning(:uuid, :balance)
 
       user = repo.query(query).first
@@ -59,7 +59,7 @@ describe "Repository(Postgres)#query" do
       # We're setting John's referrer to Jake
       #
 
-      query = User.update.set(referrer: referrer).where(uuid: user.uuid).returning(User)
+      query = User.update.set(referrer: referrer).where(uuid: user.uuid.not_nil!).returning(User)
       user = repo.query(query).first
 
       it "preloads references" do
@@ -69,7 +69,7 @@ describe "Repository(Postgres)#query" do
   end
 
   describe "where" do
-    user = repo.query(User.where(uuid: user.uuid).and_where(balance: 100.0_f32)).first
+    user = repo.query(User.where(uuid: user.uuid.not_nil!).and_where(balance: 100.0_f32)).first
 
     it "returns a User instance" do
       user.name.should eq "John"
@@ -78,7 +78,7 @@ describe "Repository(Postgres)#query" do
     context "with direct non-enumerable join" do
       query = User.query
         .select(:name, :uuid)
-        .where(uuid: user.uuid)
+        .where(uuid: user.uuid.not_nil!)
         .join referrer: true do |q|
           q.select("referrer.*")
         end
@@ -111,13 +111,13 @@ describe "Repository(Postgres)#query" do
 
       it "preloads direct non-enumerable references" do
         post.author.not_nil!.uuid.should eq user.uuid
-        post.author.not_nil!.name?.should be_nil
+        post.author.not_nil!.name.should be_nil
       end
 
       it "preloads direct enumerable references" do
         post.tags.not_nil!.size.should eq 1
         post.tags.not_nil!.first.id.should eq tag.id
-        post.tags.not_nil!.first.content?.should be_nil
+        post.tags.not_nil!.first.content.should be_nil
       end
     end
   end
@@ -150,7 +150,7 @@ describe "Repository(Postgres)#query" do
   describe "where" do
     context "with foreign non-enumerable join" do
       post = repo.query(Post.query
-        .where(id: post.id)
+        .where(id: post.id.not_nil!)
         .and("cardinality(tag_ids) = ?", 0)
 
         .join author: true do |q|

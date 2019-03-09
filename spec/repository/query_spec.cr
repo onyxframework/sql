@@ -7,7 +7,7 @@ describe Repository do
   describe "#query" do
     context "with Query" do
       time = Time.now - 3.days
-      result = repo.query(Query(User).new.select(:active).where("created_at > ?", time).last)
+      result = repo.query(Query(User).new.select(:active).where("created_at > ?", time).order_by(:uuid, :desc).one)
 
       it "calls #query with valid sql" do
         db.latest_query_sql.should eq <<-SQL

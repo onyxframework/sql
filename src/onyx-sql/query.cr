@@ -1,7 +1,7 @@
 require "./query/*"
 
 module Onyx::SQL
-  # Type-safe-where-possible SQL query builder.
+  # Type-safe SQL query builder.
   #
   # ## Cheatsheet
   #
@@ -16,23 +16,18 @@ module Onyx::SQL
   #   * `#or`
   #   * `#and_not`
   #   * `#or_not`
-  # * `#insert` -- type-safe
+  # * `#insert`
   # * `#update` -- must call `Set` afterwards ↴
   # * Set:
-  #   * `#set` -- type-safe
-  #   * `#set(clause)` -- expilicit clause
-  #   * `#set(clause, params)` -- explicit clause with params
-  # * Returning (currently not type-safe):
-  #   * `#returning(values)`
-  #   * `#returning(klass)` (link is broken, scroll a little)
-  # * Select (currently not type-safe):
-  #   * `#select(values)`
-  #   * `#select(klass)` (link is broken, scroll a little)
-  #   * `#select(klass, args)`
+  #   * `#set`
+  #   * `#set(clause)` -- expilicit SQL clause
+  #   * `#set(clause, params)` -- explicit SQL clause with params
+  # * `#returning`
+  # * `#select`
   # * Where:
-  #   * `#where` -- type-safe
-  #   * [`#where(clause)`](#where%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method) -- expilicit clause
-  #   * `#where(clause, params)` -- explicit clause with params
+  #   * `#where` -- by variable and value
+  #   * [`#where(clause)`](#where%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method) -- expilicit SQL clause
+  #   * `#where(clause, params)` -- explicit SQL clause with params
   #   * `#where_not(clause)`
   #   * `#where_not(clause, params)`
   #   * `#and_where`
@@ -48,11 +43,11 @@ module Onyx::SQL
   #   * `#or_where_not(clause)`
   #   * `#or_where_not(clause, params)`
   # * Join:
-  #   * [`#join`](#join%28%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%2C%2A%2Avalues%3A%2A%2AU%2C%26block%29%3AselfforallU-instance-method) -- type-safe
-  #   * [`#join(reference, on, as, type)`](#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method) -- not type-safe by reference
+  #   * `#join` -- yielding sub-query
+  #   * `#join(reference, on, as, type)` -- without yielding sub-query
   #   * `#join(table, on, as, type)` -- explicit
   # * `#group_by(string_values)`
-  # * Having (doesn't have type-safe methods):
+  # * Having:
   #   * [`#having(clause)`](file:///home/faust/Projects/onyxframework/sql/docs/Onyx/SQL/Query.html#having%28clause%3AString%2Cor%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%29-instance-method) -- expilicit clause
   #   * `#having(clause, params)` -- explicit clause with params
   #   * `#having_not(clause)`
@@ -67,7 +62,7 @@ module Onyx::SQL
   #   * `#or_having_not(clause, params)`
   # * `#limit(number)`
   # * `#offset(number)`
-  # * `#order_by(value, order)` -- currently not type-safe
+  # * `#order_by(value, order)`
   #
   # ## Basics
   #
@@ -134,7 +129,7 @@ module Onyx::SQL
   #
   # ## Type safety
   #
-  # Some of the `Query` methods are type-safe. For example, `#where`:
+  # Most of the `Query` methods are type-safe. For example, `#where`:
   #
   # ```
   # query = Query(User).new.where(name: "John")
@@ -158,9 +153,10 @@ module Onyx::SQL
   # Invalid compile-time type `Int32` for argument `:name` in `Query(User)#where` call. Expected: `(String | Nil)`
   # ```
   #
-  # `#insert`, `#join` and `#set` are also type-safe. Other methods could be type-safe in theory,
-  # but there is an [issue](https://forum.crystal-lang.org/t/symbols/391) blocking it.
-  # *All* `Query` methods are expected to be type-safe in the future.
+  # Other methods, such as `#select` or `#join` without block are a bit hacky and rely on
+  # Crystal's enum autocasting feature. If you mistyped a field or reference name, you'll
+  # see a error like `No overload matches ... with types Symbol`. If you get such an error,
+  # then you are very much likely to have a typo in your code, check the query call arguments.
   #
   # ## Model shortucts
   #

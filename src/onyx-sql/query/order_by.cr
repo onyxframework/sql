@@ -6,11 +6,7 @@ module Onyx::SQL
       Asc
     end
 
-    # Add `ORDER BY` clause either by explicit *value* or by a `T` field.
-    # When *value* is a `Symbol`, it's treated as a `T` field and tried to be found in
-    # **runtime**, raising otherwise. So you'll not know if you mistyped until the code is run.
-    #
-    # NOTE: You must refer a `T` field by its instance variable name, not the DB column name.
+    # Add `ORDER BY` clause by either a model field or explicit `String` *value*.
     #
     # ```
     # q = User.all.order_by(:id, :desc)
@@ -19,24 +15,24 @@ module Onyx::SQL
     # q = User.all.order_by("foo(bar)")
     # q.build # => {"SELECT users.* FROM users ORDER BY foo(bar)"}
     # ```
-    #
-    # TODO: Make it type-safe.
-    def order_by(value : Symbol | String, order : Order? = nil)
-      {% begin %}
-        case value
-        {% for ivar in T.instance_vars %}
-          when {{ivar.name.symbolize}}
-            ensure_order_by.add(OrderBy.new(
-              "#{@alias || {{T.annotation(Model::Options)[:table].id.stringify}}}.#{T.db_column({{ivar.name.symbolize}})}",
-              order
-            ))
+    def order_by(value : T::Field | String, order : Order? = nil)
+      if value.is_a?(T::Field)
+        {% begin %}
+          case value
+          {% for ivar in T.instance_vars.reject { |iv| iv.annotation(Reference) } %}
+            when .{{ivar.name}}?
+              ensure_order_by.add(OrderBy.new(
+                "#{@alias || {{T.annotation(Model::Options)[:table].id.stringify}}}.#{T.db_column({{ivar.name.symbolize}})}",
+                order
+              ))
+          {% end %}
+          else
+            raise "BUG: #{value} didn't match any of #{T} instance variables"
+          end
         {% end %}
-        when Symbol
-          raise ":#{value} symbol didn't match any of #{T} instance variables"
-        else
-          ensure_order_by.add(OrderBy.new(value, order))
-        end
-      {% end %}
+      else
+        ensure_order_by.add(OrderBy.new(value, order))
+      end
 
       self
     end

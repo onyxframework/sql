@@ -24,7 +24,7 @@ module Onyx::SQL
       self
     end
 
-    # Add `JOIN` clause by **type-safe** reference.
+    # Add `JOIN` clause by a model reference.
     # Yields another `Query` instance which has the reference's type.
     # It then merges the yielded query with the main query.
     #
@@ -91,7 +91,7 @@ module Onyx::SQL
           raise "Instance variable @#{key} of #{T} must have Onyx::SQL::Reference annotation" unless ann
         %}
 
-        join({{ivar.name.symbolize}}, on: on, as: _as, type: type)
+        join({{ivar.name.symbolize}}, on: on, as: _as || {{ivar.name.stringify}}, type: type)
 
         {%
           type = ivar.type.union_types.find { |t| t != Nil }
@@ -130,21 +130,11 @@ module Onyx::SQL
       self
     end
 
-    # Add `JOIN` clause by **type-UNsafe** *reference*. This method would **not** check
-    # in compilation time and the reference will looked up in the `T` in runtime.
-    # It does not yield the reference subquery, unlike the type-safe `#join` variant.
-    # It's because of language limitations and may change in the future. See [this forum topic](https://forum.crystal-lang.org/t/symbols/391) for details.
+    # Add `JOIN` clause by a model *reference* without yielding a sub-query.
     #
     # ```
     # query = Post.join(:author).where(id: 17)
     # query.build # => {"SELECT posts.* FROM posts INNER JOIN users AS author ON posts.author_id = author.id WHERE posts.id = ?", {17}}
-    # ```
-    #
-    # To select from the joined table, unlike the type-safe `#join` variant, you have to call it explicitly:
-    #
-    # ```
-    # query = Post.select(Post, "author.username").join(:author)
-    # # SELECT posts.*, author.username FROM posts
     # ```
     #
     # Note that there are no markers, so a post's `@author` reference would not
@@ -156,9 +146,7 @@ module Onyx::SQL
     # post = repo.query(Post.select(Post, "author.username").join(:author)).first
     # pp post # => <Post @author=<User @id=... @username=nil>>
     # ```
-    #
-    # TODO: Make it type-safe.
-    def join(reference : Symbol, on : String? = nil, as _as : String? = nil, type : JoinType = :inner)
+    def join(reference : T::Reference, on : String? = nil, as _as : String = reference.to_s.underscore, type : JoinType = :inner)
       {% begin %}
         {%
           table = T.annotation(Model::Options)[:table].id
@@ -168,65 +156,63 @@ module Onyx::SQL
         %}
 
         case reference
-        {% for ivar in T.instance_vars %}
-          {% if ann = ivar.annotation(Reference) %}
-            {%
-              type = ivar.type.union_types.find { |t| t != Nil }
-              enumerable = false
+        {% for ivar in T.instance_vars.select(&.annotation(Reference)) %}
+          {%
+            type = ivar.type.union_types.find { |t| t != Nil }
+            enumerable = false
 
-              if type <= Enumerable
-                enumerable = true
-                type = type.type_vars.first
-              end
+            if type <= Enumerable
+              enumerable = true
+              type = type.type_vars.first
+            end
 
-              roptions = type.annotation(Model::Options)
-              raise "Onyx::SQL::Model::Options annotation must be defined for #{type}" unless roptions
+            roptions = type.annotation(Model::Options)
+            raise "Onyx::SQL::Model::Options annotation must be defined for #{type}" unless roptions
 
-              rtable = roptions[:table].id
-              raise "Onyx::SQL::Model::Options annotation is missing :table option for #{type}" unless rtable
-            %}
+            rtable = roptions[:table].id
+            raise "Onyx::SQL::Model::Options annotation is missing :table option for #{type}" unless rtable
+          %}
 
-            when {{ivar.name.symbolize}}
-              {% if key = ann[:key] %}
-                {%
-                  rpk = roptions[:primary_key]
-                  raise "Onyx::SQL::Model::Options annotation is missing :primary_key option for #{type}" unless rpk
+          when .{{ivar.name}}?
+            {% if key = ivar.annotation(Reference)[:key] %}
+              {%
+                rpk = roptions[:primary_key]
+                raise "Onyx::SQL::Model::Options annotation is missing :primary_key option for #{type}" unless rpk
 
-                  rpk = rpk.name.stringify.split('@')[1].id
-                  on_op = (enumerable ? "IN".id : "=".id)
-                %}
+                rpk = rpk.name.stringify.split('@')[1].id
+                on_op = (enumerable ? "IN".id : "=".id)
+              %}
 
-                ensure_join << Join.new(
-                  table: {{rtable.stringify}},
-                  on: on || "#{_as || {{ivar.name.stringify}}}.#{ {{type}}.db_column({{rpk.symbolize}}) } {{on_op}} #{@alias || {{table.stringify}}}.{{key.id}}",
-                  as: _as || {{ivar.name.stringify}},
-                  type: type
-                )
-              {% elsif foreign_key = ann[:foreign_key] %}
-                {%
-                  rivar = type.instance_vars.find do |rivar|
-                    (a = rivar.annotation(Reference)) && (a[:key].id == foreign_key.id)
-                  end
-                  raise "Cannot find matching reference for #{T}@#{ivar.name} in #{type}" unless rivar
+              ensure_join << Join.new(
+                table: {{rtable.stringify}},
+                on: on || "#{_as}.#{ {{type}}.db_column({{rpk.symbolize}}) } {{on_op}} #{@alias || {{table.stringify}}}.{{key.id}}",
+                as: _as,
+                type: type
+              )
+            {% elsif foreign_key = ivar.annotation(Reference)[:foreign_key] %}
+              {%
+                rivar = type.instance_vars.find do |rivar|
+                  (a = rivar.annotation(Reference)) && (a[:key].id == foreign_key.id)
+                end
+                raise "Cannot find matching reference for #{T}@#{ivar.name} in #{type}" unless rivar
 
-                  rtype = rivar.type.union_types.find { |t| t != Nil }
-                  key = rivar.annotation(Reference)[:key].id
-                  on_op = rtype <= Enumerable ? "IN".id : "=".id
-                %}
+                rtype = rivar.type.union_types.find { |t| t != Nil }
+                key = rivar.annotation(Reference)[:key].id
+                on_op = rtype <= Enumerable ? "IN".id : "=".id
+              %}
 
-                ensure_join << Join.new(
-                  table: {{rtable.stringify}},
-                  on: on || "#{@alias || {{table.stringify}}}.#{T.db_column({{pkey.name.symbolize}})} {{on_op}} #{_as || {{ivar.name.stringify}}}.{{key}}",
-                  as: _as || {{ivar.name.stringify}},
-                  type: type
-                )
-              {% else %}
-                {% raise "Neither key nor foreign_key is set for #{ivar.name} in #{T}" %}
-              {% end %}
-          {% end %}
+              ensure_join << Join.new(
+                table: {{rtable.stringify}},
+                on: on || "#{@alias || {{table.stringify}}}.#{T.db_column({{pkey.name.symbolize}})} {{on_op}} #{_as}.{{key}}",
+                as: _as,
+                type: type
+              )
+            {% else %}
+              {% raise "Neither `key` nor `foreign_key` option is set for reference @#{ivar.name} in #{T}" %}
+            {% end %}
         {% end %}
         else
-          raise "Cannot find reference with key :#{reference} for #{T}"
+          raise "BUG: Cannot find reference #{reference} in #{T}::Reference"
         end
       {% end %}
 

@@ -1,5 +1,5 @@
 # This module allows to map a `Model` **to** the database.
-module Onyx::SQL::Model::Mappable
+module Onyx::SQL::Model::Mappable(T)
   # Return a `Tuple` of DB-ready values. It respects `Field` and `Reference` annotations,
   # also working with `Converter`s.
   #
@@ -14,18 +14,13 @@ module Onyx::SQL::Model::Mappable
   def self.db_values(**values : **U) : Tuple forall U
   end
 
-  # Return a instance variable SQL column name by its *ivar_symbol*.
-  #
-  # NOTE: This method performs check in the runtime and if the matching variable is not
-  # found by its name, it raises!
+  # Return a instance *variable* SQL column name.
   #
   # ```
   # User.db_column(:id)      # "id"
-  # User.db_column(:unknown) # Runtime error
+  # User.db_column(:unknown) # Compilation-time error
   # ```
-  #
-  # TODO: Make it type-safe. See the [according forum topic](https://forum.crystal-lang.org/t/symbols/391).
-  def self.db_column(ivar_symbol : Symbol) : String
+  def self.db_column(variable : T::Field | T::Reference) : String
   end
 
   macro included
@@ -109,27 +104,33 @@ module Onyx::SQL::Model::Mappable
       {% end %}
     end
 
-    def self.db_column(ivar_symbol : Symbol) : String
+    def self.db_column(variable : T::Field | T::Reference) : String
       {% verbatim do %}
         {% begin %}
-          case ivar_symbol
-          {% for ivar in @type.instance_vars %}
-            {% if ann = ivar.annotation(Onyx::SQL::Reference) %}
-              {% if ann[:key] %}
-                when {{ivar.name.symbolize}}, {{ann[:key].id.symbolize}}
-                  return {{ann[:key].id.stringify}}
-              {% else %}
-                when {{ivar.name.symbolize}}
-                  raise "Cannot map foreign {{@type}} reference @{{ivar.name}} to a DB column"
-              {% end %}
-            {% else %}
-              when {{ivar.name.symbolize}}
+          if variable.is_a?(T::Field)
+            case variable
+            {% for ivar in @type.instance_vars.reject(&.annotation(Onyx::SQL::Reference)) %}
+              when .{{ivar.name}}?
                 {% key = ((a = ivar.annotation(Onyx::SQL::Field)) && a[:key]) || ivar.name %}
                 return {{key.id.stringify}}
             {% end %}
-          {% end %}
+            else
+              raise "BUG: #{variable} is unmatched"
+            end
           else
-            raise "No instance variables found by symbol :#{ivar_symbol} in {{@type}}"
+            case variable
+            {% for ivar in @type.instance_vars.select(&.annotation(Onyx::SQL::Reference)) %}
+              {% if ivar.annotation(Onyx::SQL::Reference)[:key] %}
+                when .{{ivar.name}}?
+                  return {{ivar.annotation(Onyx::SQL::Reference)[:key].id.stringify}}
+              {% else %}
+                when .{{ivar.name}}?
+                  raise "Cannot map foreign {{@type}} reference @{{ivar.name}} to a DB column"
+              {% end %}
+            {% end %}
+            else
+              raise "BUG: #{variable} is unmatched"
+            end
           end
         {% end %}
       {% end %}

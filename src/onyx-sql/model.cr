@@ -83,13 +83,10 @@ require "./converters"
 module Onyx::SQL::Model
   include Converters
 
-  # It doesn't make sense, but it's seen in the API docs
-  extend Onyx::SQL::Model::ClassQueryShortcuts
-
   macro included
     include Onyx::SQL::Serializable
-    include Onyx::SQL::Model::Mappable
-    extend Onyx::SQL::Model::ClassQueryShortcuts
+    include Onyx::SQL::Model::Mappable(self)
+    extend Onyx::SQL::Model::ClassQueryShortcuts(self)
   end
 
   # Compare `self` against *other* model of the same type by their primary keys.

@@ -41,10 +41,10 @@ describe "Repository(Postgres)#query" do
         .update
         .set(active: false)
         .set(balance: 100.0_f32, updated_at: nil)
-        .where(id: user.id)
+        .where(id: user.id.not_nil!)
 
       repo.exec(query)
-      user = repo.query(User.where(id: user.id).select(:id, :balance)).first
+      user = repo.query(User.where(id: user.id.not_nil!).select(:id, :balance)).first
 
       it "preloads attributes" do
         user.balance.should eq 100.0
@@ -55,7 +55,7 @@ describe "Repository(Postgres)#query" do
       # We're setting John's referrer to Jake
       #
 
-      query = User.update.set(referrer: referrer).where(id: user.id)
+      query = User.update.set(referrer: referrer).where(id: user.id.not_nil!)
       cursor = repo.exec(query)
 
       it do
@@ -65,7 +65,7 @@ describe "Repository(Postgres)#query" do
   end
 
   describe "where" do
-    user = repo.query(User.where(id: user.id).and_where(balance: 100.0_f32).select(:id).select(User)).first
+    user = repo.query(User.where(id: user.id.not_nil!).and_where(balance: 100.0_f32).select(:id).select(User)).first
 
     it "returns a User instance" do
       user.name.should eq "John"
@@ -74,7 +74,7 @@ describe "Repository(Postgres)#query" do
     context "with direct non-enumerable join" do
       query = User.query
         .select(:name, :id)
-        .where(id: user.id)
+        .where(id: user.id.not_nil!)
         .join(referrer: true) do |q|
           q.select("referrer.*")
         end
@@ -106,13 +106,13 @@ describe "Repository(Postgres)#query" do
 
       it "preloads direct non-enumerable references" do
         post.author.not_nil!.id.should eq user.id
-        post.author.not_nil!.name?.should be_nil
+        post.author.not_nil!.name.should be_nil
       end
 
       it "preloads direct enumerable references" do
         post.tags.not_nil!.size.should eq 1
         post.tags.not_nil!.first.id.should eq tag.id
-        post.tags.not_nil!.first.not_nil!.content?.should be_nil
+        post.tags.not_nil!.first.not_nil!.content.should be_nil
       end
     end
   end
@@ -140,7 +140,7 @@ describe "Repository(Postgres)#query" do
       post = repo.query(Post.query
         .select(:id)
         .select(Post)
-        .where(id: post.id)
+        .where(id: post.id.not_nil!)
 
         .join author: true do |q|
           q.select("author.rowid")

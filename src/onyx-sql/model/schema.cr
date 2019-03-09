@@ -93,6 +93,8 @@ module Onyx::SQL::Model
   # user.age = nil  # OK
   # ```
   macro type(declaration, **options)
+    property {{declaration.var}} : {{declaration.type}} | Nil
+
     macro finished
       {% unless options.empty? %}
         \{%
@@ -120,14 +122,8 @@ module Onyx::SQL::Model
         \{% else %}
           \{{"@[Onyx::SQL::Field(key: #{{{options[:key]}}}, default: #{{{options[:default]}}}, converter: #{{{options[:converter]}}}, not_null: #{{{options[:not_null]}}})]".id}}
         \{% end %}
-      {% end %}
 
-      \{{("@{{declaration.var}} : {{declaration.type}} | Nil" + ({{!!declaration.value}} ? " = {{declaration.value}}" : "")).id}}
-
-      {% if options[:not_null] %}
-        \{{"property! {{declaration.var}}".id}}
-      {% else %}
-        \{{"property {{declaration.var}}".id}}
+        @{{declaration.var}} : {{declaration.type}} | Nil{{" = #{declaration.value}".id if declaration.value}}
       {% end %}
     end
   end
