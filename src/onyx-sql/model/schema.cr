@@ -95,6 +95,10 @@ module Onyx::SQL::Model
   macro type(declaration, **options)
     property {{declaration.var}} : {{declaration.type}} | Nil
 
+    def {{declaration.var}}!
+      @{{declaration.var}}.not_nil!
+    end
+
     macro finished
       {% unless options.empty? %}
         \{%
