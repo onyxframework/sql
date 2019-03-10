@@ -150,7 +150,9 @@ posts = Onyx.query(Post
 posts.first # => #<Post @id=1, @author=#<User @id=1 @name="John">, @content="Hello, world!">
 ```
 
-To know more about Onyx::SQL, please visit [docs.onyxframework.org/sql](https://docs.onyxframework.org/sql) 📚
+## Documentation 📚
+
+The documentation is available online at [docs.onyxframework.org/sql](https://docs.onyxframework.org/sql).
 
 ## Community 🍪
 
