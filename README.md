@@ -3,7 +3,7 @@
 # Onyx::SQL
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
-[![Travis CI build](https://img.shields.io/travis/onyxframework/sql/master.svg?style=flat-square)](https://travis-ci.org/onyxframework/sql)
+[![Travis CI build](https://img.shields.io/travis/onyxframework/sql/stable.svg?style=flat-square)](https://travis-ci.org/onyxframework/sql)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen.svg?style=flat-square)](https://docs.onyxframework.org/sql)
 [![API docs](https://img.shields.io/badge/api_docs-online-brightgreen.svg?style=flat-square)](https://api.onyxframework.org/sql)
 [![Latest release](https://img.shields.io/github/release/onyxframework/sql.svg?style=flat-square)](https://github.com/onyxframework/sql/releases)

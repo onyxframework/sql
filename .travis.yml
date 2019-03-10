@@ -36,7 +36,7 @@ jobs:
         keep_history: true
         github_token: $GITHUB_TOKEN
         on:
-          branch: master
+          branch: stable
         local_dir: docs
 addons:
   postgresql: "9.5"
