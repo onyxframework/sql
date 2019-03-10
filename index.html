@@ -151,12 +151,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
       <a href="Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
       <a href="Onyx/SQL/Model/Mappable.html">Mappable</a>
       
     </li>
@@ -263,240 +263,154 @@
 <h1>Onyx::SQL</h1>
 
 <p><a href="https://crystal-lang.org/" target="_blank"><img src="https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square" alt="Built with Crystal"/></a>
-<a href="https://travis-ci.org/onyxframework/sql" target="_blank"><img src="https://img.shields.io/travis/onyxframework/sql/master.svg?style=flat-square" alt="Travis CI build"/></a>
+<a href="https://travis-ci.org/onyxframework/sql" target="_blank"><img src="https://img.shields.io/travis/onyxframework/sql/stable.svg?style=flat-square" alt="Travis CI build"/></a>
+<a href="https://docs.onyxframework.org/sql" target="_blank"><img src="https://img.shields.io/badge/docs-online-brightgreen.svg?style=flat-square" alt="Docs"/></a>
 <a href="https://api.onyxframework.org/sql" target="_blank"><img src="https://img.shields.io/badge/api_docs-online-brightgreen.svg?style=flat-square" alt="API docs"/></a>
 <a href="https://github.com/onyxframework/sql/releases" target="_blank"><img src="https://img.shields.io/github/release/onyxframework/sql.svg?style=flat-square" alt="Latest release"/></a></p>
 
-<p>An MIT-licensed SQL ORM for <a href="https://crystal-lang.org" target="_blank">Crystal</a>.</p>
-
-<h2>Supporters ❤️</h2>
-
-<p>Thanks to all my patrons, I can continue working on beautiful Open Source Software! 🙏</p>
-
-<p><a href="https://github.com/ljuti" target="_blank">Lauri Jutila</a>, <a href="https://seendex.ru" target="_blank">Alexander Maslov</a>, Dainel Vera</p>
-
-<p><em>You can become a patron too in exchange of prioritized support and other perks</em></p>
-
-<p>&lt;a href="https://www.patreon.com/vladfaust">&lt;img height="50" src="https://onyxframework.org/img/patreon-button.svg">&lt;/a></p>
+<p>A deligtful SQL ORM.</p>
 
 <h2>About 👋</h2>
 
-<p>Onyx::SQL is an SQL ORM for the <a href="https://crystal-lang.org" target="_blank">Crystal Language</a>. It features handy schema definition DSL and powerful type-safe query builder. It preserves composition and has a decent API documentation.</p>
-
-<p>It is a part of <a href="https://onyxframework.org" target="_blank">Onyx Framework</a>, but it is <strong>not</strong> strictly tied to it. You absolutely can use this ORM with a web framework other than <a href="https://github.com/onyxframework/http" target="_blank">Onyx::HTTP</a> and <a href="https://github.com/onyxframework/rest" target="_blank">Onyx::REST</a>.</p>
-
-<p>It implements the <a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> API, which makes it usable with any SQL database! It has been successfully tested with the following DBs:</p>
-
-<ul><li>[x] SQLite3</li><li>[x] PostgreSQL</li><li>[ ] MySQL (<em>coming soon</em>)</li></ul>
-
-<p>This ORM, as all other Onyx components, targets to be easily understandble for newcomers, but be able to grow with a developers's knowledge. Fundamentally, it relies on extremely powerful Crystal annotations, but they may be tedious for daily tasks, that why they're hidden by default under the convenient schema DSL. See the examples below.</p>
+<p>Onyx::SQL is a deligthful database-agnostic SQL ORM for <a href="https://crystal-lang.org/" target="_blank">Crystal language</a>. It features a convenient schema definition DSL, type-safe SQL query builder, clean architecture with Repository and more!</p>
 
 <h2>Installation 📥</h2>
 
-<p>Add this to your application's <code>shard.yml</code>:</p>
+<p>Add these lines to your application's <code>shard.yml</code>:</p>
 
 <pre><code class="language-yaml">dependencies:
+  onyx:
+    github: onyxframework/onyx
+    version: ~> 0.3.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.6.2</code></pre>
+    version: ~> 0.7.0</code></pre>
 
-<p>This shard follows <a href="http://semver.org/" target="_blank">Semantic Versioning v2.0.0</a>, so check <a href="https://github.com/onyxframework/sql/releases" target="_blank">releases</a> and change the <code>version</code> accordingly. Please visit <a href="https://github.com/crystal-lang/shards" target="_blank">github.com/crystal-lang/shards</a> to know more about Crystal shards.</p>
+<p>This shard follows <a href="http://semver.org/" target="_blank">Semantic Versioning v2.0.0</a>, so check <a href="https://github.com/onyxframework/rest/releases" target="_blank">releases</a> and change the <code>version</code> accordingly. Please visit <a href="https://github.com/crystal-lang/shards" target="_blank">github.com/crystal-lang/shards</a> to know more about Crystal shards.</p>
 
-<p>You'd also need to add a database dependency conforming the <a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> interface. For example, <a href="https://github.com/will/crystal-pg" target="_blank">pg</a>:</p>
+<p>You'd also need to add a database dependency conforming to the <a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> interface. For example, <a href="https://github.com/will/crystal-pg" target="_blank">pg</a>:</p>
 
-<pre><code class="language-yaml">dependencies:
+<pre><code class="language-diff">dependencies:
+  onyx:
+    github: onyxframework/onyx
+    version: ~> 0.3.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.6.0
-  pg:
-    github: will/crystal-pg
-    version: ~> 0.15.0</code></pre>
+    version: ~> 0.7.0
++ pg:
++   github: will/crystal-pg
++   version: ~> 0.15.0</code></pre>
 
 <h2>Usage 💻</h2>
 
-<p>The API docs are hosted at &lt;https://api.onyxframework.org/sql>, and they're pretty comprehensive. Don't hesistate to read them all after you're done with this section!</p>
-
-<p>It's a good idea to get yourself familiar with the <a href="https://crystal-lang.org/reference/database/" target="_blank">Crystal DB docs</a> before moving on.</p>
-
-<h3>101 📖</h3>
-
-<p>As any other ORM, Onyx::SQL allows to define models which will be mapped to SQL tables. Assuming that you have the following table in a PostgreSQL database:</p>
+<p>For this PostgreSQL table:</p>
 
 <pre><code class="language-sql">CREATE TABLE users (
-  id    SERIAL  PRIMARY KEY,
-  name  TEXT    NOT NULL
+  id          SERIAL      PRIMARY KEY,
+  name        TEXT        NOT NULL
+  created_at  TIMESTAMPTZ NOT NULL  DEFAULT now()
 );</code></pre>
 
-<blockquote><strong>Note:</strong> Onyx::SQL does not provide any tools for migrations. Check <a href="https://github.com/vladfaust/migrate.cr" target="_blank">migrate.cr</a> for a production-ready solution.</blockquote>
+<p>Define the user schema:</p>
 
-<p>Then in your code you would do:</p>
-
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;pg&quot;</span>
-<span class="k">require</span> <span class="s">&quot;onyx-sql&quot;</span>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;onyx/sql&quot;</span>
 
 <span class="k">class</span> <span class="t">User</span>
   <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
 
   schema users <span class="k">do</span>
     pkey id : <span class="t">Int32</span>
-    <span class="k">type</span> name : <span class="t">String</span>
+    <span class="k">type</span> name : <span class="t">String</span>, not_null: <span class="n">true</span>
+    <span class="k">type</span> created_at : <span class="t">Time</span>, not_null: <span class="n">true</span>, default: <span class="n">true</span>
   <span class="k">end</span>
-<span class="k">end</span>
+<span class="k">end</span></code></pre>
 
-db <span class="o">=</span> <span class="t">DB</span>.open(<span class="s">&quot;postgresql://postgres:postgres@localhost:5432/my_db&quot;</span>)
+<p>Insert a new user instance:</p>
 
-user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>)
-rs <span class="o">=</span> db.query(<span class="o">*</span>user.insert.returning(<span class="t">User</span>).build(<span class="n">true</span>))
+<pre><code class="language-crystal">user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>)
+user <span class="o">=</span> <span class="t">Onyx</span>.query(user.insert.returning(<span class="s">&quot;*&quot;</span>)).first
 
-users <span class="o">=</span> <span class="t">User</span>.from_rs(rs)
-user <span class="o">=</span> users.first
+pp user <span class="c"># =&gt; #&lt;User @id=1, @name=&quot;John&quot;, @created_at=#&lt;Time ...&gt;&gt;</span></code></pre>
 
-pp user.id <span class="c"># =&gt; 1</span></code></pre>
+<p>Query the user:</p>
 
-<p>Congratulations, you've successfully inserted a brand new User instance! :tada:</p>
+<pre><code class="language-crystal">user <span class="o">=</span> <span class="t">Onyx</span>.query(<span class="t">User</span>.where(id: <span class="n">1</span>)).first?</code></pre>
 
-<blockquote><strong>Note:</strong> <code>.build(true)</code> is required instead of simple <code>.build</code> because PostgreSQL has different syntax for query arguments (<code>$n</code> instead of <code>?</code>).</blockquote>
-
-<h4>Querying</h4>
-
-<pre><code class="language-crystal">rs <span class="o">=</span> db.query(<span class="s">&quot;SELECT * FROM users WHERE id = $1&quot;</span>, <span class="n">1</span>)
-user <span class="o">=</span> <span class="t">User</span>.from_rs(rs).first
-
-pp user <span class="c"># =&gt; &lt;User @id=1 @name=&quot;John&quot;&gt;</span></code></pre>
-
-<h4>Updating</h4>
-
-<p>You can easily update models with the <a href="https://api.onyxframework.org/sql/Onyx/SQL/Model/Changeset.html" target="_blank"><code>Changeset</code></a> concept:</p>
-
-<pre><code class="language-crystal">changeset <span class="o">=</span> user.changeset
-changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
-
-db.exec(<span class="o">*</span>user.update(changeset).build(<span class="n">true</span>))</code></pre>
-
-<h4>Deletion</h4>
-
-<p>Deleting from DB is simple as well:</p>
-
-<pre><code class="language-crystal">db.exec(<span class="o">*</span>user.delete.build(<span class="n">true</span>))</code></pre>
-
-<h3>Repository</h3>
-
-<p>Onyx::SQL has the <a href="https://api.onyxframework.org/sql/Onyx/SQL/Repository.html" target="_blank"><code>Onyx::SQL::Repository</code></a> class, which effectively wraps the database connection with logging, automatically builds queries and more:</p>
-
-<pre><code class="language-crystal">repo <span class="o">=</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Repository</span>.<span class="k">new</span>(db)
-
-user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;Archer&quot;</span>)
-user <span class="o">=</span> repo.query(user.insert.returning(<span class="t">User</span>)).first
-
-<span class="c"># [postgresql] INSERT INTO users (name) VALUES (?)</span>
-<span class="c"># 1.234ms</span></code></pre>
-
-<h3>Query</h3>
-
-<p><a href="https://api.onyxframework.org/sql/Onyx/SQL/Query.html" target="_blank"><code>Onyx::SQL::Query</code></a> is a powerful type-safe SQL query builder with almost all SQL methods implemented:</p>
-
-<pre><code class="language-crystal">query <span class="o">=</span> <span class="t">User</span>.<span class="k">select</span>(<span class="n">:name</span>).where(id: <span class="n">2</span>)
-pp query       <span class="c"># =&gt; &lt;Onyx::SQL::Query(User) ...&gt;</span>
-pp query.build <span class="c"># =&gt; {&quot;SELECT users.name FROM users WHERE id = ?&quot;, {2}}</span></code></pre>
-
-<p><code>Query</code> is just an object which could be expanded into a pair of SQL string a query params. You can then use it however you want:</p>
-
-<pre><code class="language-crystal">sql, params <span class="o">=</span> query.build(<span class="n">true</span>)
-rs <span class="o">=</span> db.query(sql, params)
-
-<span class="c"># Or shorter</span>
-rs <span class="o">=</span> db.query(<span class="o">*</span>query.build(<span class="n">true</span>))
-
-<span class="c"># Or with repository</span>
-user <span class="o">=</span> repo.query(query).first</code></pre>
-
-<h3>References</h3>
-
-<p>Onyx::SQL has a native support for model references, both direct and foreign ones.</p>
+<p>With another PostgreSQL table:</p>
 
 <pre><code class="language-sql">CREATE TABLE posts (
   id          SERIAL      PRIMARY KEY,
-  author_id   INT         NOT NULL  REFERENCES users (id),
-  content     TEXT        NOT NULL,
+  author_id   INT         NOT NULL  REFERENCES  users(id),
+  content     TEXT        NOT NULL
   created_at  TIMESTAMPTZ NOT NULL  DEFAULT now()
 );</code></pre>
 
-<pre><code class="language-crystal"><span class="k">class</span> <span class="t">User</span>
-  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
+<p>Define the post schema:</p>
 
-  schema users <span class="k">do</span>
-    pkey id : <span class="t">Int32</span>
-    <span class="k">type</span> name : <span class="t">String</span>
-    <span class="k">type</span> authored_posts : <span class="t">Array</span>(<span class="t">Post</span>), foreign_key: <span class="s">&quot;author_id&quot;</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="k">class</span> <span class="t">Post</span>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Post</span>
   <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
 
   schema posts <span class="k">do</span>
     pkey id : <span class="t">Int32</span>
-    <span class="k">type</span> content : <span class="t">String</span>
-    <span class="k">type</span> author : <span class="t">User</span>, key: <span class="s">&quot;author_id&quot;</span>
+    <span class="k">type</span> author : <span class="t">User</span>, not_null: <span class="n">true</span>, key: <span class="s">&quot;author_id&quot;</span>
+    <span class="k">type</span> content : <span class="t">String</span>, not_null: <span class="n">true</span>
+    <span class="k">type</span> created_at : <span class="t">Time</span>, not_null: <span class="n">true</span>, default: <span class="n">true</span>
   <span class="k">end</span>
-<span class="k">end</span>
+<span class="k">end</span></code></pre>
 
-user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">2</span>, name: <span class="s">&quot;Archer&quot;</span>)
-post <span class="o">=</span> <span class="t">Post</span>.<span class="k">new</span>(content: <span class="s">&quot;Classic&quot;</span>, author: user)
-repo.exec(post.insert)
+<p>Add the posts reference to the user schema:</p>
 
-<span class="c"># [postgresql] INSERT INTO posts (content, author_id) VALUES (?, ?)</span>
-<span class="c"># The actual DB arguments are &quot;Classic&quot; and 2</span></code></pre>
+<pre><code class="language-diff">class User
+  include Onyx::SQL::Model
 
-<p>Thanks to the <code>Query</code> builder, it is possible to build powerful type-safe joins in no time:</p>
+  schema users do
+    pkey id : Int32
+    type name : String, not_null: true
+    type created_at : Time, not_null: true, default: true
++   type authored_posts : Array(Post), foreign_key: "author_id"
+  end
+end</code></pre>
 
-<pre><code class="language-crystal">posts <span class="o">=</span> repo.query(<span class="t">Post</span>
-  .<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:content</span>)
-  .join(author: <span class="n">true</span>) <span class="k">do</span> <span class="o">|</span>q<span class="o">|</span>
-    q.<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:name</span>)
-    q.where(name: <span class="s">&quot;Archer&quot;</span>)
-  <span class="k">end</span>)
+<p>Create a new post:</p>
 
-pp posts.first <span class="c"># &lt;Post @id=1 @content=&quot;Classic&quot; @author=&lt;User @id=2 @name=&quot;Archer&quot;&gt;&gt;</span></code></pre>
+<pre><code class="language-crystal">user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">1</span>)
+post <span class="o">=</span> <span class="t">Post</span>.<span class="k">new</span>(author: user, content: <span class="s">&quot;Hello, world!&quot;</span>)
+<span class="t">Onyx</span>.exec(post.insert)</code></pre>
 
-<h3>Macros</h3>
+<p>Query all the posts by a user with name "John":</p>
 
-<p><a href="https://github.com/onyxframework/onyx#sql" target="_blank">Onyx top-level macros</a> allow to define top-level repository methods:</p>
+<pre><code class="language-crystal">posts <span class="o">=</span> <span class="t">Onyx</span>.query(<span class="t">Post</span>
+  .join(author: <span class="n">true</span>) <span class="k">do</span> <span class="o">|</span>x<span class="o">|</span>
+    x.<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:name</span>)
+    x.where(name: <span class="s">&quot;John&quot;</span>)
+  <span class="k">end</span>
+)
 
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;onyx/env&quot;</span>
-<span class="k">require</span> <span class="s">&quot;onyx/sql&quot;</span>
+posts.first <span class="c"># =&gt; #&lt;Post @id=1, @author=#&lt;User @id=1 @name=&quot;John&quot;&gt;, @content=&quot;Hello, world!&quot;&gt;</span></code></pre>
 
-<span class="t">Onyx</span>.query  <span class="c"># Singleton Onyx::SQL::Repository.query call</span>
-<span class="t">Onyx</span>.exec   <span class="c"># ditto</span>
-<span class="t">Onyx</span>.scalar <span class="c"># ditto</span></code></pre>
+<h2>Documentation 📚</h2>
 
-<h3>Next steps</h3>
-
-<p>That's all for this README! Jump to the API docs at &lt;https://api.onyxframework.org/sql> or explore the <a href="https://github.com/vladfaust/crystalworld" target="_blank">Crystal World</a> application built with Onyx, which is greatly documented as well!</p>
-
-<p>Direct API links:</p>
-
-<ul><li><a href="https://api.onyxframework.org/sql/Onyx/SQL/Model.html" target="_blank"><code>Onyx::SQL::Model</code></a></li><li><a href="https://api.onyxframework.org/sql/Onyx/SQL/Query.html" target="_blank"><code>Onyx::SQL::Query</code></a></li><li><a href="https://api.onyxframework.org/sql/Onyx/SQL/Repository.html" target="_blank"><code>Onyx::SQL::Repository</code></a></li></ul>
+<p>The documentation is available online at <a href="https://docs.onyxframework.org/sql" target="_blank">docs.onyxframework.org/sql</a>.</p>
 
 <h2>Community 🍪</h2>
 
-<p>There are multiple places to talk about this particular shard and about other ones as well:</p>
+<p>There are multiple places to talk about Onyx:</p>
 
-<ul><li><a href="https://gitter.im/onyxframework/sql" target="_blank">Onyx::SQL Gitter chat</a></li><li><a href="https://gitter.im/onyxframework" target="_blank">Onyx Framework Gitter community</a></li><li><a href="https://gitter.im/vladfaust" target="_blank">Vlad Faust Gitter community</a></li><li><a href="https://twitter.com/onyxframework" target="_blank">Onyx Framework Twitter</a></li><li><a href="https://telegram.me/onyxframework" target="_blank">Onyx Framework Telegram channel</a></li></ul>
+<ul><li><a href="https://gitter.im/onyxframework" target="_blank">Gitter</a></li><li><a href="https://twitter.com/onyxframework" target="_blank">Twitter</a></li></ul>
 
-<h2>Support ❤️</h2>
+<h2>Support 🕊</h2>
 
 <p>This shard is maintained by me, <a href="https://vladfaust.com" target="_blank">Vlad Faust</a>, a passionate developer with years of programming and product experience. I love creating Open-Source and I want to be able to work full-time on Open-Source projects.</p>
 
-<p>I will do my best to answer your questions in the free communication channels above, but if you want prioritized support, then please consider becoming my patron. Your issues will be labeled with your patronage status, and if you have a sponsor tier, then you and your team be able to communicate with me in private or semi-private channels such as e-mail and <a href="https://twist.com" target="_blank">Twist</a>. There are other perks to consider, so please, don't hesistate to check my Patreon page:</p>
+<p>I will do my best to answer your questions in the free communication channels above, but if you want prioritized support, then please consider becoming my patron. Your issues will be labeled with your patronage status, and if you have a sponsor tier, then you and your team be able to communicate with me privately in <a href="https://twist.com" target="_blank">Twist</a>. There are other perks to consider, so please, don't hesistate to check my Patreon page:</p>
 
 <p>&lt;a href="https://www.patreon.com/vladfaust">&lt;img height="50" src="https://onyxframework.org/img/patreon-button.svg">&lt;/a></p>
 
-<p>You could also help me a lot if you leave a star to this GitHub repository and spread the world about Crystal and Onyx! 📣</p>
+<p>You could also help me a lot if you leave a star to this GitHub repository and spread the word about Crystal and Onyx! 📣</p>
 
 <h2>Contributing</h2>
 
-<ol><li>Fork it ( https://github.com/onyxframework/http/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'feat: some feature') using <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit" target="_blank">Angular style commits</a></li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+<ol><li>Fork it ( https://github.com/onyxframework/sql/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'feat: some feature') using <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit" target="_blank">Angular style commits</a></li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
 
 <h2>Contributors</h2>
 

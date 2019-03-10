@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/onyxframework/sql">
-  <title>Onyx::SQL::Model::Mappable - github.com/onyxframework/sql</title>
+  <title>Onyx::SQL::Model::Mappable(T) - github.com/onyxframework/sql</title>
 </head>
 <body>
 
@@ -151,12 +151,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
       <a href="../../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
       
     </li>
   
-  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
       <a href="../../../Onyx/SQL/Model/Mappable.html">Mappable</a>
       
     </li>
@@ -260,7 +260,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Onyx::SQL::Model::Mappable
+  <span class="kind">module</span> Onyx::SQL::Model::Mappable(T)
 
 </h1>
 
@@ -288,7 +288,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/mappable.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/mappable.cr#L2" target="_blank">
         onyx-sql/model/mappable.cr
       </a>
     
@@ -305,9 +305,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#db_column%28ivar_symbol%3ASymbol%29%3AString-class-method" class="signature"><strong>.db_column</strong>(ivar_symbol : Symbol) : String</a>
+        <a href="#db_column%28variable%3AT%3A%3AField%7CT%3A%3AReference%29%3AString-class-method" class="signature"><strong>.db_column</strong>(variable : T::Field | T::Reference) : String</a>
         
-          <div class="summary"><p>Return a instance variable SQL column name by its <em>ivar_symbol</em>.</p></div>
+          <div class="summary"><p>Return a instance <em>variable</em> SQL column name.</p></div>
         
       </li>
     
@@ -335,28 +335,23 @@
 
   <h2>Class Method Detail</h2>
   
-    <div class="entry-detail" id="db_column(ivar_symbol:Symbol):String-class-method">
+    <div class="entry-detail" id="db_column(variable:T::Field|T::Reference):String-class-method">
       <div class="signature">
         
-        def self.<strong>db_column</strong>(ivar_symbol : Symbol) : String
+        def self.<strong>db_column</strong>(variable : T::Field | T::Reference) : String
 
-        <a class="method-permalink" href="#db_column%28ivar_symbol%3ASymbol%29%3AString-class-method">#</a>
+        <a class="method-permalink" href="#db_column%28variable%3AT%3A%3AField%7CT%3A%3AReference%29%3AString-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Return a instance variable SQL column name by its <em>ivar_symbol</em>.</p>
-
-<p><span class="flag purple">NOTE</span>  This method performs check in the runtime and if the matching variable is not
-found by its name, it raises!</p>
+        <div class="doc"><p>Return a instance <em>variable</em> SQL column name.</p>
 
 <pre><code><span class="t">User</span>.db_column(<span class="n">:id</span>)      <span class="c"># &quot;id&quot;</span>
-<span class="t">User</span>.db_column(<span class="n">:unknown</span>) <span class="c"># Runtime error</span></code></pre>
-
-<p><span class="flag orange">TODO</span>  Make it type-safe. See the <a href="https://forum.crystal-lang.org/t/symbols/391" target="_blank">according forum topic</a>.</p></div>
+<span class="t">User</span>.db_column(<span class="n">:unknown</span>) <span class="c"># Compilation-time error</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/mappable.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/mappable.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -372,13 +367,17 @@ found by its name, it raises!</p>
         <div class="doc"><p>Return a <code>Tuple</code> of DB-ready values. It respects <code><a href="../../../Onyx/SQL/Field.html">Field</a></code> and <code><a href="../../../Onyx/SQL/Reference.html">Reference</a></code> annotations,
 also working with <code>Converter</code>s.</p>
 
-<pre><code><span class="t">User</span>.db_values(id: user.id) <span class="c"># =&gt; {42}</span>
-<span class="t">User</span>.db_values(foo: <span class="s">&quot;bar&quot;</span>)  <span class="c"># =&gt; Compilation-time error: unknown User instance foo</span></code></pre></div>
+<p>It ignores <code>not_null</code> option. It will call <code>.not_nil!</code> on enumerable references'
+primary keys, thus can raise <code>NilAssertionError</code>.</p>
+
+<pre><code><span class="t">User</span>.db_values(id: user.id)  <span class="c"># =&gt; {42}</span>
+<span class="t">User</span>.db_values(foo: <span class="s">&quot;bar&quot;</span>)   <span class="c"># =&gt; Compilation-time error: unknown User instance variable foo</span>
+<span class="t">Post</span>.db_values(author: user) <span class="c"># =&gt; May raise NilAssertionError if `user.id` is `nil`</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/mappable.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/mappable.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>

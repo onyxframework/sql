@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/onyxframework/sql">
-  <title>Onyx::SQL::Model::ClassQueryShortcuts - github.com/onyxframework/sql</title>
+  <title>Onyx::SQL::Model::ClassQueryShortcuts(T) - github.com/onyxframework/sql</title>
 </head>
 <body>
 
@@ -151,12 +151,12 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
       <a href="../../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
       <a href="../../../Onyx/SQL/Model/Mappable.html">Mappable</a>
       
     </li>
@@ -260,7 +260,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Onyx::SQL::Model::ClassQueryShortcuts
+  <span class="kind">module</span> Onyx::SQL::Model::ClassQueryShortcuts(T)
 
 </h1>
 
@@ -295,7 +295,7 @@ It brings shortucts to a matching query initialization:</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L13" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L13" target="_blank">
         onyx-sql/model/class_query_shortcuts.cr
       </a>
     
@@ -314,133 +314,154 @@ It brings shortucts to a matching query initialization:</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#all%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#all</strong>(*args, **nargs) : Query</a>
+        <a href="#all%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#all</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#all-instance-method">Query#all</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#delete%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#delete</strong>(*args, **nargs) : Query</a>
+        <a href="#delete%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#delete</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#delete-instance-method">Query#delete</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#first%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#first</strong>(*args, **nargs) : Query</a>
-        
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#first-instance-method">Query#first</a></code> on it.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#group_by%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#group_by</strong>(*args, **nargs) : Query</a>
+        <a href="#group_by%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#group_by</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#group_by%28values%3AEnumerable%28String%29%29-instance-method">Query#group_by</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#having%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#having</strong>(*args, **nargs) : Query</a>
+        <a href="#having%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#having</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#having</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#insert%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#insert</strong>(*args, **nargs) : Query</a>
+        <a href="#insert%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#insert</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#insert</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AQuery-instance-method" class="signature"><strong>#join</strong>(reference : Symbol, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : Onyx::SQL::Query::JoinType = <span class="n">:inner</span>) : Query</a>
+        <a href="#join%28reference%3AT%3A%3AReference%2Cklass%2C%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3Dreference.to_s.underscore%2Ctype%3AJoinType%3D%3Ainner%2C%26block%29-instance-method" class="signature"><strong>#join</strong>(reference : T::Reference, klass, *, on : String? = <span class="n">nil</span>, as _as : String = reference.to_s.underscore, type : JoinType = <span class="n">:inner</span>, &block)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AQuery-instance-method" class="signature"><strong>#join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : Onyx::SQL::Query::JoinType = <span class="n">:inner</span>) : Query</a>
+        <a href="#join%28reference%3AT%3A%3AReference%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3Dreference.to_s.underscore%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#join</strong>(reference : T::Reference, on : String? = <span class="n">nil</span>, as _as : String = reference.to_s.underscore, type : Onyx::SQL::Query::JoinType = <span class="n">:inner</span>) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#last%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#last</strong>(*args, **nargs) : Query</a>
+        <a href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : Onyx::SQL::Query::JoinType = <span class="n">:inner</span>) : Onyx::SQL::Query(T)</a>
         
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#last-instance-method">Query#last</a></code> on it.</p></div>
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#limit%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#limit</strong>(*args, **nargs) : Query</a>
+        <a href="#limit%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#limit</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">Query#limit</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#offset%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#offset</strong>(*args, **nargs) : Query</a>
+        <a href="#offset%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#offset</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#offset%28offset%3AInt32%3F%29-instance-method">Query#offset</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#one%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#one</strong>(*args, **nargs) : Query</a>
+        <a href="#one%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#one</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#one-instance-method">Query#one</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#order_by%28column%2Corder%3AQuery%3A%3AOrder%3F%3Dnil%29%3AQuery-instance-method" class="signature"><strong>#order_by</strong>(column, order : Query::Order? = <span class="n">nil</span>) : Query</a>
+        <a href="#order_by%28value%3AT%3A%3AField%7CString%2Corder%3AQuery%3A%3AOrder%3F%3Dnil%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#order_by</strong>(value : T::Field | String, order : Query::Order? = <span class="n">nil</span>) : Onyx::SQL::Query(T)</a>
         
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">Query#order_by</a></code> on it.</p></div>
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#order_by%28value%3AT%3A%3AField%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">Query#order_by</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#query%3AQuery-instance-method" class="signature"><strong>#query</strong> : Query</a>
         
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code>.</p></div>
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(T)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#returning%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#returning</strong>(*args, **nargs) : Query</a>
+        <a href="#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method" class="signature"><strong>#returning</strong>(values : Enumerable(T::Field | T::Reference | Char | String))</a>
         
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#select%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#select</strong>(*args, **nargs) : Query</a>
-        
-          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#set%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#set</strong>(*args, **nargs) : Query</a>
+        <a href="#returning%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#returning</strong>(*values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method" class="signature"><strong>#select</strong>(values : Enumerable(T::Field | T::Reference | Char | String))</a>
+        
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#select</strong>(*values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#set</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#set</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#update</strong>(*args, **nargs) : Query</a>
+        <a href="#update%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#update</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#update-instance-method">Query#update</a></code> on it.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#where%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method" class="signature"><strong>#where</strong>(*args, **nargs) : Query</a>
+        <a href="#where%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method" class="signature"><strong>#where</strong>(*args, **nargs) : Onyx::SQL::Query(T)</a>
         
           <div class="summary"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#where</a></code> on it.</p></div>
         
@@ -463,12 +484,12 @@ It brings shortucts to a matching query initialization:</p>
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="all(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="all(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>all</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>all</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#all%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#all%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#all-instance-method">Query#all</a></code> on it.</p></div>
@@ -476,17 +497,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="delete(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="delete(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>delete</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>delete</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#delete%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#delete%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#delete-instance-method">Query#delete</a></code> on it.</p></div>
@@ -494,35 +515,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="first(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="group_by(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>first</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>group_by</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#first%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
-      </div>
-      
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#first-instance-method">Query#first</a></code> on it.</p></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="group_by(*args,**nargs):Query-instance-method">
-      <div class="signature">
-        
-        def <strong>group_by</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
-
-        <a class="method-permalink" href="#group_by%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#group_by%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#group_by%28values%3AEnumerable%28String%29%29-instance-method">Query#group_by</a></code> on it.</p></div>
@@ -530,17 +533,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="having(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="having(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>having</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>having</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#having%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#having%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#having%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#having</a></code> on it.</p></div>
@@ -548,17 +551,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="insert(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="insert(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>insert</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>insert</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#insert%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#insert%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#insert</a></code> on it.</p></div>
@@ -566,17 +569,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="join(reference:Symbol,on:String?=nil,as_as:String?=nil,type:Onyx::SQL::Query::JoinType=:inner):Query-instance-method">
+    <div class="entry-detail" id="join(reference:T::Reference,klass,*,on:String?=nil,as_as:String=reference.to_s.underscore,type:JoinType=:inner,&amp;block)-instance-method">
       <div class="signature">
         
-        def <strong>join</strong>(reference : Symbol, on : String? = <span class="n">nil</span>, as _as : String? = <span class="n">nil</span>, type : <a href="../../../Onyx/SQL/Query/JoinType.html">Onyx::SQL::Query::JoinType</a> = <span class="n">:inner</span>) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>join</strong>(reference : T::Reference, klass, *, on : String? = <span class="n">nil</span>, as _as : String = reference.to_s.underscore, type : JoinType = <span class="n">:inner</span>, &block)
 
-        <a class="method-permalink" href="#join%28reference%3ASymbol%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#join%28reference%3AT%3A%3AReference%2Cklass%2C%2A%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3Dreference.to_s.underscore%2Ctype%3AJoinType%3D%3Ainner%2C%26block%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
@@ -584,17 +587,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="join(table:String,on:String,as_as:String?=nil,type:Onyx::SQL::Query::JoinType=:inner):Query-instance-method">
+    <div class="entry-detail" id="join(reference:T::Reference,on:String?=nil,as_as:String=reference.to_s.underscore,type:Onyx::SQL::Query::JoinType=:inner):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : <a href="../../../Onyx/SQL/Query/JoinType.html">Onyx::SQL::Query::JoinType</a> = <span class="n">:inner</span>) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>join</strong>(reference : T::Reference, on : String? = <span class="n">nil</span>, as _as : String = reference.to_s.underscore, type : <a href="../../../Onyx/SQL/Query/JoinType.html">Onyx::SQL::Query::JoinType</a> = <span class="n">:inner</span>) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#join%28reference%3AT%3A%3AReference%2Con%3AString%3F%3Dnil%2Cas_as%3AString%3Dreference.to_s.underscore%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
@@ -602,35 +605,35 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L79" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="last(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="join(table:String,on:String,as_as:String?=nil,type:Onyx::SQL::Query::JoinType=:inner):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>last</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>join</strong>(table : String, on : String, as _as : String? = <span class="n">nil</span>, type : <a href="../../../Onyx/SQL/Query/JoinType.html">Onyx::SQL::Query::JoinType</a> = <span class="n">:inner</span>) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#last%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AOnyx%3A%3ASQL%3A%3AQuery%3A%3AJoinType%3D%3Ainner%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#last-instance-method">Query#last</a></code> on it.</p></div>
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> on it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L74" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="limit(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="limit(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>limit</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>limit</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#limit%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#limit%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#limit%28limit%3AInt32%3F%29-instance-method">Query#limit</a></code> on it.</p></div>
@@ -638,17 +641,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="offset(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="offset(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>offset</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>offset</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#offset%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#offset%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#offset%28offset%3AInt32%3F%29-instance-method">Query#offset</a></code> on it.</p></div>
@@ -656,17 +659,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="one(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="one(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>one</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>one</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#one%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#one%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#one-instance-method">Query#one</a></code> on it.</p></div>
@@ -674,25 +677,25 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="order_by(column,order:Query::Order?=nil):Query-instance-method">
+    <div class="entry-detail" id="order_by(value:T::Field|String,order:Query::Order?=nil):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>order_by</strong>(column, order : <a href="../../../Onyx/SQL/Query/Order.html">Query::Order</a>? = <span class="n">nil</span>) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>order_by</strong>(value : T::Field | String, order : <a href="../../../Onyx/SQL/Query/Order.html">Query::Order</a>? = <span class="n">nil</span>) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#order_by%28column%2Corder%3AQuery%3A%3AOrder%3F%3Dnil%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#order_by%28value%3AT%3A%3AField%7CString%2Corder%3AQuery%3A%3AOrder%3F%3Dnil%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#order_by%28value%3ASymbol%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">Query#order_by</a></code> on it.</p></div>
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#order_by%28value%3AT%3A%3AField%7CString%2Corder%3AOrder%3F%3Dnil%29-instance-method">Query#order_by</a></code> on it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -705,58 +708,130 @@ It brings shortucts to a matching query initialization:</p>
         <a class="method-permalink" href="#query%3AQuery-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code>.</p></div>
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(T)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="returning(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="returning(values:Enumerable(T::Field|T::Reference|Char|String))-instance-method">
       <div class="signature">
         
-        def <strong>returning</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>returning</strong>(values : Enumerable(T::Field | T::Reference | Char | String))
 
-        <a class="method-permalink" href="#returning%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28Symbol%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="select(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="returning(klass:T.class,*values:T::Field|T::Reference|Char|String)-instance-method">
       <div class="signature">
         
-        def <strong>select</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)
 
-        <a class="method-permalink" href="#select%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#returning%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28Symbol%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="set(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="returning(*values:T::Field|T::Reference|Char|String)-instance-method">
       <div class="signature">
         
-        def <strong>set</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>returning</strong>(*values : T::Field | T::Reference | Char | String)
 
-        <a class="method-permalink" href="#set%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#returning%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> on it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L49" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(values:Enumerable(T::Field|T::Reference|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(values : Enumerable(T::Field | T::Reference | Char | String))
+
+        <a class="method-permalink" href="#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L59" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(klass:T.class,*values:T::Field|T::Reference|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)
+
+        <a class="method-permalink" href="#select%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L69" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(*values:T::Field|T::Reference|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(*values : T::Field | T::Reference | Char | String)
+
+        <a class="method-permalink" href="#select%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#select%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#select</a></code> on it.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L64" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
+
+        <a class="method-permalink" href="#set%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#set</a></code> on it.</p></div>
@@ -764,17 +839,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="update(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="update(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>update</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>update</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#update%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#update%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#update-instance-method">Query#update</a></code> on it.</p></div>
@@ -782,17 +857,17 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="where(*args,**nargs):Query-instance-method">
+    <div class="entry-detail" id="where(*args,**nargs):Onyx::SQL::Query(T)-instance-method">
       <div class="signature">
         
-        def <strong>where</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Query</a>
+        def <strong>where</strong>(*args, **nargs) : <a href="../../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)
 
-        <a class="method-permalink" href="#where%28%2Aargs%2C%2A%2Anargs%29%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#where%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Create a new <code><a href="../../../Onyx/SQL/Query.html">Query</a>(self)</code> and call <code><a href="../../../Onyx/SQL/Query.html#where%28or%3ABool%3Dfalse%2Cnot%3ABool%3Dfalse%2C%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#where</a></code> on it.</p></div>
@@ -800,7 +875,7 @@ It brings shortucts to a matching query initialization:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/class_query_shortcuts.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>

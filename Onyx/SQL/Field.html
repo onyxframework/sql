@@ -151,12 +151,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
       <a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
       <a href="../../Onyx/SQL/Model/Mappable.html">Mappable</a>
       
     </li>
@@ -271,10 +271,12 @@
   <h2>Overview</h2>
 
   <p>Use this annotation to mark an Object's instance variable as an SQL field.
-It's not mandatory, though, as including <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code> and <code><a href="../../Onyx/SQL/Model.html">Model</a></code> has meaningful defaults.
-In particular, the serialization process would rely on a variable name
-when mapping a database column by default. You can change this behaviour with <code>:key</code> option.
-For example:</p>
+It's not mandatory, though, as including <code><a href="../../Onyx/SQL/Serializable.html">Serializable</a></code> and <code><a href="../../Onyx/SQL/Model.html">Model</a></code> has meaningful defaults.</p>
+
+<h2><code>:key</code> option</h2>
+
+<p>The serialization process would rely on a variable name when mapping a database column
+by default. You can alter this behaviour with the <code>:key</code> option. For example:</p>
 
 <pre><code><span class="k">class</span> <span class="t">User</span>
   <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
@@ -298,9 +300,11 @@ But you can change it:</p>
 
 <p>Now the serialization will map from <code>"the_id"</code> column to the <code>@id</code> instance variable.</p>
 
-<p>Furthermore, there is a <code>:converter</code> option which would define a converter to use
-for the serialization. For example, you have an integer enum column with value <code>0</code>
-stored in an SQLite database. In this case, the <code><a href="../../Onyx/SQL/Converters/SQLite3/EnumInt.html">Converters::SQLite3::EnumInt</a></code> would be helpful:</p>
+<h2><code>:converter</code> option</h2>
+
+<p>There is a <code>:converter</code> option which would define a converter to use for the
+serialization. For example, you have an integer enum column with value <code>0</code> stored in
+an SQLite database. In this case, the <code><a href="../../Onyx/SQL/Converters/SQLite3/EnumInt.html">Converters::SQLite3::EnumInt</a></code> would be helpful:</p>
 
 <pre><code><span class="k">class</span> <span class="t">User</span>
   <span class="k">enum</span> <span class="t">Role</span>
@@ -308,7 +312,7 @@ stored in an SQLite database. In this case, the <code><a href="../../Onyx/SQL/Co
     <span class="t">Moderator</span>
   <span class="k">end</span>
 
-  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Converters</span><span class="t">::</span><span class="t">SQLite3</span><span class="t">::</span><span class="t">EnumInt</span>(<span class="t">Role</span>))]
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">SQLite3</span><span class="t">::</span><span class="t">EnumInt</span>(<span class="t">Role</span>))]
   @role : <span class="t">Role</span>
 <span class="k">end</span>
 
@@ -317,7 +321,55 @@ stored in an SQLite database. In this case, the <code><a href="../../Onyx/SQL/Co
 <p>From now on, the serialization would expect an <code>INT</code> column and try to parse
 the <code>User::Role</code> enum out from it.</p>
 
-<p>You can use both <code>:key</code> and <code>:converter</code> options simultaneously on a variable.</p>
+<h2><code>:not_null</code> option</h2>
+
+<p>Set to <code>true</code> if a field column is <code>NOT NULL</code> in the DB. It is used in <code><a href="../../Onyx/SQL/Query.html">Query</a></code>
+builder. For example, it would prohibit doing some queries with <code>not_null</code> fields
+with an actual <code>nil</code> value:</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(not_null: <span class="n">true</span>)]
+  @name : <span class="t">String</span>?
+<span class="k">end</span>
+
+<span class="t">User</span>.update.set(name: <span class="n">nil</span>) <span class="c"># Compilation-time error</span>
+<span class="t">User</span>.insert(name: <span class="n">nil</span>)     <span class="c"># Compilation-time error</span></code></pre>
+
+<p><span class="flag purple">NOTE</span>  <code>User.new(name: nil).insert</code> (the instance-level <code><a href="../../Onyx/SQL/Model.html#insert%3AQuery-instance-method">Model#insert</a></code> shortcut) would
+raise <code>NilAssertionError</code> in <strong>runtime</strong>, not in compilation-time! So, for increased
+type-safety, consider using class-level <code>User.insert(name: nil)</code>, which would raise
+in compilation time instead.</p>
+
+<p><code><a href="../../Onyx/SQL/Model/Changeset.html">Model::Changeset</a></code> will also get affected by this option: you will not be able to call
+<code><a href="../../Onyx/SQL/Model/Changeset.html#update%28%2A%2Avalues%3A%2A%2AV%29%3ANilforallV-instance-method">Model::Changeset#update</a></code> with a <code>nil</code> value on a <code>not_null</code> field.</p>
+
+<p>You will also be unable to <strong>set</strong> the field to a <code>nil</code> value when
+using <code>schema</code> (see below):</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  schema users <span class="k">do</span>
+    <span class="k">type</span> name : <span class="t">String</span>, not_null: <span class="n">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+user.name <span class="o">=</span> <span class="n">nil</span> <span class="c"># Compilation-time error</span>
+pp user.name    <span class="c"># String only, raise `NilAssertionError` if `nil`</span></code></pre>
+
+<h2><code>:default</code> option</h2>
+
+<p>Will mark a field as having <code>DEFAULT</code> value in the DB. From now on, a <code>nil</code> value
+will be ignored on inserting the model instance:</p>
+
+<pre><code><span class="k">class</span> <span class="t">User</span>
+  @name : <span class="t">String</span>?
+
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(default: <span class="n">true</span>)]
+  @created_at : <span class="t">Time</span>?
+<span class="k">end</span>
+
+<span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>).insert.to_s <span class="c"># INSERT INTO users (name) VALUES (?)</span>
+<span class="c"># But</span>
+<span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>, created_at: <span class="t">Time</span>.now).to_s <span class="c"># INSERT INTO users (name, created_at) VALUES (?, ?)</span></code></pre>
 
 <h2>Usage in schema</h2>
 
@@ -329,7 +381,8 @@ unless it's a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> referen
 
   schema users <span class="k">do</span>
     pkey id : <span class="t">Int32</span>, converter: <span class="t">PG</span><span class="t">::</span><span class="t">Any</span>(<span class="t">Int32</span>)
-    <span class="k">type</span> username : <span class="t">String</span>, key: <span class="s">&quot;the_username&quot;</span>
+    <span class="k">type</span> username : <span class="t">String</span>, key: <span class="s">&quot;the_username&quot;</span>, not_null: <span class="n">true</span>
+    <span class="k">type</span> age : <span class="t">Int32</span>
   <span class="k">end</span>
 <span class="k">end</span>
 
@@ -339,11 +392,13 @@ unless it's a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> referen
 <span class="k">class</span> <span class="t">User</span>
   <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
 
-  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Converters</span><span class="t">::</span><span class="t">PG</span><span class="t">::</span><span class="t">Any</span>(<span class="t">Int32</span>))]
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(converter: <span class="t">PG</span><span class="t">::</span><span class="t">Any</span>(<span class="t">Int32</span>))]
   property! id : <span class="t">Int32</span>
 
-  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(key: <span class="s">&quot;the_username&quot;</span>)]
+  @[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Field</span>(key: <span class="s">&quot;the_username&quot;</span>, not_null: <span class="n">true</span>)]
   property! username : <span class="t">String</span>
+
+  property age : <span class="t">Int32</span>?
 <span class="k">end</span></code></pre>
 
 
@@ -362,7 +417,7 @@ unless it's a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> referen
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql.cr#L89" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql.cr#L150" target="_blank">
         onyx-sql.cr
       </a>
     

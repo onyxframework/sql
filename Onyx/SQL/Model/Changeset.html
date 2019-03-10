@@ -151,12 +151,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
       <a href="../../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
       <a href="../../../Onyx/SQL/Model/Mappable.html">Mappable</a>
       
     </li>
@@ -282,8 +282,8 @@ changeset <span class="o">=</span> user.changeset
 changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
 pp changeset.changes <span class="c"># =&gt; {&quot;name&quot; =&gt; &quot;Jake&quot;}</span></code></pre>
 
-<p>It is handy to use a changeset with <code>Model::InstanceQueryShortcuts#update</code> method.
-Note that <code>Model::InstanceQueryShortcuts#update</code> may raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> error
+<p>It is handy to use a changeset with <code><a href="../../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code> method.
+Note that <code><a href="../../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code> may raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> error
 if the changeset is empty.</p>
 
 
@@ -302,7 +302,7 @@ if the changeset is empty.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L17" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L17" target="_blank">
         onyx-sql/model/changes.cr
       </a>
     
@@ -412,7 +412,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -437,7 +437,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -455,7 +455,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -473,7 +473,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -489,7 +489,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -508,7 +508,7 @@ This will <strong>not</strong> affect the original model.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -524,7 +524,7 @@ This will <strong>not</strong> affect the original model.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/02a73a50e126307a9477b150366363581809213f/src/onyx-sql/model/changes.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/b778d26e3c9fbc7defc238de3b25729083be9ad5/src/onyx-sql/model/changes.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
