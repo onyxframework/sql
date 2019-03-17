@@ -1,6 +1,7 @@
 require "../../src/onyx-sql/converters/pg"
 require "../../src/onyx-sql/converters/pg/uuid"
 require "../../src/onyx-sql/converters/pg/json"
+require "../../src/onyx-sql/converters/pg/jsonb"
 
 alias Model = Onyx::SQL::Model
 alias Field = Onyx::SQL::Field
@@ -60,10 +61,15 @@ end
 class Post
   include Model
 
+  record Meta, meta : Hash(String, String) do
+    include JSON::Serializable
+  end
+
   schema posts do
     pkey id : Int32, converter: PG::Any(Int32)
 
     type content : String, not_null: true
+    type meta : Meta, converter: PG::JSONB(Meta)
     type created_at : Time, default: true, not_null: true
     type updated_at : Time
 

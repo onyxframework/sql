@@ -2,8 +2,8 @@ require "../pg"
 require "../../ext/pg/result_set"
 require "json"
 
-# Converts between the PostgreSQL's native `JSON` and `JSONB` types and Crystal objects with
-# `#to_json` and `.from_json` methods (e.g. `JSON::Serializable`).
+# Converts between the PostgreSQL's native `"JSON"` column type and Crystal objects with
+# `#to_json` and `.from_json` methods (e.g. `JSON::Serializable` or `Hash`).
 # See `Field` to read about of how to apply converters.
 #
 # ```sql
@@ -33,7 +33,7 @@ module Onyx::SQL::Converters::PG::JSON(T)
     value.to_json
   end
 
-  def self.from_rs(rs : DB::ResultSet)
+  def self.from_rs(rs : DB::ResultSet) : T?
     bytes = rs.read_raw
     bytes.try do |bytes|
       T.from_json(String.new(bytes))
