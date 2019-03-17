@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/onyxframework/sql">
-  <title>Onyx::SQL::Converters::SQLite3::UUIDBlob - github.com/onyxframework/sql</title>
+  <title>Onyx::SQL::Converters::PG::JSONB(T) - github.com/onyxframework/sql</title>
 </head>
 <body>
 
@@ -51,7 +51,7 @@
       
         <ul>
   
-  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
       <a href="../../../../Onyx/SQL/Converters/PG.html">PG</a>
       
         <ul>
@@ -71,7 +71,7 @@
       
     </li>
   
-  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSONB" data-name="onyx::sql::converters::pg::jsonb(t)">
+  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSONB" data-name="onyx::sql::converters::pg::jsonb(t)">
       <a href="../../../../Onyx/SQL/Converters/PG/JSONB.html">JSONB</a>
       
     </li>
@@ -86,7 +86,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
       <a href="../../../../Onyx/SQL/Converters/SQLite3.html">SQLite3</a>
       
         <ul>
@@ -111,7 +111,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
       <a href="../../../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">UUIDBlob</a>
       
     </li>
@@ -265,7 +265,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Onyx::SQL::Converters::SQLite3::UUIDBlob
+  <span class="kind">module</span> Onyx::SQL::Converters::PG::JSONB(T)
 
 </h1>
 
@@ -275,34 +275,10 @@
 
   <h2>Overview</h2>
 
-  <p>Converts between the SQLite3 <code>BLOB</code> type and Crystal's <code>UUID</code>.
-See <code><a href="../../../../Onyx/SQL/Field.html">Field</a></code> to read about of how to apply converters.</p>
+  <p>Converts between the PostgreSQL's <code>"<a href="../../../../Onyx/SQL/Converters/PG/JSONB.html">JSONB</a>"</code> type and Crystal objects.
+It works the same way as the <code><a href="../../../../Onyx/SQL/Converters/PG/JSON.html">JSON</a></code> converter does, but with <code>"<a href="../../../../Onyx/SQL/Converters/PG/JSONB.html">JSONB</a>"</code> type.</p>
 
-<p>Comparison of <code><a href="../../../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">Converters::SQLite3::UUIDBlob</a></code> and <code><a href="../../../../Onyx/SQL/Converters/SQLite3/UUIDText.html">Converters::SQLite3::UUIDText</a></code>:</p>
-
-<pre><code class="language-text">|                       | UUIDBlob | UUIDText |
-| --------------------- | -------- | -------- |
-| Bytes needed to store | 16       | ~32      |
-| Comparable            | No       | Yes      |
-| Can store array       | No       | Yes      |</code></pre>
-
-<p>When you use <code>BLOB</code> type for storing uuids, you cannot compare them with <code>WHERE uuid = ?</code>
-(making it useless as primary keys) and cannot store an array of uuids in a single column,
-but it occupies less bytes.</p>
-
-<pre><code class="language-sql">CREATE TABLE users (
-  uuid  BLOB
-);</code></pre>
-
-<pre><code><span class="k">require</span> <span class="s">&quot;onyx-sql/converters/sqlite3/uuid_blob&quot;</span>
-
-<span class="k">class</span> <span class="t">User</span>
-  <span class="k">include</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span>
-
-  schema <span class="k">do</span>
-    <span class="k">type</span> uuid : <span class="t">UUID</span> <span class="o">=</span> <span class="t">UUID</span>.random, converter: <span class="t">SQLite3</span><span class="t">::</span><span class="t">UUIDBlob</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
+<p><span class="flag green">OPTIMIZE</span>  Refactor to extend the <code><a href="../../../../Onyx/SQL/Converters/PG/JSON.html">JSON</a></code> module. Currently impossible due to https://github.com/crystal-lang/crystal/issues/7167.</p>
 
 
 
@@ -320,8 +296,8 @@ but it occupies less bytes.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/sqlite3/uuid_blob.cr#L38" target="_blank">
-        onyx-sql/converters/sqlite3/uuid_blob.cr
+      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/pg/jsonb.cr#L9" target="_blank">
+        onyx-sql/converters/pg/jsonb.cr
       </a>
     
     <br/>
@@ -337,22 +313,17 @@ but it occupies less bytes.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#from_rs%28rs%29%3AUUID%3F-class-method" class="signature"><strong>.from_rs</strong>(rs) : UUID?</a>
+        <a href="#from_rs%28rs%3ADB%3A%3AResultSet%29%3AT%3F-class-method" class="signature"><strong>.from_rs</strong>(rs : DB::ResultSet) : T?</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#from_rs_array%28rs%29%3A%3A%3AArray%28UUID%29%3F-class-method" class="signature"><strong>.from_rs_array</strong>(rs) : ::Array(UUID)?</a>
+        <a href="#from_rs_array%28rs%29%3AT%3F-class-method" class="signature"><strong>.from_rs_array</strong>(rs) : T?</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#to_db%28value%3AUUID%29%3ADB%3A%3AAny-class-method" class="signature"><strong>.to_db</strong>(value : UUID) : DB::Any</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_db%28values%3AEnumerable%28UUID%29%29%3ADB%3A%3AAny-class-method" class="signature"><strong>.to_db</strong>(values : Enumerable(UUID)) : DB::Any</a>
+        <a href="#to_db%28value%3AT%29%3ADB%3A%3AAny-class-method" class="signature"><strong>.to_db</strong>(value : T) : DB::Any</a>
         
       </li>
     
@@ -373,66 +344,50 @@ but it occupies less bytes.</p>
 
   <h2>Class Method Detail</h2>
   
-    <div class="entry-detail" id="from_rs(rs):UUID?-class-method">
+    <div class="entry-detail" id="from_rs(rs:DB::ResultSet):T?-class-method">
       <div class="signature">
         
-        def self.<strong>from_rs</strong>(rs) : UUID?
+        def self.<strong>from_rs</strong>(rs : DB::ResultSet) : T?
 
-        <a class="method-permalink" href="#from_rs%28rs%29%3AUUID%3F-class-method">#</a>
+        <a class="method-permalink" href="#from_rs%28rs%3ADB%3A%3AResultSet%29%3AT%3F-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/sqlite3/uuid_blob.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/pg/jsonb.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="from_rs_array(rs):::Array(UUID)?-class-method">
+    <div class="entry-detail" id="from_rs_array(rs):T?-class-method">
       <div class="signature">
         
-        def self.<strong>from_rs_array</strong>(rs) : ::Array(UUID)?
+        def self.<strong>from_rs_array</strong>(rs) : T?
 
-        <a class="method-permalink" href="#from_rs_array%28rs%29%3A%3A%3AArray%28UUID%29%3F-class-method">#</a>
+        <a class="method-permalink" href="#from_rs_array%28rs%29%3AT%3F-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/sqlite3/uuid_blob.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/pg/jsonb.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="to_db(value:UUID):DB::Any-class-method">
+    <div class="entry-detail" id="to_db(value:T):DB::Any-class-method">
       <div class="signature">
         
-        def self.<strong>to_db</strong>(value : UUID) : DB::Any
+        def self.<strong>to_db</strong>(value : T) : DB::Any
 
-        <a class="method-permalink" href="#to_db%28value%3AUUID%29%3ADB%3A%3AAny-class-method">#</a>
+        <a class="method-permalink" href="#to_db%28value%3AT%29%3ADB%3A%3AAny-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/sqlite3/uuid_blob.cr#L39" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="to_db(values:Enumerable(UUID)):DB::Any-class-method">
-      <div class="signature">
-        
-        def self.<strong>to_db</strong>(values : Enumerable(UUID)) : DB::Any
-
-        <a class="method-permalink" href="#to_db%28values%3AEnumerable%28UUID%29%29%3ADB%3A%3AAny-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/sqlite3/uuid_blob.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/converters/pg/jsonb.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
