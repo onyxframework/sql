@@ -113,8 +113,8 @@ module Onyx::SQL::Model
           end
 
           if type <= Enumerable
-            if type.type_vars.size != 1
-              raise "Cannot use #{type} as an Onyx::SQL instance variable for #{@type}"
+            if !(type <= Array) || type.type_vars.size != 1
+              raise "Cannot use #{type} as an Onyx::SQL instance variable for #{@type}. Only Array(T) is supported for Enumerable"
             end
 
             type = type.type_vars.first
