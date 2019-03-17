@@ -33,7 +33,8 @@ jobs:
         keep_history: true
         github_token: $GITHUB_TOKEN
         on:
-          branch: stable
+          tags: true
+          condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
         local_dir: docs
 addons:
   postgresql: "9.5"
