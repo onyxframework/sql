@@ -14,6 +14,12 @@ describe "Query#where" do
 
         params.to_a.should eq [42, 43]
       end
+
+      it "accepts both splat and enumerable params" do
+        q1 = Query(User).new.where("foo = ? AND bar = ?", 42, 43)
+        q2 = Query(User).new.where("foo = ? AND bar = ?", [42, 43])
+        q1.build.should eq q2.build
+      end
     end
 
     context "without params" do

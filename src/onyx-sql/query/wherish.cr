@@ -14,7 +14,7 @@ module Onyx::SQL
       # query = User.{{wherish.id}}("foo = ?", "bar").{{wherish.id}}("baz = ?", 42)
       # query.build # => {"{{wherish.upcase.id}} (foo = ?) AND (baz = ?)", {"bar", 42}}
       # ```
-      def {{wherish.id}}(clause : String, *params : DB::Any, or : Bool = false, not : Bool = false)
+      def {{wherish.id}}(clause : String, params : Enumerable(DB::Any), or : Bool = false, not : Bool = false)
         ensure_{{wherish.id}} << {{wherish.camelcase.id}}.new(
           clause: clause,
           params: params.to_a.map(&.as(DB::Any)),
@@ -25,6 +25,11 @@ module Onyx::SQL
         @latest_wherish_clause = :{{wherish.id}}
 
         self
+      end
+
+      # ditto
+      def {{wherish.id}}(clause : String, *params : DB::Any, or : Bool = false, not : Bool = false)
+        {{wherish.id}}(clause, params.to_a, or, not)
       end
 
       # Add `{{wherish.upcase.id}}` *clause* without params.
