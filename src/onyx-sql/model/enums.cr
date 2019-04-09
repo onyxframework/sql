@@ -12,7 +12,7 @@ module Onyx::SQL::Model
               type = g.return_type.types.find { |t| !t.is_a?(Nil) }
 
               if type.resolve < Enumerable
-                !(type.type_vars.first.resolve < Onyx::SQL::Model)
+                !(type.resolve.type_vars.first < Onyx::SQL::Model)
               else
                 !(type.resolve < Onyx::SQL::Model)
               end
@@ -24,7 +24,7 @@ module Onyx::SQL::Model
               type = g.return_type.types.find { |t| !t.is_a?(Nil) }
 
               if type.resolve < Enumerable
-                type.type_vars.first.resolve < Onyx::SQL::Model
+                type.resolve.type_vars.first < Onyx::SQL::Model
               else
                 type.resolve < Onyx::SQL::Model
               end

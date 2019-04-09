@@ -34,6 +34,7 @@ CREATE TABLE posts(
   editor_uuid UUID                  REFERENCES users (uuid),
   tag_ids     INT[],
   content     TEXT        NOT NULL,
+  cover       BYTEA,
   meta        JSONB       NOT NULL  DEFAULT '{}',
   created_at  TIMESTAMPTZ NOT NULL  DEFAULT NOW(),
   updated_at  TIMESTAMPTZ

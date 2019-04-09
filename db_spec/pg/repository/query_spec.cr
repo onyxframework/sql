@@ -101,13 +101,14 @@ describe "Repository(Postgres)#query" do
   describe "insert" do
     context "with complex model" do
       post = repo.query(Post.query
-        .insert(author: user, tags: [tag], content: "Blah-blah", meta: Post::Meta.new({"foo" => "bar"}))
+        .insert(author: user, tags: [tag], content: "Blah-blah", cover: "foo".to_slice, meta: Post::Meta.new({"foo" => "bar"}))
         .returning(Post)
       ).first
 
       it "returns model instance" do
         post.should be_a(Post)
         post.meta!.meta.should eq({"foo" => "bar"})
+        post.cover!.should eq("foo".to_slice)
       end
 
       it "preloads direct non-enumerable references" do

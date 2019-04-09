@@ -69,6 +69,7 @@ class Post
     pkey id : Int32, converter: PG::Any(Int32)
 
     type content : String, not_null: true
+    type cover : Bytes
     type meta : Meta, converter: PG::JSONB(Meta)
     type created_at : Time, default: true, not_null: true
     type updated_at : Time
