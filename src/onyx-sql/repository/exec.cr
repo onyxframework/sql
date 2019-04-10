@@ -27,5 +27,13 @@ module Onyx::SQL
 
       exec(*query.build(postgresql?))
     end
+
+    # ditto
+    def exec(query : BulkQuery) : DB::ExecResult
+      # Removes `RETURNING` clause, so the DB doesn't hang! 🍬
+      query.returning = nil
+
+      exec(*query.build(postgresql?))
+    end
   end
 end

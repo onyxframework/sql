@@ -33,5 +33,10 @@ module Onyx::SQL
     def query(query : Query(T)) : Array(T) forall T
       query(T, *query.build(postgresql?))
     end
+
+    # ditto
+    def query(query : BulkQuery(T)) : Array(T) forall T
+      query(T, *query.build(postgresql?))
+    end
   end
 end

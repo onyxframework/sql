@@ -122,6 +122,16 @@ describe "Repository(Postgres)#query" do
         post.tags.not_nil!.first.content.should be_nil
       end
     end
+
+    context "multiple instances" do
+      posts = [
+        Post.new(author: user, tags: [tag], content: "Foo"),
+        Post.new(author: user, content: "Bar"),
+      ]
+
+      posts = repo.query(posts.insert.returning(Post))
+      posts.first.content!.should eq "Foo"
+    end
   end
 
   new_user = repo.query(User.insert(name: "James").returning(User)).first

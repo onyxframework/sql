@@ -61,7 +61,7 @@ end
 class Post
   include Model
 
-  record Meta, meta : Hash(String, String) do
+  record Meta, meta : Hash(String, String)? do
     include JSON::Serializable
   end
 
@@ -70,7 +70,7 @@ class Post
 
     type content : String, not_null: true
     type cover : Bytes
-    type meta : Meta, converter: PG::JSONB(Meta)
+    type meta : Meta, converter: PG::JSONB(Meta), default: true
     type created_at : Time, default: true, not_null: true
     type updated_at : Time
 

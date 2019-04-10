@@ -22,5 +22,10 @@ module Onyx::SQL
     def scalar(query : Query)
       scalar(*query.build(postgresql?))
     end
+
+    # ditto
+    def scalar(query : BulkQuery)
+      scalar(*query.build(postgresql?))
+    end
   end
 end

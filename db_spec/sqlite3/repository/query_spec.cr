@@ -115,6 +115,16 @@ describe "Repository(Postgres)#query" do
         post.tags.not_nil!.first.not_nil!.content.should be_nil
       end
     end
+
+    context "multiple instances" do
+      posts = [
+        Post.new(author: user, tags: [tag], content: "Foo"),
+        Post.new(author: user, content: "Bar"),
+      ]
+
+      cursor = repo.exec(posts.insert)
+      cursor.rows_affected.should eq 2
+    end
   end
 
   cursor = repo.exec(User.insert(name: "James"))
