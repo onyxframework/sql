@@ -161,4 +161,11 @@ describe "Repository(Postgres)#query" do
       end
     end
   end
+
+  describe "#delete" do
+    it do
+      cursor = repo.exec(post.delete.returning(:id))
+      cursor.rows_affected.should eq 1
+    end
+  end
 end

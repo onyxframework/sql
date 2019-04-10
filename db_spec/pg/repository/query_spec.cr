@@ -174,4 +174,10 @@ describe "Repository(Postgres)#query" do
       end
     end
   end
+
+  describe "#delete" do
+    it do
+      repo.query(post.delete.returning(:id)).first.id!.should eq post.id
+    end
+  end
 end
