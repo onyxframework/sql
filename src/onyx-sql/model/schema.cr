@@ -153,7 +153,7 @@ module Onyx::SQL::Model
   # end
   macro pkey(declaration, **options)
     private ONYX_SQL_MODEL_SCHEMA_PK = {{"@#{declaration.var}".id}}
-    type({{declaration}}, not_null: true, {{**options}})
+    type({{declaration}}, not_null: true, default: true, {{**options}})
   end
 
   private macro define_options(table)
