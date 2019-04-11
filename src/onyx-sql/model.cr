@@ -208,7 +208,7 @@ module Onyx::SQL::Model
   annotation Options
   end
 
-  protected def_hash primary_key
+  def_hash primary_key
 
   protected def primary_key
     {% begin %}
