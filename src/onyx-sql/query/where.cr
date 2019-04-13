@@ -55,7 +55,7 @@ module Onyx::SQL
 
                   {% raise "`primary_key: #{pk}` option didn't match any of `#{type}` instance variables" unless pk_rivar %}
 
-                  {% raise "On Query#where: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if ann[:not_null] && value.nilable? %}
+                  {% raise "On Query(#{T})#where: #{key} is nilable in compilation time (`#{value}`), but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if ann[:not_null] && value.nilable? %}
 
                   {% reference_sql_key = ivar.annotation(Reference)[:key].id %}
 
@@ -95,9 +95,9 @@ module Onyx::SQL
               {% elsif key.id == ivar.name %}
                 {% not_null = (a = ivar.annotation(Field)) && a[:not_null] %}
 
-                {% raise "On Query#where: argument `#{key}:` is nilable in compilation time #{value}, but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the `#{key}:` argument" if not_null && value.nilable? %}
+                {% raise "On Query#where: argument `#{key}` is nilable in compilation time (`#{value}`), but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the `#{key}` argument" if not_null && value.nilable? %}
 
-                {% raise "Invalid compile-time type `#{value}` for argument `#{key.symbolize}` in `Query(#{T})#where` call. Expected: `#{ivar.type}`" unless value <= ivar.type %}
+                {% raise "Invalid compile-time type `#{value}` for argument `#{key.symbolize}` on `Query(#{T})#where` call. Expected: `#{ivar.type}`" unless value <= ivar.type %}
 
                 {% found = true %}
 

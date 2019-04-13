@@ -25,7 +25,11 @@ module Onyx::SQL::Model
             query.insert({{ivar.name}}: @{{ivar.name}}.not_nil!)
           end
         {% elsif ann && ann[:not_null] %}
-          query.insert({{ivar.name}}: @{{ivar.name}}.not_nil!)
+          if @{{ivar.name}}.nil?
+            raise NilAssertionError.new("{{@type}}@{{ivar.name}} must not be nil on {{@type}}#insert")
+          else
+            query.insert({{ivar.name}}: @{{ivar.name}}.not_nil!)
+          end
         {% else %}
           query.insert({{ivar.name}}: @{{ivar.name}})
         {% end %}

@@ -55,7 +55,7 @@ module Onyx::SQL
               ivar = T.instance_vars.find(&.name.== key)
 
               not_null = (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null]
-              raise "On Query#set: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
+              raise "On Query(#{T})#set: #{key} is nilable in compilation time (`#{value}`), but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
             %}
 
             {% raise "Cannot find an instance variable named @#{key} in #{T}" unless ivar %}

@@ -174,14 +174,14 @@ module Onyx::SQL
             raise "Onyx::SQL::Model::Options annotation must be defined for #{type}" unless roptions
 
             rtable = roptions[:table].id
-            raise "Onyx::SQL::Model::Options annotation is missing :table option for #{type}" unless rtable
+            raise "Onyx::SQL::Model::Options annotation is missing `table` option for #{type}" unless rtable
           %}
 
           when .{{ivar.name}}?
             {% if key = ivar.annotation(Reference)[:key] %}
               {%
                 rpk = roptions[:primary_key]
-                raise "Onyx::SQL::Model::Options annotation is missing :primary_key option for #{type}" unless rpk
+                raise "Onyx::SQL::Model::Options annotation is missing `primary_key` option for #{type}" unless rpk
 
                 rpk = rpk.name.stringify.split('@')[1].id
                 on_op = (enumerable ? "IN".id : "=".id)
@@ -212,11 +212,11 @@ module Onyx::SQL
                 type: type
               )
             {% else %}
-              {% raise "Neither `key` nor `foreign_key` option is set for reference @#{ivar.name} in #{T}" %}
+              {% raise "Neither `key` nor `foreign_key` option is set for reference @#{ivar.name} of #{T}" %}
             {% end %}
         {% end %}
         else
-          raise "BUG: Cannot find reference #{reference} in #{T}::Reference"
+          raise "BUG: Cannot find reference #{reference} in #{T}::Reference enum"
         end
       {% end %}
 

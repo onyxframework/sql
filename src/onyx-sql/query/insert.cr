@@ -33,7 +33,7 @@ module Onyx::SQL
               ivar = T.instance_vars.find(&.name.== key)
 
               not_null = (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null]
-              raise "On Query#insert: #{key} is nilable in compilation time (#{value}), but @#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
+              raise "On Query(#{T})#insert: #{key} is nilable in compilation time (`#{value}`), but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
 
               db_default = (a = ivar.annotation(Field)) && a[:default]
               is_pk = "@#{ivar.name}".id == T.annotation(Model::Options)[:primary_key].id

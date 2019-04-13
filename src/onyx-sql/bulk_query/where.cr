@@ -7,7 +7,7 @@ module Onyx::SQL
           raise "Onyx::SQL::Model::Options annotation must be defined for #{T}" unless options
 
           pk = options[:primary_key]
-          raise "Onyx::SQL::Model::Options annotation is missing :primary_key option for #{T}" unless pk
+          raise "Onyx::SQL::Model::Options annotation is missing `primary_key` option for #{T}" unless pk
 
           pk_ivar = T.instance_vars.find { |iv| "@#{iv.name}".id == pk.id }
           raise "Cannot find primary key field #{pk} for #{T}" unless pk_ivar
