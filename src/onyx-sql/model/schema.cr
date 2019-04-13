@@ -96,6 +96,7 @@ module Onyx::SQL::Model
     property {{declaration.var}} : {{declaration.type}} | Nil
 
     def {{declaration.var}}!
+      raise NilAssertionError.new("{{@type}}@{{declaration.var}} is expected to not be nil") if @{{declaration.var}}.nil?
       @{{declaration.var}}.not_nil!
     end
 

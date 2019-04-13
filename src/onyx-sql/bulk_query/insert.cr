@@ -55,7 +55,7 @@ module Onyx::SQL
                 {% if ann[:default] %}
                   sary[{{index}}] = :default
                 {% elsif ann[:not_null] %}
-                  NilAssertionError.new("`{{T}}@{{ivar.name}}` cannot be `nil` on insert")
+                  raise NilAssertionError.new("{{T}}@{{ivar.name}} must not be nil on insert")
                 {% else %}
                   sary[{{index}}] = nil
                 {% end %}
