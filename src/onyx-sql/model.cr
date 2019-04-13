@@ -83,10 +83,36 @@ require "./converters"
 module Onyx::SQL::Model
   include Converters
 
+  # Return this model database table.
+  # It must be defined with `Options` annotation:
+  #
+  # ```
+  # @[Onyx::SQL::Model::Options(table: "users")]
+  # class User
+  # end
+  #
+  # pp User.table # => "users"
+  # ```
+  #
+  # This method is defined upon the module inclusion.
+  def self.table
+  end
+
   macro included
     include Onyx::SQL::Serializable
     include Onyx::SQL::Model::Mappable(self)
     extend Onyx::SQL::Model::ClassQueryShortcuts(self)
+
+    macro finished
+      def self.table
+        # When using `schema` macro, the annotation is placed on the
+        # second macro run only, therefore need to wait until `finished`
+        {% verbatim do %}
+          {% raise "A model must have table defined with `Onyx::SQL::Model::Options` annotation" unless (ann = @type.annotation(Onyx::SQL::Model::Options)) && ann[:table] %}
+          {{@type.annotation(Onyx::SQL::Model::Options)[:table].id.stringify}}
+        {% end %}
+      end
+    end
   end
 
   # Compare `self` against *other* model of the same type by their primary keys.

@@ -11,4 +11,8 @@ describe Model do
       (User.new(uuid: UUID.random) == User.new(uuid: UUID.random)).should be_false
     end
   end
+
+  it "has .table method" do
+    User.table.should eq "users"
+  end
 end
