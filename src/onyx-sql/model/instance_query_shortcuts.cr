@@ -58,7 +58,11 @@ module Onyx::SQL::Model
           {% unless (a = ivar.annotation(Reference)) && a[:foreign_key] %}
             when {{ivar.name.stringify}}
               {% if (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null] %}
-                query.set({{ivar.name}}: value.as({{ivar.type}}).not_nil!)
+                if value.nil?
+                  raise NilAssertionError.new("{{@type}}@{{ivar.name}} must not be nil on {{@type}}#update")
+                else
+                  query.set({{ivar.name}}: value.as({{ivar.type}}).not_nil!)
+                end
               {% else %}
                 query.set({{ivar.name}}: value.as({{ivar.type}}))
               {% end %}
