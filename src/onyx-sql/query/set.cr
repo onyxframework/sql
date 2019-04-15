@@ -56,7 +56,14 @@ module Onyx::SQL
               raise "Cannot find an instance variable named @#{key} in #{T}" unless ivar
 
               not_null = (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null]
+
               raise "On Query(#{T})#set: #{key} is nilable in compilation time (`#{value}`), but #{T}@#{ivar.name} has `not_null` option set to `true`. Consider calling `.not_nil!` on the value" if not_null && value.nilable?
+
+              if (a = ivar.annotation(Reference)) && a[:foreign_key]
+                raise <<-TEXT
+                \e[41m Onyx::SQL compilation error \e[0m — Must not update \e[33m\e[1mUser@foo\e[0m in a query, because it's a foreign reference
+                TEXT
+              end
             %}
 
             when {{key.symbolize}}
