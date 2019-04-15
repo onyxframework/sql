@@ -55,11 +55,13 @@ module Onyx::SQL::Model
       changeset.changes!.each do |key, value|
         case key
         {% for ivar in @type.instance_vars %}
-          when {{ivar.name.stringify}}
-            {% if (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null] %}
-              query.set({{ivar.name}}: value.as({{ivar.type}}).not_nil!)
-            {% else %}
-              query.set({{ivar.name}}: value.as({{ivar.type}}))
+          {% unless (a = ivar.annotation(Reference)) && a[:foreign_key] %}
+            when {{ivar.name.stringify}}
+              {% if (a = ivar.annotation(Field) || ivar.annotation(Reference)) && a[:not_null] %}
+                query.set({{ivar.name}}: value.as({{ivar.type}}).not_nil!)
+              {% else %}
+                query.set({{ivar.name}}: value.as({{ivar.type}}))
+              {% end %}
             {% end %}
         {% end %}
         else
