@@ -332,35 +332,35 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/exec.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L2" target="_blank">
         onyx-sql/repository/exec.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/logger.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/logger.cr#L2" target="_blank">
         onyx-sql/repository/logger.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L2" target="_blank">
         onyx-sql/repository/query.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
         onyx-sql/repository/scalar.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L24" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L24" target="_blank">
         onyx-sql/repository.cr
       </a>
     
@@ -375,7 +375,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28db%3ADB%3A%3ADatabase%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method" class="signature"><strong>.new</strong>(db : DB::Database, logger : Logger = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)</a>
+        <a href="#new%28db%3ADB%3A%3ADatabase%7CDB%3A%3AConnection%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method" class="signature"><strong>.new</strong>(db : DB::Database | DB::Connection, logger : Logger = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)</a>
         
           <div class="summary"><p>Initialize the repository.</p></div>
         
@@ -391,23 +391,23 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#db%3ADB%3A%3ADatabase-instance-method" class="signature"><strong>#db</strong> : DB::Database</a>
+        <a href="#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method" class="signature"><strong>#db</strong> : DB::Connection | DB::Database</a>
         
-          <div class="summary"><p>A <code>DB::Database</code> instance for this repository.</p></div>
+          <div class="summary"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#db%3D%28db%29-instance-method" class="signature"><strong>#db=</strong>(db)</a>
         
-          <div class="summary"><p>A <code>DB::Database</code> instance for this repository.</p></div>
+          <div class="summary"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#driver-instance-method" class="signature"><strong>#driver</strong></a>
         
-          <div class="summary"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g.</p></div>
+          <div class="summary"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g.</p></div>
         
       </li>
     
@@ -563,12 +563,12 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
 
   <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="new(db:DB::Database,logger:Logger=Logger::Standard.new)-class-method">
+    <div class="entry-detail" id="new(db:DB::Database|DB::Connection,logger:Logger=Logger::Standard.new)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(db : DB::Database, logger : <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a> = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)
+        def self.<strong>new</strong>(db : DB::Database | DB::Connection, logger : <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a> = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)
 
-        <a class="method-permalink" href="#new%28db%3ADB%3A%3ADatabase%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28db%3ADB%3A%3ADatabase%7CDB%3A%3AConnection%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method">#</a>
       </div>
       
         <div class="doc"><p>Initialize the repository.</p></div>
@@ -576,7 +576,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -588,20 +588,20 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="db:DB::Database-instance-method">
+    <div class="entry-detail" id="db:DB::Connection|DB::Database-instance-method">
       <div class="signature">
         
-        def <strong>db</strong> : DB::Database
+        def <strong>db</strong> : DB::Connection | DB::Database
 
-        <a class="method-permalink" href="#db%3ADB%3A%3ADatabase-instance-method">#</a>
+        <a class="method-permalink" href="#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>A <code>DB::Database</code> instance for this repository.</p></div>
+        <div class="doc"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -614,12 +614,12 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         <a class="method-permalink" href="#db%3D%28db%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>A <code>DB::Database</code> instance for this repository.</p></div>
+        <div class="doc"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -632,12 +632,12 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         <a class="method-permalink" href="#driver-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g. <code>"postgresql"</code> for <code>PG::Driver</code>.</p></div>
+        <div class="doc"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g. <code>"postgresql"</code> for <code>PG::Driver</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -655,7 +655,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -673,7 +673,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -691,7 +691,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -709,7 +709,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -727,7 +727,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -745,7 +745,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -760,12 +760,12 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       
         <div class="doc"><p>Prepare query for initialization.</p>
 
-<p>If the <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3ADatabase-instance-method">#db</a></code> driver is <code>PG::Driver</code>, replace all <code>?</code> with <code>$1</code>, <code>$2</code> etc. Otherwise return <em>sql_query</em> untouched.</p></div>
+<p>If the <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver is <code>PG::Driver</code>, replace all <code>?</code> with <code>$1</code>, <code>$2</code> etc. Otherwise return <em>sql_query</em> untouched.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -783,7 +783,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -801,7 +801,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -819,7 +819,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -837,7 +837,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -855,7 +855,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -873,7 +873,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -891,7 +891,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -909,7 +909,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -927,7 +927,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -945,7 +945,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
