@@ -36,6 +36,11 @@
   <div class="types-list">
     <ul>
   
+  <li class=" " data-id="github.com/onyxframework/sql/Enumerable" data-name="enumerable(t)">
+      <a href="../../Enumerable.html">Enumerable</a>
+      
+    </li>
+  
   <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
       <a href="../../Onyx.html">Onyx</a>
       
@@ -45,6 +50,21 @@
       <a href="../../Onyx/SQL.html">SQL</a>
       
         <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery" data-name="onyx::sql::bulkquery(t)">
+      <a href="../../Onyx/SQL/BulkQuery.html">BulkQuery</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery/Type" data-name="onyx::sql::bulkquery::type">
+      <a href="../../Onyx/SQL/BulkQuery/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
   
   <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
       <a href="../../Onyx/SQL/Converters.html">Converters</a>
@@ -302,7 +322,7 @@ You still can use <code><a href="../../Onyx/SQL/Field.html">Field</a></code> and
 
 <p>Read more about <code><a href="../../Onyx/SQL/Reference.html">Reference</a></code> serialization below.</p>
 
-<p>You can also use <code><a href="../../Onyx/SQL/Repository.html#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method">Repository#query</a></code> method as soon as it calls <code><a href="../../Onyx/SQL/Serializable.html#from_rs%28rs%3ADB%3A%3AResultSet%29%3AArray%28self%29-class-method">.from_rs</a></code> with result set
+<p>You can also use <code><a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">Repository#query</a></code> method as soon as it calls <code><a href="../../Onyx/SQL/Serializable.html#from_rs%28rs%3ADB%3A%3AResultSet%29%3AArray%28self%29-class-method">.from_rs</a></code> with result set
 columns matching the desired keys. Keep that in mind when using <code><a href="../../Onyx/SQL/Query.html">Query</a></code>, because it could
 return columns with invalid or unknown (to this serializable object) names, resulting in
 a <code>DB::MappingException</code> runtime error.</p>
@@ -429,7 +449,7 @@ you should query the <code>"posts"</code> table, not the <code>"users"</code>, a
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/serializable.cr#L151" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/serializable.cr#L151" target="_blank">
         onyx-sql/serializable.cr
       </a>
     
@@ -494,7 +514,7 @@ make sure the result set's rows contain only well-known columns.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/serializable.cr#L162" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/serializable.cr#L162" target="_blank">View source</a>]
         
       </div>
     </div>

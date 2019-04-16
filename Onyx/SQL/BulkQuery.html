@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.2">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../";
+</script>
+
+  <meta id="repository-name" content="github.com/onyxframework/sql">
+  <title>Onyx::SQL::BulkQuery(T) - github.com/onyxframework/sql</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Enumerable" data-name="enumerable(t)">
+      <a href="../../Enumerable.html">Enumerable</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
+      <a href="../../Onyx.html">Onyx</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL" data-name="onyx::sql">
+      <a href="../../Onyx/SQL.html">SQL</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery" data-name="onyx::sql::bulkquery(t)">
+      <a href="../../Onyx/SQL/BulkQuery.html">BulkQuery</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery/Type" data-name="onyx::sql::bulkquery::type">
+      <a href="../../Onyx/SQL/BulkQuery/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
+      <a href="../../Onyx/SQL/Converters.html">Converters</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG" data-name="onyx::sql::converters::pg">
+      <a href="../../Onyx/SQL/Converters/PG.html">PG</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Any" data-name="onyx::sql::converters::pg::any(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/Enum" data-name="onyx::sql::converters::pg::enum(t)">
+      <a href="../../Onyx/SQL/Converters/PG/Enum.html">Enum</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSON" data-name="onyx::sql::converters::pg::json(t)">
+      <a href="../../Onyx/SQL/Converters/PG/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/JSONB" data-name="onyx::sql::converters::pg::jsonb(t)">
+      <a href="../../Onyx/SQL/Converters/PG/JSONB.html">JSONB</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/PG/UUID" data-name="onyx::sql::converters::pg::uuid">
+      <a href="../../Onyx/SQL/Converters/PG/UUID.html">UUID</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3" data-name="onyx::sql::converters::sqlite3">
+      <a href="../../Onyx/SQL/Converters/SQLite3.html">SQLite3</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/Any" data-name="onyx::sql::converters::sqlite3::any(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumInt" data-name="onyx::sql::converters::sqlite3::enumint(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumInt.html">EnumInt</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/EnumText" data-name="onyx::sql::converters::sqlite3::enumtext(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/EnumText.html">EnumText</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/JSON" data-name="onyx::sql::converters::sqlite3::json(t)">
+      <a href="../../Onyx/SQL/Converters/SQLite3/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDBlob" data-name="onyx::sql::converters::sqlite3::uuidblob">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDBlob.html">UUIDBlob</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters/SQLite3/UUIDText" data-name="onyx::sql::converters::sqlite3::uuidtext">
+      <a href="../../Onyx/SQL/Converters/SQLite3/UUIDText.html">UUIDText</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Field" data-name="onyx::sql::field">
+      <a href="../../Onyx/SQL/Field.html">Field</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model" data-name="onyx::sql::model">
+      <a href="../../Onyx/SQL/Model.html">Model</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset" data-name="onyx::sql::model::changeset(t, u)">
+      <a href="../../Onyx/SQL/Model/Changeset.html">Changeset</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Changeset/NoChanges" data-name="onyx::sql::model::changeset::nochanges">
+      <a href="../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/ClassQueryShortcuts" data-name="onyx::sql::model::classqueryshortcuts(t)">
+      <a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html">ClassQueryShortcuts</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Mappable" data-name="onyx::sql::model::mappable(t)">
+      <a href="../../Onyx/SQL/Model/Mappable.html">Mappable</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Model/Options" data-name="onyx::sql::model::options">
+      <a href="../../Onyx/SQL/Model/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Query" data-name="onyx::sql::query(t)">
+      <a href="../../Onyx/SQL/Query.html">Query</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/JoinType" data-name="onyx::sql::query::jointype">
+      <a href="../../Onyx/SQL/Query/JoinType.html">JoinType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Order" data-name="onyx::sql::query::order">
+      <a href="../../Onyx/SQL/Query/Order.html">Order</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Query/Type" data-name="onyx::sql::query::type">
+      <a href="../../Onyx/SQL/Query/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Reference" data-name="onyx::sql::reference">
+      <a href="../../Onyx/SQL/Reference.html">Reference</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository" data-name="onyx::sql::repository">
+      <a href="../../Onyx/SQL/Repository.html">Repository</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger" data-name="onyx::sql::repository::logger">
+      <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Dummy" data-name="onyx::sql::repository::logger::dummy">
+      <a href="../../Onyx/SQL/Repository/Logger/Dummy.html">Dummy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/IO" data-name="onyx::sql::repository::logger::io">
+      <a href="../../Onyx/SQL/Repository/Logger/IO.html">IO</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Repository/Logger/Standard" data-name="onyx::sql::repository::logger::standard">
+      <a href="../../Onyx/SQL/Repository/Logger/Standard.html">Standard</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/Serializable" data-name="onyx::sql::serializable">
+      <a href="../../Onyx/SQL/Serializable.html">Serializable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Onyx::SQL::BulkQuery(T)
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Onyx/SQL/BulkQuery.html">Onyx::SQL::BulkQuery(T)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Bulk query builder.
+It allows to <code><a href="../../Onyx/SQL/BulkQuery.html#insert%28instances%3AEnumerable%28T%29%29-class-method">#insert</a></code> and <code><a href="../../Onyx/SQL/BulkQuery.html#delete%28instances%3AEnumerable%28T%29%29-class-method">#delete</a></code> multiple instances in one SQL query.
+Its API is similar to <code><a href="../../Onyx/SQL/Query.html">Query</a></code> — you can <code><a href="../../Onyx/SQL/BulkQuery.html#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#build</a></code> it and turn <code>#to_s</code>,
+as well as pass it to a <code><a href="../../Onyx/SQL/Repository.html">Repository</a></code>.</p>
+
+<p><code><a href="../../Enumerable.html">Enumerable</a></code> is monkey-patched with argless <code><a href="../../Onyx/SQL/BulkQuery.html#insert%28instances%3AEnumerable%28T%29%29-class-method">.insert</a></code> and <code>update</code> methods.</p>
+
+<pre><code>users <span class="o">=</span> [<span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;Jake&quot;</span>), <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>)]
+
+query <span class="o">=</span> <span class="t">BulkQuery</span>.insert(users)
+<span class="c"># Or</span>
+query <span class="o">=</span> users.insert
+
+query.build <span class="o">==</span> {<span class="s">&quot;INSERT INTO users (name) VALUES (?), (?)&quot;</span>, [<span class="s">&quot;Jake&quot;</span>, <span class="s">&quot;John&quot;</span>]}
+
+users <span class="o">=</span> repo.query(users.insert.returning(<span class="n">:id</span>))</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/delete.cr#L2" target="_blank">
+        onyx-sql/bulk_query/delete.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/insert.cr#L2" target="_blank">
+        onyx-sql/bulk_query/insert.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/returning.cr#L2" target="_blank">
+        onyx-sql/bulk_query/returning.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/where.cr#L2" target="_blank">
+        onyx-sql/bulk_query/where.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query.cr#L23" target="_blank">
+        onyx-sql/bulk_query.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28type%3AType%2Cinstances%29-class-method" class="signature"><strong>.new</strong>(type : Type, instances)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#delete%28instances%3AEnumerable%28T%29%29-class-method" class="signature"><strong>.delete</strong>(instances : Enumerable(T))</a>
+        
+          <div class="summary"><p>Create a bulk deletion query.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert%28instances%3AEnumerable%28T%29%29-class-method" class="signature"><strong>.insert</strong>(instances : Enumerable(T))</a>
+        
+          <div class="summary"><p>Create a bulk insertion query.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method" class="signature"><strong>#build</strong>(index_params = <span class="n">false</span>) : Tuple(String, Enumerable(DB::Any))</a>
+        
+          <div class="summary"><p>Build this bulk query, returning its SQL representation and <code><a href="../../Enumerable.html">Enumerable</a></code> of DB-ready params.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#instances%3AEnumerable%28T%29-instance-method" class="signature"><strong>#instances</strong> : Enumerable(T)</a>
+        
+          <div class="summary"><p>Model instances associated with this query.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method" class="signature"><strong>#returning</strong>(values : Enumerable(T::Field | T::Reference | Char | String))</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> clause by either model field or reference or explicit Char or String.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28klass%3AT.class%29-instance-method" class="signature"><strong>#returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table and optionally <em>values</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#returning%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method" class="signature"><strong>#returning</strong>(*values : T::Field | T::Reference | Char | String)</a>
+        
+          <div class="summary"><p>Add <code>RETURNING</code> clause by either model field or reference or explicit Char or String.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type%3AType-instance-method" class="signature"><strong>#type</strong> : Type</a>
+        
+          <div class="summary"><p>Query type.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(type:Type,instances)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(type : <a href="../../Onyx/SQL/BulkQuery/Type.html">Type</a>, instances)
+
+        <a class="method-permalink" href="#new%28type%3AType%2Cinstances%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="delete(instances:Enumerable(T))-class-method">
+      <div class="signature">
+        
+        def self.<strong>delete</strong>(instances : <a href="../../Enumerable.html">Enumerable</a>(T))
+
+        <a class="method-permalink" href="#delete%28instances%3AEnumerable%28T%29%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a bulk deletion query. <code><a href="../../Enumerable.html">Enumerable</a></code> has this method too.</p>
+
+<p><span class="flag purple">NOTE</span>  Deletion relies on instances' primary key values. The query would <strong>raise</strong>
+<code>NilAssertionError</code> upon building if any of the instances has its primary key <code>nil</code>.</p>
+
+<pre><code><span class="t">BulkQuery</span>.delete(users) <span class="o">==</span> users.delete</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/delete.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert(instances:Enumerable(T))-class-method">
+      <div class="signature">
+        
+        def self.<strong>insert</strong>(instances : <a href="../../Enumerable.html">Enumerable</a>(T))
+
+        <a class="method-permalink" href="#insert%28instances%3AEnumerable%28T%29%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a bulk insertion query. <code><a href="../../Enumerable.html">Enumerable</a></code> has this method too.</p>
+
+<p>The resulting query would have only those columns to insert which have
+a non-nil value in <strong>at least one</strong> instance.</p>
+
+<p><span class="flag purple">NOTE</span>  Similar to <code><a href="../../Onyx/SQL/Model.html#insert%3AQuery-instance-method">Model#insert</a></code>, this method would <strong>raise</strong> <code>NilAssertionError</code>
+if any of <code>not_null</code> model variables is actually <code>nil</code>.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite3 does not support <code>DEFAULT</code> keyword as an insertion value. A query
+would raise <code>near "DEFAULT": syntax error (SQLite3::Exception)</code> if any of
+the instances has a model variable with <code>default: true</code> and actual <code>nil</code> value.
+However, if <strong>all</strong> instances has this variable <code>nil</code>, the column is not inserted
+at all, therefore no error is raised.</p>
+
+<pre><code><span class="t">BulkQuery</span>.insert(users) <span class="o">==</span> users.insert</code></pre>
+
+<pre><code>user1 <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;Jake&quot;</span>, settings: <span class="n">nil</span>)
+user2 <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>, settings: <span class="s">&quot;foo&quot;</span>)
+
+<span class="c"># Assuming that user has &quot;settings&quot; with DB `default: true`,</span>
+<span class="c"># this query would raise if using SQLite3 as database</span>
+repo.exec([user1, user2].insert)
+
+<span class="c"># To avoid that, split the insertion queries</span>
+repo.exec(user1.insert)
+repo.exec(user2.insert)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/insert.cr#L33" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="build(index_params=false):Tuple(String,Enumerable(DB::Any))-instance-method">
+      <div class="signature">
+        
+        def <strong>build</strong>(index_params = <span class="n">false</span>) : Tuple(String, <a href="../../Enumerable.html">Enumerable</a>(DB::Any))
+
+        <a class="method-permalink" href="#build%28index_params%3Dfalse%29%3ATuple%28String%2CEnumerable%28DB%3A%3AAny%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Build this bulk query, returning its SQL representation and <code><a href="../../Enumerable.html">Enumerable</a></code>
+of DB-ready params. Pass <code>true</code> to replace <code>"?"</code> query arguments with <code>"$n"</code>,
+which would work for PostgreSQL.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query.cr#L57" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="instances:Enumerable(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>instances</strong> : <a href="../../Enumerable.html">Enumerable</a>(T)
+
+        <a class="method-permalink" href="#instances%3AEnumerable%28T%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Model instances associated with this query.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query.cr#L33" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(values:Enumerable(T::Field|T::Reference|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(values : <a href="../../Enumerable.html">Enumerable</a>(T::Field | T::Reference | Char | String))
+
+        <a class="method-permalink" href="#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> clause by either model field or reference or
+explicit Char or String.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>q <span class="o">=</span> users.insert.returning(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING id, name&quot;}</span>
+
+q <span class="o">=</span> users.delete.returning(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;DELETE FROM users ... RETURNING foo&quot;}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/returning.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(klass:T.class)-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>)
+
+        <a class="method-permalink" href="#returning%28klass%3AT.class%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>posts.insert.returning(<span class="t">Post</span>) <span class="c"># =&gt; &quot;... RETURNING posts.*&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/returning.cr#L63" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(klass:T.class,*values:T::Field|T::Reference|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, *values : T::Field | T::Reference | Char | String)
+
+        <a class="method-permalink" href="#returning%28klass%3AT.class%2C%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> asterisk clause for the whole <code>T</code> table and optionally <em>values</em>.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>posts.returning(<span class="t">Post</span>, <span class="n">:id</span>) <span class="c"># =&gt; &quot;... RETURNING posts.*, posts.id&quot;</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/returning.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="returning(*values:T::Field|T::Reference|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>returning</strong>(*values : T::Field | T::Reference | Char | String)
+
+        <a class="method-permalink" href="#returning%28%2Avalues%3AT%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Add <code>RETURNING</code> clause by either model field or reference or
+explicit Char or String.</p>
+
+<p><span class="flag purple">NOTE</span>  All <code>RETURNING</code> clauses are removed on <code><a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">Repository#exec(query)</a></code> call.</p>
+
+<p><span class="flag purple">NOTE</span>  SQLite does <strong>not</strong> support <code>RETURNING</code> clause.</p>
+
+<pre><code>q <span class="o">=</span> users.insert.returning(<span class="n">:id</span>, <span class="n">:name</span>)
+q.build <span class="c"># =&gt; {&quot;INSERT INTO users ... RETURNING id, name&quot;}</span>
+
+q <span class="o">=</span> users.delete.returning(<span class="s">&quot;foo&quot;</span>)
+q.build <span class="c"># =&gt; {&quot;DELETE FROM users ... RETURNING foo&quot;}</span></code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query/returning.cr#L51" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type:Type-instance-method">
+      <div class="signature">
+        
+        def <strong>type</strong> : <a href="../../Onyx/SQL/BulkQuery/Type.html">Type</a>
+
+        <a class="method-permalink" href="#type%3AType-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Query type.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/bulk_query.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -36,6 +36,11 @@
   <div class="types-list">
     <ul>
   
+  <li class=" " data-id="github.com/onyxframework/sql/Enumerable" data-name="enumerable(t)">
+      <a href="../../Enumerable.html">Enumerable</a>
+      
+    </li>
+  
   <li class="parent open current" data-id="github.com/onyxframework/sql/Onyx" data-name="onyx">
       <a href="../../Onyx.html">Onyx</a>
       
@@ -45,6 +50,21 @@
       <a href="../../Onyx/SQL.html">SQL</a>
       
         <ul>
+  
+  <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery" data-name="onyx::sql::bulkquery(t)">
+      <a href="../../Onyx/SQL/BulkQuery.html">BulkQuery</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/onyxframework/sql/Onyx/SQL/BulkQuery/Type" data-name="onyx::sql::bulkquery::type">
+      <a href="../../Onyx/SQL/BulkQuery/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
   
   <li class="parent " data-id="github.com/onyxframework/sql/Onyx/SQL/Converters" data-name="onyx::sql::converters">
       <a href="../../Onyx/SQL/Converters.html">Converters</a>
@@ -367,35 +387,35 @@ for most of developers.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/changes.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/changes.cr#L1" target="_blank">
         onyx-sql/model/changes.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/enums.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/enums.cr#L1" target="_blank">
         onyx-sql/model/enums.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/instance_query_shortcuts.cr#L4" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/instance_query_shortcuts.cr#L4" target="_blank">
         onyx-sql/model/instance_query_shortcuts.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/schema.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/schema.cr#L1" target="_blank">
         onyx-sql/model/schema.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model.cr#L83" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model.cr#L83" target="_blank">
         onyx-sql/model.cr
       </a>
     
@@ -419,6 +439,18 @@ for most of developers.</p>
   </ul>
 
 
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#table-class-method" class="signature"><strong>.table</strong></a>
+        
+          <div class="summary"><p>Return this model database table.</p></div>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -450,6 +482,11 @@ for most of developers.</p>
         <a href="#delete%3AQuery-instance-method" class="signature"><strong>#delete</strong> : Query</a>
         
           <div class="summary"><p>A shortcut method to genereate a delete <code><a href="../../Onyx/SQL/Query.html">Query</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
       </li>
     
@@ -533,13 +570,43 @@ but they must match the variable names, raising in compile-time instead:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model.cr#L120" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model.cr#L146" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="table-class-method">
+      <div class="signature">
+        
+        def self.<strong>table</strong>
+
+        <a class="method-permalink" href="#table-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return this model database table.
+It must be defined with <code><a href="../../Onyx/SQL/Model/Options.html">Options</a></code> annotation:</p>
+
+<pre><code>@[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span><span class="t">::</span><span class="t">Options</span>(table: <span class="s">&quot;users&quot;</span>)]
+<span class="k">class</span> <span class="t">User</span>
+<span class="k">end</span>
+
+pp <span class="t">User</span>.table <span class="c"># =&gt; &quot;users&quot;</span></code></pre>
+
+<p>This method is defined upon the module inclusion.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 
@@ -559,7 +626,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model.cr#L94" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model.cr#L120" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -577,7 +644,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/changes.cr#L135" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/changes.cr#L135" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -608,7 +675,7 @@ user.update(changeset) <span class="o">==</span> <span class="t">User</span>.upd
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/changes.cr#L112" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/changes.cr#L112" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -630,7 +697,23 @@ user.delete <span class="o">==</span> <span class="t">Query</span>(<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/instance_query_shortcuts.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/instance_query_shortcuts.cr#L87" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash(hasher)-instance-method">
+      <div class="signature">
+        
+        def <strong>hash</strong>(hasher)
+
+        <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model.cr#L237" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -655,7 +738,7 @@ user.insert <span class="o">==</span> <span class="t">Query</span>(<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/instance_query_shortcuts.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/instance_query_shortcuts.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -679,7 +762,7 @@ user.update(changeset) <span class="o">==</span> <span class="t">Query</span>(<s
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/instance_query_shortcuts.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/instance_query_shortcuts.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -719,7 +802,7 @@ It's currently mandatory to have a primary key in a model, which may change in t
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/schema.cr#L153" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/schema.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -791,7 +874,7 @@ The schema currently <strong>requires</strong> a <code><a href="../../Onyx/SQL/M
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/schema.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/schema.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -835,7 +918,7 @@ user.age <span class="o">=</span> <span class="n">nil</span>  <span class="c"># 
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/84734a8803a475e94def3ed590896d1959fdc6b8/src/onyx-sql/model/schema.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e1b899cd9c6f8f1c8745e846a912c8c61c413be2/src/onyx-sql/model/schema.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>
