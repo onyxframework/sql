@@ -22,14 +22,14 @@ module Onyx::SQL
   # # 442μs
   # ```
   class Repository
-    # A `DB::Database` instance for this repository.
+    # A `::DB::Database | ::DB::Connection` instance for this repository.
     property db
 
     # A `Repository::Logger` instance for this repository.
     property logger
 
     # Initialize the repository.
-    def initialize(@db : DB::Database, @logger : Logger = Logger::Standard.new)
+    def initialize(@db : ::DB::Database | ::DB::Connection, @logger : Logger = Logger::Standard.new)
     end
 
     protected def postgresql?
@@ -45,7 +45,7 @@ module Onyx::SQL
     # If the `#db` driver is `PG::Driver`, replace all `?` with `$1`, `$2` etc. Otherwise return *sql_query* untouched.
     def prepare_query(sql_query : String)
       {% begin %}
-        case db.driver
+        case db_driver
         {% if Object.all_subclasses.any? { |sc| sc.stringify == "PG::Driver" } %}
           when PG::Driver
             counter = 0
@@ -59,7 +59,7 @@ module Onyx::SQL
     # Return `#db` driver name, e.g. `"postgresql"` for `PG::Driver`.
     def driver
       {% begin %}
-        case db.driver
+        case db_driver
         {% if Object.all_subclasses.any? { |sc| sc.stringify == "PG::Driver" } %}
           when PG::Driver then "postgresql"
         {% end %}
@@ -69,6 +69,14 @@ module Onyx::SQL
         else "sql"
         end
       {% end %}
+    end
+
+    protected def db_driver
+      if db.is_a?(::DB::Database)
+        db.as(::DB::Database).driver
+      else
+        db.as(::DB::Connection).context.as(::DB::Database).driver
+      end
     end
   end
 end
