@@ -79,7 +79,7 @@ Insert a new user instance:
 
 ```crystal
 user = User.new(name: "John")
-user = Onyx.query(user.insert.returning("*")).first
+user = Onyx::SQL.query(user.insert.returning("*")).first
 
 pp user # => #<User @id=1, @name="John", @created_at=#<Time ...>>
 ```
@@ -87,7 +87,7 @@ pp user # => #<User @id=1, @name="John", @created_at=#<Time ...>>
 Query the user:
 
 ```crystal
-user = Onyx.query(User.where(id: 1)).first?
+user = Onyx::SQL.query(User.where(id: 1)).first?
 ```
 
 With another PostgreSQL table:
@@ -136,13 +136,13 @@ Create a new post:
 ```crystal
 user = User.new(id: 1)
 post = Post.new(author: user, content: "Hello, world!")
-Onyx.exec(post.insert)
+Onyx::SQL.exec(post.insert)
 ```
 
 Query all the posts by a user with name "John":
 
 ```crystal
-posts = Onyx.query(Post
+posts = Onyx::SQL.query(Post
   .join(author: true) do |x|
     x.select(:id, :name)
     x.where(name: "John")
