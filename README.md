@@ -38,13 +38,13 @@ You'd also need to add a database dependency conforming to the [crystal-db](http
 dependencies:
   onyx:
     github: onyxframework/onyx
-    version: ~> 0.3.0
+    version: ~> 0.4.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.7.0
+    version: ~> 0.8.0
 + pg:
 +   github: will/crystal-pg
-+   version: ~> 0.15.0
++   version: ~> 0.16.0
 ```
 
 ## Usage 💻
