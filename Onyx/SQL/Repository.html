@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.27.2">
+<meta name="generator" content="Crystal Docs 0.28.0">
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css">
@@ -332,35 +332,35 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/exec.cr#L2" target="_blank">
         onyx-sql/repository/exec.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/logger.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/logger.cr#L2" target="_blank">
         onyx-sql/repository/logger.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L2" target="_blank">
         onyx-sql/repository/query.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
         onyx-sql/repository/scalar.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L24" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L24" target="_blank">
         onyx-sql/repository.cr
       </a>
     
@@ -461,20 +461,6 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method" class="signature"><strong>#query</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::Query(T)) : Array(T) forall T</a>
         
           <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
@@ -485,6 +471,20 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         <a href="#query%28query%3AOnyx%3A%3ASQL%3A%3ABulkQuery%28T%29%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::BulkQuery(T)) : Array(T) forall T</a>
         
           <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method" class="signature"><strong>#query</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
         
       </li>
     
@@ -576,7 +576,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -601,7 +601,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -619,7 +619,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -637,7 +637,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -655,7 +655,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -673,7 +673,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -691,7 +691,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -709,7 +709,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -727,7 +727,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -745,7 +745,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -765,43 +765,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">
-      <div class="signature">
-        
-        def <strong>query</strong>(sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>)
-
-        <a class="method-permalink" href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">#</a>
-      </div>
-      
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="query(klass:T.class,sql:String,params:Enumerable(DB::Any)?=nil):Array(T)forallT-instance-method">
-      <div class="signature">
-        
-        def <strong>query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T
-
-        <a class="method-permalink" href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method">#</a>
-      </div>
-      
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -819,7 +783,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -837,7 +801,43 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>query</strong>(sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="query(klass:T.class,sql:String,params:Enumerable(DB::Any)?=nil):Array(T)forallT-instance-method">
+      <div class="signature">
+        
+        def <strong>query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T
+
+        <a class="method-permalink" href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -855,7 +855,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -873,7 +873,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -891,7 +891,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -909,7 +909,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -927,7 +927,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -945,7 +945,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/649b33637fc4fed31ac323b7a8a4e2b44d008f02/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/c197a2267328f073bbcaeb9d75b80f45c5dae844/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>

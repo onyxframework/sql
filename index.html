@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.27.2">
+<meta name="generator" content="Crystal Docs 0.28.0">
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -306,25 +306,27 @@
 <pre><code class="language-yaml">dependencies:
   onyx:
     github: onyxframework/onyx
-    version: ~> 0.3.0
+    version: ~> 0.4.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.7.0</code></pre>
+    version: ~> 0.8.0</code></pre>
 
-<p>This shard follows <a href="http://semver.org/" target="_blank">Semantic Versioning v2.0.0</a>, so check <a href="https://github.com/onyxframework/rest/releases" target="_blank">releases</a> and change the <code>version</code> accordingly. Please visit <a href="https://github.com/crystal-lang/shards" target="_blank">github.com/crystal-lang/shards</a> to know more about Crystal shards.</p>
+<p>This shard follows <a href="http://semver.org/" target="_blank">Semantic Versioning v2.0.0</a>, so check <a href="https://github.com/onyxframework/rest/releases" target="_blank">releases</a> and change the <code>version</code> accordingly.</p>
+
+<blockquote>Note that until Crystal is officially released, this shard would be in beta state (<code>0.*.*</code>), with every <strong>minor</strong> release considered breaking. For example, <code>0.1.0</code> → <code>0.2.0</code> is breaking and <code>0.1.0</code> → <code>0.1.1</code> is not.</blockquote>
 
 <p>You'd also need to add a database dependency conforming to the <a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> interface. For example, <a href="https://github.com/will/crystal-pg" target="_blank">pg</a>:</p>
 
 <pre><code class="language-diff">dependencies:
   onyx:
     github: onyxframework/onyx
-    version: ~> 0.3.0
+    version: ~> 0.4.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.7.0
+    version: ~> 0.8.0
 + pg:
 +   github: will/crystal-pg
-+   version: ~> 0.15.0</code></pre>
++   version: ~> 0.16.0</code></pre>
 
 <h2>Usage 💻</h2>
 
@@ -353,13 +355,13 @@
 <p>Insert a new user instance:</p>
 
 <pre><code class="language-crystal">user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(name: <span class="s">&quot;John&quot;</span>)
-user <span class="o">=</span> <span class="t">Onyx</span>.query(user.insert.returning(<span class="s">&quot;*&quot;</span>)).first
+user <span class="o">=</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span>.query(user.insert.returning(<span class="s">&quot;*&quot;</span>)).first
 
 pp user <span class="c"># =&gt; #&lt;User @id=1, @name=&quot;John&quot;, @created_at=#&lt;Time ...&gt;&gt;</span></code></pre>
 
 <p>Query the user:</p>
 
-<pre><code class="language-crystal">user <span class="o">=</span> <span class="t">Onyx</span>.query(<span class="t">User</span>.where(id: <span class="n">1</span>)).first?</code></pre>
+<pre><code class="language-crystal">user <span class="o">=</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span>.query(<span class="t">User</span>.where(id: <span class="n">1</span>)).first?</code></pre>
 
 <p>With another PostgreSQL table:</p>
 
@@ -400,11 +402,11 @@ end</code></pre>
 
 <pre><code class="language-crystal">user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">1</span>)
 post <span class="o">=</span> <span class="t">Post</span>.<span class="k">new</span>(author: user, content: <span class="s">&quot;Hello, world!&quot;</span>)
-<span class="t">Onyx</span>.exec(post.insert)</code></pre>
+<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span>.exec(post.insert)</code></pre>
 
 <p>Query all the posts by a user with name "John":</p>
 
-<pre><code class="language-crystal">posts <span class="o">=</span> <span class="t">Onyx</span>.query(<span class="t">Post</span>
+<pre><code class="language-crystal">posts <span class="o">=</span> <span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span>.query(<span class="t">Post</span>
   .join(author: <span class="n">true</span>) <span class="k">do</span> <span class="o">|</span>x<span class="o">|</span>
     x.<span class="k">select</span>(<span class="n">:id</span>, <span class="n">:name</span>)
     x.where(name: <span class="s">&quot;John&quot;</span>)
