@@ -13,6 +13,8 @@ module Onyx::SQL::Model
   # user.insert == Query(User).new.insert(id: 42, name: "John")
   # ```
   def insert : Query
+    before_insert
+
     query = Query(self).new
 
     {% for ivar in @type.instance_vars %}
@@ -49,6 +51,8 @@ module Onyx::SQL::Model
   # user.update(changeset) == Query(User).new.update.set(name: "Jake").where(id: 42)
   # ```
   def update(changeset : Changeset(self, U)) : Query forall U
+    before_update
+
     query = Query(self).new.update
 
     {% begin %}
