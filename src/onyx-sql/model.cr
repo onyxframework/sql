@@ -113,6 +113,66 @@ module Onyx::SQL::Model
         {% end %}
       end
     end
+
+    {% verbatim do %}
+      # Initialize an instance of `self`. It accepts an arbitrary amount of arguments,
+      # but they must match the variable names, raising in compile-time instead:
+      #
+      # ```
+      # User.new(id: 42, username: "John") # => <User @id=42 @username="John">
+      # User.new(foo: "bar")               # Compilation-time error
+      # ```
+      def initialize(**values : **T) : self forall T
+        {% for ivar in @type.instance_vars %}
+          {%
+            a = 42 # BUG: Dummy assignment, otherwise the compiler crashes
+
+            unless ivar.type.nilable?
+              raise "#{@type}@#{ivar.name} must be nilable, as it's an Onyx::SQL::Model variable"
+            end
+
+            unless ivar.type.union_types.size == 2
+              raise "Only T | Nil unions can be an Onyx::SQL::Model's variables (got #{ivar.type} type for #{@type}@#{ivar.name})"
+            end
+
+            type = ivar.type.union_types.find { |t| t != Nil }
+
+            if type <= Enumerable
+              if (type.type_vars.size != 1 || type.type_vars.first.union?)
+                raise "If an Onyx::SQL::Model variable is a Enumerable, it must have a single non-union type var (got #{type} type for #{@type}@#{ivar.name})"
+              end
+            end
+          %}
+        {% end %}
+
+        values.each do |key, value|
+          {% begin %}
+            case key
+            {% for key, value in T %}
+              {% found = false %}
+
+              {% for ivar in @type.instance_vars %}
+                {% if ivar.name == key %}
+                  {% raise "Invalid type #{value} for #{@type}@#{ivar.name} (expected #{ivar.type})" unless value <= ivar.type %}
+
+                  when {{ivar.name.symbolize}}
+                    @{{ivar.name}} = value.as({{value}})
+
+                  {% found = true %}
+                {% end %}
+              {% end %}
+
+              {% raise "Cannot find instance variable by key #{key} in #{@type}" unless found %}
+            {% end %}
+            else
+              raise "BUG: Runtime key mismatch"
+            end
+          {% end %}
+        end
+
+        self
+      end
+    {% end %}
   end
 
   # Compare `self` against *other* model of the same type by their primary keys.
@@ -134,64 +194,6 @@ module Onyx::SQL::Model
         primary_key == other.{{pk_rivar.name}}
       end
     {% end %}
-  end
-
-  # Initialize an instance of `self`. It accepts an arbitrary amount of arguments,
-  # but they must match the variable names, raising in compile-time instead:
-  #
-  # ```
-  # User.new(id: 42, username: "John") # => <User @id=42 @username="John">
-  # User.new(foo: "bar")               # Compilation-time error
-  # ```
-  def initialize(**values : **T) : self forall T
-    {% for ivar in @type.instance_vars %}
-      {%
-        a = 42 # BUG: Dummy assignment, otherwise the compiler crashes
-
-        unless ivar.type.nilable?
-          raise "#{@type}@#{ivar.name} must be nilable, as it's an Onyx::SQL::Model variable"
-        end
-
-        unless ivar.type.union_types.size == 2
-          raise "Only T | Nil unions can be an Onyx::SQL::Model's variables (got #{ivar.type} type for #{@type}@#{ivar.name})"
-        end
-
-        type = ivar.type.union_types.find { |t| t != Nil }
-
-        if type <= Enumerable
-          if (type.type_vars.size != 1 || type.type_vars.first.union?)
-            raise "If an Onyx::SQL::Model variable is a Enumerable, it must have a single non-union type var (got #{type} type for #{@type}@#{ivar.name})"
-          end
-        end
-      %}
-    {% end %}
-
-    values.each do |key, value|
-      {% begin %}
-        case key
-        {% for key, value in T %}
-          {% found = false %}
-
-          {% for ivar in @type.instance_vars %}
-            {% if ivar.name == key %}
-              {% raise "Invalid type #{value} for #{@type}@#{ivar.name} (expected #{ivar.type})" unless value <= ivar.type %}
-
-              when {{ivar.name.symbolize}}
-                @{{ivar.name}} = value.as({{value}})
-
-              {% found = true %}
-            {% end %}
-          {% end %}
-
-          {% raise "Cannot find instance variable by key #{key} in #{@type}" unless found %}
-        {% end %}
-        else
-          raise "BUG: Runtime key mismatch"
-        end
-      {% end %}
-    end
-
-    self
   end
 
   # This annotation specifies options for a `Model`. It has two mandatory options itself:
