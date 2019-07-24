@@ -66,6 +66,66 @@ describe "Repository(Postgres)#query" do
         user.referrer.not_nil!.uuid.should be_a(UUID)
       end
     end
+
+    context "in a transaction" do
+      db = repo.db
+      query = User
+        .update
+        .set(favorite_numbers: [17])
+        .where(uuid: user.uuid.not_nil!)
+        .returning(:favorite_numbers)
+
+      repo.db.transaction do |tx|
+        repo.db = tx
+        repo.query(query)
+      ensure
+        repo.db = db
+      end
+
+      it "updates the user" do
+        query = User.query
+          .select(:favorite_numbers, :uuid)
+          .where(uuid: user.uuid.not_nil!)
+
+        updated_user = repo.query(query).first
+        updated_user.favorite_numbers.should eq([17])
+      end
+
+      context "raising an error" do
+        error_was_raised = false
+
+        query = User
+          .update
+          .set(favorite_numbers: [13])
+          .where(uuid: user.uuid.not_nil!)
+          .returning(:favorite_numbers)
+
+        begin
+          repo.db.transaction do |tx|
+            repo.db = tx
+            repo.query(query)
+            raise "error"
+          ensure
+            repo.db = db
+          end
+        rescue
+          error_was_raised = true
+        end
+
+        it "raises the error" do
+          error_was_raised.should be_truthy
+        end
+
+        it "rolls back the transaction" do
+          query = User.query
+            .select(:favorite_numbers, :uuid)
+            .where(uuid: user.uuid.not_nil!)
+
+          updated_user = repo.query(query).first
+          updated_user.favorite_numbers.should_not eq([13])
+        end
+      end
+    end
   end
 
   describe "where" do
