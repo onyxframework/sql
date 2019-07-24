@@ -1,7 +1,7 @@
 require "../sqlite3_spec"
 require "../../repository_spec"
 
-describe "Repository(Postgres)#scalar" do
+describe "Repository(Sqlite3)#scalar" do
   repo = repo(:sqlite3)
 
   describe "with SQL" do
