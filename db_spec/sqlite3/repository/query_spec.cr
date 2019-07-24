@@ -2,7 +2,7 @@ require "../sqlite3_spec"
 require "../../repository_spec"
 require "../models"
 
-describe "Repository(Postgres)#query" do
+describe "Repository(Sqlite3)#query" do
   repo = repo(:sqlite3)
 
   # This is John
