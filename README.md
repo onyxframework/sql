@@ -44,7 +44,7 @@ dependencies:
     version: ~> 0.8.0
 + pg:
 +   github: will/crystal-pg
-+   version: ~> 0.16.0
++   version: ~> 0.18.0
 ```
 
 ## Usage 💻
