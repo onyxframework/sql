@@ -22,10 +22,10 @@ Add these lines to your application's `shard.yml`:
 dependencies:
   onyx:
     github: onyxframework/onyx
-    version: ~> 0.4.0
+    version: ~> 0.6.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.8.0
+    version: ~> 0.9.0
 ```
 
 This shard follows [Semantic Versioning v2.0.0](http://semver.org/), so check [releases](https://github.com/onyxframework/rest/releases) and change the `version` accordingly.
@@ -38,10 +38,10 @@ You'd also need to add a database dependency conforming to the [crystal-db](http
 dependencies:
   onyx:
     github: onyxframework/onyx
-    version: ~> 0.4.0
+    version: ~> 0.6.0
   onyx-sql:
     github: onyxframework/sql
-    version: ~> 0.8.0
+    version: ~> 0.9.0
 + pg:
 +   github: will/crystal-pg
 +   version: ~> 0.18.0
