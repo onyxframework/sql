@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css">
@@ -332,35 +332,35 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/exec.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/exec.cr#L2" target="_blank">
         onyx-sql/repository/exec.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/logger.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/logger.cr#L2" target="_blank">
         onyx-sql/repository/logger.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L2" target="_blank">
         onyx-sql/repository/query.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/scalar.cr#L2" target="_blank">
         onyx-sql/repository/scalar.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L24" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L24" target="_blank">
         onyx-sql/repository.cr
       </a>
     
@@ -375,7 +375,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28db%3ADB%3A%3ADatabase%7CDB%3A%3AConnection%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method" class="signature"><strong>.new</strong>(db : DB::Database | DB::Connection, logger : Logger = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)</a>
+        <a href="#new(db:DB::Database%7CDB::Connection,logger:Logger=Logger::Standard.new)-class-method" class="signature"><strong>.new</strong>(db : DB::Database | DB::Connection, logger : Logger = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)</a>
         
           <div class="summary"><p>Initialize the repository.</p></div>
         
@@ -391,14 +391,14 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method" class="signature"><strong>#db</strong> : DB::Connection | DB::Database</a>
+        <a href="#db:DB::Connection%7CDB::Database-instance-method" class="signature"><strong>#db</strong> : DB::Connection | DB::Database</a>
         
           <div class="summary"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#db%3D%28db%29-instance-method" class="signature"><strong>#db=</strong>(db)</a>
+        <a href="#db=(db)-instance-method" class="signature"><strong>#db=</strong>(db)</a>
         
           <div class="summary"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
         
@@ -407,126 +407,126 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <li class="entry-summary">
         <a href="#driver-instance-method" class="signature"><strong>#driver</strong></a>
         
-          <div class="summary"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g.</p></div>
+          <div class="summary"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db:DB::Connection%7CDB::Database-instance-method">#db</a></code> driver name, e.g.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method" class="signature"><strong>#exec</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : DB::ExecResult</a>
+        <a href="#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method" class="signature"><strong>#exec</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : DB::ExecResult</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method">.exec(sql, params)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#exec%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29%3ADB%3A%3AExecResult-instance-method" class="signature"><strong>#exec</strong>(sql : String, *params : DB::Any) : DB::ExecResult</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method">.exec(sql, *params)</a></code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method">.exec(sql, params)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method" class="signature"><strong>#exec</strong>(query : BulkQuery) : DB::ExecResult</a>
+        <a href="#exec(sql:String,*params:DB::Any):DB::ExecResult-instance-method" class="signature"><strong>#exec</strong>(sql : String, *params : DB::Any) : DB::ExecResult</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">.exec(*query.build)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#exec%28query%3AQuery%29%3ADB%3A%3AExecResult-instance-method" class="signature"><strong>#exec</strong>(query : Query) : DB::ExecResult</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">.exec(*query.build)</a></code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method">.exec(sql, *params)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#logger%3AOnyx%3A%3ASQL%3A%3ARepository%3A%3ALogger-instance-method" class="signature"><strong>#logger</strong> : Onyx::SQL::Repository::Logger</a>
+        <a href="#exec(query:BulkQuery):DB::ExecResult-instance-method" class="signature"><strong>#exec</strong>(query : BulkQuery) : DB::ExecResult</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(query:BulkQuery):DB::ExecResult-instance-method">.exec(*query.build)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#exec(query:Query):DB::ExecResult-instance-method" class="signature"><strong>#exec</strong>(query : Query) : DB::ExecResult</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(query:BulkQuery):DB::ExecResult-instance-method">.exec(*query.build)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#logger:Onyx::SQL::Repository::Logger-instance-method" class="signature"><strong>#logger</strong> : Onyx::SQL::Repository::Logger</a>
         
           <div class="summary"><p>A <code><a href="../../Onyx/SQL/Repository/Logger.html">Repository::Logger</a></code> instance for this repository.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#logger%3D%28logger%29-instance-method" class="signature"><strong>#logger=</strong>(logger)</a>
+        <a href="#logger=(logger)-instance-method" class="signature"><strong>#logger=</strong>(logger)</a>
         
           <div class="summary"><p>A <code><a href="../../Onyx/SQL/Repository/Logger.html">Repository::Logger</a></code> instance for this repository.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#prepare_query%28sql_query%3AString%29-instance-method" class="signature"><strong>#prepare_query</strong>(sql_query : String)</a>
+        <a href="#prepare_query(sql_query:String)-instance-method" class="signature"><strong>#prepare_query</strong>(sql_query : String)</a>
         
           <div class="summary"><p>Prepare query for initialization.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::Query(T)) : Array(T) forall T</a>
+        <a href="#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::Query(T)) : Array(T) forall T</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#query%28query%3AOnyx%3A%3ASQL%3A%3ABulkQuery%28T%29%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::BulkQuery(T)) : Array(T) forall T</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method" class="signature"><strong>#query</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
+        <a href="#query(query:Onyx::SQL::BulkQuery(T)):Array(T)forallT-instance-method" class="signature"><strong>#query</strong>(query : Onyx::SQL::BulkQuery(T)) : Array(T) forall T</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method" class="signature"><strong>#query</strong>(sql : String, *params : DB::Any)</a>
+        <a href="#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method" class="signature"><strong>#query</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, *params)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#query%28klass%3AT.class%2Csql%3AString%2C%2Aparams%3ADB%3A%3AAny%29%3AArray%28T%29forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, *params : DB::Any) : Array(T) forall T</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, *params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, params)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#scalar%28query%3AQuery%29-instance-method" class="signature"><strong>#scalar</strong>(query : Query)</a>
+        <a href="#query(klass:T.class,sql:String,params:Enumerable(DB::Any)?=nil):Array(T)forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28query%3AQuery%29-instance-method">.scalar(*query.build)</a></code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#scalar%28query%3ABulkQuery%29-instance-method" class="signature"><strong>#scalar</strong>(query : BulkQuery)</a>
-        
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28query%3AQuery%29-instance-method">.scalar(*query.build)</a></code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method" class="signature"><strong>#scalar</strong>(sql : String, *params : DB::Any)</a>
+        <a href="#query(sql:String,*params:DB::Any)-instance-method" class="signature"><strong>#query</strong>(sql : String, *params : DB::Any)</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">.scalar(sql, *params)</a></code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, *params)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#scalar%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method" class="signature"><strong>#scalar</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
+        <a href="#query(klass:T.class,sql:String,*params:DB::Any):Array(T)forallT-instance-method" class="signature"><strong>#query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, *params : DB::Any) : Array(T) forall T</a>
         
-          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">.scalar(sql, params)</a></code>.</p></div>
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, *params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scalar(query:Query)-instance-method" class="signature"><strong>#scalar</strong>(query : Query)</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(query:Query)-instance-method">.scalar(*query.build)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scalar(query:BulkQuery)-instance-method" class="signature"><strong>#scalar</strong>(query : BulkQuery)</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(query:Query)-instance-method">.scalar(*query.build)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scalar(sql:String,*params:DB::Any)-instance-method" class="signature"><strong>#scalar</strong>(sql : String, *params : DB::Any)</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(sql:String,*params:DB::Any)-instance-method">.scalar(sql, *params)</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scalar(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method" class="signature"><strong>#scalar</strong>(sql : String, params : Enumerable(DB::Any)? = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(sql:String,*params:DB::Any)-instance-method">.scalar(sql, params)</a></code>.</p></div>
         
       </li>
     
@@ -568,7 +568,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def self.<strong>new</strong>(db : DB::Database | DB::Connection, logger : <a href="../../Onyx/SQL/Repository/Logger.html">Logger</a> = <span class="t">Logger</span><span class="t">::</span><span class="t">Standard</span>.<span class="k">new</span>)
 
-        <a class="method-permalink" href="#new%28db%3ADB%3A%3ADatabase%7CDB%3A%3AConnection%2Clogger%3ALogger%3DLogger%3A%3AStandard.new%29-class-method">#</a>
+        <a class="method-permalink" href="#new(db:DB::Database%7CDB::Connection,logger:Logger=Logger::Standard.new)-class-method">#</a>
       </div>
       
         <div class="doc"><p>Initialize the repository.</p></div>
@@ -576,7 +576,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -593,7 +593,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>db</strong> : DB::Connection | DB::Database
 
-        <a class="method-permalink" href="#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#</a>
+        <a class="method-permalink" href="#db:DB::Connection%7CDB::Database-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
@@ -601,7 +601,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -611,7 +611,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>db=</strong>(db)
 
-        <a class="method-permalink" href="#db%3D%28db%29-instance-method">#</a>
+        <a class="method-permalink" href="#db=(db)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A <code>::DB::Database | ::DB::Connection</code> instance for this repository.</p></div>
@@ -619,7 +619,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -632,12 +632,12 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         <a class="method-permalink" href="#driver-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver name, e.g. <code>"postgresql"</code> for <code>PG::Driver</code>.</p></div>
+        <div class="doc"><p>Return <code><a href="../../Onyx/SQL/Repository.html#db:DB::Connection%7CDB::Database-instance-method">#db</a></code> driver name, e.g. <code>"postgresql"</code> for <code>PG::Driver</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -647,15 +647,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>exec</strong>(sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>) : DB::ExecResult
 
-        <a class="method-permalink" href="#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method">#</a>
+        <a class="method-permalink" href="#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method">.exec(sql, params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method">.exec(sql, params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/exec.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -665,15 +665,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>exec</strong>(sql : String, *params : DB::Any) : DB::ExecResult
 
-        <a class="method-permalink" href="#exec%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29%3ADB%3A%3AExecResult-instance-method">#</a>
+        <a class="method-permalink" href="#exec(sql:String,*params:DB::Any):DB::ExecResult-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3ADB%3A%3AExecResult-instance-method">.exec(sql, *params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(sql:String,params:Enumerable(DB::Any)?=nil):DB::ExecResult-instance-method">.exec(sql, *params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/exec.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -683,15 +683,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>exec</strong>(query : <a href="../../Onyx/SQL/BulkQuery.html">BulkQuery</a>) : DB::ExecResult
 
-        <a class="method-permalink" href="#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">#</a>
+        <a class="method-permalink" href="#exec(query:BulkQuery):DB::ExecResult-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">.exec(*query.build)</a></code>. It removes any <code><a href="../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> clauses to avoid DB hanging.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(query:BulkQuery):DB::ExecResult-instance-method">.exec(*query.build)</a></code>. It removes any <code><a href="../../Onyx/SQL/Query.html#returning(values:Enumerable(T::Field%7CT::Reference%7CChar%7CString))-instance-method">Query#returning</a></code> clauses to avoid DB hanging.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/exec.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -701,15 +701,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>exec</strong>(query : <a href="../../Onyx/SQL/Query.html">Query</a>) : DB::ExecResult
 
-        <a class="method-permalink" href="#exec%28query%3AQuery%29%3ADB%3A%3AExecResult-instance-method">#</a>
+        <a class="method-permalink" href="#exec(query:Query):DB::ExecResult-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec%28query%3ABulkQuery%29%3ADB%3A%3AExecResult-instance-method">.exec(*query.build)</a></code>. It removes any <code><a href="../../Onyx/SQL/Query.html#returning%28values%3AEnumerable%28T%3A%3AField%7CT%3A%3AReference%7CChar%7CString%29%29-instance-method">Query#returning</a></code> clauses to avoid DB hanging.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#exec(query:BulkQuery):DB::ExecResult-instance-method">.exec(*query.build)</a></code>. It removes any <code><a href="../../Onyx/SQL/Query.html#returning(values:Enumerable(T::Field%7CT::Reference%7CChar%7CString))-instance-method">Query#returning</a></code> clauses to avoid DB hanging.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/exec.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -719,7 +719,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>logger</strong> : <a href="../../Onyx/SQL/Repository/Logger.html">Onyx::SQL::Repository::Logger</a>
 
-        <a class="method-permalink" href="#logger%3AOnyx%3A%3ASQL%3A%3ARepository%3A%3ALogger-instance-method">#</a>
+        <a class="method-permalink" href="#logger:Onyx::SQL::Repository::Logger-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A <code><a href="../../Onyx/SQL/Repository/Logger.html">Repository::Logger</a></code> instance for this repository.</p></div>
@@ -727,7 +727,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -737,7 +737,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>logger=</strong>(logger)
 
-        <a class="method-permalink" href="#logger%3D%28logger%29-instance-method">#</a>
+        <a class="method-permalink" href="#logger=(logger)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A <code><a href="../../Onyx/SQL/Repository/Logger.html">Repository::Logger</a></code> instance for this repository.</p></div>
@@ -745,7 +745,7 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -755,17 +755,17 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>prepare_query</strong>(sql_query : String)
 
-        <a class="method-permalink" href="#prepare_query%28sql_query%3AString%29-instance-method">#</a>
+        <a class="method-permalink" href="#prepare_query(sql_query:String)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Prepare query for initialization.</p>
 
-<p>If the <code><a href="../../Onyx/SQL/Repository.html#db%3ADB%3A%3AConnection%7CDB%3A%3ADatabase-instance-method">#db</a></code> driver is <code>PG::Driver</code>, replace all <code>?</code> with <code>$1</code>, <code>$2</code> etc. Otherwise return <em>sql_query</em> untouched.</p></div>
+<p>If the <code><a href="../../Onyx/SQL/Repository.html#db:DB::Connection%7CDB::Database-instance-method">#db</a></code> driver is <code>PG::Driver</code>, replace all <code>?</code> with <code>$1</code>, <code>$2</code> etc. Otherwise return <em>sql_query</em> untouched.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -775,15 +775,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(query : <a href="../../Onyx/SQL/Query.html">Onyx::SQL::Query</a>(T)) : Array(T) forall T
 
-        <a class="method-permalink" href="#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">#</a>
+        <a class="method-permalink" href="#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -793,15 +793,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(query : <a href="../../Onyx/SQL/BulkQuery.html">Onyx::SQL::BulkQuery</a>(T)) : Array(T) forall T
 
-        <a class="method-permalink" href="#query%28query%3AOnyx%3A%3ASQL%3A%3ABulkQuery%28T%29%29%3AArray%28T%29forallT-instance-method">#</a>
+        <a class="method-permalink" href="#query(query:Onyx::SQL::BulkQuery(T)):Array(T)forallT-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28query%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29%29%3AArray%28T%29forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(query:Onyx::SQL::Query(T)):Array(T)forallT-instance-method">.query(*query.build)</a></code> and map the result to <code>Array(T)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -811,15 +811,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -829,15 +829,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>) : Array(T) forall T
 
-        <a class="method-permalink" href="#query%28klass%3AT.class%2Csql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29%3AArray%28T%29forallT-instance-method">#</a>
+        <a class="method-permalink" href="#query(klass:T.class,sql:String,params:Enumerable(DB::Any)?=nil):Array(T)forallT-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -847,15 +847,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(sql : String, *params : DB::Any)
 
-        <a class="method-permalink" href="#query%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">#</a>
+        <a class="method-permalink" href="#query(sql:String,*params:DB::Any)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, *params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, *params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -865,15 +865,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>query</strong>(klass : <span class="t">T</span>.<span class="k">class</span>, sql : String, *params : DB::Any) : Array(T) forall T
 
-        <a class="method-permalink" href="#query%28klass%3AT.class%2Csql%3AString%2C%2Aparams%3ADB%3A%3AAny%29%3AArray%28T%29forallT-instance-method">#</a>
+        <a class="method-permalink" href="#query(klass:T.class,sql:String,*params:DB::Any):Array(T)forallT-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">.query(sql, *params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#query(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">.query(sql, *params)</a></code> and map the result to <code>Array(T)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/query.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -883,15 +883,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>scalar</strong>(query : <a href="../../Onyx/SQL/Query.html">Query</a>)
 
-        <a class="method-permalink" href="#scalar%28query%3AQuery%29-instance-method">#</a>
+        <a class="method-permalink" href="#scalar(query:Query)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28query%3AQuery%29-instance-method">.scalar(*query.build)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(query:Query)-instance-method">.scalar(*query.build)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/scalar.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -901,15 +901,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>scalar</strong>(query : <a href="../../Onyx/SQL/BulkQuery.html">BulkQuery</a>)
 
-        <a class="method-permalink" href="#scalar%28query%3ABulkQuery%29-instance-method">#</a>
+        <a class="method-permalink" href="#scalar(query:BulkQuery)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28query%3AQuery%29-instance-method">.scalar(*query.build)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(query:Query)-instance-method">.scalar(*query.build)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/scalar.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -919,15 +919,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>scalar</strong>(sql : String, *params : DB::Any)
 
-        <a class="method-permalink" href="#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">#</a>
+        <a class="method-permalink" href="#scalar(sql:String,*params:DB::Any)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">.scalar(sql, *params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(sql:String,*params:DB::Any)-instance-method">.scalar(sql, *params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/scalar.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -937,15 +937,15 @@ repo.query(<span class="t">User</span>.all)                    <span class="c">#
         
         def <strong>scalar</strong>(sql : String, params : <a href="../../Enumerable.html">Enumerable</a>(DB::Any)? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#scalar%28sql%3AString%2Cparams%3AEnumerable%28DB%3A%3AAny%29%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#scalar(sql:String,params:Enumerable(DB::Any)?=nil)-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar%28sql%3AString%2C%2Aparams%3ADB%3A%3AAny%29-instance-method">.scalar(sql, params)</a></code>.</p></div>
+        <div class="doc"><p>Call <code>db<a href="../../Onyx/SQL/Repository.html#scalar(sql:String,*params:DB::Any)-instance-method">.scalar(sql, params)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/repository/scalar.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>

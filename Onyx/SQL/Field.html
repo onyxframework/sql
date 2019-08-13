@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css">
@@ -360,13 +360,13 @@ with an actual <code>nil</code> value:</p>
 <span class="t">User</span>.update.set(name: <span class="n">nil</span>) <span class="c"># Compilation-time error</span>
 <span class="t">User</span>.insert(name: <span class="n">nil</span>)     <span class="c"># Compilation-time error</span></code></pre>
 
-<p><span class="flag purple">NOTE</span>  <code>User.new(name: nil).insert</code> (the instance-level <code><a href="../../Onyx/SQL/Model.html#insert%3AQuery-instance-method">Model#insert</a></code> shortcut) would
+<p><span class="flag purple">NOTE</span>  <code>User.new(name: nil).insert</code> (the instance-level <code><a href="../../Onyx/SQL/Model.html#insert:Query-instance-method">Model#insert</a></code> shortcut) would
 raise <code>NilAssertionError</code> in <strong>runtime</strong>, not in compilation-time! So, for increased
 type-safety, consider using class-level <code>User.insert(name: nil)</code>, which would raise
 in compilation time instead.</p>
 
 <p><code><a href="../../Onyx/SQL/Model/Changeset.html">Model::Changeset</a></code> will also get affected by this option: you will not be able to call
-<code><a href="../../Onyx/SQL/Model/Changeset.html#update%28%2A%2Avalues%3A%2A%2AV%29%3ANilforallV-instance-method">Model::Changeset#update</a></code> with a <code>nil</code> value on a <code>not_null</code> field.</p>
+<code><a href="../../Onyx/SQL/Model/Changeset.html#update(**values:**V):NilforallV-instance-method">Model::Changeset#update</a></code> with a <code>nil</code> value on a <code>not_null</code> field.</p>
 
 <p>You will also be unable to <strong>set</strong> the field to a <code>nil</code> value when
 using <code>schema</code> (see below):</p>
@@ -398,7 +398,7 @@ will be ignored on inserting the model instance:</p>
 
 <h2>Usage in schema</h2>
 
-<p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">Model.schema</a></code> DSL macro automatically passes <code><a href="../../Onyx/SQL/Model.html#type%28declaration%2C%2A%2Aoptions%29-macro">Model.type</a></code> and <code><a href="../../Onyx/SQL/Model.html#pkey%28declaration%2C%2A%2Aoptions%29-macro">Model.pkey</a></code> options to a <code><a href="../../Onyx/SQL/Field.html">Field</a></code> annotation,
+<p><code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">Model.schema</a></code> DSL macro automatically passes <code><a href="../../Onyx/SQL/Model.html#type(declaration,**options)-macro">Model.type</a></code> and <code><a href="../../Onyx/SQL/Model.html#pkey(declaration,**options)-macro">Model.pkey</a></code> options to a <code><a href="../../Onyx/SQL/Field.html">Field</a></code> annotation,
 unless it's a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> reference. See <code><a href="../../Onyx/SQL/Reference.html">Reference</a></code> docs.</p>
 
 <pre><code><span class="k">class</span> <span class="t">User</span>
@@ -442,7 +442,7 @@ unless it's a <code><a href="../../Onyx/SQL/Model.html">Model</a></code> referen
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql.cr#L150" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql.cr#L150" target="_blank">
         onyx-sql.cr
       </a>
     

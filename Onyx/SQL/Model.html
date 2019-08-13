@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css">
@@ -360,8 +360,8 @@ The real power of repository is handling <code><a href="../../Onyx/SQL/Query.htm
 <h2>Schema</h2>
 
 <p>Onyx::SQL is based on Crystal annotations to keep composition and simplify the underlying code.
-But since annotations are quite low-level, they are masked under the convenient <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> DSL.
-It's a good idea to understand what the <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> macro generates, but it's not mandatory
+But since annotations are quite low-level, they are masked under the convenient <code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> DSL.
+It's a good idea to understand what the <code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> macro generates, but it's not mandatory
 for most of developers.</p>
 
 
@@ -387,35 +387,35 @@ for most of developers.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L1" target="_blank">
         onyx-sql/model/changes.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/enums.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/enums.cr#L1" target="_blank">
         onyx-sql/model/enums.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/instance_query_shortcuts.cr#L4" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/instance_query_shortcuts.cr#L4" target="_blank">
         onyx-sql/model/instance_query_shortcuts.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/schema.cr#L1" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/schema.cr#L1" target="_blank">
         onyx-sql/model/schema.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model.cr#L83" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model.cr#L83" target="_blank">
         onyx-sql/model.cr
       </a>
     
@@ -446,14 +446,14 @@ for most of developers.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#%3D%3D%28other%3Aself%29-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
+        <a href="#==(other:self)-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
         
           <div class="summary"><p>Compare <code>self</code> against <em>other</em> model of the same type by their primary keys.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#apply%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AselfforallU-instance-method" class="signature"><strong>#apply</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : <span class="k">self</span> forall U</a>
+        <a href="#apply(changeset:Onyx::SQL::Model::Changeset(self,U)):selfforallU-instance-method" class="signature"><strong>#apply</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : <span class="k">self</span> forall U</a>
         
           <div class="summary"><p>Apply a <em>changeset</em>, merging self values with the changeset's.</p></div>
         
@@ -467,26 +467,26 @@ for most of developers.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#delete%3AQuery-instance-method" class="signature"><strong>#delete</strong> : Query</a>
+        <a href="#delete:Query-instance-method" class="signature"><strong>#delete</strong> : Query</a>
         
           <div class="summary"><p>A shortcut method to genereate a delete <code><a href="../../Onyx/SQL/Query.html">Query</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
+        <a href="#hash(hasher)-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#insert%3AQuery-instance-method" class="signature"><strong>#insert</strong> : Query</a>
+        <a href="#insert:Query-instance-method" class="signature"><strong>#insert</strong> : Query</a>
         
           <div class="summary"><p>A shortcut method to genereate an insert <code><a href="../../Onyx/SQL/Query.html">Query</a></code> pre-filled with actual <code>self</code> values.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method" class="signature"><strong>#update</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : Query forall U</a>
+        <a href="#update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method" class="signature"><strong>#update</strong>(changeset : Onyx::SQL::Model::Changeset(<span class="k">self</span>, U)) : Query forall U</a>
         
           <div class="summary"><p>A shortcut method to genereate an update <code><a href="../../Onyx/SQL/Query.html">Query</a></code> with <em>changeset</em> values.</p></div>
         
@@ -500,21 +500,21 @@ for most of developers.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#pkey%28declaration%2C%2A%2Aoptions%29-macro" class="signature"><strong>pkey</strong>(declaration, **options)</a>
+        <a href="#pkey(declaration,**options)-macro" class="signature"><strong>pkey</strong>(declaration, **options)</a>
         
-          <div class="summary"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#schema%28table%2C%26block%29-macro" class="signature"><strong>schema</strong>(table, &block)</a>
-        
-          <div class="summary"><p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful) annotations directly.</p></div>
+          <div class="summary"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> block.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#type%28declaration%2C%2A%2Aoptions%29-macro" class="signature"><strong>type</strong>(declaration, **options)</a>
+        <a href="#schema(table,&block)-macro" class="signature"><strong>schema</strong>(table, &block)</a>
+        
+          <div class="summary"><p><code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful) annotations directly.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type(declaration,**options)-macro" class="signature"><strong>type</strong>(declaration, **options)</a>
         
           <div class="summary"><p>Declare a model field or reference.</p></div>
         
@@ -565,7 +565,7 @@ pp <span class="t">User</span>.table <span class="c"># =&gt; &quot;users&quot;</
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -580,7 +580,7 @@ pp <span class="t">User</span>.table <span class="c"># =&gt; &quot;users&quot;</
         
         def <strong>==</strong>(other : <span class="k">self</span>)
 
-        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29-instance-method">#</a>
+        <a class="method-permalink" href="#==(other:self)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Compare <code>self</code> against <em>other</em> model of the same type by their primary keys.
@@ -589,7 +589,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model.cr#L180" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model.cr#L180" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -599,7 +599,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
         
         def <strong>apply</strong>(changeset : <a href="../../Onyx/SQL/Model/Changeset.html">Onyx::SQL::Model::Changeset</a>(<span class="k">self</span>, U)) : <span class="k">self</span> forall U
 
-        <a class="method-permalink" href="#apply%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AselfforallU-instance-method">#</a>
+        <a class="method-permalink" href="#apply(changeset:Onyx::SQL::Model::Changeset(self,U)):selfforallU-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Apply a <em>changeset</em>, merging self values with the changeset's.</p></div>
@@ -607,7 +607,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L135" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L135" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -621,7 +621,7 @@ Returns <code>false</code> if the <code>self</code> primary key is <code>nil</co
       </div>
       
         <div class="doc"><p>Create a new changeset for this instance with snapshot of actual values.
-It is then likely to be passed to the <code><a href="../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">#update</a></code> method.</p>
+It is then likely to be passed to the <code><a href="../../Onyx/SQL/Model.html#update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method">#update</a></code> method.</p>
 
 <pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
 changeset <span class="o">=</span> user.changeset
@@ -638,7 +638,7 @@ user.update(changeset) <span class="o">==</span> <span class="t">User</span>.upd
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L112" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L112" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -648,7 +648,7 @@ user.update(changeset) <span class="o">==</span> <span class="t">User</span>.upd
         
         def <strong>delete</strong> : <a href="../../Onyx/SQL/Query.html">Query</a>
 
-        <a class="method-permalink" href="#delete%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#delete:Query-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A shortcut method to genereate a delete <code><a href="../../Onyx/SQL/Query.html">Query</a></code>.
@@ -660,7 +660,7 @@ user.delete <span class="o">==</span> <span class="t">Query</span>(<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/instance_query_shortcuts.cr#L87" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/instance_query_shortcuts.cr#L87" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -670,13 +670,13 @@ user.delete <span class="o">==</span> <span class="t">Query</span>(<span class="
         
         def <strong>hash</strong>(hasher)
 
-        <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
+        <a class="method-permalink" href="#hash(hasher)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model.cr#L239" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model.cr#L239" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -686,14 +686,14 @@ user.delete <span class="o">==</span> <span class="t">Query</span>(<span class="
         
         def <strong>insert</strong> : <a href="../../Onyx/SQL/Query.html">Query</a>
 
-        <a class="method-permalink" href="#insert%3AQuery-instance-method">#</a>
+        <a class="method-permalink" href="#insert:Query-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A shortcut method to genereate an insert <code><a href="../../Onyx/SQL/Query.html">Query</a></code> pre-filled with actual <code>self</code> values.
-See <code><a href="../../Onyx/SQL/Query.html#insert%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#insert</a></code>.</p>
+See <code><a href="../../Onyx/SQL/Query.html#insert(**values:**U):selfforallU-instance-method">Query#insert</a></code>.</p>
 
 <p><span class="flag purple">NOTE</span>  Will raise <code>NilAssertionError</code> in runtime if a field has <code>not_null: true</code> option and
-is actually <code>nil</code>. Conisder using <code><a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html#insert%28%2Aargs%2C%2A%2Anargs%29%3AOnyx%3A%3ASQL%3A%3AQuery%28T%29-instance-method">ClassQueryShortcuts#insert</a></code> instead.</p>
+is actually <code>nil</code>. Conisder using <code><a href="../../Onyx/SQL/Model/ClassQueryShortcuts.html#insert(*args,**nargs):Onyx::SQL::Query(T)-instance-method">ClassQueryShortcuts#insert</a></code> instead.</p>
 
 <pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
 user.insert <span class="o">==</span> <span class="t">Query</span>(<span class="t">User</span>).<span class="k">new</span>.insert(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)</code></pre></div>
@@ -701,7 +701,7 @@ user.insert <span class="o">==</span> <span class="t">Query</span>(<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/instance_query_shortcuts.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/instance_query_shortcuts.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -711,11 +711,11 @@ user.insert <span class="o">==</span> <span class="t">Query</span>(<span class="
         
         def <strong>update</strong>(changeset : <a href="../../Onyx/SQL/Model/Changeset.html">Onyx::SQL::Model::Changeset</a>(<span class="k">self</span>, U)) : <a href="../../Onyx/SQL/Query.html">Query</a> forall U
 
-        <a class="method-permalink" href="#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">#</a>
+        <a class="method-permalink" href="#update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method">#</a>
       </div>
       
         <div class="doc"><p>A shortcut method to genereate an update <code><a href="../../Onyx/SQL/Query.html">Query</a></code> with <em>changeset</em> values.
-See <code><a href="../../Onyx/SQL/Query.html#update-instance-method">Query#update</a></code> and <code><a href="../../Onyx/SQL/Query.html#set%28%2A%2Avalues%3A%2A%2AU%29%3AselfforallU-instance-method">Query#set</a></code>.</p>
+See <code><a href="../../Onyx/SQL/Query.html#update-instance-method">Query#update</a></code> and <code><a href="../../Onyx/SQL/Query.html#set(**values:**U):selfforallU-instance-method">Query#set</a></code>.</p>
 
 <pre><code>user <span class="o">=</span> <span class="t">User</span>.<span class="k">new</span>(id: <span class="n">42</span>, name: <span class="s">&quot;John&quot;</span>)
 changeset <span class="o">=</span> user.changeset
@@ -725,7 +725,7 @@ user.update(changeset) <span class="o">==</span> <span class="t">Query</span>(<s
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/instance_query_shortcuts.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/instance_query_shortcuts.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -740,11 +740,11 @@ user.update(changeset) <span class="o">==</span> <span class="t">Query</span>(<s
         
         macro <strong>pkey</strong>(declaration, **options)
 
-        <a class="method-permalink" href="#pkey%28declaration%2C%2A%2Aoptions%29-macro">#</a>
+        <a class="method-permalink" href="#pkey(declaration,**options)-macro">#</a>
       </div>
       
-        <div class="doc"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.
-It is equal to <code><a href="../../Onyx/SQL/Model.html#type%28declaration%2C%2A%2Aoptions%29-macro">.type</a></code>, but also passes <code>not_null: true</code> and
+        <div class="doc"><p>Declare a model primary key, <strong>must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> block.
+It is equal to <code><a href="../../Onyx/SQL/Model.html#type(declaration,**options)-macro">.type</a></code>, but also passes <code>not_null: true</code> and
 defines the <code>:primary_key</code> option for the <code><a href="../../Onyx/SQL/Model/Options.html">Options</a></code> annotation.
 It's currently mandatory to have a primary key in a model, which may change in the future.</p>
 
@@ -765,7 +765,7 @@ It's currently mandatory to have a primary key in a model, which may change in t
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/schema.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/schema.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -775,10 +775,10 @@ It's currently mandatory to have a primary key in a model, which may change in t
         
         macro <strong>schema</strong>(table, &block)
 
-        <a class="method-permalink" href="#schema%28table%2C%26block%29-macro">#</a>
+        <a class="method-permalink" href="#schema(table,&block)-macro">#</a>
       </div>
       
-        <div class="doc"><p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful)
+        <div class="doc"><p><code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> is a convenient DSL to avoid dealing with cumbersome (but extremely powerful)
 annotations directly. Consider this code:</p>
 
 <pre><code>@[<span class="t">Onyx</span><span class="t">::</span><span class="t">SQL</span><span class="t">::</span><span class="t">Model</span><span class="t">::</span><span class="t">Options</span>(table: <span class="s">&quot;users&quot;</span>, primary_key: @id)]
@@ -830,14 +830,14 @@ annotations directly. Consider this code:</p>
 <span class="k">end</span></code></pre>
 
 <p>This macro has a single mandatory argument <em>table</em>, which is, obviously, the model's table name.
-The schema currently <strong>requires</strong> a <code><a href="../../Onyx/SQL/Model.html#pkey%28declaration%2C%2A%2Aoptions%29-macro">.pkey</a></code> variable.</p>
+The schema currently <strong>requires</strong> a <code><a href="../../Onyx/SQL/Model.html#pkey(declaration,**options)-macro">.pkey</a></code> variable.</p>
 
 <p><span class="flag orange">TODO</span>  Make the primary key optional.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/schema.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/schema.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -847,11 +847,11 @@ The schema currently <strong>requires</strong> a <code><a href="../../Onyx/SQL/M
         
         macro <strong>type</strong>(declaration, **options)
 
-        <a class="method-permalink" href="#type%28declaration%2C%2A%2Aoptions%29-macro">#</a>
+        <a class="method-permalink" href="#type(declaration,**options)-macro">#</a>
       </div>
       
-        <div class="doc"><p>Declare a model field or reference. <strong>Must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">.schema</a></code> block.
-Expands <code><a href="../../Onyx/SQL/Model.html#type%28declaration%2C%2A%2Aoptions%29-macro">type</a></code> to either nilable <code>property</code> or raise-on-nil <code>property!</code>, depending on
+        <div class="doc"><p>Declare a model field or reference. <strong>Must</strong> be called within <code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">.schema</a></code> block.
+Expands <code><a href="../../Onyx/SQL/Model.html#type(declaration,**options)-macro">type</a></code> to either nilable <code>property</code> or raise-on-nil <code>property!</code>, depending on
 the <code>not_null</code> option. The latter would raise in runtime if accessed or tried to
 be set with the <code>nil</code> value.</p>
 
@@ -881,7 +881,7 @@ user.age <span class="o">=</span> <span class="n">nil</span>  <span class="c"># 
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/schema.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/schema.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>

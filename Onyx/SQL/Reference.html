@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css">
@@ -336,7 +336,7 @@ key with value <code>42</code>, the <code>Post</code> instance will be initializ
 <pre><code><span class="o">&lt;</span><span class="t">Post</span> @author<span class="o">=</span><span class="o">&lt;</span><span class="t">User</span> @id<span class="o">=</span><span class="n">42</span><span class="o">&gt;&gt;</span></code></pre>
 
 <p>And if you want to preload a reference field (or sub-reference), you should use <code>JOIN</code>.
-See <code><a href="../../Onyx/SQL/Query.html#join%28table%3AString%2Con%3AString%2Cas_as%3AString%3F%3Dnil%2Ctype%3AJoinType%3D%3Ainner%29-instance-method">Query#join</a></code> for more details.</p>
+See <code><a href="../../Onyx/SQL/Query.html#join(table:String,on:String,as_as:String?=nil,type:JoinType=:inner)-instance-method">Query#join</a></code> for more details.</p>
 
 <p>You can make both enumerable and non-enumerable variables references.
 It is impossible to preload enumerable references, though, because the result set is read
@@ -397,8 +397,8 @@ Mark a reference <code>not_null</code> if it has a <code>NOT NULL</code> clause 
 
 <h2>Usage in schema</h2>
 
-<p><code><a href="../../Onyx/SQL/Model.html#schema%28table%2C%26block%29-macro">Model.schema</a></code> DSL macro effectively reduces and beautifies the code,
-as the <code><a href="../../Onyx/SQL/Reference.html">Reference</a></code> annotation is automatically applied if a <code><a href="../../Onyx/SQL/Model.html#type%28declaration%2C%2A%2Aoptions%29-macro">Model.type</a></code> type is <code><a href="../../Onyx/SQL/Model.html">Model</a></code> itself
+<p><code><a href="../../Onyx/SQL/Model.html#schema(table,&block)-macro">Model.schema</a></code> DSL macro effectively reduces and beautifies the code,
+as the <code><a href="../../Onyx/SQL/Reference.html">Reference</a></code> annotation is automatically applied if a <code><a href="../../Onyx/SQL/Model.html#type(declaration,**options)-macro">Model.type</a></code> type is <code><a href="../../Onyx/SQL/Model.html">Model</a></code> itself
 and has either <code>:key</code> or <code>:foreign_key</code> option:</p>
 
 <pre><code><span class="k">class</span> <span class="t">User</span>
@@ -435,7 +435,7 @@ and has either <code>:key</code> or <code>:foreign_key</code> option:</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql.cr#L288" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql.cr#L288" target="_blank">
         onyx-sql.cr
       </a>
     

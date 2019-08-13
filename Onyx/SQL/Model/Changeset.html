@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.29.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../../../css/style.css" rel="stylesheet" type="text/css">
@@ -298,7 +298,7 @@
   <h2>Overview</h2>
 
   <p>A changeset for a model. Used to track changes made to it.
-To update a value in a changeset, call <code><a href="../../../Onyx/SQL/Model/Changeset.html#update%28%2A%2Avalues%3A%2A%2AV%29%3ANilforallV-instance-method">#update</a></code>. This will <strong>not</strong> affect the original model.</p>
+To update a value in a changeset, call <code><a href="../../../Onyx/SQL/Model/Changeset.html#update(**values:**V):NilforallV-instance-method">#update</a></code>. This will <strong>not</strong> affect the original model.</p>
 
 <p>It is instantiated via <code><a href="../../../Onyx/SQL/Model.html#changeset-instance-method">Model#changeset</a></code>:</p>
 
@@ -307,8 +307,8 @@ changeset <span class="o">=</span> user.changeset
 changeset.update(name: <span class="s">&quot;Jake&quot;</span>)
 pp changeset.changes <span class="c"># =&gt; {&quot;name&quot; =&gt; &quot;Jake&quot;}</span></code></pre>
 
-<p>It is handy to use a changeset with <code><a href="../../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code> method.
-Note that <code><a href="../../../Onyx/SQL/Model.html#update%28changeset%3AOnyx%3A%3ASQL%3A%3AModel%3A%3AChangeset%28self%2CU%29%29%3AQueryforallU-instance-method">Model#update</a></code> may raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> error
+<p>It is handy to use a changeset with <code><a href="../../../Onyx/SQL/Model.html#update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method">Model#update</a></code> method.
+Note that <code><a href="../../../Onyx/SQL/Model.html#update(changeset:Onyx::SQL::Model::Changeset(self,U)):QueryforallU-instance-method">Model#update</a></code> may raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> error
 if the changeset is empty.</p>
 
 
@@ -327,7 +327,7 @@ if the changeset is empty.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L17" target="_blank">
+      <a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L17" target="_blank">
         onyx-sql/model/changes.cr
       </a>
     
@@ -346,40 +346,40 @@ if the changeset is empty.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#changes%3AHash%28String%2CU%29-instance-method" class="signature"><strong>#changes</strong> : Hash(String, U)</a>
+        <a href="#changes:Hash(String,U)-instance-method" class="signature"><strong>#changes</strong> : Hash(String, U)</a>
         
           <div class="summary"><p>Return changes on this changeset.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#changes%21-instance-method" class="signature"><strong>#changes!</strong></a>
+        <a href="#changes!-instance-method" class="signature"><strong>#changes!</strong></a>
         
-          <div class="summary"><p>Return <code><a href="../../../Onyx/SQL/Model/Changeset.html#changes%3AHash%28String%2CU%29-instance-method">#changes</a></code> on this changeset or raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> if it's empty.</p></div>
+          <div class="summary"><p>Return <code><a href="../../../Onyx/SQL/Model/Changeset.html#changes:Hash(String,U)-instance-method">#changes</a></code> on this changeset or raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> if it's empty.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
+        <a href="#empty?-instance-method" class="signature"><strong>#empty?</strong></a>
         
           <div class="summary"><p>Return <code>true</code> if there are no changes on this changeset.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#initial_values%3AHash%28String%2CU%29-instance-method" class="signature"><strong>#initial_values</strong> : Hash(String, U)</a>
+        <a href="#initial_values:Hash(String,U)-instance-method" class="signature"><strong>#initial_values</strong> : Hash(String, U)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28%2A%2Avalues%3A%2A%2AV%29%3ANilforallV-instance-method" class="signature"><strong>#update</strong>(**values : **V) : Nil forall V</a>
+        <a href="#update(**values:**V):NilforallV-instance-method" class="signature"><strong>#update</strong>(**values : **V) : Nil forall V</a>
         
           <div class="summary"><p>Update a changeset value by <code>T</code> instance varialbe.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#values%3AHash%28String%2CU%29-instance-method" class="signature"><strong>#values</strong> : Hash(String, U)</a>
+        <a href="#values:Hash(String,U)-instance-method" class="signature"><strong>#values</strong> : Hash(String, U)</a>
         
       </li>
     
@@ -425,7 +425,7 @@ if the changeset is empty.</p>
         
         def <strong>changes</strong> : Hash(String, U)
 
-        <a class="method-permalink" href="#changes%3AHash%28String%2CU%29-instance-method">#</a>
+        <a class="method-permalink" href="#changes:Hash(String,U)-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Return changes on this changeset.</p></div>
@@ -433,7 +433,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -443,15 +443,15 @@ if the changeset is empty.</p>
         
         def <strong>changes!</strong>
 
-        <a class="method-permalink" href="#changes%21-instance-method">#</a>
+        <a class="method-permalink" href="#changes!-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return <code><a href="../../../Onyx/SQL/Model/Changeset.html#changes%3AHash%28String%2CU%29-instance-method">#changes</a></code> on this changeset or raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> if it's empty.</p></div>
+        <div class="doc"><p>Return <code><a href="../../../Onyx/SQL/Model/Changeset.html#changes:Hash(String,U)-instance-method">#changes</a></code> on this changeset or raise <code><a href="../../../Onyx/SQL/Model/Changeset/NoChanges.html">NoChanges</a></code> if it's empty.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L85" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -461,7 +461,7 @@ if the changeset is empty.</p>
         
         def <strong>empty?</strong>
 
-        <a class="method-permalink" href="#empty%3F-instance-method">#</a>
+        <a class="method-permalink" href="#empty?-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Return <code>true</code> if there are no changes on this changeset.</p></div>
@@ -469,7 +469,7 @@ if the changeset is empty.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -479,13 +479,13 @@ if the changeset is empty.</p>
         
         def <strong>initial_values</strong> : Hash(String, U)
 
-        <a class="method-permalink" href="#initial_values%3AHash%28String%2CU%29-instance-method">#</a>
+        <a class="method-permalink" href="#initial_values:Hash(String,U)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -495,7 +495,7 @@ if the changeset is empty.</p>
         
         def <strong>update</strong>(**values : **V) : Nil forall V
 
-        <a class="method-permalink" href="#update%28%2A%2Avalues%3A%2A%2AV%29%3ANilforallV-instance-method">#</a>
+        <a class="method-permalink" href="#update(**values:**V):NilforallV-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Update a changeset value by <code>T</code> instance varialbe.
@@ -504,7 +504,7 @@ This will <strong>not</strong> affect the original model.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -514,13 +514,13 @@ This will <strong>not</strong> affect the original model.</p></div>
         
         def <strong>values</strong> : Hash(String, U)
 
-        <a class="method-permalink" href="#values%3AHash%28String%2CU%29-instance-method">#</a>
+        <a class="method-permalink" href="#values:Hash(String,U)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/onyxframework/sql/blob/ec866c9c578b94d651b326bd78d42ba7b53bf2ab/src/onyx-sql/model/changes.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/onyxframework/sql/blob/e94b969bf3e90288a9af79972e24744ea7ab50eb/src/onyx-sql/model/changes.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
