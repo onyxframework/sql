@@ -32,6 +32,10 @@ module Onyx::SQL
     def initialize(@db : ::DB::Database | ::DB::Connection, @logger : Logger = Logger::Standard.new)
     end
 
+    def db=(transaction : ::DB::Transaction)
+      self.db = transaction.connection
+    end
+
     protected def postgresql?
       {% if Object.all_subclasses.any? { |sc| sc.stringify == "PG::Driver" } %}
         return db.is_a?(PG::Driver)
