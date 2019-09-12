@@ -254,4 +254,10 @@ module Onyx::SQL::Model
       @{{pk_rivar}}
     {% end %}
   end
+
+  def before_insert
+  end
+
+  def before_update
+  end
 end
